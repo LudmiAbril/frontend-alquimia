@@ -78,7 +78,7 @@ export default function Home() {
         <button type="submit">Registrarse</button>
       </form>
       <p>{mensaje}</p>
-      <button onClick={() => window.location.href = "https://localhost:7164/signin-google"}>
+      <button onClick={() => window.location.href = "https://localhost:7164/cuenta/login-google"}>  
         Iniciar sesión con Google
       </button>
       <hr style={{ margin: "2rem 0" }} />
