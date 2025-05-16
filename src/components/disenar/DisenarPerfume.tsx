@@ -8,7 +8,7 @@ const pasos = ["Bienvenida", "Nota Base", "Nota Corazon", "Nota Salida", "Intens
 
 
 const DisenarPerfume = () => {
-    const [pasoActual, setPasoActual] = useState(0);
+    const [pasoActual, setPasoActual] = useState<number>(0);
 
     const avanzarPaso = () => {
         if (pasoActual < pasos.length - 1) {
@@ -23,7 +23,21 @@ const DisenarPerfume = () => {
     };
 
 
-    if (pasoActual === 0) return <Bienvenida onNext={avanzarPaso} />;
-}
+    return (
+        <>
+            {pasoActual === 0 ? (
+                <Bienvenida onNext={avanzarPaso} />
+            ) : pasoActual === 1 ? (
+                <>{/*  biblioteca + frascquito y card con titulo*/}
+                </>
+
+            ) : (
+                <></>
+            )}
+        </>
+    );
+
+};
+
 
 export default DisenarPerfume
