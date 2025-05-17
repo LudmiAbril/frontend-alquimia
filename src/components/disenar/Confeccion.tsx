@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Biblioteca from './Biblioteca'
+import ModalConfirmarCreacion from './ModalConfirmarCreacion';
 
 interface ConfeccionProps {
     pasoActual: number;
@@ -8,7 +9,13 @@ interface ConfeccionProps {
 }
 
 const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
-    return (
+    const [openConfirmModal, setOpenConfirmModal] = useState(false);
+
+    const toggleOpenConfirmModal = () => {
+        setOpenConfirmModal((prev) => !prev)
+    }
+
+    return (<>
         <div className='flex flex-col items-center bg-[20px]'>
 
             <h1 className='fuente-principal text-[var(--gris4)] text-[32px] font-bold mb-4'>CREANDO FRAGANCIA</h1>
@@ -33,10 +40,12 @@ const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
                     <PasoCard pasoActual={pasoActual} avanzar={avanzar} volver={volver} />
                     <img src="/frasco-diseño.svg" alt="" />
                 </div>
-                <Biblioteca/>
+                <Biblioteca pasoActual={pasoActual} onConfirm={toggleOpenConfirmModal} />
             </div>
 
         </div>
+        {openConfirmModal ?? <ModalConfirmarCreacion />}
+    </>
     )
 }
 

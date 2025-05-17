@@ -1,19 +1,45 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 
-const Biblioteca = () => {
+interface Biblioteca {
+  pasoActual: number;
+  onConfirm: () => void;
+}
+const Biblioteca = ({ pasoActual, onConfirm }: Biblioteca) => {
+  const seleccionDeNotas = pasoActual >= 1 && pasoActual <= 3;
+
+  const titulo = seleccionDeNotas ? "Biblioteca de notas" : "Intensidad";
+  const subtitulo = seleccionDeNotas
+    ? "Arrastrá una nota de fondo al frasco para dar el primer soplo de tu fragancia."
+    : "Elige un tipo de intensidad para tu perfume.";
 
   return (
-    <div className="w-[38rem] h-[44rem] bg-white flex flex-col items-center p-[2.31rem] rounded-[10px] shadow-md">
-      <p className='fuente-principal uppercase text-[20px] text-[var(--gris3)] mb-4 font-extrabold'>Biblioteca de notas</p>
-      <p className='italic mb-4 w-[527px] text-[var(--gris4)] text-[14px]'>Arrastrá una nota de fondo al frasco para dar el primer soplo de tu fragancia.</p>
+    <div className="w-[38rem] h-[44rem] bg-white flex flex-col items-center p-[2.31rem] rounded-[10px] shadow-md text-center">
+      <p className='fuente-principal uppercase text-[20px] text-[var(--gris3)] mb-4 font-extrabold'>{titulo}</p>
+      <p className='italic mb-4 w-[527px] text-[var(--gris4)] text-[14px]'>{subtitulo}</p>
       {/*buscador */}
-      <div className='flex w-full gap-2'><input type="text" className='border-1 border-black rounded-[10px] w-full p-1' /> <button className='bg-[var(--violeta)] px-8 rounded-[10px] text-white text-xs'>FILTROS</button></div>
+      {seleccionDeNotas === true && (
+        <div className="flex w-full gap-2">
+          <input
+            type="text"
+            className="border border-black rounded-[10px] w-full p-1"
+          />
+          <button className="bg-[var(--violeta)] px-8 rounded-[10px] text-white text-xs">
+            FILTROS
+          </button>
+        </div>
+      )}
 
       {/* caja de notas */}
       <div className='max-h-full w-full'>
         {/* una x cada familia olfativa, ver como se renderizara esto con el handle filterchange... */}
-        <ContenedorNotas />
+        {
+          seleccionDeNotas ? (
+            <ContenedorNotas />
+          ) : (
+            <ContenedorIntensidades />
+          )
+        }
       </div>
     </div>
   )
@@ -66,3 +92,7 @@ export const ContenedorNotas = () => {
     </div >
   );
 };
+
+export const ContenedorIntensidades = () => {
+  return (<div></div>)
+}
