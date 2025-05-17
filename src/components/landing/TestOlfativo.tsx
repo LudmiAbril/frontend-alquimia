@@ -68,7 +68,7 @@ setCurrentSVG(svg?.outerHTML || "");
 
     for (let i = 0; i < svgPaths.length; i++) {
       await cargarSVGInlineConColor(svgPaths[i], familia.color);
-      const sonido = new Audio("/bubble.mp3");
+      const sonido = new Audio("potion/bubble.mp3");
       sonido.play();
       await new Promise((res) => setTimeout(res, 400));
     }
