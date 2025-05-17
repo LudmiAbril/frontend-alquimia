@@ -3,18 +3,23 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from '@/components/Footer'
+import { Roboto } from 'next/font/google'
 
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '800'], 
+  variable: '--font-roboto',
+})
 
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Alquimia",
@@ -29,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="es">
     <body
-      className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+      className={`${roboto.variable} ${roboto.variable} antialiased flex flex-col min-h-screen`}
     >
       {/* navbar */}
       <Navbar />
