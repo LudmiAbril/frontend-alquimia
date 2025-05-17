@@ -33,7 +33,7 @@ const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
                     <PasoCard pasoActual={pasoActual} avanzar={avanzar} volver={volver} />
                     <img src="/frasco-diseño.svg" alt="" />
                 </div>
-                <Biblioteca />
+                <Biblioteca/>
             </div>
 
         </div>
