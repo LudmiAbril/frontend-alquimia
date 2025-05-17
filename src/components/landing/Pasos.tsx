@@ -2,17 +2,17 @@ import SectionWrapper from "@/components/general/SeccionWrapper";
 import StepCard from "./Cards";
 
 const pasos = [
-  { image: "/hero.jpg", alt: "Seleccioná", text: "Seleccioná las esencias" },
-  { image: "/hero.jpg", alt: "Combiná", text: "Combiná las notas" },
-  { image: "/hero.jpg", alt: "Diseñá", text: "Diseñá tu packaging" },
-  { image: "/hero.jpg", alt: "Contactate", text: "Contactate con los proveedores" },
-  { image: "/hero.jpg", alt: "Recibí", text: "Recibí tus ingredientes" },
+  { image: "/steps/seleccionar.png", alt: "Seleccioná", text: "Seleccioná las esencias" },
+  { image: "/steps/combinar.png", alt: "Combiná", text: "Combiná las notas" },
+  { image: "/steps/diseñar.png", alt: "Diseñá", text: "Diseñá tu packaging" },
+  { image: "/steps/provedores.png", alt: "Contactate", text: "Contactate con los proveedores" },
+  { image: "/steps/llegar.png", alt: "Recibí", text: "Recibí tus ingredientes" },
 ];
 
 export default function ComoFunciona() {
   return (
     <SectionWrapper className="bg-[#E8E3DE]">
-      <h2 className="text-center text-2xl md:text-3xl font-bold mb-10">
+      <h2 className="text-center text-2xl md:text-3xl font-bold mb-10 text-[var(--gris4)]">
         ¿CÓMO FUNCIONA?
       </h2>
 
@@ -27,8 +27,8 @@ export default function ComoFunciona() {
         ))}
       </div>
 
-      <p className="text-center text-sm font-semibold max-w-xl mx-auto mt-10">
-        No necesitás ser experto ni invertir en ingredientes, solo dejarte llevar por tu intuición.
+      <p className="text-center text-sm font-semibold  mx-auto mt-10">
+      Concentrate en tu visión creativa. Nosotros te damos las herramientas para hacerla realidad.
       </p>
     </SectionWrapper>
   );

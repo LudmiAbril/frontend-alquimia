@@ -31,6 +31,10 @@ h2 {
   font-family: var(--font-principal);
 }
 
+.color-gris {
+  --gris4: #40403E;
+
+}
 
 * {
   box-sizing: border-box;
