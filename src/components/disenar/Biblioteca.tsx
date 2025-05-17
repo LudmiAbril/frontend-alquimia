@@ -58,7 +58,7 @@ export const ContenedorNotas = () => {
           </div>
           {/*notas de esta familia */}
           <div className=" w-100 flex flex-wrap gap-[25px]">
-            {notas.map((nota) => (<button className='cursor-pointer bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400'><img src="https://flaticons.net/icon.php?slug_category=miscellaneous&slug_icon=flower" alt="nota" className='w-8 color-white mb-2' /><p className='text-[12px] font-semibold'>{nota}</p></button>))}
+            {notas.map((nota, index) => (<button key={index} className='cursor-pointer bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400'><img src="https://flaticons.net/icon.php?slug_category=miscellaneous&slug_icon=flower" alt="nota" className='w-8 color-white mb-2' /><p className='text-[12px] font-semibold'>{nota}</p></button>))}
           </div>
         </div>
       ))

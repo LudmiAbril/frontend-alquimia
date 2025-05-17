@@ -1,7 +1,13 @@
 import React from 'react'
 import Biblioteca from './Biblioteca'
 
-const Confeccion = () => {
+interface ConfeccionProps {
+    pasoActual: number;
+    avanzar: () => void;
+    volver: () => void;
+}
+
+const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
     return (
         <div className='flex flex-col items-center bg-[20px]'>
 
@@ -24,7 +30,7 @@ const Confeccion = () => {
             {/* frasco + titulo del paso + biblioteca */}
             <div className='flex justify-center gap-[80px]'>
                 <div className='flex flex-col items-center gap-[50px]'>
-                    <PasoCard />
+                    <PasoCard pasoActual={pasoActual} avanzar={avanzar} volver={volver} />
                     <img src="/frasco-diseño.svg" alt="" />
                 </div>
                 <Biblioteca />
@@ -36,10 +42,23 @@ const Confeccion = () => {
 
 export default Confeccion
 
-export const PasoCard = () => {
-    return (<div className='bg-white p-6 rounded-[10px] items-center flex flex-col w-[409px] h-[179px] shadow-md'>
-        <img src="/icono-info.svg" alt="info" className='mb-[18px]' />
-        <h3 className='mb-[10px]'>PASO 1 - NOTA DE FONDO</h3>
-        <p>Profunda, duradera... la estela que perdura.</p>
+interface pasoCardProps {
+    pasoActual: number;
+    avanzar: () => void;
+    volver: () => void;
+}
+export const PasoCard = ({ pasoActual, avanzar, volver }: pasoCardProps) => {
+    return (<div className='flex items-center gap-6'>
+        {/* flecha volver */}
+        <img src={pasoActual <= 1 ? '/arrow-left-inactive.svg' : '/arrow-left-active.svg'} alt="flecha" className='cursor-pointer' onClick={() => {
+            if (pasoActual > 1) volver();
+        }} /><div className='bg-white p-6 rounded-[10px] items-center flex flex-col w-[409px] h-[179px] shadow-md'>
+            {/* caja */}
+            <img src="/icono-info.svg" alt="info" className='mb-[18px]' />
+            <h3 className='mb-[10px]'>PASO {pasoActual} - NOTA DE FONDO</h3>
+            <p>Profunda, duradera... la estela que perdura.</p>
+        </div>
+        {/* flecha avanzar */}
+        <img src={pasoActual >= 4 ? '/arrow-right-inactive.svg' : '/arrow-right-active.svg'} alt="flecha" className='cursor-pointer' onClick={() => { if (pasoActual < 4) avanzar() }} />
     </div>)
 }

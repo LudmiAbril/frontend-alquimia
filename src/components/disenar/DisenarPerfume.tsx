@@ -29,7 +29,7 @@ const DisenarPerfume = () => {
             {pasoActual === 0 ? (
                 <Bienvenida onNext={avanzarPaso} />
             ) : pasoActual < pasos.length - 1 ? (
-                <Confeccion />
+                <Confeccion pasoActual={pasoActual} avanzar={avanzarPaso} volver={retrocederPaso} />
             ) : (<></>)
             }
         </>
