@@ -3,165 +3,183 @@
 import { useState, useEffect, useCallback } from "react";
 import Bienvenida from "./Bienvenida";
 
-/** Pasos del proceso de diseño */
+/* ------------------- Pasos del proceso de diseño -------------------- */
 const PASOS = ["Bienvenida", "Notas", "Intensidad", "Formula"] as const;
 
-/**
- * Tipos que llegan crudos del backend (ASP.NET devuelve PascalCase).
- */
-interface RawNota {
-  Id: number;
-  Nombre: string;
-  Descripcion: string;
-  FamiliaOlfativa?: { Nombre: string } | null;
+/* ------------------- Tipos que llegan del backend ------------------- */
+export interface RawNota {
+    id: number;
+    nombre: string;
+    descripcion: string;
+    sectorId: number;
+    familiaOlfativaId?: number;
+    /** Presente sólo cuando el endpoint incluye navegación. */
+    familiaOlfativa?: {
+        id: number;
+        nombre: string;
+        description: string;
+    } | null;
 }
 
-/**
- * Tipo que usa el frontend —camelCase y sin campos que puedan ser null.
- */
-interface Nota {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  familiaOlfativaNombre: string; // si el backend envía null => "Sin familia"
+/* ------------------- Tipos usados en el frontend -------------------- */
+export interface Nota {
+    id: number;
+    nombre: string;
+    descripcion: string;
+    /** Nombre de la familia para mostrar (“Cítrica”, “Gourmand”…). */
+    familia: string;
 }
 
-/** Transformación de RawNota → Nota */
+/** Normaliza la nota que llega del backend al formato que usa la UI. */
 const mapNota = (n: RawNota): Nota => ({
-  id: n.Id,
-  nombre: n.Nombre,
-  descripcion: n.Descripcion,
-  familiaOlfativaNombre: n.FamiliaOlfativa?.Nombre ?? "Sin familia",
+    id: n.id,
+    nombre: n.nombre,
+    descripcion: n.descripcion,
+    familia: n.familiaOlfativa?.nombre ?? "Sin familia",
 });
 
+/* ==================================================================== */
+/* ======================== Componente principal ====================== */
+/* ==================================================================== */
+
 export default function DisenarPerfume() {
-  /* --------------------------- Estados globales --------------------------- */
-  const [pasoActual, setPasoActual] = useState(0);
-  const [notas, setNotas] = useState<Nota[]>([]);
-  const [seleccionadas, setSeleccionadas] = useState<number[]>([]);
-  const [compatibles, setCompatibles] = useState<Nota[]>([]);
+    /* ---------------------------- Estados ----------------------------- */
+    const [pasoActual, setPasoActual] = useState(0);
+    const [notas, setNotas] = useState<Nota[]>([]);
+    const [seleccionadas, setSeleccionadas] = useState<number[]>([]);
+    const [compatibles, setCompatibles] = useState<Nota[]>([]);
 
-  /* --------------------------- Helpers ------------------------------------ */
-  const API_URL = process.env.NEXT_PUBLIC_API_URL!; // ¡asegúrate de tenerla en .env.local!
+    /* ------------------------- Config helpers ------------------------- */
+    const API_URL =
+        process.env.NEXT_PUBLIC_API_URL ?? "https://localhost:7164"; // fallback
 
-  /** Alterna una nota (agregar / quitar) */
-  const toggleNota = useCallback(
-    (id: number) =>
-      setSeleccionadas((prev) =>
-        prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-      ),
-    []
-  );
+    /** Alterna una nota (agregar / quitar) */
+    const toggleNota = useCallback(
+        (id: number) =>
+            setSeleccionadas((prev) =>
+                prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+            ),
+        []
+    );
 
-  /* --------------------------- Efectos ------------------------------------ */
-  /** 1️⃣  Carga inicial de notas */
-  useEffect(() => {
-    const abort = new AbortController();
-    fetch(`${API_URL}/api/notas`, { signal: abort.signal })
-      .then((r) => r.json())
-      .then((data: RawNota[]) => data.map(mapNota))
-      .then(setNotas)
-      .catch((err) => {
-        if (err.name !== "AbortError") console.error(err);
-      });
+    /* ---------------------------- Efectos ----------------------------- */
+    /* 1️⃣  Carga inicial de la biblioteca de notas */
+    useEffect(() => {
+        const abort = new AbortController();
 
-    return () => abort.abort();
-  }, [API_URL]);
+        fetch(`${API_URL}/api/notas`, { signal: abort.signal })
+            .then((r) => {
+                if (!r.ok) throw new Error(`GET /api/notas → ${r.status}`);
+                return r.json();
+            })
+            .then((data: RawNota[]) => data.map(mapNota))
+            .then(setNotas)
+            .catch((err) => {
+                if (err.name !== "AbortError") console.error(err);
+            });
 
-  /** 2️⃣  Pide compatibles cada vez que cambian las seleccionadas */
-  useEffect(() => {
-    if (seleccionadas.length === 0) {
-      setCompatibles([]);
-      return;
-    }
+        return () => abort.abort();
+    }, [API_URL]);
 
-    const abort = new AbortController();
-    fetch(`${API_URL}/api/notas/compatibles`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(seleccionadas),
-      signal: abort.signal,
-    })
-      .then((r) => r.json())
-      .then((data: RawNota[]) => data.map(mapNota))
-      .then(setCompatibles)
-      .catch((err) => {
-        if (err.name !== "AbortError") console.error(err);
-      });
+    /* 2️⃣  Cada vez que cambian las seleccionadas, pedir compatibles     */
+    useEffect(() => {
+        if (seleccionadas.length === 0) {
+            setCompatibles([]);
+            return;
+        }
 
-    return () => abort.abort();
-  }, [seleccionadas, API_URL]);
+        const abort = new AbortController();
 
-  /* --------------------------- Navegación pasos --------------------------- */
-  const avanzarPaso = () => setPasoActual((p) => Math.min(p + 1, PASOS.length - 1));
-  const retrocederPaso = () => setPasoActual((p) => Math.max(p - 1, 0));
+        fetch(`${API_URL}/api/notas/compatibles`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(seleccionadas),
+            signal: abort.signal,
+        })
+            .then((r) => {
+                if (!r.ok) throw new Error(`POST /compatibles → ${r.status}`);
+                return r.json();
+            })
+            .then((data: RawNota[]) => data.map(mapNota))
+            .then(setCompatibles)
+            .catch((err) => {
+                if (err.name !== "AbortError") console.error(err);
+            });
 
-  /* --------------------------- Render ------------------------------------ */
-  if (pasoActual === 0) return <Bienvenida onNext={avanzarPaso} />;
+        return () => abort.abort();
+    }, [seleccionadas, API_URL]);
 
-  return (
-    <div style={{ padding: 32 }}>
-      <h1>Diseñá tu perfume – Paso {pasoActual}: Notas</h1>
+    /* ----------------------- Navegación de pasos ---------------------- */
+    const avanzarPaso = () =>
+        setPasoActual((p) => Math.min(p + 1, PASOS.length - 1));
+    const retrocederPaso = () => setPasoActual((p) => Math.max(p - 1, 0));
 
-      {/* Biblioteca completa */}
-      <section>
-        <h2>Biblioteca</h2>
-        {notas.map((n) => (
-          <button
-            key={n.id}
-            onClick={() => toggleNota(n.id)}
-            style={{
-              margin: 6,
-              padding: "6px 12px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              background: seleccionadas.includes(n.id) ? "#e2e2e2" : "#fff",
-            }}
-          >
-            {n.nombre} <small>({n.familiaOlfativaNombre})</small>
-          </button>
-        ))}
-      </section>
+    /* ----------------------------- Render ----------------------------- */
+    if (pasoActual === 0) return <Bienvenida onNext={avanzarPaso} />;
 
-      {/* Seleccionadas */}
-      <section style={{ marginTop: 24 }}>
-        <h3>Notas seleccionadas ({seleccionadas.length})</h3>
-        <ul>
-          {notas
-            .filter((n) => seleccionadas.includes(n.id))
-            .map((n) => (
-              <li key={`sel-${n.id}`}>{n.nombre}</li>
-            ))}
-        </ul>
-      </section>
+    return (
+        <div style={{ padding: 32 }}>
+            <h1>Diseñá tu perfume – Paso {pasoActual}: Notas</h1>
 
-      {/* Compatibles */}
-      {compatibles.length > 0 && (
-        <section style={{ marginTop: 24 }}>
-          <h3>Sugerencias compatibles</h3>
-          <ul>
-            {compatibles.map((n) => (
-              <li key={`comp-${n.id}`}>
-                {n.nombre} – <em>{n.familiaOlfativaNombre}</em>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+            {/* -------- Biblioteca completa -------- */}
+            <section>
+                <h2>Biblioteca</h2>
+                {notas.map((n) => (
+                    <button
+                        key={n.id}
+                        onClick={() => toggleNota(n.id)}
+                        style={{
+                            margin: 6,
+                            padding: "6px 12px",
+                            borderRadius: 6,
+                            border: "1px solid #ccc",
+                            background: seleccionadas.includes(n.id) ? "#e2e2e2" : "#fff",
+                        }}
+                    >
+                        {n.nombre} <small>({n.familia})</small>
+                    </button>
+                ))}
+            </section>
 
-      {/* Navegación */}
-      <div style={{ marginTop: 32 }}>
-        <button onClick={retrocederPaso} disabled={pasoActual === 0}>
-          ← Atrás
-        </button>
-        <button
-          onClick={avanzarPaso}
-          disabled={seleccionadas.length < 4}
-          style={{ marginLeft: 12 }}
-        >
-          Siguiente →
-        </button>
-      </div>
-    </div>
-  );
+            {/* -------- Notas seleccionadas -------- */}
+            <section style={{ marginTop: 24 }}>
+                <h3>Notas seleccionadas ({seleccionadas.length})</h3>
+                <ul>
+                    {notas
+                        .filter((n) => seleccionadas.includes(n.id))
+                        .map((n) => (
+                            <li key={`sel-${n.id}`}>{n.nombre}</li>
+                        ))}
+                </ul>
+            </section>
+
+            {/* -------- Sugerencias compatibles -------- */}
+            {compatibles.length > 0 && (
+                <section style={{ marginTop: 24 }}>
+                    <h3>Sugerencias compatibles</h3>
+                    <ul>
+                        {compatibles.map((n) => (
+                            <li key={`comp-${n.id}`}>
+                                {n.nombre} – <em>{n.familia}</em>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+            )}
+
+            {/* -------- Botones de navegación -------- */}
+            <div style={{ marginTop: 32 }}>
+                <button onClick={retrocederPaso} disabled={pasoActual === 0}>
+                    ← Atrás
+                </button>
+                <button
+                    onClick={avanzarPaso}
+                    disabled={seleccionadas.length < 4}
+                    style={{ marginLeft: 12 }}
+                >
+                    Siguiente →
+                </button>
+            </div>
+        </div>
+    );
 }
