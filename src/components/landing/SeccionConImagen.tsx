@@ -28,7 +28,7 @@ export default function SeccionConImagen({
       >
         {/* Texto */}
         <div className="flex-1 max-w-xl">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">{titulo}</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[var(--gris4)]">{titulo}</h2>
           <p className="text-base md:text-lg whitespace-pre-line mb-6 pb-5">{descripcion}</p>
           {botonTexto && (
             <button className="bg-[#9444B6] text-white px-6 py-3 rounded-[10px] text-sm font-bold hover:bg-[#7a2f96] transition">

@@ -4,7 +4,7 @@ export default function SeccionProveedor() {
   return (
     <SectionWrapper className="bg-[#E8E3DE]">
       <div className="text-center">
-        <h2 className="text-lg md:text-xl font-bold mb-4">
+        <h2 className="text-lg md:text-xl font-bold mb-4 text-[var(--gris4)]">
           ¿SOS FABRICANTE O PROVEEDOR DE INSUMOS PARA PERFUMERÍA?
         </h2>
         <p className="text-base md:text-lg mb-10">

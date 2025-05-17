@@ -7,7 +7,7 @@ export default function SeccionInicioFragrancia() {
 <SectionWrapper className="bg-[#D9B6E2] rounded-tl-[15rem] rounded-tr-[15rem]">
 <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-4 md:grid-rows-2 gap-10">
 
-        {/* 1️  Intro */}
+        {/* 1️  Crae Columna */}
         <div className="order-1">
           <SeccionTextoConBoton
             titulo="DISEÑÁ TU FRAGANCIA DESDE CERO, COMO UN VERDADERO ALQUIMISTA."
@@ -22,7 +22,7 @@ export default function SeccionInicioFragrancia() {
         </div>
 
 
-        {/* 3️ Imagen chico */}
+        {/* 3️ Imagen  */}
         <div className="order-3 flex justify-start">
           <img
             src="/chicoAlquimista.png"
@@ -31,7 +31,7 @@ export default function SeccionInicioFragrancia() {
           />
         </div>
 
-        {/* 4️ Test */}
+        {/* 4️ Test Columna*/}
         <div className="order-4">
           <SeccionTextoConBoton
             titulo="¿NO SABÉS POR DÓNDE EMPEZAR?"

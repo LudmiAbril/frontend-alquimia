@@ -5,6 +5,7 @@ import SeccionConImagen from "@/components/landing/SeccionConImagen";
 import SeccionHechoAMedida from "@/components/landing/SeccionHechoAMedida";
 import SeccionProveedor from "@/components/landing/SeccionProveedor";
 import SeccionInicioFragrancia from "@/components/landing/SeccionInicioFragrancia";
+import Acordeon from "@/components/landing/Acordeon";
 
 
 
@@ -31,7 +32,10 @@ export default function Home() {
         botonTexto="QUIERO REGISTRARME"
       />
       <SeccionHechoAMedida />
+      <Acordeon />
+
       <SeccionProveedor />
+
 
     </>
   )
