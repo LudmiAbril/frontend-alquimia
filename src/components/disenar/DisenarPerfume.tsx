@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Bienvenida from "./Bienvenida";
 import Biblioteca from "./Biblioteca";
+import Confeccion from "./Confeccion";
 
 // Pasos del proceso de diseño
 const pasos = ["Bienvenida", "Nota Base", "Nota Corazon", "Nota Salida", "Intensidad", "Formula"] as const;
@@ -28,14 +29,10 @@ const DisenarPerfume = () => {
         <>
             {pasoActual === 0 ? (
                 <Bienvenida onNext={avanzarPaso} />
-            ) : pasoActual === 1 ? (
-                <>{/*  biblioteca + frascquito y card con titulo*/}
-                    <Biblioteca />
-                </>
-
-            ) : (
-                <></>
-            )}
+            ) : pasoActual < pasos.length - 1 ? (
+                <Confeccion />
+            ) : (<></>)
+            }
         </>
     );
 
