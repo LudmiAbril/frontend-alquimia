@@ -4,10 +4,12 @@ import React from 'react'
 const Biblioteca = () => {
 
   return (
-    <div className="w-[38rem] h-[44rem] bg-white flex flex-col items-center p-[2.31rem] rounded-[10px] ">
+    <div className="w-[38rem] h-[44rem] bg-white flex flex-col items-center p-[2.31rem] rounded-[10px] shadow-md">
       <p className='fuente-principal uppercase text-[20px] text-[var(--gris3)] mb-4 font-extrabold'>Biblioteca de notas</p>
       <p className='italic mb-4 w-[527px] text-[var(--gris4)] text-[14px]'>Arrastrá una nota de fondo al frasco para dar el primer soplo de tu fragancia.</p>
-      <div className='flex w-full gap-2'><input type="text" className='border-1 border-black rounded-xl w-100' /> <button className='bg-[var(--violeta)] px-6 py-[0.1rem] rounded-xl text-white text-xs'>FILTROS</button></div>
+      {/*buscador */}
+      <div className='flex w-full gap-2'><input type="text" className='border-1 border-black rounded-[10px] w-full p-1' /> <button className='bg-[var(--violeta)] px-8 rounded-[10px] text-white text-xs'>FILTROS</button></div>
+
       {/* caja de notas */}
       <div className='max-h-full w-full'>
         {/* una x cada familia olfativa, ver como se renderizara esto con el handle filterchange... */}
