@@ -13,7 +13,7 @@ export default function Hero() {
                     <p className="text-lg md:text-xl mb-5 pb-5">
                         Creatividad, emoción y aroma. Todo desde una plataforma hecha para no expertos.
                     </p>
-                    <Button>EMPEZAR A CREAR</Button>
+                    <Button label={"EMPEZAR A CREAR"}/>
                 </div>
             </div>
         </section>

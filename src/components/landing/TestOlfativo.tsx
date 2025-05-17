@@ -1,41 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
+import { familias, svgPaths } from "../utils/utils";
+import { useRef } from "react";
 
-const familias = {
-  acuatica: {
-    texto: "Marinas/Cítricas.",
-    color: "#66cccc",
-    descripcion: "Fragancias frescas inspiradas en el mar, ideales para días cálidos.",
-    imagen: "./img/familias/acuatica.jpg",
-  },
-  frutal: {
-    texto: "Frutales/Florales.",
-    color: "#ff6699",
-    descripcion: "Notas jugosas y dulces como frutas del trópico y flores exóticas.",
-    imagen: "./img/familias/frutal.jpg",
-  },
-  madera: {
-    texto: "Amaderadas/Especiadas.",
-    color: "#cc9966",
-    descripcion: "Aromas cálidos y terrosos, elegantes y envolventes.",
-    imagen: "./img/familias/madera.jpg",
-  },
-  ambarada: {
-    texto: "Gourmand/Ambaradas.",
-    color: "#9966cc",
-    descripcion: "Esencias dulces, profundas y sensuales como la vainilla y el ámbar.",
-    imagen: "./img/familias/ambarada.jpg",
-  },
-};
 
-const svgPaths = [
-  "/potion/potion00.svg",
-  "/potion/potion01.svg",
-  "/potion/potion03.svg",
-  "/potion/potion04.svg",
-];
 
 export default function TestOlfativo() {
+    const frascoRef = useRef<HTMLDivElement>(null);
   const [currentSVG, setCurrentSVG] = useState<string | null>(null);
   const [textoAnimado, setTextoAnimado] = useState<string[]>([]);
   const [color, setColor] = useState("#00bfa6");
@@ -65,15 +36,32 @@ setCurrentSVG(svg?.outerHTML || "");
     setColor(familia.color);
     setTextoAnimado([]);
     setFamiliaSeleccionada(familiaKey);
+    const sonido = new Audio("potion/bubble.mp3");
+    sonido.play();
 
     for (let i = 0; i < svgPaths.length; i++) {
       await cargarSVGInlineConColor(svgPaths[i], familia.color);
-      const sonido = new Audio("potion/bubble.mp3");
-      sonido.play();
       await new Promise((res) => setTimeout(res, 400));
     }
 
-    // animar texto letra por letra
+if (frascoRef.current) {
+  for (let i = 0; i < 10; i++) {
+    const estrella = document.createElement("span");
+    estrella.classList.add("estrella");
+    estrella.style.position = "absolute";
+    estrella.style.left = `${Math.random() * 20 + 10}%`;
+    estrella.style.top = `${Math.random() * 20 + 10}px`;
+    estrella.style.animationDelay = `${Math.random() * 2}s`;
+    estrella.style.transform = "translate(-30%, -20%)";
+
+    frascoRef.current.appendChild(estrella);
+
+    setTimeout(() => estrella.remove(), 8000);
+  }
+}
+
+
+
     familia.texto.split("").forEach((letra, i) => {
       setTimeout(() => {
         setTextoAnimado((prev) => [...prev, letra]);
@@ -125,15 +113,20 @@ return (
       </>
     ) : (
       <>
-        {/* Frasco primero */}
-        <div className="w-[300px] h-[300px]">
-          <div
-            className="w-full h-full"
-            dangerouslySetInnerHTML={{ __html: currentSVG || "" }}
-          />
-        </div>
 
-        {/* Resultado centrado */}
+   <div
+  ref={frascoRef}
+
+  className="w-[200px] h-[200px] relative"
+>
+  <div
+    className="w-full h-full"
+    dangerouslySetInnerHTML={{ __html: currentSVG || "" }}
+  />
+</div>
+
+
+
         <div className="text-center max-w-md text-white mt-4 space-y-4">
   <p className="text-lg font-medium">Según tu respuesta, es probable que te gusten las esencias:</p>
 
