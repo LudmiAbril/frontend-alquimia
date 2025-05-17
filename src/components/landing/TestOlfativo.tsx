@@ -91,19 +91,37 @@ return (
   <div className="w-full flex flex-col items-center gap-6 p-4">
     {!familiaSeleccionada ? (
       <>
-        <p className="font-medium">¿Qué familia de fragancia preferís?</p>
-        <div className="flex flex-wrap justify-center gap-3">
-          {Object.entries(familias).map(([key, familia]) => (
-            <button
-              key={key}
-              onClick={() => animarLlenado(key as keyof typeof familias)}
-              className="text-white px-4 py-2 rounded-xl font-medium transition hover:brightness-110"
-              style={{ backgroundColor: familia.color }}
-            >
-              {key.charAt(0).toUpperCase() + key.slice(1)}
-            </button>
-          ))}
-        </div>
+        <p className="font-medium text-white text-xl">¿Qué familia de fragancia preferís?</p>
+       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+  <button
+    onClick={() => animarLlenado("acuatica")}
+    className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+  >
+    <i className="bi bi-droplet-fill"></i> Brisa marina
+  </button>
+
+  <button
+    onClick={() => animarLlenado("frutal")}
+    className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+  >
+    <i className="bi bi-sun-fill"></i> Calor tropical
+  </button>
+
+  <button
+    onClick={() => animarLlenado("madera")}
+    className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+  >
+    <i className="bi bi-wind"></i> Otoño templado
+  </button>
+
+  <button
+    onClick={() => animarLlenado("ambarada")}
+    className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+  >
+    <i className="bi bi-snow2"></i> Invierno nevado
+  </button>
+</div>
+
       </>
     ) : (
       <>
@@ -116,26 +134,25 @@ return (
         </div>
 
         {/* Resultado centrado */}
-        <div className="text-center max-w-md">
-          <div className="text-xl text-indigo-900 font-semibold">
-            {textoAnimado.map((c, i) => (
-              <span
-                key={i}
-                className="inline-block opacity-0 animate-fadeIn"
-                style={{ animationDelay: `${i * 50}ms` }}
-              >
-                {c}
-              </span>
-            ))}
-          </div>
-          <p className="text-gray-800 mt-2">{familias[familiaSeleccionada].descripcion}</p>
-          <button
-            onClick={reiniciar}
-            className="mt-4 px-4 py-2 bg-gray-900 text-white rounded-xl hover:brightness-110"
-          >
-            Empezar de nuevo
-          </button>
-        </div>
+        <div className="text-center max-w-md text-white mt-4 space-y-4">
+  <p className="text-lg font-medium">Según tu respuesta, es probable que te gusten las esencias:</p>
+
+  <h2 className="text-3xl font-bold uppercase text-white">
+    {familias[familiaSeleccionada].texto}
+  </h2>
+
+  <button
+    onClick={reiniciar}
+    className="flex items-center gap-2 text-[#9444B6] font-semibold hover:underline mx-auto"
+  >
+    <i className="bi bi-arrow-clockwise"></i> Volver a probar
+  </button>
+
+  <p className="text-sm text-[#ffffffbb] flex items-center justify-center gap-1 italic">
+    <i className="bi bi-info-circle"></i> Si completás nuestro test, el resultado será más preciso.
+  </p>
+</div>
+
       </>
     )}
   </div>
