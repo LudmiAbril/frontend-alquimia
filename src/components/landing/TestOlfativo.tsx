@@ -49,10 +49,10 @@ if (frascoRef.current) {
     const estrella = document.createElement("span");
     estrella.classList.add("estrella");
     estrella.style.position = "absolute";
-    estrella.style.left = `${Math.random() * 20 + 10}%`;
-    estrella.style.top = `${Math.random() * 20 + 10}px`;
+    estrella.style.left = `${Math.random() * 80 + 10}%`;
+    estrella.style.top = `${Math.random() * 80 + 10}px`;
     estrella.style.animationDelay = `${Math.random() * 2}s`;
-    estrella.style.transform = "translate(-30%, -20%)";
+    estrella.style.transform = "translate(-20%, -20%)";
 
     frascoRef.current.appendChild(estrella);
 
