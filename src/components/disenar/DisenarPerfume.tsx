@@ -2,13 +2,14 @@
 
 import { useState } from "react"
 import Bienvenida from "./Bienvenida";
+import Biblioteca from "./Biblioteca";
 
 // Pasos del proceso de diseño
 const pasos = ["Bienvenida", "Nota Base", "Nota Corazon", "Nota Salida", "Intensidad", "Formula"] as const;
 
 
 const DisenarPerfume = () => {
-    const [pasoActual, setPasoActual] = useState<number>(0);
+    const [pasoActual, setPasoActual] = useState<number>(1);
 
     const avanzarPaso = () => {
         if (pasoActual < pasos.length - 1) {
@@ -29,6 +30,7 @@ const DisenarPerfume = () => {
                 <Bienvenida onNext={avanzarPaso} />
             ) : pasoActual === 1 ? (
                 <>{/*  biblioteca + frascquito y card con titulo*/}
+                    <Biblioteca />
                 </>
 
             ) : (
