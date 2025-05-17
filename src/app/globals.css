@@ -1,5 +1,9 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Elsie:wght@400;900&family=Fleur+De+Leah&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+<<<<<<< HEAD
+=======
+@import "bootstrap-icons/font/bootstrap-icons.css";
+>>>>>>> origin/main
 
 :root {
   --hueso: #E8E3DE;
@@ -13,13 +17,19 @@
   --font-principal: "Volkhov", serif;
 }
 
+<<<<<<< HEAD
 
 body {
   background-color: black;
+=======
+body {
+  background-color: var(--hueso);
+>>>>>>> origin/main
   margin: 0;
   padding: 0;
   font-family: var(--font-roboto);
 }
+<<<<<<< HEAD
 h1, h2{
   font-family: var(--font-principal);
 
@@ -29,3 +39,60 @@ h1, h2{
   box-sizing: border-box;
 
 }
+=======
+
+h1,
+h2 {
+  font-family: var(--font-principal);
+}
+
+.fuente-principal {
+  font-family: var(--font-principal);
+}
+
+
+* {
+  box-sizing: border-box;
+
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.estrella {
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: brillar 1s ease-out forwards infinite;
+  box-shadow: 0 0 8px #fff;
+}
+
+@keyframes brillar {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+>>>>>>> origin/main
