@@ -1,7 +1,16 @@
-export default function Home() {
 
+import Hero from "@/components/landing/Hero";
+import PorqueAlquimia from "@/components/landing/PorqueAlquimia";
+
+
+export default function Home() {
   return (
-    // aca va toda la landing, con algunas funciones onclick se debera pasar el estado de openModal de cada uno (login/register) a true o false si se abren o cierrar
-    <></>
-  );
+    <>
+      <Hero />
+      <PorqueAlquimia />
+
+
+
+    </>
+  )
 }

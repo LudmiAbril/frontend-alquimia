@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Elsie:wght@400;900&family=Fleur+De+Leah&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   --hueso: #E8E3DE;
@@ -8,9 +9,23 @@
   --gris2: #8C8C8A;
   --gris3: #595957;
   --gris4: #40403E;
+  --font-roboto: "Roboto", sans-serif;
+  --font-principal: "Volkhov", serif;
 }
 
 
 body {
-  background-color: #39737e;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-roboto);
+}
+h1, h2{
+  font-family: var(--font-principal);
+
+}
+
+* {
+  box-sizing: border-box;
+
 }
