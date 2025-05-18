@@ -1,13 +1,7 @@
 import SectionWrapper from "@/components/general/SeccionWrapper";
 import StepCard from "./Cards";
+import { pasos } from "@/components/utils/utils";
 
-const pasos = [
-  { image: "/steps/seleccionar.png", alt: "Seleccioná", text: "Seleccioná las esencias" },
-  { image: "/steps/combinar.png", alt: "Combiná", text: "Combiná las notas" },
-  { image: "/steps/diseñar.png", alt: "Diseñá", text: "Diseñá tu packaging" },
-  { image: "/steps/provedores.png", alt: "Contactate", text: "Contactate con los proveedores" },
-  { image: "/steps/llegar.png", alt: "Recibí", text: "Recibí tus ingredientes" },
-];
 
 export default function ComoFunciona() {
   return (
@@ -28,7 +22,7 @@ export default function ComoFunciona() {
       </div>
 
       <p className="text-center text-sm font-semibold  mx-auto mt-10">
-      Concentrate en tu visión creativa. Nosotros te damos las herramientas para hacerla realidad.
+        Concentrate en tu visión creativa. Nosotros te damos las herramientas para hacerla realidad.
       </p>
     </SectionWrapper>
   );

@@ -6,7 +6,7 @@ export default function SeccionHechoAMedida() {
       <div className="flex flex-col md:flex-row items-center gap-10">
         <div className="flex-1 flex justify-center">
           <img
-            src="/DiseñoSeccion.png"
+            src="/landingImagenes/DiseñoSeccion.png"
             alt="Frasco personalizado"
             className="w-full max-w-[300px] rounded-full"
           />

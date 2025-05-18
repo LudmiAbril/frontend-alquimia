@@ -12,7 +12,7 @@ import InfoIcon from "@mui/icons-material/Info";
 
 
 export default function TestOlfativo() {
-    const frascoRef = useRef<HTMLDivElement>(null);
+  const frascoRef = useRef<HTMLDivElement>(null);
   const [currentSVG, setCurrentSVG] = useState<string | null>(null);
   const [textoAnimado, setTextoAnimado] = useState<string[]>([]);
 
@@ -28,12 +28,12 @@ export default function TestOlfativo() {
     const relleno = svg?.querySelector(".relleno");
     if (relleno) relleno.setAttribute("fill", fillColor);
 
-if (svg) {
-  svg.setAttribute("width", "100%");
-  svg.setAttribute("height", "100%");
-  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-}
-setCurrentSVG(svg?.outerHTML || "");
+    if (svg) {
+      svg.setAttribute("width", "100%");
+      svg.setAttribute("height", "100%");
+      svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    }
+    setCurrentSVG(svg?.outerHTML || "");
 
   };
 
@@ -50,21 +50,21 @@ setCurrentSVG(svg?.outerHTML || "");
       await new Promise((res) => setTimeout(res, 400));
     }
 
-if (frascoRef.current) {
-  for (let i = 0; i < 10; i++) {
-    const estrella = document.createElement("span");
-    estrella.classList.add("estrella");
-    estrella.style.position = "absolute";
-    estrella.style.left = `${Math.random() * 80 + 10}%`;
-    estrella.style.top = `${Math.random() * 80 + 10}px`;
-    estrella.style.animationDelay = `${Math.random() * 2}s`;
-    estrella.style.transform = "translate(-20%, -20%)";
+    if (frascoRef.current) {
+      for (let i = 0; i < 10; i++) {
+        const estrella = document.createElement("span");
+        estrella.classList.add("estrella");
+        estrella.style.position = "absolute";
+        estrella.style.left = `${Math.random() * 80 + 10}%`;
+        estrella.style.top = `${Math.random() * 80 + 10}px`;
+        estrella.style.animationDelay = `${Math.random() * 2}s`;
+        estrella.style.transform = "translate(-20%, -20%)";
 
-    frascoRef.current.appendChild(estrella);
+        frascoRef.current.appendChild(estrella);
 
-    setTimeout(() => estrella.remove(), 8000);
-  }
-}
+        setTimeout(() => estrella.remove(), 8000);
+      }
+    }
 
 
 
@@ -79,89 +79,89 @@ if (frascoRef.current) {
     setTextoAnimado([]);
     setFamiliaSeleccionada(null);
     setCurrentSVG(null);
-  
+
   };
-return (
-  <div className="w-full flex flex-col items-center gap-6 p-4">
-    {!familiaSeleccionada ? (
-      <>
-        <p className="font-medium text-white text-xl">¿Qué familia de fragancia preferís?</p>
-       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-  <button
-  onClick={() => animarLlenado("acuatica")}
-  className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
->
-  <WaterDropIcon /> Brisa marina
-</button>
+  return (
+    <div className="w-full flex flex-col items-center gap-6 p-4">
+      {!familiaSeleccionada ? (
+        <>
+          <p className="font-medium text-white text-xl">¿Qué familia de fragancia preferís?</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+            <button
+              onClick={() => animarLlenado("acuatica")}
+              className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+            >
+              <WaterDropIcon /> Brisa marina
+            </button>
 
-<button
-  onClick={() => animarLlenado("frutal")}
-  className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
->
-  <WbSunnyIcon /> Calor tropical
-</button>
+            <button
+              onClick={() => animarLlenado("frutal")}
+              className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+            >
+              <WbSunnyIcon /> Calor tropical
+            </button>
 
-<button
-  onClick={() => animarLlenado("madera")}
-  className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
->
-  <AirIcon /> Otoño templado
-</button>
+            <button
+              onClick={() => animarLlenado("madera")}
+              className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+            >
+              <AirIcon /> Otoño templado
+            </button>
 
-<button
-  onClick={() => animarLlenado("ambarada")}
-  className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
->
-  <AcUnitIcon /> Invierno nevado
-</button>
+            <button
+              onClick={() => animarLlenado("ambarada")}
+              className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+            >
+              <AcUnitIcon /> Invierno nevado
+            </button>
 
-</div>
+          </div>
 
-      </>
-    ) : (
-      <>
+        </>
+      ) : (
+        <>
 
- <div
-  ref={frascoRef}
-  className="w-[200px] h-[200px] relative"
- 
->
+          <div
+            ref={frascoRef}
+            className="w-[200px] h-[200px] relative"
 
-  <div
-    className="w-full h-full"
-    dangerouslySetInnerHTML={{ __html: currentSVG || "" }}
-  />
-</div>
+          >
 
-
-
-        <div className="text-center max-w-md text-white mt-4 space-y-4">
-  <p className="text-lg font-medium">Según tu respuesta, es probable que te gusten las esencias:</p>
-
-<h2 className="text-3xl font-bold uppercase text-white">
-  {textoAnimado.map((letra, i) => (
-    <span key={i}>{letra}</span>
-  ))}
-</h2>
+            <div
+              className="w-full h-full"
+              dangerouslySetInnerHTML={{ __html: currentSVG || "" }}
+            />
+          </div>
 
 
 
-<button
-  onClick={reiniciar}
-  className="flex items-center gap-2 text-[#9444B6] font-semibold mx-auto border border-transparent p-2 hover:border-[#9444B6] hover:rounded-xl transition-all duration-200"
->
-  <ReplayIcon /> Volver a probar
-</button>
+          <div className="text-center max-w-md text-white mt-4 space-y-4">
+            <p className="text-lg font-medium">Según tu respuesta, es probable que te gusten las esencias:</p>
 
-<p className="text-sm text-[#ffffffbb] flex items-center justify-center gap-1 italic">
-  <InfoIcon /> Si completás nuestro test, el resultado será más preciso.
-</p>
+            <h2 className="text-3xl font-bold uppercase text-white">
+              {textoAnimado.map((letra, i) => (
+                <span key={i}>{letra}</span>
+              ))}
+            </h2>
 
-</div>
 
-      </>
-    )}
-  </div>
-);
+
+            <button
+              onClick={reiniciar}
+              className="flex items-center gap-2 text-[#9444B6] font-semibold mx-auto border border-transparent p-2 hover:border-[#9444B6] hover:rounded-xl transition-all duration-200"
+            >
+              <ReplayIcon /> Volver a probar
+            </button>
+
+            <p className="text-sm text-[#ffffffbb] flex items-center justify-center gap-1 italic">
+              <InfoIcon /> Si completás nuestro test, el resultado será más preciso.
+            </p>
+
+          </div>
+
+        </>
+      )}
+    </div>
+  );
 
 }

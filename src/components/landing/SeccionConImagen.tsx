@@ -1,14 +1,6 @@
 import SectionWrapper from "@/components/general/SeccionWrapper";
+import { SeccionConImagenProps } from "@/components/utils/typing";
 
-type Props = {
-  titulo: string;
-  descripcion: string;
-  imagen: string;
-  alt: string;
-  botonTexto?: string;
-  invertir?: boolean;
-  className?: string;
-};
 
 export default function SeccionConImagen({
   titulo,
@@ -18,15 +10,11 @@ export default function SeccionConImagen({
   botonTexto,
   invertir = false,
   className = "bg-[#E8E3DE]",
-}: Props) {
+}: SeccionConImagenProps) {
+  
   return (
     <SectionWrapper className={className}>
-      <div
-        className={`flex flex-col md:flex-row items-center gap-10 ${
-          invertir ? "md:flex-row-reverse" : ""
-        }`}
-      >
-        {/* Texto */}
+      <div className={`flex flex-col md:flex-row items-center gap-10 ${invertir ? "md:flex-row-reverse" : "" }`}>
         <div className="flex-1 max-w-xl">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[var(--gris4)]">{titulo}</h2>
           <p className="text-base md:text-lg whitespace-pre-line mb-6 pb-5">{descripcion}</p>
@@ -37,7 +25,6 @@ export default function SeccionConImagen({
           )}
         </div>
 
-        {/* Imagen */}
         <div className="flex-1 flex justify-end">
           <img
             src={imagen}

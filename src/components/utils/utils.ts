@@ -60,3 +60,44 @@ export const productosMasVendidos = [
   },
 ];
   export const categorias = ["Esencias", "Packaging", "Envases", "Alcoholes", "Aguas Destiladas"];
+
+
+/*################################CARDS-LANDING#############################################################*/
+
+  export const pasos = [
+    { image: "/steps/seleccionar.png", alt: "Seleccioná", text: "Seleccioná las esencias" },
+    { image: "/steps/combinar.png", alt: "Combiná", text: "Combiná las notas" },
+    { image: "/steps/diseñar.png", alt: "Diseñá", text: "Diseñá tu packaging" },
+    { image: "/steps/provedores.png", alt: "Contactate", text: "Contactate con los proveedores" },
+    { image: "/steps/entrega.png", alt: "Recibí", text: "Recibí tus ingredientes" },
+  ];
+
+/*################################Preguntas-LANDING#############################################################*/
+
+  export const preguntas = [
+    {
+        pregunta: "¿Por qué elegir Alquimia para crear tu perfume?",
+        respuesta:
+            "Porque ofrecemos una experiencia creativa, accesible y guiada para que cualquier persona pueda crear su fragancia personalizada sin necesidad de conocimientos previos.",
+    },
+    {
+        pregunta: "¿Cómo crear tu propio perfume online?",
+        respuesta:
+            "Usá nuestro editor interactivo para elegir tus notas favoritas, combinarlas en una fórmula y personalizar tu envase antes de conectarte con proveedores.",
+    },
+    {
+        pregunta: "¿Cómo funciona Alquimia?",
+        respuesta:
+            "Alquimia te permite crear perfumes eligiendo tus notas favoritas, combinándolas y personalizando tu envase desde nuestra plataforma interactiva.",
+    },
+    {
+        pregunta: "¿Necesito conocimientos previos?",
+        respuesta:
+            "No, nuestra experiencia está diseñada para guiarte paso a paso en todo momento.",
+    },
+    {
+        pregunta: "¿Puedo comprar ingredientes desde la plataforma?",
+        respuesta:
+            "Sí. Te conectamos con proveedores registrados que ofrecen materias primas como esencias, frascos y más.",
+    },
+];

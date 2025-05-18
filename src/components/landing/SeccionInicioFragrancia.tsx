@@ -7,7 +7,6 @@ export default function SeccionInicioFragrancia() {
   return (
     <SectionWrapper className="bg-[#D9B6E2] rounded-tl-[15rem] rounded-tr-[15rem] py-16 px-6max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start max-w-7xl mx-auto">
-        {/* Fila 1 */}
         <div>
           <SeccionTextoConBoton
             titulo="¿NO SABÉS POR DÓNDE EMPEZAR?"
@@ -20,10 +19,9 @@ export default function SeccionInicioFragrancia() {
           <TestOlfativo />
         </div>
 
-        {/* Fila 2 */}
         <div className="w-full flex justify-center mt-8">
           <Image
-            src="/chicoAlquimista.png"
+            src="/landingImagenes/chicoAlquimista.png"
             alt="Ilustración de alquimista"
             width={400}
             height={400}

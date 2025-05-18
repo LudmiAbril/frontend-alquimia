@@ -8,14 +8,14 @@ export const Footer = () => {
             <div className="bg-[#9444B6] rounded-t-[4rem] px-10 py-9">
                 <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
                     {/* Logo */}
-                    <img src="./logotipo.svg"  alt="Logo Alquimia" className="w-[90px] h-[80px]" />
+                    <img src="./logo/logotipo.svg"  alt="Logo Alquimia" className="w-[90px] h-[80px]" />
 
                     {/* Redes  */}
                     <div className="flex flex-col items-end">
                         <p className="mb-4">Encontranos en:</p>
                         <div className="flex gap-8">
-                            <img src="./tiktokIcon.svg" alt="TikTok" className="w-[32px] h-[32px] cursor-pointer" />
-                            <img src="./instagram.svg" alt="Instagram" className="w-[32px] h-[32px] cursor-pointer"/>
+                            <img src="./redes/tiktokIcon.svg" alt="TikTok" className="w-[32px] h-[32px] cursor-pointer" />
+                            <img src="./redes/instagram.svg" alt="Instagram" className="w-[32px] h-[32px] cursor-pointer"/>
                         </div>
                     </div>
                 </div>
