@@ -28,7 +28,7 @@ const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
 
   return (
     <>
-      <div className="flex flex-col items-center bg-[20px]">
+      <div className="flex flex-col items-center ">
         <h1 className="fuente-principal text-[var(--gris4)] text-[32px] font-bold mb-4">
           CREANDO FRAGANCIA
         </h1>
