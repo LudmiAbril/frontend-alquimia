@@ -1,9 +1,32 @@
-import React from 'react'
+import React from "react";
 
-const ModalConfirmarCreacion = () => {
-  return (
-    <div>ModalConfirmarCreacion</div>
-  )
+interface ModalConfirmarCreacionProps {
+  onClose: () => void;
 }
 
-export default ModalConfirmarCreacion
+const ModalConfirmarCreacion = ({ onClose }: ModalConfirmarCreacionProps) => {
+  return (
+    <div className="fixed inset-0 bg-[#240E25]/75 bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-[var(--hueso)] p-6 rounded-[10px] shadow-md w-full max-w-md text-center">
+        <h2 className="text-xl font-semibold mb-4">¿Confirmar creación?</h2>
+        <div className="flex justify-center mt-6">
+          {/* retocar estilos */}
+          <button
+            onClick={onClose}
+            className="bg-[var(--violeta)] text-white  rounded hover:bg-blue-700 transition"
+          >
+            Volver
+          </button>
+          <button
+            onClick={onClose}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          >
+            Formular
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ModalConfirmarCreacion;

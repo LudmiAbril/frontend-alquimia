@@ -44,7 +44,7 @@ const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
             </div>
 
         </div>
-        {openConfirmModal ?? <ModalConfirmarCreacion />}
+        {openConfirmModal && <ModalConfirmarCreacion onClose={toggleOpenConfirmModal} />}
     </>
     )
 }
