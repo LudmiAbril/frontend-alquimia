@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Elsie:wght@400;900&family=Fleur+De+Leah&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+
 :root {
   --hueso: #E8E3DE;
   --violeta: #9444B6;
@@ -48,4 +49,29 @@ h2 {
 
 .animate-fadeIn {
   animation: fadeIn 0.6s ease forwards;
+}
+
+.estrella {
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: brillar 1s ease-out forwards infinite;
+  box-shadow: 0 0 8px #fff;
+}
+
+@keyframes brillar {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
 }

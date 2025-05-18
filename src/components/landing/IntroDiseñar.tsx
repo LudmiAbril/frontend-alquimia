@@ -12,7 +12,7 @@ export default function IntroDiseñar() {
           Nuestra plataforma te acompaña paso a paso para que experimentes, explores y crees una fragancia tan única como vos.
         </p>
         
-        <Button>  EMPEZAR A DISEÑAR</Button>
+        <Button label={"EMPEZAR A DISEÑAR"}/>  
 
       </div>
     );
