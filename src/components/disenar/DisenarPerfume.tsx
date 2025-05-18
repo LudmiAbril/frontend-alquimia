@@ -16,7 +16,7 @@ const pasos = [
 ] as const;
 
 const DisenarPerfume = () => {
-  const [pasoActual, setPasoActual] = useState<number>(5);
+  const [pasoActual, setPasoActual] = useState<number>(0);
 
   const avanzarPaso = () => {
     if (pasoActual < pasos.length - 1) {
