@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Elsie:wght@400;900&family=Fleur+De+Leah&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Volkhov:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 :root {
   --hueso: #E8E3DE;

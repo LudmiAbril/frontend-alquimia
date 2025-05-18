@@ -1,7 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { familias, svgPaths } from "../utils/utils";
 import { useRef } from "react";
+import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import AirIcon from "@mui/icons-material/Air";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import ReplayIcon from "@mui/icons-material/Replay";
+import InfoIcon from "@mui/icons-material/Info";
 
 
 
@@ -82,43 +88,45 @@ return (
         <p className="font-medium text-white text-xl">¿Qué familia de fragancia preferís?</p>
        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
   <button
-    onClick={() => animarLlenado("acuatica")}
-    className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
-  >
-    <i className="bi bi-droplet-fill"></i> Brisa marina
-  </button>
+  onClick={() => animarLlenado("acuatica")}
+  className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+>
+  <WaterDropIcon /> Brisa marina
+</button>
 
-  <button
-    onClick={() => animarLlenado("frutal")}
-    className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
-  >
-    <i className="bi bi-sun-fill"></i> Calor tropical
-  </button>
+<button
+  onClick={() => animarLlenado("frutal")}
+  className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+>
+  <WbSunnyIcon /> Calor tropical
+</button>
 
-  <button
-    onClick={() => animarLlenado("madera")}
-    className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
-  >
-    <i className="bi bi-wind"></i> Otoño templado
-  </button>
+<button
+  onClick={() => animarLlenado("madera")}
+  className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+>
+  <AirIcon /> Otoño templado
+</button>
 
-  <button
-    onClick={() => animarLlenado("ambarada")}
-    className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
-  >
-    <i className="bi bi-snow2"></i> Invierno nevado
-  </button>
+<button
+  onClick={() => animarLlenado("ambarada")}
+  className="flex items-center gap-2 bg-white text-[#9444B6] px-6 py-3 rounded-xl font-bold uppercase shadow-sm hover:shadow-md transition"
+>
+  <AcUnitIcon /> Invierno nevado
+</button>
+
 </div>
 
       </>
     ) : (
       <>
 
-   <div
+ <div
   ref={frascoRef}
-
   className="w-[200px] h-[200px] relative"
+ 
 >
+
   <div
     className="w-full h-full"
     dangerouslySetInnerHTML={{ __html: currentSVG || "" }}
@@ -130,20 +138,25 @@ return (
         <div className="text-center max-w-md text-white mt-4 space-y-4">
   <p className="text-lg font-medium">Según tu respuesta, es probable que te gusten las esencias:</p>
 
-  <h2 className="text-3xl font-bold uppercase text-white">
-    {familias[familiaSeleccionada].texto}
-  </h2>
+<h2 className="text-3xl font-bold uppercase text-white">
+  {textoAnimado.map((letra, i) => (
+    <span key={i}>{letra}</span>
+  ))}
+</h2>
 
-  <button
-    onClick={reiniciar}
-    className="flex items-center gap-2 text-[#9444B6] font-semibold hover:underline mx-auto"
-  >
-    <i className="bi bi-arrow-clockwise"></i> Volver a probar
-  </button>
 
-  <p className="text-sm text-[#ffffffbb] flex items-center justify-center gap-1 italic">
-    <i className="bi bi-info-circle"></i> Si completás nuestro test, el resultado será más preciso.
-  </p>
+
+<button
+  onClick={reiniciar}
+  className="flex items-center gap-2 text-[#9444B6] font-semibold mx-auto border border-transparent p-2 hover:border-[#9444B6] hover:rounded-xl transition-all duration-200"
+>
+  <ReplayIcon /> Volver a probar
+</button>
+
+<p className="text-sm text-[#ffffffbb] flex items-center justify-center gap-1 italic">
+  <InfoIcon /> Si completás nuestro test, el resultado será más preciso.
+</p>
+
 </div>
 
       </>
