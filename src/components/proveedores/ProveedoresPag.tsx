@@ -1,5 +1,4 @@
 import Button from "../general/Button";
-import Footer from "../general/Footer";
 import Navbar from "../general/Navbar";
 import CardProducto from "./CardProducto";
 import FiltroLateral from "./Firltrateral";
