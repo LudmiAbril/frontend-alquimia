@@ -32,4 +32,31 @@ export const svgPaths = [
   "/potion/potion03.svg",
   "/potion/potion04.svg",
 ];
-/*#############################################################################################*/
+/*################################PROVEEDORES#############################################################*/
+export const productosMasVendidos = [
+  {
+    nombre: "Esencia Vainilla",
+    precio: 5900,
+    categoria: "Aromática",
+    imagen: "/productos/esencia-vainilla.png",
+  },
+  {
+    nombre: "Alcohol etílico",
+    precio: 2000,
+    categoria: "Disolvente",
+    imagen: "/productos/alcohol.png",
+  },
+  {
+    nombre: "Recipiente artesanal",
+    precio: 16200,
+    categoria: "Botella",
+    imagen: "/productos/frasco-artesanal.png",
+  },
+  {
+    nombre: "Esencia Vainilla Premium",
+    precio: 9500,
+    categoria: "Aromática",
+    imagen: "/productos/esencia-vainilla-premium.png",
+  },
+];
+  export const categorias = ["Esencias", "Packaging", "Envases", "Alcoholes", "Aguas Destiladas"];
