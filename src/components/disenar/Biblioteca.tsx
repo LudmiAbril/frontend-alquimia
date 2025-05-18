@@ -1,25 +1,53 @@
-"use client"
-import React from 'react'
+"use client";
+import React from "react";
 
-const Biblioteca = () => {
+interface Biblioteca {
+  pasoActual: number;
+  onConfirm: () => void;
+}
+const Biblioteca = ({ pasoActual, onConfirm }: Biblioteca) => {
+  const seleccionDeNotas = pasoActual >= 1 && pasoActual <= 3;
+
+  const titulo = seleccionDeNotas ? "Biblioteca de notas" : "Intensidad";
+  const subtitulo = seleccionDeNotas
+    ? "Arrastrá una nota de fondo al frasco para dar el primer soplo de tu fragancia."
+    : "Elige un tipo de intensidad para tu perfume.";
 
   return (
-    <div className="w-[38rem] h-[44rem] bg-white flex flex-col items-center p-[2.31rem] rounded-[10px] shadow-md">
-      <p className='fuente-principal uppercase text-[20px] text-[var(--gris3)] mb-4 font-extrabold'>Biblioteca de notas</p>
-      <p className='italic mb-4 w-[527px] text-[var(--gris4)] text-[14px]'>Arrastrá una nota de fondo al frasco para dar el primer soplo de tu fragancia.</p>
+    <div className="w-[38rem] h-[44rem] bg-white flex flex-col items-center p-[2.31rem] rounded-[10px] shadow-md text-center mb-10">
+      <p className="fuente-principal uppercase text-[20px] text-[var(--gris3)] mb-4 font-extrabold">
+        {titulo}
+      </p>
+      <p className="italic mb-4 w-[527px] text-[var(--gris4)] text-[14px]">
+        {subtitulo}
+      </p>
       {/*buscador */}
-      <div className='flex w-full gap-2'><input type="text" className='border-1 border-black rounded-[10px] w-full p-1' /> <button className='bg-[var(--violeta)] px-8 rounded-[10px] text-white text-xs'>FILTROS</button></div>
+      {seleccionDeNotas === true && (
+        <div className="flex w-full gap-2">
+          <input
+            type="text"
+            className="border border-black rounded-[10px] w-full p-1"
+          />
+          <button className="bg-[var(--violeta)] px-8 rounded-[10px] text-white text-xs">
+            FILTROS
+          </button>
+        </div>
+      )}
 
       {/* caja de notas */}
-      <div className='max-h-full w-full'>
+      <div className="max-h-full w-full">
         {/* una x cada familia olfativa, ver como se renderizara esto con el handle filterchange... */}
-        <ContenedorNotas />
+        {seleccionDeNotas ? (
+          <ContenedorNotas />
+        ) : (
+          <ContenedorIntensidades onConfirm={onConfirm} />
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Biblioteca
+export default Biblioteca;
 
 // estos datos se usaran para mockear, las familias talvez si queden para agrupar con la respuesta del back, pero las notas tendran q estar en un estado con interfaz desde el back. Modelar interfaz nota
 export const ContenedorNotas = () => {
@@ -40,29 +68,75 @@ export const ContenedorNotas = () => {
     "Hierbas aromáticas",
     "Marino",
     "Mentolado",
-    "Terroso"
+    "Terroso",
   ];
 
   const notas = [
-    "vainilla", "lavanda", "chocolate", "limon", "coco", "menta", "cereza", "ciruela"
-  ]
+    "vainilla",
+    "lavanda",
+    "chocolate",
+    "limon",
+    "coco",
+    "menta",
+    "cereza",
+    "ciruela",
+  ];
 
   return (
     <div className="overflow-y-scroll max-h-[31rem] mt-6 w-full flex flex-col">
       {familias.map((familia) => (
-        < div key={familia} className="flex flex-col mb-[2.43rem]" >
+        <div key={familia} className="flex flex-col mb-[2.43rem]">
           {/* titulo de la familia */}
           <div className="flex items-center gap-2 mb-2 fuente-principal">
-            <p className="text-[var(--gris3)] text-[20px] font-medium">{familia}</p>
-            <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">i</span>
+            <p className="text-[var(--gris3)] text-[20px] font-medium">
+              {familia}
+            </p>
+            <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">
+              i
+            </span>
           </div>
           {/*notas de esta familia */}
           <div className=" w-100 flex flex-wrap gap-[25px]">
-            {notas.map((nota, index) => (<button key={index} className='cursor-pointer bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400'><img src="https://flaticons.net/icon.php?slug_category=miscellaneous&slug_icon=flower" alt="nota" className='w-8 color-white mb-2' /><p className='text-[12px] font-semibold'>{nota}</p></button>))}
+            {notas.map((nota, index) => (
+              <button
+                key={index}
+                className="cursor-pointer bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400"
+              >
+                <img
+                  src="https://flaticons.net/icon.php?slug_category=miscellaneous&slug_icon=flower"
+                  alt="nota"
+                  className="w-8 color-white mb-2"
+                />
+                <p className="text-[12px] font-semibold">{nota}</p>
+              </button>
+            ))}
           </div>
         </div>
-      ))
-      }
-    </div >
+      ))}
+    </div>
+  );
+};
+
+interface ContenedorIntensidadesProps {
+  onConfirm: () => void;
+}
+export const ContenedorIntensidades = ({
+  onConfirm,
+}: ContenedorIntensidadesProps) => {
+  const intensidades = ["Alta", "Media", "Baja"];
+  return (
+    <div className="mt-[3rem]">
+      <div className="flex flex-col gap-[46px] items-center">
+        {intensidades.map((intensidad, key) => (
+          <div key={key} className="py-[23px] px-[72px] w-[409px] h-[103px] rounded-[10px] cursor-pointer bg-[var(--lila)]">{intensidad}</div>
+        ))}
+      </div>
+      <button
+        className="bg-[var(--violeta)] px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase cursor-pointer"
+        onClick={onConfirm}
+      >
+        confirmar
+      </button>
+    </div>
   );
 };

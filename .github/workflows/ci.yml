@@ -1,0 +1,33 @@
+name: CI - Next.js Frontend
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar Linter (ESLint)
+        run: npm run lint
+
+      # - name: Ejecutar Tests (si tenés)
+      #   run: npm test
+
+      - name: Build del proyecto
+        run: npm run build

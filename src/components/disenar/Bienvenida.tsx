@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
 import React from "react";
+import Image from "next/image";
 
 interface BienvenidaProps {
   onNext: () => void;
@@ -8,24 +9,40 @@ interface BienvenidaProps {
 
 const Bienvenida = ({ onNext }: BienvenidaProps) => {
   return (
-    <div>
-      <h1 >¡Bienvenido, alquimista!</h1>
-      <h3>Comenzá la creación de tu fragancia única.</h3>
-      <p>Tu fragancia nace de lo invisible. Conectá aromas, emociones y un toque de magia.</p>
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 bg-gradient-to-b from-[#f9f4f1] to-[#e8dbd7]">
+      {/* Texto principal */}
+      <div className="space-y-4 max-w-xl">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#9444B6]">
+          ¡Bienvenido alquimista!
+        </h1>
+        <h2 className="text-xl md:text-2xl text-[#9444B6] font-medium">
+          Comenzá la creación de tu fragancia única.
+        </h2>
+        <p className="text-sm md:text-base text-[#595957]">
+          Tu fragancia nace de lo invisible. Conectá aromas,
+          emociones y un toque de magia.
+        </p>
+      </div>
+
+      {/* Frasco */}
       <button
         onClick={onNext}
-        style={{
-          background: "none",
-          border: "none",
-          padding: 0,
-          cursor: "pointer",
-        }}
+        className="mt-12 cursor-pointer hover:scale-105 transition-transform"
         aria-label="Comenzar a mezclar"
       >
-        <img src="./frasco.svg" alt="Frasco" />
+        <Image
+          src="/frasco.svg"
+          alt="Frasco"
+          width={200}
+          height={200}
+          className="opacity-80"
+        />
       </button>
 
-      <p>Hacé click y comenzá a mezclar tu hechizo aromático.</p>
+      {/* Texto secundario */}
+      <p className="mt-6 text-xs text-gray-600">
+        Hacé click y comenzá a mezclar tu hechizo aromático.
+      </p>
     </div>
   );
 };

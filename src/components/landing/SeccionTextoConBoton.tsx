@@ -17,7 +17,7 @@ export default function SeccionTextoConBoton({
     <div className={`text-white ${className}`}>
       <h2 className="font-bold text-xl md:text-2xl mb-4 ">{titulo}</h2>
       <p className="text-sm md:text-base mb-6 whitespace-pre-line">{descripcion}</p>
-      <Button>{botonTexto}</Button>
+      <Button label={botonTexto}/>
     </div>
   );
 }
