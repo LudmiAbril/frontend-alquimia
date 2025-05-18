@@ -15,7 +15,7 @@ export default function TestOlfativo() {
     const frascoRef = useRef<HTMLDivElement>(null);
   const [currentSVG, setCurrentSVG] = useState<string | null>(null);
   const [textoAnimado, setTextoAnimado] = useState<string[]>([]);
-  const [color, setColor] = useState("#00bfa6");
+
   const [familiaSeleccionada, setFamiliaSeleccionada] = useState<keyof typeof familias | null>(null);
 
   const cargarSVGInlineConColor = async (url: string, fillColor: string) => {
@@ -39,7 +39,7 @@ setCurrentSVG(svg?.outerHTML || "");
 
   const animarLlenado = async (familiaKey: keyof typeof familias) => {
     const familia = familias[familiaKey];
-    setColor(familia.color);
+
     setTextoAnimado([]);
     setFamiliaSeleccionada(familiaKey);
     const sonido = new Audio("potion/bubble.mp3");
@@ -79,7 +79,7 @@ if (frascoRef.current) {
     setTextoAnimado([]);
     setFamiliaSeleccionada(null);
     setCurrentSVG(null);
-    setColor("#00bfa6");
+  
   };
 return (
   <div className="w-full flex flex-col items-center gap-6 p-4">
