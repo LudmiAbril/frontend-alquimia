@@ -123,12 +123,36 @@ interface ContenedorIntensidadesProps {
 export const ContenedorIntensidades = ({
   onConfirm,
 }: ContenedorIntensidadesProps) => {
-  const intensidades = ["Alta", "Media", "Baja"];
+  const intensidades = [
+    {
+      nombre: "Baja",
+      tipo: "Body Splash",
+      descripcion: "dura alrededor de 1-3 horas y tiene poca proyección",
+    },
+    {
+      nombre: "Media",
+      tipo: "Eau De Toilette",
+      descripcion: "dura alrededor de 3-5 horas y tiene buena proyección",
+    },
+    {
+      nombre: "Alta",
+      tipo: "Eau De Parfum",
+      descripcion: "dura alrededor de 5-8 horas y tiene buena proyección.",
+    },
+  ];
   return (
     <div className="mt-[3rem]">
-      <div className="flex flex-col gap-[46px] items-center">
+      <div className="flex flex-col gap-[46px] items-center text-white">
         {intensidades.map((intensidad, key) => (
-          <div key={key} className="py-[23px] px-[72px] w-[409px] h-[103px] rounded-[10px] cursor-pointer bg-[var(--lila)]">{intensidad}</div>
+          <div
+            key={key}
+            className=" w-[430px] h-[103px] rounded-[10px] cursor-pointer bg-[var(--lila)] hover:bg-[var(--violeta)] flex flex-col items-center justify-center transition"
+          >
+            <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
+              {intensidad.nombre}- {intensidad.tipo}
+            </p>
+            <p className="text-[14px]">{intensidad.descripcion}</p>
+          </div>
         ))}
       </div>
       <button
