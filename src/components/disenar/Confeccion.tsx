@@ -13,6 +13,17 @@ interface ConfeccionProps {
 const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const [openCharging, setOpenCharging] = useState(false);
+  const [notaSeleccionada, setNotaSeleccionada] = useState<string | null>(null);
+
+  const handleDrop = (e: React.DragEvent<HTMLImageElement>) => {
+    e.preventDefault();
+    const nota = e.dataTransfer.getData("text/plain");
+    setNotaSeleccionada(nota);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLImageElement>) => {
+    e.preventDefault(); // Necesario para que se active onDrop
+  };
 
   const toggleOpenConfirmModal = () => {
     setOpenConfirmModal((prev) => !prev);
@@ -73,7 +84,18 @@ const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
               avanzar={avanzar}
               volver={volver}
             />
-            <img src="/frasco-diseño.svg" alt="" />
+            {/* hacer drag desde una nota de la biblioteca aca, al drop, se llena el estado fradvo con esa nota */}
+            <img
+              src="/frasco-diseño.svg"
+              alt="frasco de tu perfume"
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+            />
+            {notaSeleccionada && (
+              <p className="mt-4 text-[var(--gris4)] text-lg">
+                Nota agregada: <strong>{notaSeleccionada}</strong>
+              </p>
+            )}
           </div>
           <Biblioteca
             pasoActual={pasoActual}
