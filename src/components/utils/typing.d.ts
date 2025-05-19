@@ -2,6 +2,7 @@
 
 interface ButtonProps {
   label: string;
+  onClick?: () => void;
 };
 
 /**PROVEEDORES */
@@ -33,4 +34,21 @@ export interface AuthModalProps {
   textoSecundario: string;
   accionSecundaria: string;
   onAccionSecundaria: () => void;
+}
+
+
+export interface SeccionVaciaProps {
+  titulo: string;
+  descripcion1: string;
+  descripcion2: string;
+  textoBoton: string;
+  onClick?: () => void;
+}
+
+
+
+export interface AuthModalWrapperProps {
+    children: ReactNode;
+    title: string;
+    onClose: () => void;
 }

@@ -14,10 +14,10 @@ export default function UserMenu() {
           <li key={item.href}>
             <Link
               href={item.href}
-              className={`block border-l-4 pl-3 py-5 font-semibold transition-colors ${
+              className={`block border-l-4 pl-3 py-5 font-semibold transition-colors text-[var(--gris3)] ${
                 rutaActual === item.href
                   ? "border-[#9444B6] text-[var(--gris4)]"
-                  : "border-transparent hover:text-[var(--gris3)]"
+                  : "border-transparent hover:text-[var(--gris2)]"
               }`} >
               {item.etiqueta}
             </Link>
