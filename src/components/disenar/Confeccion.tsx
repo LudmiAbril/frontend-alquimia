@@ -98,7 +98,7 @@ export const PasoCard = ({ pasoActual, avanzar, volver }: pasoCardProps) => {
           if (pasoActual > 1) volver();
         }}
       />
-      <div className="bg-white p-6 rounded-[10px] items-center flex flex-col items-center justofy-center w-[409px] h-[179px] shadow-md">
+      <div className="bg-white p-6 rounded-[10px] items-center flex flex-col items-center justify-center w-[409px] h-[179px] shadow-md">
         {/* caja */}
         <img
           src="/svgGeneral/icono-info.svg"
