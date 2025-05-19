@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Biblioteca from "./Biblioteca";
 import ModalConfirmarCreacion from "./ModalConfirmarCreacion";
 import Cargando from "./Cargando";
+import { pasosDiseño } from "./DisenarPerfume";
 
 interface ConfeccionProps {
   pasoActual: number;
@@ -97,11 +98,17 @@ export const PasoCard = ({ pasoActual, avanzar, volver }: pasoCardProps) => {
           if (pasoActual > 1) volver();
         }}
       />
-      <div className="bg-white p-6 rounded-[10px] items-center flex flex-col w-[409px] h-[179px] shadow-md">
+      <div className="bg-white p-6 rounded-[10px] items-center flex flex-col items-center justofy-center w-[409px] h-[179px] shadow-md">
         {/* caja */}
-        <img src="/svgGeneral/icono-info.svg" alt="info" className="mb-[18px]" />
-        <h3 className="mb-[10px]">PASO {pasoActual} - NOTA DE FONDO</h3>
-        <p>Profunda, duradera... la estela que perdura.</p>
+        <img
+          src="/svgGeneral/icono-info.svg"
+          alt="info"
+          className="mb-[18px]"
+        />
+        <h3 className="mb-[10px] uppercase text-center">
+          Paso {pasoActual} - {pasosDiseño[pasoActual].nombre}
+        </h3>
+        <p>{pasosDiseño[pasoActual].descripcion}</p>
       </div>
       {/* flecha avanzar */}
       <img
