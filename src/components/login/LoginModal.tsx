@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 
-const LoginModal = () => {
+const LoginModal = ({ onSuccess, onRegisterClick }: { onSuccess: () => void, onRegisterClick: () => void }) => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
     const [loginMensaje, setLoginMensaje] = useState("");
@@ -21,7 +21,10 @@ const LoginModal = () => {
         });
 
         if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem("jwtToken", data.token);
             setLoginMensaje("Login exitoso ✅");
+            onSuccess();
         } else {
             const error = await response.json();
             console.error(error);

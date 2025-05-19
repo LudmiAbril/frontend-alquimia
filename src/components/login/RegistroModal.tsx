@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const RegistroModal = () => {
+const RegistroModal = ({ onSuccess, onLoginClick }: { onSuccess: () => void, onLoginClick: () => void }) => {
     const [email, setEmail] = useState("");
     const [nombre, setNombre] = useState("");
     const [password, setPassword] = useState("");
@@ -23,6 +23,7 @@ const RegistroModal = () => {
 
         if (response.ok) {
             setMensaje("Registro exitoso 🎉");
+            onSuccess();
         } else {
             const error = await response.json();
             console.error(error);
