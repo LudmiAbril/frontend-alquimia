@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 interface Biblioteca {
   pasoActual: number;
@@ -51,6 +51,7 @@ export default Biblioteca;
 
 // estos datos se usaran para mockear, las familias talvez si queden para agrupar con la respuesta del back, pero las notas tendran q estar en un estado con interfaz desde el back. Modelar interfaz nota
 export const ContenedorNotas = () => {
+  const [draggingNota, setDraggingNota] = useState<string | null>(null);
   const familias = [
     "Frutal",
     "Ahumado",
@@ -100,7 +101,17 @@ export const ContenedorNotas = () => {
             {notas.map((nota, index) => (
               <button
                 key={index}
-                className="cursor-pointer bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400"
+                draggable
+                onDragStart={(e) => {
+                  setDraggingNota(nota);
+                  e.dataTransfer.setData("text/plain", nota);
+                }}
+                onDragEnd={() => setDraggingNota(null)}
+                className={`cursor-pointer bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 ${
+                  draggingNota === nota
+                    ? "bg-[#DD4568]/100 scale-110"
+                    : "bg-[#E2708A] hover:bg-[#DD4568]"
+                }`}
               >
                 <img
                   src="https://flaticons.net/icon.php?slug_category=miscellaneous&slug_icon=flower"
@@ -123,12 +134,36 @@ interface ContenedorIntensidadesProps {
 export const ContenedorIntensidades = ({
   onConfirm,
 }: ContenedorIntensidadesProps) => {
-  const intensidades = ["Alta", "Media", "Baja"];
+  const intensidades = [
+    {
+      nombre: "Baja",
+      tipo: "Body Splash",
+      descripcion: "dura alrededor de 1-3 horas y tiene poca proyección",
+    },
+    {
+      nombre: "Media",
+      tipo: "Eau De Toilette",
+      descripcion: "dura alrededor de 3-5 horas y tiene buena proyección",
+    },
+    {
+      nombre: "Alta",
+      tipo: "Eau De Parfum",
+      descripcion: "dura alrededor de 5-8 horas y tiene buena proyección.",
+    },
+  ];
   return (
     <div className="mt-[3rem]">
-      <div className="flex flex-col gap-[46px] items-center">
+      <div className="flex flex-col gap-[46px] items-center text-white">
         {intensidades.map((intensidad, key) => (
-          <div key={key} className="py-[23px] px-[72px] w-[409px] h-[103px] rounded-[10px] cursor-pointer bg-[var(--lila)]">{intensidad}</div>
+          <div
+            key={key}
+            className=" w-[430px] h-[103px] rounded-[10px] cursor-pointer bg-[var(--lila)] hover:bg-[var(--violeta)] flex flex-col items-center justify-center transition"
+          >
+            <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
+              {intensidad.nombre}- {intensidad.tipo}
+            </p>
+            <p className="text-[14px]">{intensidad.descripcion}</p>
+          </div>
         ))}
       </div>
       <button
