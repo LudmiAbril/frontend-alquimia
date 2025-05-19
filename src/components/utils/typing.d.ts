@@ -52,3 +52,8 @@ export interface AuthModalWrapperProps {
     title: string;
     onClose: () => void;
 }
+
+
+export interface Props {
+  cambiarFormulario: () => void;
+}

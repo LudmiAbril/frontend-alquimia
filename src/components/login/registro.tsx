@@ -1,54 +1,63 @@
 "use client";
 
-import Button from "@/components/general/Button";
 import GoogleIcon from "@mui/icons-material/Google";
+import { Props } from "@/components/utils/typing";
+import Link from 'next/link';
 
-export default function FormularioRegistro() {
+
+export default function FormularioRegistro({ cambiarFormulario }: Props) {
   return (
     <form className="flex flex-col gap-4">
-      <input
-        type="text"
-        placeholder="Nombre"
-        className="campo"
-        required
-      />
-      <input
-        type="email"
-        placeholder="Correo electrónico"
-        className="campo"
-        required
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        className="campo"
-        required
-      />
-      <input
-        type="password"
-        placeholder="Repetir contraseña"
-        className="campo"
-        required
-      />
+      <div className="flex flex-col gap-1">
+        <label className="text-sm font-medium text-[var(--gris4)]">
+          Nombre <span className="text-red-500">*</span>
+        </label>
+        <input type="text" placeholder="Nombre"  className="campo" required   />
+      </div>
 
-      <p className="text-xs text-gray-500 text-center">
+      <div className="flex flex-col gap-1">
+        <label className="text-sm font-medium text-[var(--gris4)]">
+          Correo electrónico <span className="text-red-500">*</span>
+        </label>
+        <input type="email" placeholder="Correo electrónico" className="campo" required />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label className="text-sm font-medium text-[var(--gris4)]">
+          Contraseña <span className="text-red-500">*</span>
+        </label>
+        <input  type="password" placeholder="Contraseña" className="campo"  required />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label className="text-sm font-medium text-[var(--gris4)]">
+          Repetir contraseña <span className="text-red-500">*</span>
+        </label>
+        <input type="password"  placeholder="Repetir contraseña" className="campo"  required />
+      </div>
+
+      <p className="text-xs text-gray-500 text-start mt-1">
         Al continuar, aceptás las{" "}
-        <a href="#" className="underline">Condiciones del Servicio</a> y la{" "}
-        <a href="#" className="underline">Política de Privacidad</a>.
+        <Link href="#" className="underline text-blue-600">Condiciones del Servicio</Link> y la{" "}
+        <Link href="/legales/politica" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">Política de Privacidad</Link>.
       </p>
 
-      <Button label="Crear cuenta" />
+      <button type="submit"
+        className="uppercase bg-[#9444B6] text-white px-10 py-3 rounded-[10px] hover:bg-[#7a2f96] transition font-bold text-sm w-full mt-2" >
+        Crear cuenta
+      </button>
 
-      <button
-        type="button"
-        className="flex items-center justify-center gap-2 p-3 border border-gray-300 rounded-md hover:bg-gray-100 transition w-full"
-      >
+      <button type="button"
+        className="bg-white flex items-center justify-center gap-2 p-3 border border-gray-300 rounded-md hover:bg-gray-100 transition w-full text-sm font-medium"  >
         <GoogleIcon fontSize="small" />
         Iniciar sesión con Google
       </button>
 
       <p className="text-sm text-center text-gray-600 mt-2">
-        ¿Ya tenés cuenta? <a href="#" className="underline">Iniciá sesión</a>
+        ¿Ya tenés cuenta?{" "}
+        <button type="button"  onClick={cambiarFormulario}  className="underline text-[var(--violeta)]"  >
+          Iniciá sesión
+        </button>
       </p>
     </form>
   );
