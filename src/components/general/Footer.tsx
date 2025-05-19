@@ -29,7 +29,7 @@ export const Footer = () => {
                        nos responsabilizamos por el uso inapropiado de ingredientes.
                     </p>
                     <p>
-                        <Link href="#" className="text-white underline hover:opacity-90 transition-opacity">
+                        <Link   href="/legales/terminos" target="_blank" rel="noopener noreferrer" className="text-white underline hover:opacity-90 transition-opacity">
                             Términos y condiciones
                         </Link>
                     </p>
