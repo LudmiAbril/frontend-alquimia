@@ -22,3 +22,15 @@ export interface SeccionConImagenProps {
   invertir?: boolean;
   className?: string;
 }
+
+// perfil
+export interface AuthModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  titulo: string;
+  botonPrincipal: string;
+  children: React.ReactNode;
+  textoSecundario: string;
+  accionSecundaria: string;
+  onAccionSecundaria: () => void;
+}
