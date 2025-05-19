@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import CardResultados from "./CardResultados";
+import ModalConfirmarFormula from "./ModalConfirmarFormula";
 
 const ResultadoFormula = () => {
+  const [openConfirmationModal, setOpenConfirmationModal] = useState(false)
+  const toggleConfirmModal = () => {
+    setOpenConfirmationModal((prev) => !prev)
+  }
   return (
     <>
       <div className="flex flex-col items-center justify-center ">
@@ -21,13 +26,14 @@ const ResultadoFormula = () => {
             />
             <button
               className="bg-[var(--violeta)] px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase cursor-pointer"
-              onClick={() => {}}
+              onClick={toggleConfirmModal}
             >
               confirmar
             </button>
           </div>
         </div>
       </div>
+      {openConfirmationModal && <ModalConfirmarFormula onClose={toggleConfirmModal}/>}
     </>
   );
 };
