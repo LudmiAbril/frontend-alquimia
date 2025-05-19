@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 interface Biblioteca {
   pasoActual: number;
@@ -51,6 +51,7 @@ export default Biblioteca;
 
 // estos datos se usaran para mockear, las familias talvez si queden para agrupar con la respuesta del back, pero las notas tendran q estar en un estado con interfaz desde el back. Modelar interfaz nota
 export const ContenedorNotas = () => {
+  const [draggingNota, setDraggingNota] = useState<string | null>(null);
   const familias = [
     "Frutal",
     "Ahumado",
@@ -100,7 +101,17 @@ export const ContenedorNotas = () => {
             {notas.map((nota, index) => (
               <button
                 key={index}
-                className="cursor-pointer bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400"
+                draggable
+                onDragStart={(e) => {
+                  setDraggingNota(nota);
+                  e.dataTransfer.setData("text/plain", nota);
+                }}
+                onDragEnd={() => setDraggingNota(null)}
+                className={`cursor-pointer bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 ${
+                  draggingNota === nota
+                    ? "bg-[#DD4568]/100 scale-110"
+                    : "bg-[#E2708A] hover:bg-[#DD4568]"
+                }`}
               >
                 <img
                   src="https://flaticons.net/icon.php?slug_category=miscellaneous&slug_icon=flower"
