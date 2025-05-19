@@ -33,17 +33,34 @@ const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
         <h1 className="fuente-principal text-[var(--gris4)] text-[32px] font-bold mb-4">
           CREANDO FRAGANCIA
         </h1>
-        {/* barra pasos */}
+        {/* barra pasos, hacer componenete luego */}
         <div className="flex items-center mb-10">
           <img src="/BarraSteps/icono-pocion-inicio.svg" alt="" />
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
-          <div className="rounded-full border-2 border-[var(--violeta)] p-2"></div>
+          <div
+            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${
+              pasoActual > 1 && "bg-[var(--violeta)]"
+            }`}
+          ></div>
+
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
-          <div className="rounded-full border-2 border-[var(--violeta)] p-2"></div>
+          <div
+            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${
+              pasoActual > 2 && "bg-[var(--violeta)]"
+            }`}
+          ></div>
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
-          <div className="rounded-full border-2 border-[var(--violeta)] p-2"></div>
+          <div
+            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${
+              pasoActual > 3 && "bg-[var(--violeta)]"
+            }`}
+          ></div>
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
-          <div className="rounded-full border-2 border-[var(--violeta)] p-2"></div>
+          <div
+            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${
+              pasoActual > 4 && "bg-[var(--violeta)]"
+            }`}
+          ></div>
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
           <img src="/BarraSteps/icono-pocion-final.svg" alt="" />
         </div>
