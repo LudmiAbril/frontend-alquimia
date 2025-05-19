@@ -67,7 +67,7 @@ export const productosMasVendidos = [
   export const pasos = [
     { image: "/steps/seleccionar.png", alt: "Seleccioná", text: "Seleccioná las esencias" },
     { image: "/steps/combinar.png", alt: "Combiná", text: "Combiná las notas" },
-    { image: "/steps/diseñar.png", alt: "Diseñá", text: "Diseñá tu packaging" },
+    { image: "/steps/diseniar.png", alt: "Diseñá", text: "Diseñá tu packaging" },
     { image: "/steps/provedores.png", alt: "Contactate", text: "Contactate con los proveedores" },
     { image: "/steps/entrega.png", alt: "Recibí", text: "Recibí tus ingredientes" },
   ];
@@ -101,3 +101,14 @@ export const productosMasVendidos = [
             "Sí. Te conectamos con proveedores registrados que ofrecen materias primas como esencias, frascos y más.",
     },
 ];
+
+/*################################ElementosNube-LANDING#############################################################*/
+
+export const elementosMenu = [
+  { etiqueta: "Mis Fórmulas", href: "/perfil/formulas" },
+  { etiqueta: "Mi Biblioteca", href: "/perfil/biblioteca" },
+  { etiqueta: "Mi Cuenta", href: "/perfil/cuenta" },
+  { etiqueta: "Cerrar Sesión", href: "/logout" },
+];
+
+

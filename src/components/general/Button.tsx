@@ -1,3 +1,4 @@
+import { ButtonProps } from "../utils/typing";
 
 
 export default function Button({ label }: ButtonProps) {
