@@ -18,7 +18,7 @@ export default function Home() {
         titulo="¿POR QUÉ ALQUIMIA?"
         descripcion={`Alquimia nace para que el arte de crear perfumes esté al alcance de todos.
         Diseñamos una experiencia que te permite transformar tus ideas en aromas.`}
-        imagen="/landingImagenes/chicoAlquimista.png"
+        imagen="/landingImagenes/personasAlquimistas.png"
         alt="Ilustración Alquimia"
       />
       <Pasos />
