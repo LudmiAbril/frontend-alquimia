@@ -1,3 +1,4 @@
+import { CardProductoProps } from "../utils/typing";
 
 export default function CardProducto({ nombre, precio, categoria, imagen }: CardProductoProps) {
   return (
