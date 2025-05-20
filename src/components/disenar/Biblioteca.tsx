@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
+import { obtenerNotasPorPaso } from "../../services/notaService";
 
 interface Biblioteca {
   pasoActual: number;
@@ -38,7 +39,7 @@ const Biblioteca = ({ pasoActual, onConfirm }: Biblioteca) => {
       <div className="max-h-full w-full">
         {/* una x cada familia olfativa, ver como se renderizara esto con el handle filterchange... */}
         {seleccionDeNotas ? (
-          <ContenedorNotas />
+          <ContenedorNotas paso = {pasoActual}/>
         ) : (
           <ContenedorIntensidades onConfirm={onConfirm} />
         )}
@@ -48,78 +49,61 @@ const Biblioteca = ({ pasoActual, onConfirm }: Biblioteca) => {
 };
 
 export default Biblioteca;
+ 
+interface Nota {
+  id: number;
+  nombre: string;
+}
 
-// estos datos se usaran para mockear, las familias talvez si queden para agrupar con la respuesta del back, pero las notas tendran q estar en un estado con interfaz desde el back. Modelar interfaz nota
-export const ContenedorNotas = () => {
-  const [draggingNota, setDraggingNota] = useState<string | null>(null);
-  const familias = [
-    "Frutal",
-    "Ahumado",
-    "Alcanforado",
-    "Aldehídico",
-    "Almizclado",
-    "Amaderado",
-    "Ámbar",
-    "Cítrico",
-    "Empolvado",
-    "Especiado",
-    "Floral",
-    "Gourmand",
-    "Herbal",
-    "Hierbas aromáticas",
-    "Marino",
-    "Mentolado",
-    "Terroso",
-  ];
+interface FamiliaNotas {
+  familia: string;
+  notas: Nota[];
+}
 
-  const notas = [
-    "vainilla",
-    "lavanda",
-    "chocolate",
-    "limon",
-    "coco",
-    "menta",
-    "cereza",
-    "ciruela",
-  ];
+export const ContenedorNotas = ({ paso }: { paso: number }) => {
+  const [notasPorFamilia, setNotasPorFamilia] = useState<FamiliaNotas[]>([]);
+
+  useEffect(() => {
+    const fetchNotas = async () => {
+      try {
+        const data = await obtenerNotasPorPaso(paso);
+        const notasReducidas = data.map((item: any) => ({
+        familia: item.Familia,
+        notas: item.Notas?.map((n: any) => ({
+        id: n.Id,
+        nombre: n.Nombre,
+  })) ?? [], // Previene error si Notas es undefined
+}));
+
+        setNotasPorFamilia(notasReducidas);
+      } catch (error) {
+        console.error("Error al obtener notas:", error);
+      }
+    };
+    fetchNotas();
+  }, [paso]);
 
   return (
     <div className="overflow-y-scroll max-h-[31rem] mt-6 w-full flex flex-col">
-      {familias.map((familia) => (
+      {notasPorFamilia.map(({ familia, notas }) => (
         <div key={familia} className="flex flex-col mb-[2.43rem]">
-          {/* titulo de la familia */}
+          {/* Título de familia con estilo original */}
           <div className="flex items-center gap-2 mb-2 fuente-principal">
             <p className="text-[var(--gris3)] text-[20px] font-medium">
               {familia}
             </p>
-            <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">
-              i
-            </span>
+            <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">i</span>
           </div>
-          {/*notas de esta familia */}
-          <div className=" w-100 flex flex-wrap gap-[25px]">
-            {notas.map((nota, index) => (
-              <button
-                key={index}
-                draggable
-                onDragStart={(e) => {
-                  setDraggingNota(nota);
-                  e.dataTransfer.setData("text/plain", nota);
-                }}
-                onDragEnd={() => setDraggingNota(null)}
-                className={`cursor-pointer bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 ${
-                  draggingNota === nota
-                    ? "bg-[#DD4568]/100 scale-110"
-                    : "bg-[#E2708A] hover:bg-[#DD4568]"
-                }`}
+
+          {/* Notas en botones estilizados pero sin imagen */}
+          <div className="w-100 flex flex-wrap gap-[25px]">
+            {notas.map((nota) => (
+              <div
+                key={nota.id}
+                className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
               >
-                <img
-                  src="https://flaticons.net/icon.php?slug_category=miscellaneous&slug_icon=flower"
-                  alt="nota"
-                  className="w-8 color-white mb-2"
-                />
-                <p className="text-[12px] font-semibold">{nota}</p>
-              </button>
+                {nota.nombre}
+              </div>
             ))}
           </div>
         </div>
@@ -127,6 +111,8 @@ export const ContenedorNotas = () => {
     </div>
   );
 };
+
+
 
 interface ContenedorIntensidadesProps {
   onConfirm: () => void;
