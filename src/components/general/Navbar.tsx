@@ -1,14 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import AuthModalWrapper from "@/components/login/AuthModalWrapper";
 import InicioSesionForm from "@/components/login/InicioSesionForm";
-import RegistroForm from "@/components/login/registro";
+import RegistroForm from "@/components/login/registro"; // ESTE ya tiene la lógica dentro
 
 export default function Navbar() {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [formulario, setFormulario] = useState<"login" | "registro">("login");
+  const [usuario, setUsuario] = useState<{ name: string; email: string } | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      fetch("https://localhost:7164/home/usuario", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.autenticado) {
+            setUsuario({ name: data.nombre, email: data.email });
+          }
+        })
+        .catch(() => setUsuario(null));
+    }
+  }, []);
 
   return (
     <>
@@ -23,12 +42,24 @@ export default function Navbar() {
             <Link href="/proveedores">Proveedores</Link>
           </nav>
 
-          <img  src="/svgGeneral/user.svg" alt="Perfil" className="w-[30px] h-[30px] object-contain cursor-pointer"
-            onClick={() => {
-              setFormulario("login");
-              setMostrarModal(true);
-            }}
-          />
+          {usuario ? (
+            <div
+              className="bg-white text-black rounded-full w-[30px] h-[30px] flex items-center justify-center font-bold"
+              title={usuario.email}
+            >
+              {usuario.name.charAt(0).toUpperCase()}
+            </div>
+          ) : (
+            <img
+              src="/svgGeneral/user.svg"
+              alt="Perfil"
+              className="w-[30px] h-[30px] object-contain cursor-pointer"
+              onClick={() => {
+                setFormulario("login");
+                setMostrarModal(true);
+              }}
+            />
+          )}
         </div>
       </header>
 
@@ -40,12 +71,12 @@ export default function Navbar() {
           {formulario === "login" ? (
             <InicioSesionForm cambiarFormulario={() => setFormulario("registro")} />
           ) : (
-            <RegistroForm cambiarFormulario={() => setFormulario("login")} />
+            <RegistroForm
+              cambiarFormulario={() => setFormulario("login")}
+            />
           )}
         </AuthModalWrapper>
       )}
-
-
     </>
   );
 }

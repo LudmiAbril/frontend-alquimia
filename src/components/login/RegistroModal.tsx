@@ -5,7 +5,6 @@ const RegistroModal = ({ onSuccess, onLoginClick }: { onSuccess: () => void, onL
     const [nombre, setNombre] = useState("");
     const [password, setPassword] = useState("");
     const [mensaje, setMensaje] = useState("");
-
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         setMensaje("Procesando...");
@@ -17,16 +16,17 @@ const RegistroModal = ({ onSuccess, onLoginClick }: { onSuccess: () => void, onL
             body: JSON.stringify({
                 email,
                 password,
-                Name: nombre,
+                name: nombre,
+                rol: "Creador",
             }),
         });
-
+        const data = await response.json();
         if (response.ok) {
+            localStorage.setItem("jwtToken", data.token);
             setMensaje("Registro exitoso 🎉");
-            onSuccess();
+            onSuccess?.();
         } else {
-            const error = await response.json();
-            console.error(error);
+            console.error("❌ Error en registro:", data);
             setMensaje("Error en el registro ❌");
         }
     };
