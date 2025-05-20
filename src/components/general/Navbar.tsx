@@ -12,22 +12,42 @@ export default function Navbar() {
   const [usuario, setUsuario] = useState<{ name: string; email: string } | null>(null);
 
   useEffect(() => {
+  const cargarUsuario = async () => {
     const token = localStorage.getItem("jwtToken");
-    if (token) {
-      fetch("https://localhost:7164/home/usuario", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.autenticado) {
-            setUsuario({ name: data.nombre, email: data.email });
-          }
-        })
-        .catch(() => setUsuario(null));
+    if (!token) {
+      setUsuario(null);
+      return;
     }
-  }, []);
+
+    try {
+      const res = await fetch("https://localhost:7164/home/usuario", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const data = await res.json();
+      if (data.autenticado) {
+        setUsuario({ name: data.nombre, email: data.email });
+      } else {
+        setUsuario(null);
+      }
+    } catch (err) {
+      console.error("Error obteniendo usuario:", err);
+      setUsuario(null);
+    }
+  };
+
+  // Ejecutar al inicio
+  cargarUsuario();
+
+  // También cuando el token cambia (usando 'storage' event)
+  const onStorageChange = () => cargarUsuario();
+  window.addEventListener("storage", onStorageChange);
+
+  return () => {
+    window.removeEventListener("storage", onStorageChange);
+  };
+}, []);
+
 
   return (
     <>
@@ -47,7 +67,7 @@ export default function Navbar() {
               className="bg-white text-black rounded-full w-[30px] h-[30px] flex items-center justify-center font-bold"
               title={usuario.email}
             >
-              {usuario.name.charAt(0).toUpperCase()}
+              {usuario.name.slice(0, 3).toUpperCase()}
             </div>
           ) : (
             <img
