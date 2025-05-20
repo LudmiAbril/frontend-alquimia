@@ -2,11 +2,12 @@
 
 import GoogleIcon from "@mui/icons-material/Google";
 import { Props } from "@/components/utils/typing";
+import Link from "next/link";
 
 export default function FormularioInicioSesion({ cambiarFormulario }: Props) {
   return (
     <form className="flex flex-col gap-4">
-     
+
       <div className="flex flex-col gap-1">
         <label className="text-sm font-medium text-[var(--gris4)]">
           Correo electrónico <span className="text-red-500">*</span>
@@ -32,7 +33,7 @@ export default function FormularioInicioSesion({ cambiarFormulario }: Props) {
         />
       </div>
 
-      <a href="#" className="text-sm text-gray-500 self-end hover:underline mt-1">
+      <a href="#" className="text-sm text-gray-500 self-end hover:underline mt-1 italic">
         Me olvidé la contraseña
       </a>
 
@@ -51,16 +52,21 @@ export default function FormularioInicioSesion({ cambiarFormulario }: Props) {
       </button>
 
       {/* Enlace a registro */}
-      <p className="text-sm text-center text-gray-600 mt-2">
+      <div className="flex justify-between items-center text-sm mb-4">
+      <p className="text-sm text-center text-gray-600 ">
         ¿No tenés cuenta?{" "}
         <button
           type="button"
           onClick={cambiarFormulario}
-          className="underline text-[var(--violeta)] "
+          className="underline text-[black] font-bold "
         >
           Registrate
         </button>
       </p>
+         <Link href="/registro-proveedor"  target="_blank"  rel="noopener noreferrer" className="text-[var(--violeta)] italic font-small">
+            Quiero ser Proveedor
+          </Link>
+      </div>
     </form>
   );
 }
