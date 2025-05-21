@@ -14,7 +14,7 @@ export default function FormularioInicioSesion({ cambiarFormulario }: Props) {
         </label>
         <input
           type="email"
-          placeholder="Correo electrónico"
+          placeholder="tucorreo@gmail.com"
           className="campo"
           required
         />
@@ -27,7 +27,7 @@ export default function FormularioInicioSesion({ cambiarFormulario }: Props) {
         </label>
         <input
           type="password"
-          placeholder="Contraseña"
+          placeholder="************"
           className="campo"
           required
         />
