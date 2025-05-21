@@ -25,8 +25,7 @@ export const Footer = () => {
 
                 {/* Texto legal */}
                 <div className="flex flex-col md:flex-row justify-between gap-3 text-[13px] leading-snug">
-                    <p>© 2025 Alquimia. Plataforma informativa sin fines comerciales. No
-                       nos responsabilizamos por el uso inapropiado de ingredientes.
+                    <p>© 2025 Alquimia, todos los derechos reservados. No nos responsabilizamos por el uso inapropiado de ingredientes.
                     </p>
                     <p>
                         <Link   href="/legales/terminos" target="_blank" rel="noopener noreferrer" className="text-white underline hover:opacity-90 transition-opacity">

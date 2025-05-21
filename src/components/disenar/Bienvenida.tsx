@@ -9,7 +9,7 @@ interface BienvenidaProps {
 
 const Bienvenida = ({ onNext }: BienvenidaProps) => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 bg-gradient-to-b from-[#f9f4f1] to-[#e8dbd7]">
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 ">
       {/* Texto principal */}
       <div className="space-y-4 max-w-xl">
         <h1 className="text-3xl md:text-4xl font-bold text-[#9444B6]">

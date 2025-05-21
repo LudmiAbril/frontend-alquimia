@@ -9,16 +9,42 @@ interface ConfeccionProps {
   avanzar: () => void;
   volver: () => void;
 }
-
+interface perfume {
+  notasSalida: string[],
+  notasCorazon: string[],
+  notasBase: string[],
+  intensidad: string
+}
 const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const [openCharging, setOpenCharging] = useState(false);
-  const [notaSeleccionada, setNotaSeleccionada] = useState<string | null>(null);
+  const [notasSeleccionada, setNotasSeleccionada] = useState<perfume>({
+    notasSalida: [],
+    notasCorazon: [],
+    notasBase: [],
+    intensidad: ""
+  });
+
 
   const handleDrop = (e: React.DragEvent<HTMLImageElement>) => {
     e.preventDefault();
     const nota = e.dataTransfer.getData("text/plain");
-    setNotaSeleccionada(nota);
+
+    setNotasSeleccionada((prev) => {
+      if (!prev) return prev;
+
+      const nuevaNotas = { ...prev };
+
+      if (pasoActual === 1) {
+        nuevaNotas.notasBase = [...prev.notasBase, nota];
+      } else if (pasoActual === 2) {
+        nuevaNotas.notasCorazon = [...prev.notasCorazon, nota];
+      } else if (pasoActual === 3) {
+        nuevaNotas.notasSalida = [...prev.notasSalida, nota];
+      }
+
+      return nuevaNotas;
+    });
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLImageElement>) => {
@@ -49,28 +75,24 @@ const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
           <img src="/BarraSteps/icono-pocion-inicio.svg" alt="" />
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
           <div
-            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${
-              pasoActual > 1 && "bg-[var(--violeta)]"
-            }`}
+            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${pasoActual > 1 && "bg-[var(--violeta)]"
+              }`}
           ></div>
 
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
           <div
-            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${
-              pasoActual > 2 && "bg-[var(--violeta)]"
-            }`}
+            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${pasoActual > 2 && "bg-[var(--violeta)]"
+              }`}
           ></div>
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
           <div
-            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${
-              pasoActual > 3 && "bg-[var(--violeta)]"
-            }`}
+            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${pasoActual > 3 && "bg-[var(--violeta)]"
+              }`}
           ></div>
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
           <div
-            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${
-              pasoActual > 4 && "bg-[var(--violeta)]"
-            }`}
+            className={`rounded-full p-2 border-2 border-[var(--violeta)] ${pasoActual > 4 && "bg-[var(--violeta)]"
+              }`}
           ></div>
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
           <img src="/BarraSteps/icono-pocion-final.svg" alt="" />
@@ -91,16 +113,33 @@ const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
               onDrop={handleDrop}
               onDragOver={handleDragOver}
             />
-            {notaSeleccionada && (
+            {pasoActual === 1 && notasSeleccionada.notasBase.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
-                Nota agregada: <strong>{notaSeleccionada}</strong>
+                Notas de fondo:{" "}
+                <strong>{notasSeleccionada.notasBase.join(", ")}</strong>
               </p>
             )}
+
+            {pasoActual === 2 && notasSeleccionada.notasCorazon.length > 0 && (
+              <p className="mt-4 text-[var(--gris4)] text-lg">
+                Notas de corazón:{" "}
+                <strong>{notasSeleccionada.notasCorazon.join(", ")}</strong>
+              </p>
+            )}
+
+            {pasoActual === 3 && notasSeleccionada.notasSalida.length > 0 && (
+              <p className="mt-4 text-[var(--gris4)] text-lg">
+                Notas de salida:{" "}
+                <strong>{notasSeleccionada.notasSalida.join(", ")}</strong>
+              </p>
+            )
+            }
           </div>
           <Biblioteca
             pasoActual={pasoActual}
-            onConfirm={toggleOpenConfirmModal}
-          />
+            onConfirm={toggleOpenConfirmModal} onSelectIntensidad={(intensidad) =>
+              setNotasSeleccionada((prev) => ({ ...prev, intensidad }))
+            } />
         </div>
       </div>
       {openConfirmModal && (

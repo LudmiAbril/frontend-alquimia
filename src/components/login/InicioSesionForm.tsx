@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
-import { Props } from "@/components/utils/typing";
+import { PropsFormulario } from "@/components/utils/typing";
 import Link from "next/link";
 
-export default function FormularioInicioSesion({ cambiarFormulario }: Props) {
+export default function FormularioInicioSesion({ cambiarFormulario }: PropsFormulario) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -46,7 +46,7 @@ export default function FormularioInicioSesion({ cambiarFormulario }: Props) {
         </label>
         <input
           type="email"
-          placeholder="Correo electrónico"
+          placeholder="tucorreo@gmail.com"
           className="campo"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -60,7 +60,7 @@ export default function FormularioInicioSesion({ cambiarFormulario }: Props) {
         </label>
         <input
           type="password"
-          placeholder="Contraseña"
+          placeholder="************"
           className="campo"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

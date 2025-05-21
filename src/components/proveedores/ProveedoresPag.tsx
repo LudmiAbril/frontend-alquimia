@@ -1,5 +1,7 @@
 import Button from "../general/Button";
-import Navbar from "../general/Navbar";
+
+import SectionWrapper from "../general/SeccionWrapper";
+import { productosMock } from "../utils/utils";
 import CardProducto from "./CardProducto";
 import FiltroLateral from "./Firltrateral";
 
@@ -8,8 +10,9 @@ import FiltroLateral from "./Firltrateral";
 export default function ProveedoresPage() {
   return (
     <>
-      <Navbar />
-      <main className="bg-[#f5f1ee] min-h-screen pb-20">
+        <SectionWrapper  >
+
+      <main className=" min-h-screen pb-20">
         <section className="max-w-7xl mx-auto px-6 py-12">
           <h1 className="text-center text-3xl font-bold mb-2">PROVEEDORES</h1>
           <p className="text-center text-gray-700 mb-10">
@@ -24,15 +27,35 @@ export default function ProveedoresPage() {
             <div className="space-y-12">
               {/* Secciones: Más vendidos, Esencias, Botellas, etc. */}
               <div>
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-semibold">Más vendidos</h2>
-                  <a href="#" className="text-sm text-[#9444B6] hover:underline">Ver todo</a>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {[...Array(4)].map((_, i) => (
-                    <CardProducto key={i} nombre={""} precio={0} categoria={""} imagen={""} />
-                  ))}
-                </div>
+               
+              {Object.entries(productosMock || {}).map(([titulo, productos]) => {
+  console.log("Renderizando sección:", titulo, productos);
+  return (
+    <div key={titulo}>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold">{titulo}</h2>
+        <a href="#" className="text-sm text-[#9444B6] hover:underline">Ver todo</a>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {Array.isArray(productos) ? (
+          productos.map((producto, index) => (
+            <CardProducto
+              key={index}
+              nombre={producto.nombre}
+              precio={producto.precio}
+              categoria={producto.categoria}
+              imagen={producto.imagen}
+            />
+          ))
+        ) : (
+          <p className="text-red-500">Error al cargar productos de {titulo}</p>
+        )}
+      </div>
+    </div>
+  );
+})}
+
+
               </div>
 
               {/* Repetir bloques por categoría */}
@@ -49,7 +72,7 @@ export default function ProveedoresPage() {
           </Button>
         </div>
       </main>
-  
+  </SectionWrapper>
     </>
   );
 }

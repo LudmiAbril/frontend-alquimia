@@ -5,6 +5,7 @@ import Link from "next/link";
 import AuthModalWrapper from "@/components/login/AuthModalWrapper";
 import InicioSesionForm from "@/components/login/InicioSesionForm";
 import RegistroForm from "@/components/login/registro"; // ESTE ya tiene la lógica dentro
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [mostrarModal, setMostrarModal] = useState(false);
@@ -48,12 +49,21 @@ export default function Navbar() {
   };
 }, []);
 
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-[9999] w-full bg-transparent text-white px-10 pt-2 flex justify-between items-center">
-        <img src="/logo/logo.svg" alt="Logo" className="w-[80px]" />
+      <header
+        className={`fixed top-0 left-0 z-[9999] w-full bg-transparent px-10 pt-2 flex justify-between items-center transition-colors duration-200 ${isHome ? "text-white" : "text-[var(--violeta)]"
+          }`}
 
+      >
+        <img
+          src={isHome ? "/logo/logo-blanco.svg" : "/logo/logo-violeta.svg"}
+          alt="Logo"
+          className="w-[62px]"
+        />
         <div className="flex items-center gap-[50px]">
           <nav className="flex items-center gap-[50px]">
             <Link href="/">Home</Link>
@@ -81,7 +91,7 @@ export default function Navbar() {
             />
           )}
         </div>
-      </header>
+      </header >
 
       {mostrarModal && (
         <AuthModalWrapper

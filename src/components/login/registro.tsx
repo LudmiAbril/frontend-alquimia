@@ -3,9 +3,9 @@
 import { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
-import { Props } from "@/components/utils/typing";
+import { PropsFormulario } from "@/components/utils/typing";
 
-export default function FormularioRegistro({ cambiarFormulario }: Props) {
+export default function FormularioRegistro({ cambiarFormulario }: PropsFormulario) {
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

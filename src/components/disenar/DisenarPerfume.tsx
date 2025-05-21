@@ -4,6 +4,7 @@ import { useState } from "react";
 import Bienvenida from "./Bienvenida";
 import Confeccion from "./Confeccion";
 import ResultadoFormula from "./ResultadoFormula";
+import SectionWrapper from "../general/SeccionWrapper";
 
 // Pasos del proceso de diseño
 export const pasosDiseño = [
@@ -28,12 +29,12 @@ export const pasosDiseño = [
   {
     nombre: "Intensidad",
     descripcion:
-      "Ajusta la intensidad general del perfume según tu preferencia.",
+      "Ajustá la intensidad general del perfume según tu preferencia.",
   },
   {
-    nombre: "Formula",
+    nombre: "Fórmula",
     descripcion:
-      "Aca podes ver el resultado final de tu fórmula personalizada.",
+      "Acá podés ver el resultado final de tu fórmula personalizada.",
   },
 ];
 
@@ -53,7 +54,7 @@ const DisenarPerfume = () => {
   };
 
   return (
-    <>
+    <SectionWrapper className="bg-[#f9f4f1]">
       {pasoActual === 0 ? (
         <Bienvenida onNext={avanzarPaso} />
       ) : pasoActual < pasosDiseño.length - 1 ? (
@@ -65,7 +66,7 @@ const DisenarPerfume = () => {
       ) : (
         <ResultadoFormula />
       )}
-    </>
+    </SectionWrapper>
   );
 };
 
