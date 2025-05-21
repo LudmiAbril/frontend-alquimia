@@ -60,6 +60,69 @@ export const productosMasVendidos = [
   },
 ];
   export const categorias = ["Esencias", "Packaging", "Envases", "Alcoholes", "Aguas Destiladas"];
+export const productosMock = {
+  "Más vendidos": [
+    { nombre: "Esencia Vainilla", precio: 9500, categoria: "por AROMATIKA", imagen: "/imgProductos/esenciaVainilla.png" },
+    { nombre: "Alcohol etílico", precio: 2000, categoria: "por AROMATIKA", imagen: "/imgProductos/alcohol.png" },
+    { nombre: "Recipiente artesanal", precio: 16200, categoria: "por ILU PUR", imagen: "/imgProductos/artesanalbottle.png" },
+  ],
+"Esencias": [
+  {
+    nombre: "Esencia Vainilla",
+    precio: 9500,
+    categoria: "por AROMATIKA",
+    imagen: "/imgProductos/esenciaVainilla.png",
+  },
+  {
+    nombre: "Esencia Lavanda",
+    precio: 9800,
+    categoria: "por NOW",
+    imagen: "/imgProductos/lavanda.png",
+  },
+  {
+    nombre: "Esencia Coco",
+    precio: 9200,
+    categoria: "por BASICO",
+    imagen: "/imgProductos/coco.png",
+  },
+  {
+    nombre: "Esencia Jazmín",
+    precio: 9900,
+    categoria: "por AROMATIKA",
+    imagen: "/imgProductos/esenciaJazmin.png",
+  },
+  {
+    nombre: "Esencia Sándalo",
+    precio: 9700,
+    categoria: "por CAVALL",
+    imagen: "/imgProductos/esenciaSandalo.png",
+  },
+  {
+    nombre: "Esencia Frutilla",
+    precio: 9600,
+    categoria: "por MR",
+    imagen: "/imgProductos/esenciaFrutilla.png",
+  },
+  {
+    nombre: "Esencia Manzana Verde",
+    precio: 9900,
+    categoria: "por AAN PUR",
+    imagen: "/imgProductos/esenciaManzana.png",
+  },
+  {
+    nombre: "Esencia Naranja",
+    precio: 9500,
+    categoria: "por EL CASTILLO",
+    imagen: "/imgProductos/esenciaNaranja.png",
+  },
+],
+
+  "Botellas": [
+    { nombre: "Recipiente artesanal", precio: 16200, categoria: "por ILU PUR", imagen: "/imgProductos/artesanalbottle.png" },
+    { nombre: "Envase vidrio", precio: 9400, categoria: "por GLASSBOTTLES", imagen: "/imgProductos/glassbottle.png" },
+    { nombre: "Envase blanco", precio: 13200, categoria: "por GLASSBOTTLES", imagen: "/imgProductos/whitebottl.png" },
+  ],
+};
 
 
 /*################################CARDS-LANDING#############################################################*/
