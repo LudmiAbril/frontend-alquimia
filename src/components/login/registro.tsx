@@ -1,11 +1,11 @@
 "use client";
 
 import GoogleIcon from "@mui/icons-material/Google";
-import { Props } from "@/components/utils/typing";
+import { PropsFormulario } from "@/components/utils/typing";
 import Link from 'next/link';
 
 
-export default function FormularioRegistro({ cambiarFormulario }: Props) {
+export default function FormularioRegistro({ cambiarFormulario }: PropsFormulario) {
   return (
     <form className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">

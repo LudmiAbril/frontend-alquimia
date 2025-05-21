@@ -78,6 +78,6 @@ export interface AuthModalWrapperProps {
 }
 
 
-export interface Props {
+export interface PropsFormulario {
   cambiarFormulario: () => void;
 }

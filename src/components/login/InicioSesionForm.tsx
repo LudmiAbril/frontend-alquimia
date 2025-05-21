@@ -1,10 +1,10 @@
 "use client";
 
 import GoogleIcon from "@mui/icons-material/Google";
-import { Props } from "@/components/utils/typing";
+import { PropsFormulario } from "@/components/utils/typing";
 import Link from "next/link";
 
-export default function FormularioInicioSesion({ cambiarFormulario }: Props) {
+export default function FormularioInicioSesion({ cambiarFormulario }: PropsFormulario) {
   return (
     <form className="flex flex-col gap-4">
 
