@@ -48,7 +48,14 @@ export default function DetalleProducto({
         <p className="mb-4">Envase de vidrio coloreado blanco con detalle dorado para 100ml.</p>
 
         <div className="flex gap-4 mt-6">
-        <Button label="VISITAR PROVEEDOR" />
+<a
+  href="https://makeup.es/product/614278/"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <Button label="VISITAR PROVEEDOR" />
+</a>
+
           <Button label="SUMAR A BIBLIOTECA" />
    
         </div>
