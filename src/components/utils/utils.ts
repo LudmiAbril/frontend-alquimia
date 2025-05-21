@@ -62,23 +62,42 @@ export const productosMasVendidos = [
 export const categorias = ["Esencias", "Packaging", "Envases", "Alcoholes", "Aguas Destiladas"];
 export const productosMock = {
   "Más vendidos": [
-    { nombre: "Esencia Vainilla", precio: 9500, categoria: "por AROMATIKA", imagen: "/imgProductos/esenciaVainilla.png" },
-    { nombre: "Alcohol etílico", precio: 2000, categoria: "por AROMATIKA", imagen: "/imgProductos/alcohol.png" },
-    {
-      nombre: "Esencia Coco",
-      precio: 9200,
-      categoria: "por BASICO",
-      imagen: "/imgProductos/coco.png",
-    },
-    { nombre: "Recipiente artesanal", precio: 16200, categoria: "por ILU PUR", imagen: "/imgProductos/artesanalbottle.png" },
-  ],
-  "Esencias": [
-    {
+   {
       nombre: "Esencia Vainilla",
       precio: 9500,
       categoria: "por AROMATIKA",
       imagen: "/imgProductos/esenciaVainilla.png",
+      rubro: "esencias",
+      subrubro: "dulces", // opcional
+      proveedor: "AROMATIKA",
     },
+    {
+      nombre: "Alcohol etílico",
+      precio: 2000,
+      categoria: "por AROMATIKA",
+      imagen: "/imgProductos/alcohol.png",
+      rubro: "alcoholes",
+      proveedor: "AROMATIKA",
+    },
+    {
+      nombre: "Recipiente artesanal",
+      precio: 16200,
+      categoria: "por ILU PUR",
+      imagen: "/imgProductos/artesanalbottle.png",
+      rubro: "botellas",
+      subrubro: "artesanales",
+      proveedor: "ILU PUR",
+    },
+  ],
+  "Esencias": [
+     { nombre: "Esencia Vainilla",
+      precio: 9500,
+      categoria: "por AROMATIKA",
+      imagen: "/imgProductos/esenciaVainilla.png",
+      rubro: "esencias",
+      subrubro: "dulces", // opcional
+      proveedor: "AROMATIKA",
+       },
     {
       nombre: "Esencia Lavanda",
       precio: 9800,

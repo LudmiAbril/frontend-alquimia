@@ -5,7 +5,7 @@ import { obtenerNotasPorPaso } from "../../services/notaService";
 interface Biblioteca {
   pasoActual: number;
   onConfirm: () => void;
-  onSelectIntensidad: (intensidad: string) => void;
+ onSelectIntensidad: (intensidad: { nombre: string; tipo: string }) => void;
 }
 const Biblioteca = ({ pasoActual, onConfirm, onSelectIntensidad }: Biblioteca) => {
   const seleccionDeNotas = pasoActual >= 1 && pasoActual <= 3;
@@ -121,15 +121,15 @@ export const ContenedorNotas = ({ paso }: { paso: number }) => {
 
 interface ContenedorIntensidadesProps {
   onConfirm: () => void;
-  onSelectIntensidad: (intensidad: string) => void;
+  onSelectIntensidad: (intensidad: { nombre: string; tipo: string }) => void;
 }
 export const ContenedorIntensidades = ({
   onConfirm, onSelectIntensidad
 }: ContenedorIntensidadesProps) => {
   const [intensidadSeleccionada, setIntensidadSeleccionada] = useState<string | null>(null);
 
-  const handleSelect = (intensidad: string) => {
-    setIntensidadSeleccionada(intensidad);
+  const handleSelect = (intensidad: { nombre: string; tipo: string }) => {
+    setIntensidadSeleccionada(intensidad.nombre);
     onSelectIntensidad(intensidad);
   };
 
@@ -160,7 +160,12 @@ export const ContenedorIntensidades = ({
               key={key}
               className={`w-[430px] h-[103px] rounded-[10px] cursor-pointer flex flex-col items-center justify-center transition
                 ${seleccionada ? "bg-[var(--violeta)]" : "bg-[var(--lila)] hover:bg-[var(--violeta)]"}`}
-              onClick={() => handleSelect(intensidad.nombre)}
+              onClick={() =>
+                handleSelect({
+                  nombre: intensidad.nombre,
+                  tipo: intensidad.tipo,
+                })
+              }
             >
               <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
                 {intensidad.nombre}- {intensidad.tipo}

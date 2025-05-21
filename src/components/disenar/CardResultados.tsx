@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import DownloadIcon from '@mui/icons-material/Download';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-const CardResultados = () => {
+import { perfume } from "./DisenarPerfume";
+interface CardResultadosProps {
+  perfume: perfume
+}
+const CardResultados = ({ perfume }: CardResultadosProps) => {
   const [mostrarDatos, setMostrarDatos] = useState("composicion");
   const [editable, setEditable] = useState(false);
 
@@ -45,8 +49,8 @@ const CardResultados = () => {
       </div>
       {/* contenido intermedio si hay, ocupa el espacio vertical restante */}
       <div className="flex-grow flex items-center justify-center">
-        {mostrarDatos === "composicion" && <Composicion />}
-        {mostrarDatos === "formula" && <Formula />}
+        {mostrarDatos === "composicion" && <Composicion perfume={perfume} />}
+        {mostrarDatos === "formula" && <Formula intensidad={perfume.intensidad} />}
         {mostrarDatos === "pasos" && <Pasos />}
       </div>
 
@@ -88,35 +92,68 @@ const CardResultados = () => {
 
 export default CardResultados;
 
-export const Composicion = () => {
+interface ComposicionProps {
+  perfume: perfume
+}
+export const Composicion = ({ perfume }: ComposicionProps) => {
   return (
     <div className="flex flex-col w-[38rem]">
       <p className="fuente-principal text-[var(--gris4)] uppercase text-[20px]">Composición Aromatica</p>
       <div className="mt-10 mb-[4rem]">
         <div className=" px-10 text-center">
           <div className="border-b border-[var(--gris2)] flex justify-between px-6 pb-1 mb-4 uppercase fuente-principal text-[14px] text-[var(--gris3)]"><p>nota</p> <p>escencia</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Fondo</p><p>-</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Corazón</p><p>-</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Salida</p><p>-</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Fondo</p><p>{perfume.notasBase.join(', ')}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Corazón</p><p>{perfume.notasCorazon.join(', ')}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Salida</p><p>{perfume.notasSalida.join(', ')}</p></div>
         </div>
       </div>
-      <p className="text-[12px] text-[var(--gris3)]">Intensidad <span className="font-bold">MEDIA</span> (Eau de parfum)</p>
+      <p className="text-[12px] text-[var(--gris3)]">Intensidad <span className="font-bold uppercase">{perfume.intensidad.nombre}</span> ({perfume.intensidad.tipo})</p>
     </div>
   );
 };
 
-export const Formula = () => {
+interface FormulaProps {
+  intensidad: { nombre: string, tipo: string }
+}
+
+export const Formula = ({ intensidad }: FormulaProps) => {
+  const formulaPorIntensidad = {
+    baja: {
+      base: "10ml",
+      corazon: "15ml",
+      salida: "5ml",
+      alcohol: "65ml",
+      agua: "5ml"
+    },
+    media: {
+      base: "15ml",
+      corazon: "20ml",
+      salida: "10ml",
+      alcohol: "50ml",
+      agua: "5ml"
+    },
+    alta: {
+      base: "20ml",
+      corazon: "25ml",
+      salida: "15ml",
+      alcohol: "35ml",
+      agua: "5ml"
+    }
+  };
+
+  const formula = formulaPorIntensidad[intensidad.nombre.toLowerCase() as keyof typeof formulaPorIntensidad];
+
   return (
     <div className="flex flex-col w-[38rem]">
       <p className="fuente-principal text-[var(--gris4)] uppercase text-[20px]">Fórmula</p>
       <div className="mt-10 ">
         <div className=" px-10 text-center">
           <div className="border-b border-[var(--gris2)] flex justify-between px-6 pb-1 mb-4 uppercase fuente-principal text-[14px] text-[var(--gris3)]"><p>componente</p> <p>cantidad</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Mezcla aromatica de notas base</p><p>-</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Mezcla aromatica de notas de corazón</p><p>-</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Mezcla aromatica de notas de salida</p><p>-</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Alcohol Etílico</p><p>-</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Agua Destilada</p><p>-</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Mezcla aromatica de notas base</p><p>{formula.base}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Mezcla aromatica de notas de corazón</p><p>{formula.corazon}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Mezcla aromatica de notas de salida</p><p>{formula.salida}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Alcohol Etílico</p><p>{formula.alcohol}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Agua Destilada</p><p>{formula.agua}</p></div>
         </div>
       </div>
     </div>
