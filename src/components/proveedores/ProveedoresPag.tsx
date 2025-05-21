@@ -11,7 +11,7 @@ export default function ProveedoresPage() {
     <>
         <SectionWrapper  >
 
-      <main className=" min-h-screen pb-20">
+      <main className=" pb-20">
         <section className="max-w-7xl mx-auto px-6 py-16">
           <h1 className="text-center text-3xl font-bold mb-2">PROVEEDORES</h1>
           <p className="text-center text-gray-700 mb-10">

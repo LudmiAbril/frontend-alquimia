@@ -47,8 +47,8 @@ export default function DetalleProducto({
         <h3 className="font-semibold mb-1">DETALLE DEL PRODUCTO</h3>
         <p className="mb-4">Envase de vidrio coloreado blanco con detalle dorado para 100ml.</p>
 
-        <Button label="VISITAR PROVEEDOR" />
         <div className="flex gap-4 mt-6">
+        <Button label="VISITAR PROVEEDOR" />
           <Button label="SUMAR A BIBLIOTECA" />
    
         </div>
