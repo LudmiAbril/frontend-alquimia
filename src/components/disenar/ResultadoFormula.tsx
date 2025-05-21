@@ -7,6 +7,8 @@ const ResultadoFormula = () => {
   const toggleConfirmModal = () => {
     setOpenConfirmationModal((prev) => !prev)
   }
+
+  // falta pasar todo a formula
   return (
     <>
       <div className="flex flex-col items-center justify-center ">
@@ -28,12 +30,12 @@ const ResultadoFormula = () => {
               className="bg-[var(--violeta)] px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase cursor-pointer"
               onClick={toggleConfirmModal}
             >
-              confirmar
+              guardar mi fórmula
             </button>
           </div>
         </div>
       </div>
-      {openConfirmationModal && <ModalConfirmarFormula onClose={toggleConfirmModal}/>}
+      {openConfirmationModal && <ModalConfirmarFormula onClose={toggleConfirmModal} />}
     </>
   );
 };

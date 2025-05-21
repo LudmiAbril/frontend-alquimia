@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { obtenerNotasPorPaso } from "../../services/notaService";
 
 interface Biblioteca {
   pasoActual: number;
   onConfirm: () => void;
+  onSelectIntensidad: (intensidad: string) => void;
 }
-const Biblioteca = ({ pasoActual, onConfirm }: Biblioteca) => {
+const Biblioteca = ({ pasoActual, onConfirm, onSelectIntensidad }: Biblioteca) => {
   const seleccionDeNotas = pasoActual >= 1 && pasoActual <= 3;
 
   const titulo = seleccionDeNotas ? "Biblioteca de notas" : "Intensidad";
@@ -38,9 +40,9 @@ const Biblioteca = ({ pasoActual, onConfirm }: Biblioteca) => {
       <div className="max-h-full w-full">
         {/* una x cada familia olfativa, ver como se renderizara esto con el handle filterchange... */}
         {seleccionDeNotas ? (
-          <ContenedorNotas />
+          <ContenedorNotas paso={pasoActual} />
         ) : (
-          <ContenedorIntensidades onConfirm={onConfirm} />
+          <ContenedorIntensidades onConfirm={onConfirm} onSelectIntensidad={onSelectIntensidad} />
         )}
       </div>
     </div>
@@ -49,77 +51,64 @@ const Biblioteca = ({ pasoActual, onConfirm }: Biblioteca) => {
 
 export default Biblioteca;
 
-// estos datos se usaran para mockear, las familias talvez si queden para agrupar con la respuesta del back, pero las notas tendran q estar en un estado con interfaz desde el back. Modelar interfaz nota
-export const ContenedorNotas = () => {
-  const [draggingNota, setDraggingNota] = useState<string | null>(null);
-  const familias = [
-    "Frutal",
-    "Ahumado",
-    "Alcanforado",
-    "Aldehídico",
-    "Almizclado",
-    "Amaderado",
-    "Ámbar",
-    "Cítrico",
-    "Empolvado",
-    "Especiado",
-    "Floral",
-    "Gourmand",
-    "Herbal",
-    "Hierbas aromáticas",
-    "Marino",
-    "Mentolado",
-    "Terroso",
-  ];
+interface Nota {
+  id: number;
+  nombre: string;
 
-  const notas = [
-    "vainilla",
-    "lavanda",
-    "chocolate",
-    "limon",
-    "coco",
-    "menta",
-    "cereza",
-    "ciruela",
-  ];
+}
+
+interface FamiliaNotas {
+  familia: string;
+  notas: Nota[];
+}
+
+export const ContenedorNotas = ({ paso }: { paso: number }) => {
+  const [notasPorFamilia, setNotasPorFamilia] = useState<FamiliaNotas[]>([]);
+
+  useEffect(() => {
+    const fetchNotas = async () => {
+      try {
+        const data = await obtenerNotasPorPaso(paso);
+        const notasReducidas = data.map((item: any) => ({
+          familia: item.Familia,
+          notas: item.Notas?.map((n: any) => ({
+            id: n.Id,
+            nombre: n.Nombre,
+          })) ?? [], // Previene error si Notas es undefined
+        }));
+
+        setNotasPorFamilia(notasReducidas);
+      } catch (error) {
+        console.error("Error al obtener notas:", error);
+      }
+    };
+    fetchNotas();
+  }, [paso]);
 
   return (
     <div className="overflow-y-scroll max-h-[31rem] mt-6 w-full flex flex-col">
-      {familias.map((familia) => (
-        <div key={familia} className="flex flex-col mb-[2.43rem]">
-          {/* titulo de la familia */}
+      {notasPorFamilia.map(({ familia, notas }) => (
+
+        <div key={familia} className="flex flex-col mb-[2.43rem]" >
+          {/* Título de familia con estilo original */}
           <div className="flex items-center gap-2 mb-2 fuente-principal">
             <p className="text-[var(--gris3)] text-[20px] font-medium">
               {familia}
             </p>
-            <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">
-              i
-            </span>
+            <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">i</span>
           </div>
-          {/*notas de esta familia */}
-          <div className=" w-100 flex flex-wrap gap-[25px]">
-            {notas.map((nota, index) => (
-              <button
-                key={index}
+
+          {/* Notas en botones estilizados pero sin imagen */}
+          <div className="w-100 flex flex-wrap gap-[25px]">
+            {notas.map((nota) => (
+              <div
+                key={nota.id}
                 draggable
-                onDragStart={(e) => {
-                  setDraggingNota(nota);
-                  e.dataTransfer.setData("text/plain", nota);
-                }}
-                onDragEnd={() => setDraggingNota(null)}
-                className={`cursor-pointer bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 ${
-                  draggingNota === nota
-                    ? "bg-[#DD4568]/100 scale-110"
-                    : "bg-[#E2708A] hover:bg-[#DD4568]"
-                }`}
+                onDragStart={(e) => e.dataTransfer.setData('text/plain', nota.nombre)}
+                className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
               >
-                <img
-                  src="https://flaticons.net/icon.php?slug_category=miscellaneous&slug_icon=flower"
-                  alt="nota"
-                  className="w-8 color-white mb-2"
-                />
-                <p className="text-[12px] font-semibold">{nota}</p>
-              </button>
+                {nota.nombre}
+              </div>
             ))}
           </div>
         </div>
@@ -128,12 +117,22 @@ export const ContenedorNotas = () => {
   );
 };
 
+
+
 interface ContenedorIntensidadesProps {
   onConfirm: () => void;
+  onSelectIntensidad: (intensidad: string) => void;
 }
 export const ContenedorIntensidades = ({
-  onConfirm,
+  onConfirm, onSelectIntensidad
 }: ContenedorIntensidadesProps) => {
+  const [intensidadSeleccionada, setIntensidadSeleccionada] = useState<string | null>(null);
+
+  const handleSelect = (intensidad: string) => {
+    setIntensidadSeleccionada(intensidad);
+    onSelectIntensidad(intensidad);
+  };
+
   const intensidades = [
     {
       nombre: "Baja",
@@ -154,17 +153,22 @@ export const ContenedorIntensidades = ({
   return (
     <div className="mt-[3rem]">
       <div className="flex flex-col gap-[46px] items-center text-white">
-        {intensidades.map((intensidad, key) => (
-          <div
-            key={key}
-            className=" w-[430px] h-[103px] rounded-[10px] cursor-pointer bg-[var(--lila)] hover:bg-[var(--violeta)] flex flex-col items-center justify-center transition"
-          >
-            <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
-              {intensidad.nombre}- {intensidad.tipo}
-            </p>
-            <p className="text-[14px]">{intensidad.descripcion}</p>
-          </div>
-        ))}
+        {intensidades.map((intensidad, key) => {
+          const seleccionada = intensidadSeleccionada === intensidad.nombre;
+          return (
+            <div
+              key={key}
+              className={`w-[430px] h-[103px] rounded-[10px] cursor-pointer flex flex-col items-center justify-center transition
+                ${seleccionada ? "bg-[var(--violeta)]" : "bg-[var(--lila)] hover:bg-[var(--violeta)]"}`}
+              onClick={() => handleSelect(intensidad.nombre)}
+            >
+              <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
+                {intensidad.nombre}- {intensidad.tipo}
+              </p>
+              <p className="text-[14px]">{intensidad.descripcion}</p>
+            </div>
+          );
+        })}
       </div>
       <button
         className="bg-[var(--violeta)] px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase cursor-pointer"
@@ -173,5 +177,6 @@ export const ContenedorIntensidades = ({
         confirmar
       </button>
     </div>
-  );
+  )
+
 };

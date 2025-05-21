@@ -12,6 +12,30 @@ interface CardProductoProps {
   categoria: string;
   imagen: string;
 };
+type Props = {
+  params: {
+    slug: string;
+  };
+};
+interface Props {
+  params: { slug: string };
+}
+export interface Producto {
+  nombre: string;
+  precio: number;
+  imagen: string;
+  categoria: string;
+}
+
+export interface DetalleProductoProps {
+  nombre: string;
+  precio: number;
+  imagen: string;
+  categoria: string;
+  proveedor: string;
+  rubro: string;
+  subrubro?: string;
+}
 
 // LANDING
 export interface SeccionConImagenProps {
