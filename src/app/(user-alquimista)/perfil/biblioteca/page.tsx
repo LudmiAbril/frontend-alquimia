@@ -1,3 +1,5 @@
+"use client";
+
 import SeccionVacia from "@/components/menu/SeccionVacia";
 
 export default function FormulasPage() {

@@ -59,11 +59,10 @@ export default function FormularioInicioSesion({ cambiarFormulario }: PropsFormu
           type="button"
           onClick={cambiarFormulario}
           className="underline text-[black] font-bold "
-        >
-          Registrate
+        > Registrate
         </button>
       </p>
-         <Link href="/registro-proveedor"  target="_blank"  rel="noopener noreferrer" className="text-[var(--violeta)] italic font-small">
+         <Link href="/user-proveedor"  target="_blank"  rel="noopener noreferrer" className="text-[var(--violeta)] italic font-small">
             Quiero ser Proveedor
           </Link>
       </div>

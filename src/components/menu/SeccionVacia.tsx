@@ -1,3 +1,6 @@
+"use client";
+
+
 import Button from "@/components/general/Button";
 import { SeccionVaciaProps } from "@/components/utils/typing";
 

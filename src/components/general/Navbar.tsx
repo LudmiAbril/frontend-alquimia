@@ -16,7 +16,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 z-[9999] w-full bg-transparent px-10 pt-2 flex justify-between items-center transition-colors duration-200 ${isHome ? "text-white" : "text-[var(--violeta)]"
+        className={`absolute  top-0 left-0 z-[9999] w-full bg-transparent px-10 pt-2 flex justify-between items-center transition-colors duration-200 ${isHome ? "text-white" : "text-[var(--violeta)]"
           }`}
 
       >
