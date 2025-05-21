@@ -19,21 +19,21 @@ export default function FormularioRegistro({ cambiarFormulario }: Props) {
         <label className="text-sm font-medium text-[var(--gris4)]">
           Correo electrónico <span className="text-red-500">*</span>
         </label>
-        <input type="email" placeholder="Correo electrónico" className="campo" required />
+        <input type="email" placeholder="tucorreo@gmail.com" className="campo" required />
       </div>
 
       <div className="flex flex-col gap-1">
         <label className="text-sm font-medium text-[var(--gris4)]">
           Contraseña <span className="text-red-500">*</span>
         </label>
-        <input  type="password" placeholder="Contraseña" className="campo"  required />
+        <input  type="password" placeholder="************" className="campo"  required />
       </div>
 
       <div className="flex flex-col gap-1">
         <label className="text-sm font-medium text-[var(--gris4)]">
           Repetir contraseña <span className="text-red-500">*</span>
         </label>
-        <input type="password"  placeholder="Repetir contraseña" className="campo"  required />
+        <input type="password"  placeholder="************" className="campo"  required />
       </div>
 
       <p className="text-xs text-gray-500 text-start mt-1">

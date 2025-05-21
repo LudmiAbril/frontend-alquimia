@@ -21,7 +21,7 @@ export default function SeccionProveedor() {
             />
             <input
               type="email"
-              placeholder="Email"
+              placeholder="tuCorreo@gmail.com"
               className="p-3 border border-gray-400 rounded-md"
             />
             <input
