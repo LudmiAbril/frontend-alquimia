@@ -7,6 +7,8 @@ const ResultadoFormula = () => {
   const toggleConfirmModal = () => {
     setOpenConfirmationModal((prev) => !prev)
   }
+
+  // falta pasar todo a formula
   return (
     <>
       <div className="flex flex-col items-center justify-center ">
