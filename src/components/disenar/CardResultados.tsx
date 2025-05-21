@@ -98,10 +98,10 @@ interface ComposicionProps {
 export const Composicion = ({ perfume }: ComposicionProps) => {
   return (
     <div className="flex flex-col w-[38rem]">
-      <p className="fuente-principal text-[var(--gris4)] uppercase text-[20px]">Composición Aromatica</p>
+      <p className="fuente-principal text-[var(--gris4)] uppercase text-[20px]">Composición Aromática</p>
       <div className="mt-10 mb-[4rem]">
         <div className=" px-10 text-center">
-          <div className="border-b border-[var(--gris2)] flex justify-between px-6 pb-1 mb-4 uppercase fuente-principal text-[14px] text-[var(--gris3)]"><p>nota</p> <p>escencia</p></div>
+          <div className="border-b border-[var(--gris2)] flex justify-between px-6 pb-1 mb-4 uppercase fuente-principal text-[14px] text-[var(--gris3)]"><p>nota</p> <p>esencia</p></div>
           <div className="flex justify-between mb-4 px-6"><p>Fondo</p><p>{perfume.notasBase.join(', ')}</p></div>
           <div className="flex justify-between mb-4 px-6"><p>Corazón</p><p>{perfume.notasCorazon.join(', ')}</p></div>
           <div className="flex justify-between mb-4 px-6"><p>Salida</p><p>{perfume.notasSalida.join(', ')}</p></div>
