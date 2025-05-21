@@ -6,9 +6,6 @@ import AuthModalWrapper from "@/components/login/AuthModalWrapper";
 import InicioSesionForm from "@/components/login/InicioSesionForm";
 import RegistroForm from "@/components/login/registro";
 import { usePathname } from "next/navigation";
-import logo from "@/public/logo/logo.svg";
-import logoVioleta from "@/public/logo/logo-violeta.svg";
-
 
 export default function Navbar() {
   const [mostrarModal, setMostrarModal] = useState(false);
