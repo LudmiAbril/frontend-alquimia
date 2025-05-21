@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import CardResultados from "./CardResultados";
 import ModalConfirmarFormula from "./ModalConfirmarFormula";
-
-const ResultadoFormula = () => {
+import { perfume } from "./DisenarPerfume";
+interface ResultadoFormulaProps {
+  perfumeResultado: perfume
+}
+const ResultadoFormula = ({ perfumeResultado }: ResultadoFormulaProps) => {
   const [openConfirmationModal, setOpenConfirmationModal] = useState(false)
   const toggleConfirmModal = () => {
     setOpenConfirmationModal((prev) => !prev)
@@ -18,7 +21,7 @@ const ResultadoFormula = () => {
         <p>Descubrimos la fragancia que mejor te representa</p>
         {/* frasco con boton y card de datos */}
         <div className="flex items-center justify-center gap-10 mt-10">
-          <CardResultados />
+          <CardResultados perfume={perfumeResultado} />
           {/*frasco y boton confirmar */}
           <div className="flex flex-col items-center">
             <img

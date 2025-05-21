@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import Bienvenida from "./Bienvenida";
 import Confeccion from "./Confeccion";
 import ResultadoFormula from "./ResultadoFormula";
@@ -37,10 +37,21 @@ export const pasosDiseño = [
       "Acá podés ver el resultado final de tu fórmula personalizada.",
   },
 ];
+export interface perfume {
+  notasSalida: string[],
+  notasCorazon: string[],
+  notasBase: string[],
+  intensidad: { nombre: string, tipo: string }
 
+}
 const DisenarPerfume = () => {
   const [pasoActual, setPasoActual] = useState<number>(0);
-
+  const [perfumeActual, setPerfumeActual] = useState<perfume>({
+    notasSalida: [],
+    notasCorazon: [],
+    notasBase: [],
+    intensidad: { nombre: "", tipo: "" }
+  });
   const avanzarPaso = () => {
     if (pasoActual < pasosDiseño.length - 1) {
       setPasoActual((prev) => prev + 1);
@@ -61,10 +72,9 @@ const DisenarPerfume = () => {
         <Confeccion
           pasoActual={pasoActual}
           avanzar={avanzarPaso}
-          volver={retrocederPaso}
-        />
+          volver={retrocederPaso} perfumeActual={perfumeActual} setPerfumeActual={setPerfumeActual} />
       ) : (
-        <ResultadoFormula />
+        <ResultadoFormula perfumeResultado={perfumeActual} />
       )}
     </SectionWrapper>
   );

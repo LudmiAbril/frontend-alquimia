@@ -2,35 +2,27 @@ import React, { useState } from "react";
 import Biblioteca from "./Biblioteca";
 import ModalConfirmarCreacion from "./ModalConfirmarCreacion";
 import Cargando from "./Cargando";
-import { pasosDiseño } from "./DisenarPerfume";
+import { pasosDiseño, perfume } from "./DisenarPerfume";
 
 interface ConfeccionProps {
   pasoActual: number;
   avanzar: () => void;
   volver: () => void;
+  perfumeActual: perfume;
+  setPerfumeActual: React.Dispatch<React.SetStateAction<perfume>>;
 }
-interface perfume {
-  notasSalida: string[],
-  notasCorazon: string[],
-  notasBase: string[],
-  intensidad: string
-}
-const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
+
+const Confeccion = ({ pasoActual, avanzar, volver , perfumeActual, setPerfumeActual}: ConfeccionProps) => {
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const [openCharging, setOpenCharging] = useState(false);
-  const [notasSeleccionada, setNotasSeleccionada] = useState<perfume>({
-    notasSalida: [],
-    notasCorazon: [],
-    notasBase: [],
-    intensidad: ""
-  });
+
 
 
   const handleDrop = (e: React.DragEvent<HTMLImageElement>) => {
     e.preventDefault();
     const nota = e.dataTransfer.getData("text/plain");
 
-    setNotasSeleccionada((prev) => {
+    setPerfumeActual((prev) => {
       if (!prev) return prev;
 
       const nuevaNotas = { ...prev };
@@ -113,24 +105,24 @@ const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
               onDrop={handleDrop}
               onDragOver={handleDragOver}
             />
-            {pasoActual === 1 && notasSeleccionada.notasBase.length > 0 && (
+            {pasoActual === 1 && perfumeActual.notasBase.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
                 Notas de fondo:{" "}
-                <strong>{notasSeleccionada.notasBase.join(", ")}</strong>
+                <strong>{perfumeActual.notasBase.join(", ")}</strong>
               </p>
             )}
 
-            {pasoActual === 2 && notasSeleccionada.notasCorazon.length > 0 && (
+            {pasoActual === 2 && perfumeActual.notasCorazon.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
                 Notas de corazón:{" "}
-                <strong>{notasSeleccionada.notasCorazon.join(", ")}</strong>
+                <strong>{perfumeActual.notasCorazon.join(", ")}</strong>
               </p>
             )}
 
-            {pasoActual === 3 && notasSeleccionada.notasSalida.length > 0 && (
+            {pasoActual === 3 && perfumeActual.notasSalida.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
                 Notas de salida:{" "}
-                <strong>{notasSeleccionada.notasSalida.join(", ")}</strong>
+                <strong>{perfumeActual.notasSalida.join(", ")}</strong>
               </p>
             )
             }
@@ -138,7 +130,7 @@ const Confeccion = ({ pasoActual, avanzar, volver }: ConfeccionProps) => {
           <Biblioteca
             pasoActual={pasoActual}
             onConfirm={toggleOpenConfirmModal} onSelectIntensidad={(intensidad) =>
-              setNotasSeleccionada((prev) => ({ ...prev, intensidad }))
+              setPerfumeActual((prev) => ({ ...prev, intensidad }))
             } />
         </div>
       </div>
