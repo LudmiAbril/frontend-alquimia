@@ -76,14 +76,14 @@ export const productosMock = {
   {
     nombre: "Esencia Lavanda",
     precio: 9800,
-    categoria: "por AROMATIKA",
+    categoria: "por NOW",
     imagen: "/imgProductos/lavanda.png",
   },
   {
     nombre: "Esencia Coco",
     precio: 9200,
-    categoria: "por AROMATIKA",
-    imagen: "/imgProductos/esenciaCoco.png",
+    categoria: "por BASICO",
+    imagen: "/imgProductos/coco.png",
   },
   {
     nombre: "Esencia Jazmín",
@@ -94,26 +94,26 @@ export const productosMock = {
   {
     nombre: "Esencia Sándalo",
     precio: 9700,
-    categoria: "por AROMATIKA",
-    imagen: "/imgProductos/esenciaSándalo.png",
+    categoria: "por CAVALL",
+    imagen: "/imgProductos/esenciaSandalo.png",
   },
   {
     nombre: "Esencia Frutilla",
     precio: 9600,
-    categoria: "por AROMATIKA",
+    categoria: "por MR",
     imagen: "/imgProductos/esenciaFrutilla.png",
   },
   {
     nombre: "Esencia Manzana Verde",
     precio: 9900,
-    categoria: "por AROMATIKA",
-    imagen: "/imgProductos/esenciaManzanaVerde.png",
+    categoria: "por AAN PUR",
+    imagen: "/imgProductos/esenciaManzana.png",
   },
   {
-    nombre: "Esencia Cítrica",
+    nombre: "Esencia Naranja",
     precio: 9500,
-    categoria: "por AROMATIKA",
-    imagen: "/imgProductos/esenciaCitrica.png",
+    categoria: "por EL CASTILLO",
+    imagen: "/imgProductos/esenciaNaranja.png",
   },
 ],
 
