@@ -1,12 +1,13 @@
 "use client";
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { obtenerNotasPorPaso } from "../../services/notaService";
 
 interface Biblioteca {
   pasoActual: number;
   onConfirm: () => void;
+  onSelectIntensidad: (intensidad: string) => void;
 }
-const Biblioteca = ({ pasoActual, onConfirm }: Biblioteca) => {
+const Biblioteca = ({ pasoActual, onConfirm, onSelectIntensidad }: Biblioteca) => {
   const seleccionDeNotas = pasoActual >= 1 && pasoActual <= 3;
 
   const titulo = seleccionDeNotas ? "Biblioteca de notas" : "Intensidad";
@@ -39,9 +40,9 @@ const Biblioteca = ({ pasoActual, onConfirm }: Biblioteca) => {
       <div className="max-h-full w-full">
         {/* una x cada familia olfativa, ver como se renderizara esto con el handle filterchange... */}
         {seleccionDeNotas ? (
-          <ContenedorNotas paso = {pasoActual}/>
+          <ContenedorNotas paso={pasoActual} />
         ) : (
-          <ContenedorIntensidades onConfirm={onConfirm} />
+          <ContenedorIntensidades onConfirm={onConfirm} onSelectIntensidad={onSelectIntensidad} />
         )}
       </div>
     </div>
@@ -49,10 +50,11 @@ const Biblioteca = ({ pasoActual, onConfirm }: Biblioteca) => {
 };
 
 export default Biblioteca;
- 
+
 interface Nota {
   id: number;
   nombre: string;
+
 }
 
 interface FamiliaNotas {
@@ -68,12 +70,12 @@ export const ContenedorNotas = ({ paso }: { paso: number }) => {
       try {
         const data = await obtenerNotasPorPaso(paso);
         const notasReducidas = data.map((item: any) => ({
-        familia: item.Familia,
-        notas: item.Notas?.map((n: any) => ({
-        id: n.Id,
-        nombre: n.Nombre,
-  })) ?? [], // Previene error si Notas es undefined
-}));
+          familia: item.Familia,
+          notas: item.Notas?.map((n: any) => ({
+            id: n.Id,
+            nombre: n.Nombre,
+          })) ?? [], // Previene error si Notas es undefined
+        }));
 
         setNotasPorFamilia(notasReducidas);
       } catch (error) {
@@ -86,7 +88,8 @@ export const ContenedorNotas = ({ paso }: { paso: number }) => {
   return (
     <div className="overflow-y-scroll max-h-[31rem] mt-6 w-full flex flex-col">
       {notasPorFamilia.map(({ familia, notas }) => (
-        <div key={familia} className="flex flex-col mb-[2.43rem]">
+
+        <div key={familia} className="flex flex-col mb-[2.43rem]" >
           {/* Título de familia con estilo original */}
           <div className="flex items-center gap-2 mb-2 fuente-principal">
             <p className="text-[var(--gris3)] text-[20px] font-medium">
@@ -100,6 +103,8 @@ export const ContenedorNotas = ({ paso }: { paso: number }) => {
             {notas.map((nota) => (
               <div
                 key={nota.id}
+                draggable
+                onDragStart={(e) => e.dataTransfer.setData('text/plain', nota.nombre)}
                 className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
               >
                 {nota.nombre}
@@ -116,10 +121,18 @@ export const ContenedorNotas = ({ paso }: { paso: number }) => {
 
 interface ContenedorIntensidadesProps {
   onConfirm: () => void;
+  onSelectIntensidad: (intensidad: string) => void;
 }
 export const ContenedorIntensidades = ({
-  onConfirm,
+  onConfirm, onSelectIntensidad
 }: ContenedorIntensidadesProps) => {
+  const [intensidadSeleccionada, setIntensidadSeleccionada] = useState<string | null>(null);
+
+  const handleSelect = (intensidad: string) => {
+    setIntensidadSeleccionada(intensidad);
+    onSelectIntensidad(intensidad);
+  };
+
   const intensidades = [
     {
       nombre: "Baja",
@@ -140,17 +153,22 @@ export const ContenedorIntensidades = ({
   return (
     <div className="mt-[3rem]">
       <div className="flex flex-col gap-[46px] items-center text-white">
-        {intensidades.map((intensidad, key) => (
-          <div
-            key={key}
-            className=" w-[430px] h-[103px] rounded-[10px] cursor-pointer bg-[var(--lila)] hover:bg-[var(--violeta)] flex flex-col items-center justify-center transition"
-          >
-            <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
-              {intensidad.nombre}- {intensidad.tipo}
-            </p>
-            <p className="text-[14px]">{intensidad.descripcion}</p>
-          </div>
-        ))}
+        {intensidades.map((intensidad, key) => {
+          const seleccionada = intensidadSeleccionada === intensidad.nombre;
+          return (
+            <div
+              key={key}
+              className={`w-[430px] h-[103px] rounded-[10px] cursor-pointer flex flex-col items-center justify-center transition
+                ${seleccionada ? "bg-[var(--violeta)]" : "bg-[var(--lila)] hover:bg-[var(--violeta)]"}`}
+              onClick={() => handleSelect(intensidad.nombre)}
+            >
+              <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
+                {intensidad.nombre}- {intensidad.tipo}
+              </p>
+              <p className="text-[14px]">{intensidad.descripcion}</p>
+            </div>
+          );
+        })}
       </div>
       <button
         className="bg-[var(--violeta)] px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase cursor-pointer"
@@ -159,5 +177,6 @@ export const ContenedorIntensidades = ({
         confirmar
       </button>
     </div>
-  );
+  )
+
 };
