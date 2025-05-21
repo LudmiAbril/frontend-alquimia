@@ -59,7 +59,7 @@ export const productosMasVendidos = [
     imagen: "/productos/esencia-vainilla-premium.png",
   },
 ];
-export const categorias = ["Esencias", "Packaging", "Envases", "Alcoholes", "Aguas Destiladas"];
+export const categorias = ["Esencias", "Envase", "Envases", "Alcoholes", "Aguas Destiladas"];
 export const productosMock = {
   "Más vendidos": [
    {
@@ -155,7 +155,7 @@ export const productosMock = {
 export const pasos = [
   { image: "/steps/seleccionar.png", alt: "Seleccioná", text: "Seleccioná las esencias" },
   { image: "/steps/combinar.png", alt: "Combiná", text: "Combiná las notas" },
-  { image: "/steps/diseniar.png", alt: "Diseñá", text: "Diseñá tu packaging" },
+  { image: "/steps/diseniar.png", alt: "Diseñá", text: "Diseñá tu envanse" },
   { image: "/steps/provedores.png", alt: "Contactate", text: "Contactate con los proveedores" },
   { image: "/steps/entrega.png", alt: "Recibí", text: "Recibí tus ingredientes" },
 ];
