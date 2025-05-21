@@ -1,4 +1,3 @@
-import Button from "../general/Button";
 
 import SectionWrapper from "../general/SeccionWrapper";
 import { productosMock } from "../utils/utils";
@@ -13,7 +12,7 @@ export default function ProveedoresPage() {
         <SectionWrapper  >
 
       <main className=" min-h-screen pb-20">
-        <section className="max-w-7xl mx-auto px-6 py-12">
+        <section className="max-w-7xl mx-auto px-6 py-16">
           <h1 className="text-center text-3xl font-bold mb-2">PROVEEDORES</h1>
           <p className="text-center text-gray-700 mb-10">
             Explorá los productos que le van a dar vida a tus ideas
@@ -24,7 +23,7 @@ export default function ProveedoresPage() {
             <FiltroLateral />
 
             {/* Contenido */}
-            <div className="space-y-12">
+            <div className="space-y-16">
               {/* Secciones: Más vendidos, Esencias, Botellas, etc. */}
               <div>
                
@@ -32,11 +31,11 @@ export default function ProveedoresPage() {
   console.log("Renderizando sección:", titulo, productos);
   return (
     <div key={titulo}>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 space-y-12">
         <h2 className="text-xl font-semibold">{titulo}</h2>
         <a href="#" className="text-sm text-[#9444B6] hover:underline">Ver todo</a>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
         {Array.isArray(productos) ? (
           productos.map((producto, index) => (
             <CardProducto
@@ -44,8 +43,7 @@ export default function ProveedoresPage() {
               nombre={producto.nombre}
               precio={producto.precio}
               categoria={producto.categoria}
-              imagen={producto.imagen}
-            />
+              imagen={producto.imagen} proveedor={""} rubro={""}            />
           ))
         ) : (
           <p className="text-red-500">Error al cargar productos de {titulo}</p>
@@ -65,12 +63,7 @@ export default function ProveedoresPage() {
           </div>
         </section>
 
-        {/* Beneficio fijo */}
-        <div className="fixed bottom-6 left-6 z-50">
-          <Button label={"RECLAMÁ TU CÓDIGO"}>
-            
-          </Button>
-        </div>
+      
       </main>
   </SectionWrapper>
     </>

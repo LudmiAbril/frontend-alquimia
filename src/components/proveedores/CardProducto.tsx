@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CardProductoProps } from "../utils/typing";
+import SeeMoreButton from "./SeeMoreButton";
 
 export default function CardProducto({ nombre, precio, categoria, imagen }: CardProductoProps) {
   const slug = nombre.toLowerCase().replace(/\s+/g, "-");
@@ -12,10 +13,9 @@ export default function CardProducto({ nombre, precio, categoria, imagen }: Card
       <div className="text-md font-bold">${precio.toLocaleString()}</div>
       
       <Link href={`/proveedores/${slug}`}>
-        <span className="mt-2 text-[#4a7f5c] font-semibold hover:underline text-sm cursor-pointer">
-          Ver más
-        </span>
-      </Link>
+  <SeeMoreButton />
+</Link>
+
     </div>
   );
 }

@@ -6,19 +6,26 @@ interface ButtonProps {
 };
 
 /**PROVEEDORES */
-interface CardProductoProps {
+export interface CardProductoProps {
   nombre: string;
   precio: number;
   categoria: string;
   imagen: string;
-};
+  proveedor: string;
+  rubro: string;
+  subrubro?: string;
+}
+
 type Props = {
   params: {
     slug: string;
   };
 };
-interface Props {
+export interface Props {
   params: { slug: string };
+}
+export interface SeeMoreProps {
+  className?: string;
 }
 export interface Producto {
   nombre: string;
