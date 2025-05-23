@@ -28,9 +28,9 @@ export default function Navbar() {
         <div className="flex items-center gap-[50px]">
           <nav className="flex items-center gap-[50px]">
             <Link href="/">Home</Link>
-            <Link href="/disenar">Diseñar</Link>
+            <Link href="/design">Diseñar</Link>
             <Link href="/descubrir">Descubrir</Link>
-            <Link href="/proveedores">Proveedores</Link>
+            <Link href="/providers">Proveedores</Link>
           </nav>
           <svg
             xmlns="http://www.w3.org/2000/svg"
