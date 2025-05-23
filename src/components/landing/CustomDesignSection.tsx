@@ -1,6 +1,6 @@
-import SectionWrapper from "@/components/general/SeccionWrapper";
+import SectionWrapper from "@/components/general/SectionWrapper";
 
-export default function SeccionHechoAMedida() {
+export default function CustomDesignSection() {
   return (
     <SectionWrapper className="bg-[#CBA9D7]">
       <div className="flex flex-col md:flex-row items-center gap-10">

@@ -3,22 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 import AuthModalWrapper from "@/components/login/AuthModalWrapper";
-import InicioSesionForm from "@/components/login/InicioSesionForm";
-import RegistroForm from "@/components/login/registro";
+import LoginForm from "@/components/login/LoginForm";
+import RegisterForm from "@/components/login/RegisterForm";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-  const [mostrarModal, setMostrarModal] = useState(false);
-  const [formulario, setFormulario] = useState<"login" | "registro">("login");
-  const pathname = usePathname()
-  const isHome = pathname === '/'
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeForm, setActiveForm] = useState<"login" | "register">("login");
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   return (
     <>
       <header
-        className={`absolute  top-0 left-0 z-[9999] w-full bg-transparent px-10 pt-2 flex justify-between items-center transition-colors duration-200 ${isHome ? "text-white" : "text-[var(--violeta)]"
-          }`}
-
+        className={`absolute top-0 left-0 z-[9999] w-full bg-transparent px-10 pt-2 flex justify-between items-center transition-colors duration-200 ${
+          isHome ? "text-white" : "text-[var(--violeta)]"
+        }`}
       >
         <img
           src={isHome ? "/logo/logo-blanco.svg" : "/logo/logo-violeta.svg"}
@@ -37,29 +37,28 @@ export default function Navbar() {
             viewBox="0 0 24 24"
             className="w-[30px] h-[30px] cursor-pointer transition-colors duration-200"
             onClick={() => {
-              setFormulario("login");
-              setMostrarModal(true);
+              setActiveForm("login");
+              setIsModalOpen(true);
             }}
             fill="currentColor"
           >
             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
           </svg>
         </div>
-      </header >
+      </header>
 
-      {mostrarModal && (
+      {isModalOpen && (
         <AuthModalWrapper
-          title={formulario === "login" ? "Iniciar sesión" : "Registrarte"}
-          onClose={() => setMostrarModal(false)}
+          title={activeForm === "login" ? "Iniciar sesión" : "Registrarte"}
+          onClose={() => setIsModalOpen(false)}
         >
-          {formulario === "login" ? (
-            <InicioSesionForm cambiarFormulario={() => setFormulario("registro")} />
+          {activeForm === "login" ? (
+            <LoginForm toggleForm={() => setActiveForm("register")} />
           ) : (
-            <RegistroForm cambiarFormulario={() => setFormulario("login")} />
+            <RegisterForm toggleForm={() => setActiveForm("login")} />
           )}
         </AuthModalWrapper>
-      )
-      }
+      )}
     </>
   );
 }

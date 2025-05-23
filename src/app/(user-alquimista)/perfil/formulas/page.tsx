@@ -1,7 +1,7 @@
 "use client"; 
 
 import { useRouter } from "next/navigation";
-import SeccionVacia from "@/components/menu/SeccionVacia";
+import SeccionVacia from "@/components/menu/EmptySection";
 
 export default function FormulasPage() {
   const router = useRouter();

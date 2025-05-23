@@ -1,39 +1,38 @@
-import SectionWrapper from "@/components/general/SeccionWrapper";
-import DetalleProducto from "@/components/proveedores/ProductDetail";
-import { Producto, Props } from "@/components/utils/typing";
-import { productosMock } from "@/components/utils/utils";
+import SectionWrapper from "@/components/general/SectionWrapper";
+import ProductDetail from "@/components/proveedores/ProductDetail";
+import { Product, ProductPageProps} from "@/components/utils/typing";
+import { mockProducts } from "@/components/utils/utils";
 import { notFound } from "next/navigation";
 
-
-export default function ProductPage({ params }: Props) {
+export default function ProductPage({ params }: ProductPageProps) {
   const { slug } = params;
 
   // Buscar el producto por nombre transformado a slug
-  const producto: Producto | undefined = Object.values(productosMock)
+  const product: Product | undefined = Object.values(mockProducts)
     .flat()
-    .find((p) => p.nombre.toLowerCase().replace(/\s+/g, "-") === slug);
+    .find((p) => p.name.toLowerCase().replace(/\s+/g, "-") === slug);
 
-  if (!producto) {
+  if (!product) {
     return notFound();
   }
 
   // Agregar manualmente info que falta si no está en el mock
-  const rubro = "envases";
-  const subrubro = "cuadradas";
+  const category = "envases";
+  const subcategory = "cuadradas";
 
   // Extraer el nombre real del proveedor del campo `categoria: "por XYZ"`
-  const proveedor = producto.categoria.replace(/^por\s+/i, "");
+  const supplier = product.category.replace(/^por\s+/i, "");
 
   return (
     <SectionWrapper>
-      <DetalleProducto
-        nombre={producto.nombre}
-        precio={producto.precio}
-        imagen={producto.imagen}
-        categoria={producto.categoria}
-        proveedor={proveedor}
-        rubro={rubro}
-        subrubro={subrubro}
+      <ProductDetail
+        name={product.name}
+        price={product.price}
+        image={product.image}
+        category={product.category}
+        supplier={supplier}
+        mainCategory={category}
+        subCategory={subcategory}
       />
     </SectionWrapper>
   );

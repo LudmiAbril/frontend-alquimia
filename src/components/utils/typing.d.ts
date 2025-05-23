@@ -1,83 +1,103 @@
 /*GENERAL*/
 
-interface ButtonProps {
+export interface ButtonProps {
   label: string;
   onClick?: () => void;
-};
+}
 
-/**PROVEEDORES */
-interface CardProductoProps {
-  nombre: string;
-  precio: number;
-  categoria: string;
-  imagen: string;
-};
-type Props = {
+/*SUPPLIERS*/
+export interface ProductCardProps {
+  name: string;
+  price: number;
+  category: string;
+  image: string;
+}
+
+export type PageProps = {
   params: {
     slug: string;
   };
 };
-interface Props {
-  params: { slug: string };
-}
-export interface Producto {
-  nombre: string;
-  precio: number;
-  imagen: string;
-  categoria: string;
+export interface ProductPageProps {
+  params: {
+    slug: string;
+  };
 }
 
-export interface DetalleProductoProps {
-  nombre: string;
-  precio: number;
-  imagen: string;
-  categoria: string;
-  proveedor: string;
-  rubro: string;
-  subrubro?: string;
+
+export interface Product {
+  name: string;
+  price: number;
+  image: string;
+  category: string;
 }
 
-// LANDING
-export interface SeccionConImagenProps {
-  titulo: string;
-  descripcion: string;
-  imagen: string;
+export interface ProductDetailProps {
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+  supplier: string;
+  mainCategory: string;
+  subCategory?: string;
+}
+
+/*LANDING*/
+export interface ImageSectionProps {
+  title: string;
+  description: string;
+  image: string;
   alt: string;
-  botonTexto?: string;
-  invertir?: boolean;
+  buttonText?: string;
+  reverse?: boolean;
   className?: string;
 }
 
-// perfil
+/*PROFILE*/
 export interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  titulo: string;
-  botonPrincipal: string;
+  title: string;
+  mainButton: string;
   children: React.ReactNode;
-  textoSecundario: string;
-  accionSecundaria: string;
-  onAccionSecundaria: () => void;
+  secondaryText: string;
+  secondaryActionLabel: string;
+  onSecondaryAction: () => void;
 }
 
-
-export interface SeccionVaciaProps {
-  titulo: string;
-  descripcion1: string;
-  descripcion2: string;
-  textoBoton: string;
+export interface EmptySectionProps {
+  title: string;
+  description1: string;
+  description2: string;
+  buttonText: string;
   onClick?: () => void;
 }
 
-
-
 export interface AuthModalWrapperProps {
-    children: ReactNode;
-    title: string;
-    onClose: () => void;
+  children: ReactNode;
+  title: string;
+  onClose: () => void;
+}
+
+export interface FormToggleProps {
+  toggleForm: () => void;
+}
+export type PropsTextSectionWithButton = {
+  title: string;
+  description: string;
+  buttonText: string;
+  className?: string;
+};
+
+export interface FamilyButtonProps {
+  icon: React.ReactNode;
+  label: string;
+  onClick: () => void;
 }
 
 
-export interface PropsFormulario {
-  cambiarFormulario: () => void;
-}
+export type StepCardProps = {
+  image: string;
+  alt: string;
+  text: string;
+};

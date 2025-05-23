@@ -4,7 +4,7 @@ import { useState } from "react";
 import Bienvenida from "./Bienvenida";
 import Confeccion from "./Confeccion";
 import ResultadoFormula from "./ResultadoFormula";
-import SectionWrapper from "../general/SeccionWrapper";
+import SectionWrapper from "../general/SectionWrapper";
 
 // Pasos del proceso de diseño
 export const pasosDiseño = [

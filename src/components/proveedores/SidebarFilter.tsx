@@ -1,8 +1,6 @@
-import { categorias } from "../utils/utils";
+import { productCategories } from "../utils/utils";
 
-export default function FiltroLateral() {
-
-
+export default function SidebarFilter() {
   return (
     <aside className="space-y-8">
       <div>
@@ -22,9 +20,9 @@ export default function FiltroLateral() {
           className="w-full border border-gray-300 rounded px-3 py-2 text-sm mb-4"
         />
         <ul className="space-y-2 text-sm text-gray-700">
-          {categorias.map((cat) => (
-            <li key={cat}>
-              <button className="w-full text-left hover:underline">{cat}</button>
+          {productCategories.map((category) => (
+            <li key={category}>
+              <button className="w-full text-left hover:underline">{category}</button>
             </li>
           ))}
         </ul>

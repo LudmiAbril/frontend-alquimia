@@ -1,6 +1,6 @@
-import BotonFragancia from "./BotonFragancia";
+import FragranceButton from "./FragranceButton";
 
-export default function TipoFraganciaSelector() {
+export default function FragranceTypeSelector() {
   return (
     <div className="flex flex-col items-center gap-4">
       <img src="/img/frascoIcono.png" alt="Frasco" className="w-[100px]" />
@@ -8,8 +8,8 @@ export default function TipoFraganciaSelector() {
         ¿CUÁL ES TU TIPO DE FRAGANCIA FAVORITA?
       </p>
       <div className="flex flex-wrap justify-center gap-2">
-        {["FLORAL", "CÍTRICA", "HERBAL", "GOURMAND"].map((tipo) => (
-          <BotonFragancia key={tipo} label={tipo} />
+        {["FLORAL", "CÍTRICA", "HERBAL", "GOURMAND"].map((type) => (
+          <FragranceButton key={type} label={type} />
         ))}
       </div>
     </div>

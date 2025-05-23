@@ -1,6 +1,6 @@
-import SectionWrapper from "@/components/general/SeccionWrapper";
+import SectionWrapper from "@/components/general/SectionWrapper";
 
-export default function SeccionProveedor() {
+export default function SupplierSection() {
   return (
     <SectionWrapper className="bg-[#E8E3DE]">
       <div className="text-center">
@@ -40,12 +40,12 @@ export default function SeccionProveedor() {
           <div className="col-span-1 md:col-span-2 flex justify-center mt-2">
             <button
               type="submit"
-              className="bg-[#9444B6] hover:bg-[#7a2f96] transition text-white font-bold px-6 py-3 rounded-md w-full md:w-auto">
-                 QUIERO SER PARTE
+              className="bg-[#9444B6] hover:bg-[#7a2f96] transition text-white font-bold px-6 py-3 rounded-md w-full md:w-auto"
+            >
+              QUIERO SER PARTE
             </button>
           </div>
         </form>
-
       </div>
     </SectionWrapper>
   );

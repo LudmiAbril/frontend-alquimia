@@ -1,139 +1,176 @@
-/*################TEST OLFATIVO###################*/
-export const familias = {
-  acuatica: {
-    texto: "Marinas/Cítricas.",
+/*################OLFACTORY TEST###################*/
+export const fragranceFamilies = {
+  aquatic: {
+    text: "Marinas/Cítricas.",
     color: "#66cccc",
-    descripcion: "Fragancias frescas inspiradas en el mar, ideales para días cálidos.",
-    imagen: "./img/familias/acuatica.jpg",
+    description: "Fragancias frescas inspiradas en el mar, ideales para días cálidos.",
+    image: "./img/familias/acuatica.jpg",
   },
-  frutal: {
-    texto: "Frutales/Florales.",
+  fruity: {
+    text: "Frutales/Florales.",
     color: "#ff6699",
-    descripcion: "Notas jugosas y dulces como frutas del trópico y flores exóticas.",
-    imagen: "./img/familias/frutal.jpg",
+    description: "Notas jugosas y dulces como frutas del trópico y flores exóticas.",
+    image: "./img/familias/frutal.jpg",
   },
-  madera: {
-    texto: "Amaderadas/Especiadas.",
+  woody: {
+    text: "Amaderadas/Especiadas.",
     color: "#cc9966",
-    descripcion: "Aromas cálidos y terrosos, elegantes y envolventes.",
-    imagen: "./img/familias/madera.jpg",
+    description: "Aromas cálidos y terrosos, elegantes y envolventes.",
+    image: "./img/familias/madera.jpg",
   },
-  ambarada: {
-    texto: "Gourmand/Ambaradas.",
+  ambery: {
+    text: "Gourmand/Ambaradas.",
     color: "#9966cc",
-    descripcion: "Esencias dulces, profundas y sensuales como la vainilla y el ámbar.",
-    imagen: "./img/familias/ambarada.jpg",
+    description: "Esencias dulces, profundas y sensuales como la vainilla y el ámbar.",
+    image: "./img/familias/ambarada.jpg",
   },
 };
 
-export const svgPaths = [
+export const potionSvgPaths = [
   "/potion/potion00.svg",
   "/potion/potion01.svg",
   "/potion/potion03.svg",
   "/potion/potion04.svg",
 ];
-/*################################PROVEEDORES#############################################################*/
-export const productosMasVendidos = [
+
+/*################################SUPPLIERS#############################################################*/
+export const bestSellingProducts = [
   {
-    nombre: "Esencia Vainilla",
-    precio: 5900,
-    categoria: "Aromática",
-    imagen: "/productos/esencia-vainilla.png",
+    name: "Esencia Vainilla",
+    price: 5900,
+    category: "Aromática",
+    image: "/productos/esencia-vainilla.png",
   },
   {
-    nombre: "Alcohol etílico",
-    precio: 2000,
-    categoria: "Disolvente",
-    imagen: "/productos/alcohol.png",
+    name: "Alcohol etílico",
+    price: 2000,
+    category: "Disolvente",
+    image: "/productos/alcohol.png",
   },
   {
-    nombre: "Recipiente artesanal",
-    precio: 16200,
-    categoria: "Botella",
-    imagen: "/productos/frasco-artesanal.png",
+    name: "Recipiente artesanal",
+    price: 16200,
+    category: "Botella",
+    image: "/productos/frasco-artesanal.png",
   },
   {
-    nombre: "Esencia Vainilla Premium",
-    precio: 9500,
-    categoria: "Aromática",
-    imagen: "/productos/esencia-vainilla-premium.png",
+    name: "Esencia Vainilla Premium",
+    price: 9500,
+    category: "Aromática",
+    image: "/productos/esencia-vainilla-premium.png",
   },
 ];
-export const categorias = ["Esencias", "Packaging", "Envases", "Alcoholes", "Aguas Destiladas"];
-export const productosMock = {
-  "Más vendidos": [
-    { nombre: "Esencia Vainilla", precio: 9500, categoria: "por AROMATIKA", imagen: "/imgProductos/esenciaVainilla.png" },
-    { nombre: "Alcohol etílico", precio: 2000, categoria: "por AROMATIKA", imagen: "/imgProductos/alcohol.png" },
-    {
-      nombre: "Esencia Coco",
-      precio: 9200,
-      categoria: "por BASICO",
-      imagen: "/imgProductos/coco.png",
-    },
-    { nombre: "Recipiente artesanal", precio: 16200, categoria: "por ILU PUR", imagen: "/imgProductos/artesanalbottle.png" },
-  ],
-  "Esencias": [
-    {
-      nombre: "Esencia Vainilla",
-      precio: 9500,
-      categoria: "por AROMATIKA",
-      imagen: "/imgProductos/esenciaVainilla.png",
-    },
-    {
-      nombre: "Esencia Lavanda",
-      precio: 9800,
-      categoria: "por NOW",
-      imagen: "/imgProductos/lavanda.png",
-    },
-    {
-      nombre: "Esencia Coco",
-      precio: 9200,
-      categoria: "por BASICO",
-      imagen: "/imgProductos/coco.png",
-    },
-    {
-      nombre: "Esencia Jazmín",
-      precio: 9900,
-      categoria: "por AROMATIKA",
-      imagen: "/imgProductos/esenciaJazmin.png",
-    },
-    {
-      nombre: "Esencia Sándalo",
-      precio: 9700,
-      categoria: "por CAVALL",
-      imagen: "/imgProductos/esenciaSandalo.png",
-    },
-    {
-      nombre: "Esencia Frutilla",
-      precio: 9600,
-      categoria: "por MR",
-      imagen: "/imgProductos/esenciaFrutilla.png",
-    },
-    {
-      nombre: "Esencia Manzana Verde",
-      precio: 9900,
-      categoria: "por AAN PUR",
-      imagen: "/imgProductos/esenciaManzana.png",
-    },
-    {
-      nombre: "Esencia Naranja",
-      precio: 9500,
-      categoria: "por EL CASTILLO",
-      imagen: "/imgProductos/esenciaNaranja.png",
-    },
-  ],
 
-  "Botellas": [
-    { nombre: "Recipiente artesanal", precio: 16200, categoria: "por ILU PUR", imagen: "/imgProductos/artesanalbottle.png" },
-    { nombre: "Envase vidrio", precio: 9400, categoria: "por GLASSBOTTLES", imagen: "/imgProductos/glassbottle.png" },
-    { nombre: "Envase blanco", precio: 13200, categoria: "por GLASSBOTTLES", imagen: "/imgProductos/whitebottl.png" },
+export const productCategories = [
+  "Esencias",
+  "Packaging",
+  "Envases",
+  "Alcoholes",
+  "Aguas Destiladas",
+];
+
+export const mockProducts = {
+  "Más vendidos": [
+    {
+      name: "Esencia Vainilla",
+      price: 9500,
+      category: "por AROMATIKA",
+      image: "/imgProductos/esenciaVainilla.png",
+    },
+    {
+      name: "Alcohol etílico",
+      price: 2000,
+      category: "por AROMATIKA",
+      image: "/imgProductos/alcohol.png",
+    },
+    {
+      name: "Esencia Coco",
+      price: 9200,
+      category: "por BASICO",
+      image: "/imgProductos/coco.png",
+    },
+    {
+      name: "Recipiente artesanal",
+      price: 16200,
+      category: "por ILU PUR",
+      image: "/imgProductos/artesanalbottle.png",
+    },
+  ],
+  Essences: [
+    {
+      name: "Esencia Vainilla",
+      price: 9500,
+      category: "por AROMATIKA",
+      image: "/imgProductos/esenciaVainilla.png",
+    },
+    {
+      name: "Esencia Lavanda",
+      price: 9800,
+      category: "por NOW",
+      image: "/imgProductos/lavanda.png",
+    },
+    {
+      name: "Esencia Coco",
+      price: 9200,
+      category: "por BASICO",
+      image: "/imgProductos/coco.png",
+    },
+    {
+      name: "Esencia Jazmín",
+      price: 9900,
+      category: "por AROMATIKA",
+      image: "/imgProductos/esenciaJazmin.png",
+    },
+    {
+      name: "Esencia Sándalo",
+      price: 9700,
+      category: "por CAVALL",
+      image: "/imgProductos/esenciaSandalo.png",
+    },
+    {
+      name: "Esencia Frutilla",
+      price: 9600,
+      category: "por MR",
+      image: "/imgProductos/esenciaFrutilla.png",
+    },
+    {
+      name: "Esencia Manzana Verde",
+      price: 9900,
+      category: "por AAN PUR",
+      image: "/imgProductos/esenciaManzana.png",
+    },
+    {
+      name: "Esencia Naranja",
+      price: 9500,
+      category: "por EL CASTILLO",
+      image: "/imgProductos/esenciaNaranja.png",
+    },
+  ],
+  Bottles: [
+    {
+      name: "Recipiente artesanal",
+      price: 16200,
+      category: "por ILU PUR",
+      image: "/imgProductos/artesanalbottle.png",
+    },
+    {
+      name: "Envase vidrio",
+      price: 9400,
+      category: "por GLASSBOTTLES",
+      image: "/imgProductos/glassbottle.png",
+    },
+    {
+      name: "Envase blanco",
+      price: 13200,
+      category: "por GLASSBOTTLES",
+      image: "/imgProductos/whitebottl.png",
+    },
   ],
 };
 
+/*################################LANDING-CARDS#############################################################*/
 
-/*################################CARDS-LANDING#############################################################*/
-
-export const pasos = [
+export const creationSteps = [
   { image: "/steps/seleccionar.png", alt: "Seleccioná", text: "Seleccioná las esencias" },
   { image: "/steps/combinar.png", alt: "Combiná", text: "Combiná las notas" },
   { image: "/steps/diseniar.png", alt: "Diseñá", text: "Diseñá tu packaging" },
@@ -141,43 +178,44 @@ export const pasos = [
   { image: "/steps/entrega.png", alt: "Recibí", text: "Recibí tus ingredientes" },
 ];
 
-/*################################Preguntas-LANDING#############################################################*/
+/*################################FAQ-LANDING#############################################################*/
 
-export const preguntas = [
+export const faqQuestions = [
   {
-    pregunta: "¿Por qué elegir Alquimia para crear tu perfume?",
-    respuesta:
+    question: "¿Por qué elegir Alquimia para crear tu perfume?",
+    answer:
       "Porque ofrecemos una experiencia creativa, accesible y guiada para que cualquier persona pueda crear su fragancia personalizada sin necesidad de conocimientos previos.",
   },
   {
-    pregunta: "¿Cómo crear tu propio perfume online?",
-    respuesta:
+    question: "¿Cómo crear tu propio perfume online?",
+    answer:
       "Usá nuestro editor interactivo para elegir tus notas favoritas, combinarlas en una fórmula y personalizar tu envase antes de conectarte con proveedores.",
   },
   {
-    pregunta: "¿Cómo funciona Alquimia?",
-    respuesta:
+    question: "¿Cómo funciona Alquimia?",
+    answer:
       "Alquimia te permite crear perfumes eligiendo tus notas favoritas, combinándolas y personalizando tu envase desde nuestra plataforma interactiva.",
   },
   {
-    pregunta: "¿Necesito conocimientos previos?",
-    respuesta:
+    question: "¿Necesito conocimientos previos?",
+    answer:
       "No, nuestra experiencia está diseñada para guiarte paso a paso en todo momento.",
   },
   {
-    pregunta: "¿Puedo comprar ingredientes desde la plataforma?",
-    respuesta:
+    question: "¿Puedo comprar ingredientes desde la plataforma?",
+    answer:
       "Sí. Te conectamos con proveedores registrados que ofrecen materias primas como esencias, frascos y más.",
   },
 ];
 
-/*################################ElementosNube-LANDING#############################################################*/
+/*################################NAVBAR-DROPDOWN#############################################################*/
 
-export const elementosMenu = [
-  { etiqueta: "Mis Fórmulas", href: "/perfil/formulas" },
-  { etiqueta: "Mi Biblioteca", href: "/perfil/biblioteca" },
-  { etiqueta: "Mi Cuenta", href: "/perfil/cuenta" },
-  { etiqueta: "Cerrar Sesión", href: "/logout" },
+export const userMenuItems = [
+  { label: "Mis Fórmulas", href: "/perfil/formulas" },
+  { label: "Mi Biblioteca", href: "/perfil/biblioteca" },
+  { label: "Mi Cuenta", href: "/perfil/cuenta" },
+  { label: "Cerrar Sesión", href: "/logout" },
 ];
+
 
 

@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import SectionWrapper from "@/components/general/SeccionWrapper";
+import SectionWrapper from "@/components/general/SectionWrapper";
 import Button from "@/components/general/Button";
 
 export default function NotFound() {

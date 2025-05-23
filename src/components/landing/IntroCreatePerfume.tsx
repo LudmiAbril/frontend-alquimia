@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function IntroCrearPerfume() {
+export default function IntroCreatePerfume() {
   return (
     <div className="flex flex-col-reverse lg:flex-row items-center gap-6">
       {/* Texto */}

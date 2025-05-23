@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -6,10 +5,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import { AuthModalWrapperProps } from "@/components/utils/typing";
 
 export default function AuthModalWrapper({ children, title, onClose }: AuthModalWrapperProps) {
-  const [visible, setVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setVisible(true);
+    setIsVisible(true);
   }, []);
 
   return (
@@ -21,12 +20,13 @@ export default function AuthModalWrapper({ children, title, onClose }: AuthModal
             relative bg-[#f1eae2] p-8 rounded-xl w-full
             shadow-lg ring-1 ring-gray-300
             transform transition-all duration-300 ease-out
-            ${visible ? "scale-100 opacity-100" : "scale-95 opacity-0"}
+            ${isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"}
           `}
         >
+          {/* Botón de cierre */}
           <button
             onClick={() => {
-              setVisible(false);
+              setIsVisible(false);
               setTimeout(onClose, 200);
             }}
             className="absolute right-4 top-4 text-gray-600 hover:text-black"
@@ -34,13 +34,19 @@ export default function AuthModalWrapper({ children, title, onClose }: AuthModal
             <CloseIcon />
           </button>
 
+          {/* Logo y título */}
           <div className="flex flex-col items-center space-y-2 mb-6">
-            <div className="w-16 flex items-center justify-center ">
-            <img  src="/logo/LogoVioleta.svg"   alt="Logo"  className="w-10 h-10 object-contain " />
+            <div className="w-16 flex items-center justify-center">
+              <img
+                src="/logo/LogoVioleta.svg"
+                alt="Logo"
+                className="w-10 h-10 object-contain"
+              />
             </div>
             <h2 className="text-xl font-bold uppercase text-[var(--gris4)]">{title}</h2>
           </div>
 
+          {/* Contenido del modal */}
           {children}
         </div>
       </div>

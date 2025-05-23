@@ -1,5 +1,6 @@
+import { FamilyButtonProps } from "@/components/utils/typing";
 
-export default function FamiliaButton({ icon, label, onClick }: FamiliaButtonProps) {
+export default function FamilyButton({ icon, label, onClick }: FamilyButtonProps) {
   return (
     <button
       onClick={onClick}

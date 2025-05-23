@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import SectionWrapper from "@/components/general/SeccionWrapper";
-import { preguntas } from "@/components/utils/utils";
+import SectionWrapper from "@/components/general/SectionWrapper";
+import { faqQuestions } from "@/components/utils/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function Acordeon() {
-  const [abierto, setAbierto] = useState<number | null>(null);
+export default function FAQAccordion() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (index: number) => {
-    setAbierto(abierto === index ? null : index);
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
@@ -19,7 +19,7 @@ export default function Acordeon() {
       </h2>
 
       <div className="space-y-4">
-        {preguntas.map((item, index) => (
+        {faqQuestions.map((item, index) => (
           <div
             key={index}
             className="rounded-xl bg-white shadow-sm transition-all"
@@ -28,22 +28,22 @@ export default function Acordeon() {
               onClick={() => toggle(index)}
               className="w-full p-5 flex justify-between items-center text-left text-[#444] font-semibold hover:bg-[var(--lila)] rounded-xl transition-colors"
             >
-              <span>{item.pregunta}</span>
+              <span>{item.question}</span>
               <ExpandMoreIcon
                 className={`transition-transform duration-300 text-[#9444B6] ${
-                  abierto === index ? "rotate-180" : ""
+                  openIndex === index ? "rotate-180" : ""
                 }`}
                 style={{ fontSize: "20px" }}
               />
             </button>
             <div
               className={`px-5 overflow-hidden text-sm text-gray-600 transition-all duration-300 ${
-                abierto === index
+                openIndex === index
                   ? "max-h-[300px] pb-4 pt-3"
                   : "max-h-0 pt-0 pb-0"
               }`}
             >
-              {abierto === index && item.respuesta}
+              {openIndex === index && item.answer}
             </div>
           </div>
         ))}
