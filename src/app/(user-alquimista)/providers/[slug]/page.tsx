@@ -1,5 +1,5 @@
 import SectionWrapper from "@/components/general/SectionWrapper";
-import ProductDetail from "@/components/proveedores/ProductDetail";
+import ProductDetail from "@/components/providers/ProductDetail";
 import { Product, ProductPageProps} from "@/components/utils/typing";
 import { mockProducts } from "@/components/utils/utils";
 import { notFound } from "next/navigation";

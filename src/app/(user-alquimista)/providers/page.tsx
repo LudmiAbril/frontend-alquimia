@@ -1,4 +1,4 @@
-import ProveedoresPage from "@/components/proveedores/ProveedoresPag";
+import ProveedoresPage from "@/components/providers/ProveedoresPag";
 
 
 export default function Provide() {
