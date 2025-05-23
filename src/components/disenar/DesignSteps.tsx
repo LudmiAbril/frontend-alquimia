@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import WelcomeStep from "./Welcome";
 import CreationStep from "./CreationStep";

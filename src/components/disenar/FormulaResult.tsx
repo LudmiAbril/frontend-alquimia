@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ResultCard from "./ResultCard";
-import ConfirmFormulaModal from "./ModalConfirmarFormula";
+import ConfirmFormulaModal from "./ConfirmFormulaModal";
 
 const FormulaResult = () => {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);

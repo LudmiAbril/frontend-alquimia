@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Library from "./Library";
 import ConfirmCreationModal from "./ConfirmCreationModal";
 import LoadingModal from "./Loading";
-import { designSteps } from "./designSteps";
+import { designSteps } from "./DesignSteps";
 
 interface CreationStepProps {
   currentStep: number;
