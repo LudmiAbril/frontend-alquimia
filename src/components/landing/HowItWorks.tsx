@@ -1,5 +1,5 @@
 import SectionWrapper from "@/components/general/SectionWrapper";
-import StepCard from "./Cards";
+import StepCard from "./StepCard";
 import { creationSteps } from "@/components/utils/utils";
 
 export default function HowItWorks() {

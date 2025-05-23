@@ -10,14 +10,12 @@ export default function Home() {
   return (
     <>
       <Hero />
-
       <SectionWithImage
         title="¿POR QUÉ ALQUIMIA?"
         description={`Alquimia nace para que el arte de crear perfumes esté al alcance de todos.
         Diseñamos una experiencia que te permite transformar tus ideas en aromas.`}
         image="/landingImagenes/personasAlquimistas.png"
-        alt="Ilustración Alquimia"
-      />
+        alt="Ilustración Alquimia" />
 
       <HowItWorks />
       <FragranceIntroSection />
@@ -27,8 +25,7 @@ export default function Home() {
         description="Te conectamos con distintos proveedores registrados en nuestra plataforma, de forma que tendrás acceso a un extenso catálogo de materia prima, como envases, esencias y alcoholes. Contamos con una gran variedad de opciones y precios adecuados para vos."
         image="/landingImagenes/pociones.png"
         alt="Insumos"
-        buttonText="QUIERO REGISTRARME"
-      />
+        buttonText="QUIERO REGISTRARME" />
 
       <CustomDesignSection />
       <FAQAccordion />

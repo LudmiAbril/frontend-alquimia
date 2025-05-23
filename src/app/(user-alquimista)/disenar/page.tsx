@@ -1,6 +1,6 @@
-import DisenarPerfume from "@/components/disenar/DisenarPerfume";
+import DisenarPerfume from "@/components/disenar/designSteps";
 
-export default function Diseñar() {
+export default function Diseniar() {
     // page, evitar use client y hacer wrapper
     return (
         <DisenarPerfume />

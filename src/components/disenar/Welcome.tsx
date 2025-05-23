@@ -3,13 +3,13 @@
 import React from "react";
 import Image from "next/image";
 
-interface BienvenidaProps {
+interface WelcomeStepProps {
   onNext: () => void;
 }
 
-const Bienvenida = ({ onNext }: BienvenidaProps) => {
+const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 ">
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
       {/* Texto principal */}
       <div className="space-y-4 max-w-xl">
         <h1 className="text-3xl md:text-4xl font-bold text-[#9444B6]">
@@ -47,4 +47,4 @@ const Bienvenida = ({ onNext }: BienvenidaProps) => {
   );
 };
 
-export default Bienvenida;
+export default WelcomeStep;
