@@ -28,7 +28,7 @@ export default function Navbar() {
         <div className="flex items-center gap-[50px]">
           <nav className="flex items-center gap-[50px]">
             <Link href="/">Home</Link>
-            <Link href="/design">Diseñar</Link>
+            <Link href="/crearPerfume">Diseñar</Link>
             <Link href="/descubrir">Descubrir</Link>
             <Link href="/providers">Proveedores</Link>
           </nav>

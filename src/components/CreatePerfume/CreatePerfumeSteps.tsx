@@ -1,14 +1,13 @@
 "use client";
 
-import { SetStateAction, useState } from "react";
-import WelcomeStep from "./Welcome";
-import CreationStep from "./CreationStep";
+import { useState } from "react";
+import CreationStep from "./PerfumeCreation";
 import FormulaResult from "./FormulaResult";
 import SectionWrapper from "../general/SectionWrapper";
 import Welcome from "./Welcome";
-import { perfume } from "./ResultCard";
+import { perfumeData } from "./ResultCard";
 
-export const designSteps = [
+export const createSteps = [
   {
     nombre: "Bienvenida",
     descripcion:
@@ -36,39 +35,41 @@ export const designSteps = [
   },
 ];
 
-const DesignPerfume = () => {
-  const [pasoActual, setPasoActual] = useState<number>(0);
-  const [perfumeActual, setPerfumeActual] = useState<perfume>({
-    notasSalida: [],
-    notasCorazon: [],
-    notasBase: [],
+const CreatePerfumeSteps = () => {
+  const [currentStep, setCurrentStep] = useState<number>(0);
+  // a futuro mandar a un context o estado global
+  const [currentPerfume, setCurrentPerfume] = useState<perfumeData>({
+    baseNotes: [],
+    heartNotes: [],
+    topNotes: [],
     intensity: { name: "", type: "" }
   });
-  const avanzarPaso = () => {
-    if (pasoActual < designSteps.length - 1) {
-      setPasoActual((prev) => prev + 1);
+
+  const advanceStep = () => {
+    if (currentStep < createSteps.length - 1) {
+      setCurrentStep((prev) => prev + 1);
     }
   };
 
-  const retrocederPaso = () => {
-    if (pasoActual > 0) {
-      setPasoActual((prev) => prev - 1);
+  const returnStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep((prev) => prev - 1);
     }
   };
 
   return (
     <SectionWrapper className="bg-[#f9f4f1]">
-      {pasoActual === 0 ? (
-        <Welcome onNext={avanzarPaso} />
-      ) : pasoActual < designSteps.length - 1 ? (
+      {currentStep === 0 ? (
+        <Welcome onNext={advanceStep} />
+      ) : currentStep < createSteps.length - 1 ? (
         <CreationStep
-            currentStep={pasoActual}
-            onNext={avanzarPaso}
-            onBack={retrocederPaso} currentPerfume={perfumeActual} setCurrentPerfume={setPerfumeActual}        />
+          currentStep={currentStep}
+          onNext={advanceStep}
+          onBack={returnStep} currentPerfume={currentPerfume} setCurrentPerfume={setCurrentPerfume} />
       ) : (
-        <FormulaResult resultPerfume={perfumeActual} />
+        <FormulaResult resultPerfume={currentPerfume} />
       )}
     </SectionWrapper>
   );
 };
-export default DesignPerfume;
+export default CreatePerfumeSteps;

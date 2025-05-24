@@ -2,41 +2,40 @@ import React, { useState } from "react";
 import Library from "./Library";
 import ConfirmCreationModal from "./ConfirmCreationModal";
 import LoadingModal from "./Loading";
-import { designSteps } from "./DesignSteps";
-import { perfume } from "./ResultCard";
+import { createSteps } from "./CreatePerfumeSteps";
+import { perfumeData } from "./ResultCard";
 
-interface CreationStepProps {
+interface CreatePerfumeProps {
   currentStep: number;
   onNext: () => void;
   onBack: () => void;
-  currentPerfume: perfume;
-  setCurrentPerfume: React.Dispatch<React.SetStateAction<perfume>>;
+  currentPerfume: perfumeData;
+  setCurrentPerfume: React.Dispatch<React.SetStateAction<perfumeData>>;
 }
 
-
-const CreationStep = ({ currentStep, onNext, onBack, currentPerfume, setCurrentPerfume }: CreationStepProps) => {
+const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrentPerfume }: CreatePerfumeProps) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
 
 
   const handleDrop = (e: React.DragEvent<HTMLImageElement>) => {
     e.preventDefault();
-    const nota = e.dataTransfer.getData("text/plain");
+    const note = e.dataTransfer.getData("text/plain");
 
     setCurrentPerfume((prev) => {
       if (!prev) return prev;
 
-      const nuevaNotas = { ...prev };
+      const newNotes = { ...prev };
 
       if (currentStep === 1) {
-        nuevaNotas.notasBase = [...prev.notasBase, nota];
+        newNotes.baseNotes = [...prev.baseNotes, note];
       } else if (currentStep === 2) {
-        nuevaNotas.notasCorazon = [...prev.notasCorazon, nota];
+        newNotes.heartNotes = [...prev.heartNotes, note];
       } else if (currentStep === 3) {
-        nuevaNotas.notasSalida = [...prev.notasSalida, nota];
+        newNotes.topNotes = [...prev.topNotes, note];
       }
 
-      return nuevaNotas;
+      return newNotes;
     });
   };
 
@@ -85,19 +84,19 @@ const CreationStep = ({ currentStep, onNext, onBack, currentPerfume, setCurrentP
               onDragOver={handleDragOver}
             />
 
-            {currentStep === 1 && currentPerfume.notasBase.length > 0 && (
+            {currentStep === 1 && currentPerfume.baseNotes.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de fondo: <strong>{currentPerfume.notasBase.join(", ")}</strong>
+                Notas de fondo: <strong>{currentPerfume.baseNotes.join(", ")}</strong>
               </p>
             )}
-            {currentStep === 2 && currentPerfume.notasCorazon.length > 0 && (
+            {currentStep === 2 && currentPerfume.heartNotes.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de corazón: <strong>{currentPerfume.notasCorazon.join(", ")}</strong>
+                Notas de corazón: <strong>{currentPerfume.heartNotes.join(", ")}</strong>
               </p>
             )}
-            {currentStep === 3 && currentPerfume.notasSalida.length > 0 && (
+            {currentStep === 3 && currentPerfume.topNotes.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de salida: <strong>{currentPerfume.notasSalida.join(", ")}</strong>
+                Notas de salida: <strong>{currentPerfume.topNotes.join(", ")}</strong>
               </p>
             )}
           </div>
@@ -121,7 +120,7 @@ const CreationStep = ({ currentStep, onNext, onBack, currentPerfume, setCurrentP
   );
 };
 
-export default CreationStep;
+export default CreatePerfume;
 
 interface StepCardProps {
   currentStep: number;
@@ -147,9 +146,9 @@ export const StepCard = ({ currentStep, onNext, onBack }: StepCardProps) => {
       <div className="bg-white p-6 rounded-[10px] items-center flex flex-col justify-center w-[409px] h-[179px] shadow-md">
         <img src="/svgGeneral/icono-info.svg" alt="info" className="mb-[18px]" />
         <h3 className="mb-[10px] uppercase text-center">
-          Paso {currentStep} - {designSteps[currentStep].nombre}
+          Paso {currentStep} - {createSteps[currentStep].nombre}
         </h3>
-        <p>{designSteps[currentStep].descripcion}</p>
+        <p>{createSteps[currentStep].descripcion}</p>
       </div>
       <img
         src={

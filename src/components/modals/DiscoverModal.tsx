@@ -65,7 +65,7 @@ export default function DiscoverModal({ onClose }: { onClose: () => void }) {
 
         {/* Botón para ir al diseñador */}
         <button
-          onClick={() => router.push("/disenar")}
+          onClick={() => router.push("/crearPerfume")}
           className="w-full bg-[#9444B6] text-white font-bold py-3 rounded-md text-sm uppercase transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_#9444B6] focus:outline-none"
         >
           Crear

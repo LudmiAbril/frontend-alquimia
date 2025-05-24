@@ -3,11 +3,11 @@
 import React from "react";
 import Image from "next/image";
 
-interface WelcomeStepProps {
+interface WelcomeProps {
   onNext: () => void;
 }
 
-const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
+const Welcome = ({ onNext }: WelcomeProps) => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
       {/* Texto principal */}
@@ -47,4 +47,4 @@ const WelcomeStep = ({ onNext }: WelcomeStepProps) => {
   );
 };
 
-export default WelcomeStep;
+export default Welcome;
