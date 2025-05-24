@@ -6,7 +6,7 @@ import { obtenerNotasPorPaso } from "../../services/notaService";
 interface LibraryProps {
   currentStep: number;
   onConfirm: () => void;
-  onSelectIntensity: (intensity: string) => void;
+  onSelectIntensity: (intensity: { name: string, type: string }) => void;
 }
 
 const Library = ({ currentStep, onConfirm, onSelectIntensity }: LibraryProps) => {
@@ -119,10 +119,9 @@ export const NotesContainer = ({ step }: { step: number }) => {
   );
 };
 
-// ContenedorIntensidades
 interface IntensityContainerProps {
   onConfirm: () => void;
-  onSelectIntensity: (intensity: string) => void;
+  onSelectIntensity: (intensity: { name: string; type: string }) => void;
 }
 
 export const IntensityContainer = ({
@@ -131,8 +130,8 @@ export const IntensityContainer = ({
 }: IntensityContainerProps) => {
   const [selectedIntensity, setSelectedIntensity] = useState<string | null>(null);
 
-  const handleSelect = (intensity: string) => {
-    setSelectedIntensity(intensity);
+  const handleSelect = (intensity: { name: string; type: string }) => {
+    setSelectedIntensity(intensity.name);
     onSelectIntensity(intensity);
   };
 
@@ -164,7 +163,10 @@ export const IntensityContainer = ({
               key={key}
               className={`w-[430px] h-[103px] rounded-[10px] cursor-pointer flex flex-col items-center justify-center transition
               ${isSelected ? "bg-[var(--violeta)]" : "bg-[var(--lila)] hover:bg-[var(--violeta)]"}`}
-              onClick={() => handleSelect(intensity.name)}
+              onClick={() => handleSelect({
+                name: intensity.name,
+                type: intensity.type,
+              })}
             >
               <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
                 {intensity.name}- {intensity.type}

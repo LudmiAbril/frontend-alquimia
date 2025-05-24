@@ -1,26 +1,28 @@
 import React, { useState } from "react";
-import ResultCard from "./ResultCard";
+import ResultCard, { perfume } from "./ResultCard";
 import ConfirmFormulaModal from "./ConfirmFormulaModal";
 
-const FormulaResult = () => {
+interface FormulaResultProps {
+  resultPerfume: perfume
+}
+const FormulaResult = ({resultPerfume} :FormulaResultProps) => {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
   const toggleConfirmationModal = () => {
     setIsConfirmationModalOpen((prev) => !prev);
   };
 
-  return (
+   return (
     <>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center ">
         <h1 className="fuente-principal text-[var(--gris4)] text-[32px] font-bold mb-4">
           Tu esencia ideal está lista
         </h1>
         <p>Descubrimos la fragancia que mejor te representa</p>
-
-        {/* frasco con botón y card de resultados */}
+        {/* frasco con boton y card de datos */}
         <div className="flex items-center justify-center gap-10 mt-10">
-          <ResultCard />
-
+          <ResultCard perfume={resultPerfume} />
+          {/*frasco y boton confirmar */}
           <div className="flex flex-col items-center">
             <img
               src="/frasco-color.svg"
@@ -36,12 +38,10 @@ const FormulaResult = () => {
           </div>
         </div>
       </div>
-
-      {isConfirmationModalOpen && (
-        <ConfirmFormulaModal onClose={toggleConfirmationModal} />
-      )}
+      {isConfirmationModalOpen && <ConfirmFormulaModal onClose={toggleConfirmationModal} />}
     </>
   );
 };
+
 
 export default FormulaResult;

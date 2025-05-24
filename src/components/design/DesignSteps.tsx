@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import WelcomeStep from "./Welcome";
 import CreationStep from "./CreationStep";
 import FormulaResult from "./FormulaResult";
 import SectionWrapper from "../general/SectionWrapper";
+import Welcome from "./Welcome";
+import { perfume } from "./ResultCard";
 
 export const designSteps = [
   {
@@ -35,35 +37,38 @@ export const designSteps = [
 ];
 
 const DesignPerfume = () => {
-  const [currentStep, setCurrentStep] = useState<number>(0);
-
-  const nextStep = () => {
-    if (currentStep < designSteps.length - 1) {
-      setCurrentStep((prev) => prev + 1);
+  const [pasoActual, setPasoActual] = useState<number>(0);
+  const [perfumeActual, setPerfumeActual] = useState<perfume>({
+    notasSalida: [],
+    notasCorazon: [],
+    notasBase: [],
+    intensity: { name: "", type: "" }
+  });
+  const avanzarPaso = () => {
+    if (pasoActual < designSteps.length - 1) {
+      setPasoActual((prev) => prev + 1);
     }
   };
 
-  const previousStep = () => {
-    if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
+  const retrocederPaso = () => {
+    if (pasoActual > 0) {
+      setPasoActual((prev) => prev - 1);
     }
   };
 
   return (
     <SectionWrapper className="bg-[#f9f4f1]">
-      {currentStep === 0 ? (
-        <WelcomeStep onNext={nextStep} />
-      ) : currentStep < designSteps.length - 1 ? (
+      {pasoActual === 0 ? (
+        <Welcome onNext={avanzarPaso} />
+      ) : pasoActual < designSteps.length - 1 ? (
         <CreationStep
-          currentStep={currentStep}
-          onNext={nextStep}
-          onBack={previousStep}
-        />
+            currentStep={pasoActual}
+            onNext={avanzarPaso}
+            onBack={retrocederPaso} currentPerfume={perfumeActual} setCurrentPerfume={setPerfumeActual}        />
       ) : (
-        <FormulaResult />
+        <FormulaResult resultPerfume={perfumeActual} />
       )}
     </SectionWrapper>
   );
 };
-
 export default DesignPerfume;

@@ -3,42 +3,40 @@ import Library from "./Library";
 import ConfirmCreationModal from "./ConfirmCreationModal";
 import LoadingModal from "./Loading";
 import { designSteps } from "./DesignSteps";
+import { perfume } from "./ResultCard";
 
 interface CreationStepProps {
   currentStep: number;
   onNext: () => void;
   onBack: () => void;
+  currentPerfume: perfume;
+  setCurrentPerfume: React.Dispatch<React.SetStateAction<perfume>>;
 }
 
-interface PerfumeData {
-  baseNotes: string[];
-  heartNotes: string[];
-  topNotes: string[];
-  intensity: string;
-}
 
-const CreationStep = ({ currentStep, onNext, onBack }: CreationStepProps) => {
+const CreationStep = ({ currentStep, onNext, onBack, currentPerfume, setCurrentPerfume }: CreationStepProps) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
-  const [selectedNotes, setSelectedNotes] = useState<PerfumeData>({
-    baseNotes: [],
-    heartNotes: [],
-    topNotes: [],
-    intensity: "",
-  });
+
 
   const handleDrop = (e: React.DragEvent<HTMLImageElement>) => {
     e.preventDefault();
-    const note = e.dataTransfer.getData("text/plain");
+    const nota = e.dataTransfer.getData("text/plain");
 
-    setSelectedNotes((prev) => {
-      const updated = { ...prev };
+    setCurrentPerfume((prev) => {
+      if (!prev) return prev;
 
-      if (currentStep === 1) updated.baseNotes.push(note);
-      else if (currentStep === 2) updated.heartNotes.push(note);
-      else if (currentStep === 3) updated.topNotes.push(note);
+      const nuevaNotas = { ...prev };
 
-      return updated;
+      if (currentStep === 1) {
+        nuevaNotas.notasBase = [...prev.notasBase, nota];
+      } else if (currentStep === 2) {
+        nuevaNotas.notasCorazon = [...prev.notasCorazon, nota];
+      } else if (currentStep === 3) {
+        nuevaNotas.notasSalida = [...prev.notasSalida, nota];
+      }
+
+      return nuevaNotas;
     });
   };
 
@@ -66,9 +64,8 @@ const CreationStep = ({ currentStep, onNext, onBack }: CreationStepProps) => {
             <React.Fragment key={step}>
               <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
               <div
-                className={`rounded-full p-2 border-2 border-[var(--violeta)] ${
-                  currentStep > step && "bg-[var(--violeta)]"
-                }`}
+                className={`rounded-full p-2 border-2 border-[var(--violeta)] ${currentStep > step && "bg-[var(--violeta)]"
+                  }`}
               ></div>
             </React.Fragment>
           ))}
@@ -88,19 +85,19 @@ const CreationStep = ({ currentStep, onNext, onBack }: CreationStepProps) => {
               onDragOver={handleDragOver}
             />
 
-            {currentStep === 1 && selectedNotes.baseNotes.length > 0 && (
+            {currentStep === 1 && currentPerfume.notasBase.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de fondo: <strong>{selectedNotes.baseNotes.join(", ")}</strong>
+                Notas de fondo: <strong>{currentPerfume.notasBase.join(", ")}</strong>
               </p>
             )}
-            {currentStep === 2 && selectedNotes.heartNotes.length > 0 && (
+            {currentStep === 2 && currentPerfume.notasCorazon.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de corazón: <strong>{selectedNotes.heartNotes.join(", ")}</strong>
+                Notas de corazón: <strong>{currentPerfume.notasCorazon.join(", ")}</strong>
               </p>
             )}
-            {currentStep === 3 && selectedNotes.topNotes.length > 0 && (
+            {currentStep === 3 && currentPerfume.notasSalida.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de salida: <strong>{selectedNotes.topNotes.join(", ")}</strong>
+                Notas de salida: <strong>{currentPerfume.notasSalida.join(", ")}</strong>
               </p>
             )}
           </div>
@@ -109,7 +106,7 @@ const CreationStep = ({ currentStep, onNext, onBack }: CreationStepProps) => {
             currentStep={currentStep}
             onConfirm={toggleConfirmModal}
             onSelectIntensity={(intensity) =>
-              setSelectedNotes((prev) => ({ ...prev, intensity }))
+              setCurrentPerfume((prev) => ({ ...prev, intensity }))
             }
           />
         </div>
