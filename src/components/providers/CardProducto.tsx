@@ -7,7 +7,7 @@ export default function ProductCard({ name, price, category, image }: ProductCar
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-4 flex flex-col justify-between min-h-[260px]">
-      <Image src={image} alt={name} className="h-32 object-contain mx-auto mb-2" />
+      <Image src={image} alt={name} className="h-32 object-contain mx-auto mb-2" width={100} />
       <div className="text-sm font-semibold">{name}</div>
       <div className="text-xs text-gray-500">{category}</div>
       <div className="text-md font-bold">${price.toLocaleString()}</div>

@@ -6,10 +6,26 @@ import Paso3Pago from "@/components/provider/Paso3Pago";
 import Paso4Confirmacion from "@/components/provider/Paso4Confirmacion";
 import { useState } from "react";
 
+export interface ProviderFormData {
+  email: string;
+  password: string;
+  empresa: string;
+  cuil: string;
+  productosSeleccionados: string[];
+  otroProducto: string;
+  rubro: string;
+  tarjeta: {
+    nombre: string;
+    numero: string;
+    vencimiento: string;
+    cvc: string;
+  };
+}
+
 export default function RegistroProveedorPage() {
   const [step, setStep] = useState(1);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ProviderFormData>({
     email: "",
     password: "",
     empresa: "",

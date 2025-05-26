@@ -5,11 +5,13 @@ import ScienceIcon from "@mui/icons-material/Science";
 import SearchIcon from "@mui/icons-material/Search";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import HandshakeIcon from "@mui/icons-material/Handshake";
+import { ProviderFormData } from "@/app/(user-proveedor)/page";
+
 
 interface Paso1Props {
   onContinue: () => void;
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: ProviderFormData;
+  setFormData: (data: ProviderFormData) => void;
 }
 
 export default function Paso1Cuenta({ onContinue, formData, setFormData }: Paso1Props) {

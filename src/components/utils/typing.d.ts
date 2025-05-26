@@ -18,12 +18,6 @@ export type PageProps = {
     slug: string;
   };
 };
-export interface ProductPageProps {
-  params: {
-    slug: string;
-  };
-}
-
 
 export interface Product {
   name: string;

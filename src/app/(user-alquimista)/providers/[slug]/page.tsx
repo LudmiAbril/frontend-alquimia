@@ -1,11 +1,16 @@
 import SectionWrapper from "@/components/general/SectionWrapper";
 import ProductDetail from "@/components/providers/ProductDetail";
-import { Product, ProductPageProps} from "@/components/utils/typing";
+import { Product } from "@/components/utils/typing";
 import { mockProducts } from "@/components/utils/utils";
 import { notFound } from "next/navigation";
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const { slug } = params;
+
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
   // Buscar el producto por nombre transformado a slug
   const product: Product | undefined = Object.values(mockProducts)

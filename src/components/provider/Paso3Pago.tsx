@@ -6,12 +6,13 @@ import SecurityIcon from "@mui/icons-material/Security";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import CircularProgress from "@mui/material/CircularProgress";
+import { ProviderFormData } from "@/app/(user-proveedor)/page";
 
 interface Paso3Props {
   onContinue: () => void;
   onBack: () => void;
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: ProviderFormData;
+  setFormData: (data: ProviderFormData) => void;
 }
 
 export default function Paso3Pago({ onContinue, onBack, formData, setFormData }: Paso3Props) {
