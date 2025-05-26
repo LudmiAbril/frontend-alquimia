@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import ResultCard, { perfume } from "./ResultCard";
+
 import ConfirmFormulaModal from "./ConfirmFormulaModal";
+import ResultCard, { perfumeData } from "./ResultCard";
 
 interface FormulaResultProps {
-  resultPerfume: perfume
+  resultPerfume: perfumeData
 }
 const FormulaResult = ({resultPerfume} :FormulaResultProps) => {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);

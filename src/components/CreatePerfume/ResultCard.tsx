@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { Intensity } from "./Library";
 
 interface ResultCardProps {
   perfume: perfumeData
@@ -89,7 +90,7 @@ export interface perfumeData {
   baseNotes: string[],
   heartNotes: string[],
   topNotes: string[],
-  intensity: { name: string, type: string }
+  intensity: Intensity
 }
 
 // COMPONENTES SECUNDARIOS
@@ -115,7 +116,7 @@ export const Composition = ({ perfume }: CompositionProps) => {
 };
 
 interface FormulaProps {
-  intensity: { name: string, type: string }
+  intensity:  Intensity
 }
 
 export const Formula = ({ intensity }: FormulaProps) => {

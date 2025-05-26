@@ -6,7 +6,7 @@ import { obtenerNotasPorPaso } from "../../services/notaService";
 interface LibraryProps {
   currentStep: number;
   onConfirm: () => void;
-  onSelectIntensity: (intensity: { name: string, type: string }) => void;
+  onSelectIntensity: (intensity: Intensity) => void;
 }
 
 const Library = ({ currentStep, onConfirm, onSelectIntensity }: LibraryProps) => {
@@ -121,7 +121,14 @@ export const NotesContainer = ({ step }: { step: number }) => {
 
 interface IntensityContainerProps {
   onConfirm: () => void;
-  onSelectIntensity: (intensity: { name: string; type: string }) => void;
+  onSelectIntensity: (intensity: Intensity) => void;
+}
+
+export interface Intensity {
+  name: string;
+  nameToShow: string;
+  type: string;
+  description: string
 }
 
 export const IntensityContainer = ({
@@ -130,24 +137,27 @@ export const IntensityContainer = ({
 }: IntensityContainerProps) => {
   const [selectedIntensity, setSelectedIntensity] = useState<string | null>(null);
 
-  const handleSelect = (intensity: { name: string; type: string }) => {
-    setSelectedIntensity(intensity.name);
+  const handleSelect = (intensity: Intensity) => {
+    setSelectedIntensity(intensity.nameToShow);
     onSelectIntensity(intensity);
   };
 
-  const intensities = [
+  const intensities: Intensity[] = [
     {
-      name: "Baja",
+      name: "low",
+      nameToShow: "Baja",
       type: "Body Splash",
       description: "dura alrededor de 1-3 horas y tiene poca proyección",
     },
     {
-      name: "Media",
+      name: "medium",
+      nameToShow: "Media",
       type: "Eau De Toilette",
       description: "dura alrededor de 3-5 horas y tiene buena proyección",
     },
     {
-      name: "Alta",
+      name: "high",
+      nameToShow: "Alta",
       type: "Eau De Parfum",
       description: "dura alrededor de 5-8 horas y tiene buena proyección.",
     },
@@ -157,19 +167,18 @@ export const IntensityContainer = ({
     <div className="mt-[3rem]">
       <div className="flex flex-col gap-[46px] items-center text-white">
         {intensities.map((intensity, key) => {
-          const isSelected = selectedIntensity === intensity.name;
+          const isSelected = selectedIntensity === intensity.nameToShow;
           return (
             <div
               key={key}
               className={`w-[430px] h-[103px] rounded-[10px] cursor-pointer flex flex-col items-center justify-center transition
               ${isSelected ? "bg-[var(--violeta)]" : "bg-[var(--lila)] hover:bg-[var(--violeta)]"}`}
-              onClick={() => handleSelect({
-                name: intensity.name,
-                type: intensity.type,
-              })}
+              onClick={() => handleSelect(
+                intensity
+              )}
             >
               <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
-                {intensity.name}- {intensity.type}
+                {intensity.nameToShow}- {intensity.type}
               </p>
               <p className="text-[14px]">{intensity.description}</p>
             </div>
