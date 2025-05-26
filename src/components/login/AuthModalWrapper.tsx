@@ -42,6 +42,8 @@ export default function AuthModalWrapper({ children, title, onClose }: AuthModal
                 src="/logo/LogoVioleta.svg"
                 alt="Logo"
                 className="w-10 h-10 object-contain"
+                width={10}
+                height={10}
               />
             </div>
             <h2 className="text-xl font-bold uppercase text-[var(--gris4)]">{title}</h2>

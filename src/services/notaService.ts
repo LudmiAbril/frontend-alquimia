@@ -17,5 +17,7 @@ export const obtenerNotasPorPaso = async (paso: number) => {
 
   const res = await fetch(url);
   if (!res.ok) throw new Error("Error al obtener las notas");
-  return await res.json();
+  const data= await res.json()
+  console.log(data)
+  return await data;
 };

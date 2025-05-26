@@ -12,6 +12,8 @@ const Footer = () => {
             src="/logo/logotipo.svg"
             alt="Logo Alquimia"
             className="w-[90px] h-[80px]"
+            width={90}
+            height={80}
           />
 
           {/* Redes */}
@@ -22,11 +24,13 @@ const Footer = () => {
                 src="/redes/tiktokIcon.svg"
                 alt="TikTok"
                 className="w-[32px] h-[32px] cursor-pointer"
+                width={32} height={32}
               />
               <Image
                 src="/redes/instagram.svg"
                 alt="Instagram"
                 className="w-[32px] h-[32px] cursor-pointer"
+                  width={32} height={32}
               />
             </div>
           </div>

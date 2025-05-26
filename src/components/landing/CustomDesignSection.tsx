@@ -10,6 +10,8 @@ export default function CustomDesignSection() {
             src="/landingImagenes/DisenioSeccion.png"
             alt="Frasco personalizado"
             className="w-full max-w-[300px] rounded-full"
+            width={100}
+            height={100}
           />
         </div>
 

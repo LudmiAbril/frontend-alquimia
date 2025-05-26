@@ -67,6 +67,16 @@ interface NoteFamily {
   notes: Note[];
 }
 
+interface NoteResponse {
+  Id: number;
+  Nombre: string;
+}
+
+interface NoteFamilyResponse {
+  Familia: string;
+  Notas: NoteResponse[];
+}
+
 // ContenedorNotas
 export const NotesContainer = ({ step }: { step: number }) => {
   const [groupedNotes, setGroupedNotes] = useState<NoteFamily[]>([]);
@@ -75,11 +85,11 @@ export const NotesContainer = ({ step }: { step: number }) => {
     const fetchNotes = async () => {
       try {
         const data = await obtenerNotasPorPaso(step);
-        const reducedNotes = data.map((item: NoteFamily) => ({
-          family: item.family,
-          notes: item.notes?.map((n: Note) => ({
-            id: n.id,
-            name: n.name,
+        const reducedNotes = data.map((item: NoteFamilyResponse) => ({
+          family: item.Familia,
+          notes: item.Notas?.map((n: NoteResponse) => ({
+            id: n.Id,
+            name: n.Nombre,
           })) ?? [],
         }));
 
@@ -94,8 +104,8 @@ export const NotesContainer = ({ step }: { step: number }) => {
 
   return (
     <div className="overflow-y-scroll max-h-[31rem] mt-6 w-full flex flex-col">
-      {groupedNotes.map(({ family, notes }) => (
-        <div key={family} className="flex flex-col mb-[2.43rem]">
+      {groupedNotes.map(({ family, notes }, index) => (
+        <div key={`${family}-${index}`} className="flex flex-col mb-[2.43rem]">
           <div className="flex items-center gap-2 mb-2 fuente-principal">
             <p className="text-[var(--gris3)] text-[20px] font-medium">{family}</p>
             <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">i</span>

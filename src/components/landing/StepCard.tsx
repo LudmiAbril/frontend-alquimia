@@ -10,6 +10,8 @@ export default function StepCard({ image, alt, text }: StepCardProps) {
           alt={alt}
           className="max-w-full h-auto mx-auto"
           style={{ width: "160px", height: "140px" }}
+          width={160}
+          height={140}
         />
       </div>
 

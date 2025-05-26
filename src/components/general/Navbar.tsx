@@ -25,6 +25,8 @@ export default function Navbar() {
           src={isHome ? "/logo/logo-blanco.svg" : "/logo/logo-violeta.svg"}
           alt="Logo"
           className="w-[62px]"
+          width={62}
+          height={62}
         />
         <div className="flex items-center gap-[50px]">
           <nav className="flex items-center gap-[50px]">

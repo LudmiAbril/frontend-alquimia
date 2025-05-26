@@ -30,6 +30,8 @@ const FormulaResult = ({resultPerfume} :FormulaResultProps) => {
               src="/frasco-color.svg"
               alt="frasco final"
               className="w-[300px]"
+              width={300}
+              height={100}
             />
             <button
               className="bg-[var(--violeta)] px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase cursor-pointer"

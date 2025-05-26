@@ -29,6 +29,8 @@ export default function SectionWithImage({
             src={image}
             alt={alt}
             className="w-full max-w-md rounded-xl"
+            width={100}
+            height={100}
           />
         </div>
       </div>
