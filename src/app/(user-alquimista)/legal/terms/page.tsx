@@ -1,7 +1,7 @@
 
 import SectionWrapper from "@/components/general/SectionWrapper";
 
-export default function FlujoUsersLayout({ children }: { children: React.ReactNode }) {
+export default function FlujoUsersLayout() {
   return (
     <SectionWrapper className="bg-[var(--degrade)] " >
     <div className="bg-white p-6 rounded-md shadow-md">
@@ -14,7 +14,7 @@ export default function FlujoUsersLayout({ children }: { children: React.ReactNo
     </p>
 
     <p className="text-sm text-gray-700 mb-4">
-      Bienvenido/a a Alquimia (en adelante, "la Plataforma"). Al utilizar este sitio web, usted acepta los siguientes términos y condiciones. Le rogamos que los lea detenidamente.
+      Bienvenido/a a Alquimia (en adelante,  &quot;la Plataforma &quot;). Al utilizar este sitio web, usted acepta los siguientes términos y condiciones. Le rogamos que los lea detenidamente.
     </p>
 
     <ol className="list-decimal list-inside text-sm text-gray-700 space-y-4">

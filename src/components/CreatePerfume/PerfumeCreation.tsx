@@ -4,6 +4,7 @@ import ConfirmCreationModal from "./ConfirmCreationModal";
 import LoadingModal from "./Loading";
 import { createSteps } from "./CreatePerfumeSteps";
 import { perfumeData } from "./ResultCard";
+import Image from "next/image";
 
 interface CreatePerfumeProps {
   currentStep: number;
@@ -58,7 +59,7 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
 
         {/* Barra de progreso */}
         <div className="flex items-center mb-10">
-          <img src="/BarraSteps/icono-pocion-inicio.svg" alt="" />
+          <Image src="/BarraSteps/icono-pocion-inicio.svg" alt="" />
           {[1, 2, 3, 4].map((step) => (
             <React.Fragment key={step}>
               <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
@@ -69,7 +70,7 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
             </React.Fragment>
           ))}
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
-          <img src="/BarraSteps/icono-pocion-final.svg" alt="" />
+          <Image src="/BarraSteps/icono-pocion-final.svg" alt="" />
         </div>
 
         {/* Frasco y biblioteca */}
@@ -77,7 +78,7 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
           <div className="flex flex-col items-center gap-[50px]">
             <StepCard currentStep={currentStep} onNext={onNext} onBack={onBack} />
 
-            <img
+            <Image
               src="/frasco-diseño.svg"
               alt="frasco de tu perfume"
               onDrop={handleDrop}
@@ -131,7 +132,7 @@ interface StepCardProps {
 export const StepCard = ({ currentStep, onNext, onBack }: StepCardProps) => {
   return (
     <div className="flex items-center gap-6">
-      <img
+      <Image
         src={
           currentStep <= 1
             ? "/svgGeneral/arrow-left-inactive.svg"
@@ -144,13 +145,13 @@ export const StepCard = ({ currentStep, onNext, onBack }: StepCardProps) => {
         }}
       />
       <div className="bg-white p-6 rounded-[10px] items-center flex flex-col justify-center w-[409px] h-[179px] shadow-md">
-        <img src="/svgGeneral/icono-info.svg" alt="info" className="mb-[18px]" />
+        <Image src="/svgGeneral/icono-info.svg" alt="info" className="mb-[18px]" />
         <h3 className="mb-[10px] uppercase text-center">
           Paso {currentStep} - {createSteps[currentStep].nombre}
         </h3>
         <p>{createSteps[currentStep].descripcion}</p>
       </div>
-      <img
+      <Image
         src={
           currentStep >= 4
             ? "/svgGeneral/arrow-right-inactive.svg"

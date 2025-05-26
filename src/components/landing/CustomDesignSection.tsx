@@ -1,11 +1,12 @@
 import SectionWrapper from "@/components/general/SectionWrapper";
+import Image from "next/image";
 
 export default function CustomDesignSection() {
   return (
     <SectionWrapper className="bg-[#CBA9D7]">
       <div className="flex flex-col md:flex-row items-center gap-10">
         <div className="flex-1 flex justify-center">
-          <img
+          <Image
             src="/landingImagenes/DisenioSeccion.png"
             alt="Frasco personalizado"
             className="w-full max-w-[300px] rounded-full"

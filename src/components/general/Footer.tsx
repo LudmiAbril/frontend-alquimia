@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -7,7 +8,7 @@ const Footer = () => {
       <div className="bg-[#9444B6] rounded-t-[4rem] px-10 py-9">
         <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
           {/* Logo */}
-          <img
+          <Image
             src="/logo/logotipo.svg"
             alt="Logo Alquimia"
             className="w-[90px] h-[80px]"
@@ -17,12 +18,12 @@ const Footer = () => {
           <div className="flex flex-col items-end">
             <p className="mb-4">Encontranos en:</p>
             <div className="flex gap-8">
-              <img
+              <Image
                 src="/redes/tiktokIcon.svg"
                 alt="TikTok"
                 className="w-[32px] h-[32px] cursor-pointer"
               />
-              <img
+              <Image
                 src="/redes/instagram.svg"
                 alt="Instagram"
                 className="w-[32px] h-[32px] cursor-pointer"

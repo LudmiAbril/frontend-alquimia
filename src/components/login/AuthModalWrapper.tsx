@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { AuthModalWrapperProps } from "@/components/utils/typing";
+import Image from "next/image";
 
 export default function AuthModalWrapper({ children, title, onClose }: AuthModalWrapperProps) {
   const [isVisible, setIsVisible] = useState(false);
@@ -37,7 +38,7 @@ export default function AuthModalWrapper({ children, title, onClose }: AuthModal
           {/* Logo y título */}
           <div className="flex flex-col items-center space-y-2 mb-6">
             <div className="w-16 flex items-center justify-center">
-              <img
+              <Image
                 src="/logo/LogoVioleta.svg"
                 alt="Logo"
                 className="w-10 h-10 object-contain"

@@ -1,5 +1,6 @@
 import SectionWrapper from "@/components/general/SectionWrapper";
 import { ImageSectionProps } from "@/components/utils/typing";
+import Image from "next/image";
 
 export default function SectionWithImage({
   title,
@@ -24,7 +25,7 @@ export default function SectionWithImage({
         </div>
 
         <div className="flex-1 flex justify-end">
-          <img
+          <Image
             src={image}
             alt={alt}
             className="w-full max-w-md rounded-xl"

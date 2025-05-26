@@ -1,12 +1,10 @@
 "use client";
 
-import Paso1Cuenta from "@/components/provedor/Paso1Cuenta";
-import Paso2Empresa from "@/components/provedor/Paso2Empresa";
-import Paso3Pago from "@/components/provedor/Paso3Pago";
-import Paso4Confirmacion from "@/components/provedor/Paso4Confirmacion";
-
-import { useState } from "react";7
-
+import Paso1Cuenta from "@/components/provider/Paso1Cuenta";
+import Paso2Empresa from "@/components/provider/Paso2Empresa";
+import Paso3Pago from "@/components/provider/Paso3Pago";
+import Paso4Confirmacion from "@/components/provider/Paso4Confirmacion";
+import { useState } from "react";
 
 export default function RegistroProveedorPage() {
   const [step, setStep] = useState(1);

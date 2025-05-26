@@ -3,11 +3,8 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-interface ConfirmFormulaModalProps {
-  onClose: () => void;
-}
 
-const ConfirmFormulaModal = ({ onClose }: ConfirmFormulaModalProps) => {
+const ConfirmFormulaModal = () => {
   const router = useRouter();
 
   const handleRedirectToSuppliers = () => {

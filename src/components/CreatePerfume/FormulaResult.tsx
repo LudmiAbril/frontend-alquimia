@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import ConfirmFormulaModal from "./ConfirmFormulaModal";
 import ResultCard, { perfumeData } from "./ResultCard";
+import Image from "next/image";
 
 interface FormulaResultProps {
   resultPerfume: perfumeData
@@ -25,7 +26,7 @@ const FormulaResult = ({resultPerfume} :FormulaResultProps) => {
           <ResultCard perfume={resultPerfume} />
           {/*frasco y boton confirmar */}
           <div className="flex flex-col items-center">
-            <img
+            <Image
               src="/frasco-color.svg"
               alt="frasco final"
               className="w-[300px]"
@@ -39,7 +40,7 @@ const FormulaResult = ({resultPerfume} :FormulaResultProps) => {
           </div>
         </div>
       </div>
-      {isConfirmationModalOpen && <ConfirmFormulaModal onClose={toggleConfirmationModal} />}
+      {isConfirmationModalOpen && <ConfirmFormulaModal />}
     </>
   );
 };

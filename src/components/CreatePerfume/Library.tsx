@@ -75,11 +75,11 @@ export const NotesContainer = ({ step }: { step: number }) => {
     const fetchNotes = async () => {
       try {
         const data = await obtenerNotasPorPaso(step);
-        const reducedNotes = data.map((item: any) => ({
-          family: item.Familia,
-          notes: item.Notas?.map((n: any) => ({
-            id: n.Id,
-            name: n.Nombre,
+        const reducedNotes = data.map((item: NoteFamily) => ({
+          family: item.family,
+          notes: item.notes?.map((n: Note) => ({
+            id: n.id,
+            name: n.name,
           })) ?? [],
         }));
 

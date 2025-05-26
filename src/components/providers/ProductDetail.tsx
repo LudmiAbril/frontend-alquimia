@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ProductDetailProps } from "../utils/typing";
 import Button from "../general/Button";
+import Image from "next/image";
 
 export default function ProductDetail({
   name,
   price,
   image,
-  category,
   supplier,
   mainCategory,
   subCategory,
@@ -14,7 +14,7 @@ export default function ProductDetail({
   return (
     <main className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-10">
       <div className="flex flex-col items-center">
-        <img src={image} alt={name} className="w-60 h-60 object-contain" />
+        <Image src={image} alt={name} className="w-60 h-60 object-contain" />
         {/* ACA DESPUÉS IMG DEL LOGO DE LOS PROVEEDORES */}
         {/* <img src={`/imgProveedores/${supplier.toLowerCase().replace(/\s+/g, "")}.png`} alt="Proveedor" className="w-32 mt-4" /> */}
       </div>

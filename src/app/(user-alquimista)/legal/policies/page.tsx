@@ -1,7 +1,7 @@
 
 import SectionWrapper from "@/components/general/SectionWrapper";
 
-export default function FlujoUsersLayout({ children }: { children: React.ReactNode }) {
+export default function FlujoUsersLayout() {
   return (
     <SectionWrapper className="bg-[var(--degrade)] " >
     <div className="bg-white p-6 rounded-md shadow-md">

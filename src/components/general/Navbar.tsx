@@ -6,6 +6,7 @@ import AuthModalWrapper from "@/components/login/AuthModalWrapper";
 import LoginForm from "@/components/login/LoginForm";
 import RegisterForm from "@/components/login/RegisterForm";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function Navbar() {
           isHome ? "text-white" : "text-[var(--violeta)]"
         }`}
       >
-        <img
+        <Image
           src={isHome ? "/logo/logo-blanco.svg" : "/logo/logo-violeta.svg"}
           alt="Logo"
           className="w-[62px]"
