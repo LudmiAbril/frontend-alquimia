@@ -23,7 +23,7 @@ export default function IntroCreatePerfume() {
 
       {/* Imagen */}
       <Image
-        src="/chicoAlquimista.png"
+        src="/landingImagenes/chicoAlquimista.png"
         alt="Ilustración de alquimista"
         width={160}
         height={160}
