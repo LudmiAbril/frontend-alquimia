@@ -7,30 +7,7 @@ import { Card, CardContent } from "@mui/material"
 import { LinearProgress } from "@mui/material"
 import { BookOpen, ArrowLeft, ArrowRight, Sparkles } from "lucide-react"
 import { useEffect } from "react"
-interface OptionDTO {
-  Letra: string
-  Texto: string
-  ImagenBase64: string
-}
-
-interface QuestionDTO {
-  Id: number
-  Pregunta: string
-  Opciones: OptionDTO[]
-}
-
-interface AnswerDTO {
-  QuestionId: number
-  SelectedOption: string
-}
-
-interface FamilyResult {
-  letraDominante: string
-  Nombre: string
-  Descripcion: string
-  Imagen: string
-}
-
+import { AnswerDTO, FamilyResult, QuestionDTO } from "@/components/utils/typing"
 export default function FragranceQuiz() {
   const [currentStep, setCurrentStep] = useState<"landing" | "quiz" | "result">("landing")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
