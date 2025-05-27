@@ -4,7 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@mui/material"
 import { Card, CardContent } from "@mui/material"
-import { CircularProgress } from "@mui/material"
+import { LinearProgress } from "@mui/material"
 import { BookOpen, ArrowLeft, ArrowRight, Sparkles } from "lucide-react"
 
 interface OptionDTO {
@@ -277,7 +277,7 @@ export default function FragranceQuiz() {
           <div className="max-w-4xl mx-auto w-full mb-8">
             <div className="flex items-center justify-between mb-4">
               <Button
-                variant="text" /*text, outlined o contained*/
+                variant="contained" /*text, outlined o contained*/
                 onClick={currentQuestionIndex > 0 ? handlePreviousQuestion : resetQuiz}
                 className="text-purple-600"
               >
@@ -288,7 +288,7 @@ export default function FragranceQuiz() {
                 {currentQuestionIndex + 1} de {questions.length}
               </span>
             </div>
-            <CircularProgress value={progress} className="h-2" />
+            <LinearProgress variant="determinate" value={progress} className="h-2" />
           </div>
 
           {/* Question */}
