@@ -1,10 +1,10 @@
 "use client";
 
-import Paso1Cuenta from "@/components/provider/Paso1Cuenta";
-import Paso2Empresa from "@/components/provider/Paso2Empresa";
-import Paso3Pago from "@/components/provider/Paso3Pago";
-import Paso4Confirmacion from "@/components/provider/Paso4Confirmacion";
+import Step1Account from "@/components/provider/Step1Account";
 import { useState } from "react";
+import Step2Business from "@/components/provider/Step2Business";
+import Step4Confirmation from "@/components/provider/Step4Confirmation";
+import Step3Payment from "@/components/provider/Step3Payment";
 
 export interface ProviderFormData {
   email: string;
@@ -47,14 +47,14 @@ export default function RegistroProveedorPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f4efeb] px-4">
       {step === 1 && (
-        <Paso1Cuenta
+        <Step1Account 
           onContinue={handleNext}
           formData={formData}
           setFormData={setFormData}
         />
       )}
       {step === 2 && (
-        <Paso2Empresa
+        <Step2Business
           onContinue={handleNext}
           onBack={handleBack}
           formData={formData}
@@ -62,7 +62,7 @@ export default function RegistroProveedorPage() {
         />
       )}
       {step === 3 && (
-        <Paso3Pago
+        <Step3Payment
           onContinue={handleNext}
           onBack={handleBack}
           formData={formData}
@@ -70,7 +70,7 @@ export default function RegistroProveedorPage() {
         />
       )}
       {step === 4 && (
-        <Paso4Confirmacion
+        <Step4Confirmation
    onFinish={() => console.log("Proceso finalizado")}
         />
       )}

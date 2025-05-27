@@ -1,7 +1,8 @@
-import DesignPerfume from "@/components/CreatePerfume/CreatePerfumeSteps";
+import CreatePerfumeSteps from "@/components/CreatePerfume/CreatePerfumeSteps";
+
 
 export default function CrearPerfume() {
     return (
-        <DesignPerfume />
+        <CreatePerfumeSteps/>
     );
 }
