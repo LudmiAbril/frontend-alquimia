@@ -66,7 +66,7 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
           </button>
         </p>
         <Link
-          href="/user-proveedor"
+          href="/registroProveedor"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[var(--violeta)] italic font-small"

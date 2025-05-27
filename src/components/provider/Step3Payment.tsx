@@ -6,7 +6,7 @@ import SecurityIcon from "@mui/icons-material/Security";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import CircularProgress from "@mui/material/CircularProgress";
-import { ProviderFormData } from "@/app/(user-proveedor)/page";
+import { ProviderFormData } from "@/app/(user-proveedor)/registroProveedor/page";
 
 interface Paso3Props {
   onContinue: () => void;

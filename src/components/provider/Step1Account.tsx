@@ -5,7 +5,7 @@ import ScienceIcon from "@mui/icons-material/Science";
 import SearchIcon from "@mui/icons-material/Search";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import HandshakeIcon from "@mui/icons-material/Handshake";
-import { ProviderFormData } from "@/app/(user-proveedor)/page";
+import { ProviderFormData } from "@/app/(user-proveedor)/registroProveedor/page";
 
 
 interface Paso1Props {

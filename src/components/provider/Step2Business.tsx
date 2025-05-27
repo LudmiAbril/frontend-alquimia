@@ -5,7 +5,7 @@ import BusinessIcon from "@mui/icons-material/Business";
 import BadgeIcon from "@mui/icons-material/Badge";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import { ProviderFormData } from "@/app/(user-proveedor)/page";
+import { ProviderFormData } from "@/app/(user-proveedor)/registroProveedor/page";
 
 interface Paso2Props {
   onContinue: () => void;
