@@ -140,7 +140,7 @@ export default function FragranceQuiz() {
 }, [currentStep])
 
   // Fragrance families data
-  const familias = {
+ /*  const familias = {
     A: {
       Nombre: "Fresca",
       Descripcion:
@@ -165,10 +165,10 @@ export default function FragranceQuiz() {
         "Las fragancias florales son románticas, femeninas y delicadas. Ideales para personas que aprecian la belleza y la suavidad. Estas fragancias capturan la esencia de jardines en flor y pétalos frescos.",
       Imagen: "",
     },
-  }
+  } */
 
   // Calculate result based on answers
-  const calculateResult = (answers: AnswerDTO[]): FamilyResult => {
+  /* const calculateResult = (answers: AnswerDTO[]): FamilyResult => {
     const conteo = { A: 0, B: 0, C: 0, D: 0 }
 
     answers.forEach((answer) => {
@@ -187,7 +187,8 @@ export default function FragranceQuiz() {
       Descripcion: familia.Descripcion,
       Imagen: familia.Imagen,
     }
-  }
+  } */
+
 
   const startQuiz = () => {
     setLoading(true)
@@ -215,12 +216,29 @@ export default function FragranceQuiz() {
 
     if (currentQuestionIndex === questions.length - 1) {
       setLoading(true)
-      setTimeout(() => {
+      /* setTimeout(() => {
         const calculatedResult = calculateResult(updatedAnswers)
         setResult(calculatedResult)
         setCurrentStep("result")
         setLoading(false)
-      }, 1500)
+      }, 1500) */
+      fetch("https://localhost:5035/quiz/resultado", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedAnswers),
+    })
+      .then((res) => res.json())
+      .then((data: FamilyResult) => {
+        setResult(data)
+        setCurrentStep("result")
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.error("Error al obtener resultado:", error)
+        setLoading(false)
+      })
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
     }
@@ -391,8 +409,8 @@ export default function FragranceQuiz() {
               <div className="relative mx-auto w-48 h-48 mb-6">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full animate-pulse opacity-20"></div>
                 {result.Imagen ? (
-                  <Image
-                    src={`data:image/jpeg;base64,${result.Imagen}`}
+                  <img
+                    src={`data:image/png;base64,${result.Imagen}`}
                     alt={result.Nombre}
                     width={192}
                     height={192}
