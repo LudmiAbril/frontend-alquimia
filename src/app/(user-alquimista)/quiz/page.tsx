@@ -6,7 +6,7 @@ import { Button } from "@mui/material"
 import { Card, CardContent } from "@mui/material"
 import { LinearProgress } from "@mui/material"
 import { BookOpen, ArrowLeft, ArrowRight, Sparkles } from "lucide-react"
-
+import { useEffect } from "react"
 interface OptionDTO {
   Letra: string
   Texto: string
@@ -40,7 +40,7 @@ export default function FragranceQuiz() {
   const [loading, setLoading] = useState(false)
 
   // Mock questions data
-  const questions: QuestionDTO[] = [
+  /* const questions: QuestionDTO[] = [
     {
       Id: 1,
       Pregunta: "¿Qué tipo de ambiente prefieres?",
@@ -121,7 +121,23 @@ export default function FragranceQuiz() {
         { Letra: "D", Texto: "Campo y tranquilidad", ImagenBase64: "" },
       ],
     },
-  ]
+  ] */
+    const [questions, setQuestions] = useState<QuestionDTO[]>([])
+    useEffect(() => {
+  if (currentStep === "quiz" && questions.length === 0) {
+    setLoading(true)
+    fetch("https://localhost:5035/quiz/preguntas")
+      .then((res) => res.json())
+      .then((data: QuestionDTO[]) => {
+        setQuestions(data)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.error("Error al obtener preguntas:", error)
+        setLoading(false)
+      })
+  }
+}, [currentStep])
 
   // Fragrance families data
   const familias = {
