@@ -45,8 +45,8 @@ export default function CurrentStep({
 
       <div className="flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto w-full">
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">{question?.Pregunta}</h2>
-          <p className="text-gray-600">Selecciona la opción que más te identifique</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">{question?.Pregunta}</h2>
+          <p className="text-white">Selecciona la opción que más te identifique</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl mb-8">

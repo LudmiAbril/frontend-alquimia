@@ -122,3 +122,24 @@ export interface AnswerDTO {
   descripcion: string;
   imagen: string | null;
 }
+export interface PropsQuiz {
+  title: string
+  subtitle?: string
+}
+
+export interface PropsQC {
+  option: OptionDTO 
+  selected: boolean
+  onClick: () => void
+}
+
+
+export interface PropsAS {
+  currentQuestionIndex: number
+  questions: QuestionDTO[]
+  selectedOption: string
+  onSelect: (option: string) => void
+  onNext: () => void
+  onPrev: () => void
+  loading: boolean
+}

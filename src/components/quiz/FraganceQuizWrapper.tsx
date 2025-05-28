@@ -91,7 +91,13 @@ export default function FragranceQuizWrapper() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-100">
+<div
+  className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center px-6 py-12"
+  style={{
+    backgroundImage: `url(/quiz/forest.jpg)`, 
+  }}
+>
+
       {currentStep === "landing" && (
         <Welcome onStart={startQuiz} loading={loading} />
       )}
