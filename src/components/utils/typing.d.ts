@@ -112,13 +112,13 @@ export interface QuestionDTO {
 }
 
 export interface AnswerDTO {
-  QuestionId: number
-  SelectedOption: string
+  preguntaId: number;
+  selectedOption: string;
 }
 
-export interface FamilyResult {
-  letraDominante: string
-  Nombre: string
-  Descripcion: string
-  Imagen: string
+
+ export interface FamilyResult {
+  nombre: string;
+  descripcion: string;
+  imagen: string | null;
 }
