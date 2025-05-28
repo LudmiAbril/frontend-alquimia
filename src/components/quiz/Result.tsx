@@ -12,7 +12,8 @@ interface Props {
 
 export default function Result({ result, answers, onReset }: Props) {
   const resumenRespuestas = answers.reduce((acc, answer) => {
-    acc[answer.SelectedOption] = (acc[answer.SelectedOption] || 0) + 1
+acc[answer.selectedOption] = (acc[answer.selectedOption] || 0) + 1
+
     return acc
   }, {} as Record<string, number>)
 
@@ -22,10 +23,10 @@ export default function Result({ result, answers, onReset }: Props) {
         <div className="mb-8">
           <div className="relative mx-auto w-48 h-48 mb-6">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full animate-pulse opacity-20"></div>
-            {result.Imagen ? (
+            {result.imagen ? (
               <Image
-                src={`data:image/png;base64,${result.Imagen}`}
-                alt={result.Nombre}
+                src={`data:image/png;base64,${result.imagen}`}
+                alt={result.nombre}
                 width={192}
                 height={192}
                 className="rounded-full object-cover shadow-lg"
@@ -46,12 +47,12 @@ export default function Result({ result, answers, onReset }: Props) {
 
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Tu familia olfativa es:</h1>
         <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-500 to-purple-600 bg-clip-text text-transparent mb-6">
-          {result.Nombre}
+          {result.nombre}
         </h2>
 
         <Card className="mb-8 shadow-lg">
           <CardContent className="p-6">
-            <p className="text-lg text-gray-700 leading-relaxed">{result.Descripcion}</p>
+            <p className="text-lg text-gray-700 leading-relaxed">{result.descripcion}</p>
           </CardContent>
         </Card>
 
