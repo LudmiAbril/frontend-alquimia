@@ -5,23 +5,23 @@ export default function QuestionCard({ option, selected, onClick }: PropsQC) {
   return (
     <div
       onClick={onClick}
-      className={`cursor-pointer rounded-3xl p-4 sm:p-6 shadow-lg transition-all duration-300 transform hover:scale-[1.02] border-2
-        ${selected ? "border-purple-500 bg-purple-100/20 backdrop-blur-md" : "border-transparent hover:border-purple-300/60"}
-        bg-gradient-to-b from-[#a18cd1]/40 to-[#fbc2eb]/40
+      className={`cursor-pointer rounded-[2rem] p-6 sm:p-10 shadow-2xl transition-all duration-300 transform hover:scale-[1.04] border-4
+        ${selected ? "border-purple-500 bg-purple-100/30 backdrop-blur-md" : "border-transparent hover:border-purple-300/40"}
+        bg-gradient-to-br from-[#c3aed6] to-[#f3d1f4] relative max-w-sm mx-auto
       `}
     >
-      <div className="flex flex-col items-center space-y-4">
+      <div className="flex flex-col items-center justify-center space-y-6">
         {option.ImagenBase64 && (
-          <div className="relative w-28 h-28 sm:w-36 sm:h-36">
+          <div className="relative w-36 h-36 sm:w-48 sm:h-48">
             <Image
               src={`data:image/png;base64,${option.ImagenBase64}`}
               alt={option.Texto}
               layout="fill"
-              className="object-contain drop-shadow-lg"
+              className="object-contain drop-shadow-xl"
             />
           </div>
         )}
-        <p className={`text-center font-semibold text-lg sm:text-xl uppercase tracking-wide
+        <p className={`text-center font-bold text-xl sm:text-2xl uppercase tracking-wide leading-tight
           ${selected ? "text-purple-800" : "text-gray-800"}
         `}>
           {option.Texto}

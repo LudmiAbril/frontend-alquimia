@@ -1,10 +1,14 @@
-// components/quiz/CurrentStep.tsx
 "use client"
-import { LinearProgress, Button, Card, CardContent } from "@mui/material"
+import { LinearProgress, Button } from "@mui/material"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import Image from "next/image"
-import { AnswerDTO, QuestionDTO } from "@/components/utils/typing"
-import React from "react"
+import { Swiper, SwiperSlide } from "swiper/react"
+import "swiper/css"
+import "swiper/css/navigation"
+import { Navigation } from "swiper/modules"
+import QuestionCard from "./QuestionCard"
+import { QuestionDTO } from "@/components/utils/typing"
+import { Pagination } from "swiper/modules"
+import "swiper/css/pagination"
 
 interface Props {
   currentQuestionIndex: number
@@ -30,67 +34,47 @@ export default function CurrentStep({
 
   return (
     <div className="min-h-screen p-4 flex flex-col">
+      {/* Header de navegación y progreso */}
       <div className="max-w-4xl mx-auto w-full mb-8">
         <div className="flex items-center justify-between mb-4">
           <Button variant="contained" onClick={onPrev} className="text-purple-600">
             <ArrowLeft className="mr-2 h-4 w-4" />
             {currentQuestionIndex > 0 ? "Anterior" : "Inicio"}
           </Button>
-          <span className="text-sm text-gray-500">
-            {currentQuestionIndex + 1} de {questions.length}
-          </span>
+          <span className="text-sm text-white">{currentQuestionIndex + 1} de {questions.length}</span>
         </div>
         <LinearProgress variant="determinate" value={progress} className="h-2" />
       </div>
 
+      {/* Pregunta */}
       <div className="flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto w-full">
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">{question?.Pregunta}</h2>
           <p className="text-white">Selecciona la opción que más te identifique</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl mb-8">
-          {question?.Opciones.map((option) => (
-            <Card
-              key={option.Letra}
-              className={`cursor-pointer transition-all hover:shadow-lg transform hover:scale-105 ${
-                selectedOption === option.Letra
-                  ? "ring-2 ring-purple-500 bg-purple-50 scale-105"
-                  : "hover:bg-gray-50"
-              }`}
-              onClick={() => onSelect(option.Letra)}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-4">
-                  <div
-                    className={`w-8 h-8 rounded-full border-2 flex items-center justify-center font-semibold transition-all ${
-                      selectedOption === option.Letra
-                        ? "bg-purple-500 text-white border-purple-500 scale-110"
-                        : "border-gray-300 text-gray-500"
-                    }`}
-                  >
-                    {option.Letra}
-                  </div>
-                  <div className="flex-1">
-                    {option.ImagenBase64 && (
-                      <div className="mb-3">
-                        <Image
-                          src={`data:image/jpeg;base64,${option.ImagenBase64}`}
-                          alt={option.Texto}
-                          width={100}
-                          height={80}
-                          className="rounded-lg object-cover"
-                        />
-                      </div>
-                    )}
-                    <p className="text-gray-800 font-medium">{option.Texto}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {/* Carrusel de opciones */}
+  <Swiper
+  modules={[Navigation, Pagination]}
+  navigation
+  pagination={{ clickable: true }}
+  spaceBetween={30}
+  slidesPerView={1}
+  className="w-full max-w-md mb-8"
+>
+  {question?.Opciones.map((option) => (
+    <SwiperSlide key={option.Letra}>
+      <QuestionCard
+        option={option}
+        selected={selectedOption === option.Letra}
+        onClick={() => onSelect(option.Letra)}
+      />
+    </SwiperSlide>
+  ))}
+</Swiper>
 
+
+        {/* Botón siguiente */}
         <Button
           onClick={onNext}
           disabled={!selectedOption || loading}
