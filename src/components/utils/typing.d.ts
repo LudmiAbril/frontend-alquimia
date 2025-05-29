@@ -118,7 +118,11 @@ export interface AnswerDTO {
   selectedOption: string;
 }
 
-
+interface PropsResult {
+  result: FamilyResult
+  answers: AnswerDTO[]
+  onReset: () => void
+}
  export interface FamilyResult {
   nombre: string;
   descripcion: string;
