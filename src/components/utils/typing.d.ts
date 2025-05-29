@@ -95,3 +95,51 @@ export type StepCardProps = {
   alt: string;
   text: string;
 };
+
+/**QUIZ */
+
+
+export interface OptionDTO {
+  Letra: string
+  Texto: string
+  ImagenBase64: string
+}
+
+export interface QuestionDTO {
+  Id: number
+  Pregunta: string
+  Opciones: OptionDTO[]
+}
+
+export interface AnswerDTO {
+  preguntaId: number;
+  selectedOption: string;
+}
+
+
+ export interface FamilyResult {
+  nombre: string;
+  descripcion: string;
+  imagen: string | null;
+}
+export interface PropsQuiz {
+  title: string
+  subtitle?: string
+}
+
+export interface PropsQC {
+  option: OptionDTO 
+  selected: boolean
+  onClick: () => void
+}
+
+
+export interface PropsAS {
+  currentQuestionIndex: number
+  questions: QuestionDTO[]
+  selectedOption: string
+  onSelect: (option: string) => void
+  onNext: () => void
+  onPrev: () => void
+  loading: boolean
+}

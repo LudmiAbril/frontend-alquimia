@@ -43,6 +43,26 @@ h2 {
   box-sizing: border-box;
 
 }
+/**SWIPER DE QUIZ**/
+.swiper-pagination-bullet-active {
+    opacity: var(--swiper-pagination-bullet-opacity, 1);
+    background: var(--violeta, var(--lila)) !important;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  --swiper-navigation-size: 24px; 
+  width: 32px;
+  height: 32px;
+  backdrop-filter: blur(4px);
+  border-radius: 9999px;
+  color: white !important;
+  transition: all 0.2s ease;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 16px; /* tamaño del ícono flecha */
+}
 
 @keyframes fadeIn {
   from {

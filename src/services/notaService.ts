@@ -3,13 +3,13 @@ export const obtenerNotasPorPaso = async (paso: number) => {
 
   switch (paso) {
     case 1:
-      url = "https://localhost:7164/creacion/notasDeFondo";
+      url = "https://localhost:5035/creador/base-notes";
       break;
     case 2:
-      url = "https://localhost:7164/creacion/notasDeCorazon";
+      url = "https://localhost:5035/creador/heart-notes";
       break;
     case 3:
-      url = "https://localhost:7164/creacion/notasDeSalida";
+      url = "https://localhost:5035/creador/top-notes";
       break;
     default:
       return [];
