@@ -25,17 +25,14 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Grid,
   Avatar,
   AppBar,
   Toolbar,
-  IconButton,
 } from "@mui/material"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
-import Image from "next/image"
+import Grid from '@mui/material/Grid';
 
-// Types based on your backend
 interface ProviderDTO {
   Id: number
   Nombre: string
@@ -43,16 +40,15 @@ interface ProviderDTO {
   EsAprobado: boolean
 }
 
-// Material-UI theme matching the Alquimia aesthetic
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#8e44ad", // Purple matching the design
+      main: "#8e44ad", 
       light: "#bb6bd9",
       dark: "#5e2750",
     },
     secondary: {
-      main: "#95a5a6", // Neutral gray
+      main: "#95a5a6", 
     },
     background: {
       default: "#f8f9fa",
@@ -111,7 +107,6 @@ export default function AdminPanel() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" as "success" | "error" })
 
-  // Mock data - replace with actual API calls
   const mockProviders: ProviderDTO[] = [
     { Id: 1, Nombre: "Juan Pérez", Email: "juan@example.com", EsAprobado: true },
     { Id: 2, Nombre: "María García", Email: "maria@example.com", EsAprobado: false },
@@ -121,8 +116,6 @@ export default function AdminPanel() {
     { Id: 6, Nombre: "Sofia Hernández", Email: "sofia@example.com", EsAprobado: true },
     { Id: 7, Nombre: "Diego Morales", Email: "diego@example.com", EsAprobado: false },
   ]
-
-  // Fetch providers from API
   const fetchProviders = async () => {
     try {
       setLoading(true)
@@ -130,7 +123,6 @@ export default function AdminPanel() {
       // const response = await fetch('/admin/proveedores')
       // const data = await response.json()
 
-      // Using mock data for demo
       setTimeout(() => {
         setProviders(mockProviders)
         setFilteredProviders(mockProviders)
@@ -143,13 +135,11 @@ export default function AdminPanel() {
     }
   }
 
-  // Approve provider
   const approveProvider = async (id: number) => {
     try {
       // Replace with actual API call
       // const response = await fetch(`/admin/proveedor/${id}`, { method: 'POST' })
 
-      // Mock approval
       setProviders((prev) => prev.map((p) => (p.Id === id ? { ...p, EsAprobado: true } : p)))
       setSnackbar({ open: true, message: "Proveedor aprobado correctamente", severity: "success" })
       setDialogOpen(false)
@@ -159,7 +149,6 @@ export default function AdminPanel() {
     }
   }
 
-  // Deactivate provider
   const deactivateProvider = async (id: number) => {
     try {
       // Replace with actual API call
@@ -175,11 +164,8 @@ export default function AdminPanel() {
     }
   }
 
-  // Filter providers
   useEffect(() => {
     let filtered = providers
-
-    // Filter by search term
     if (searchTerm) {
       filtered = filtered.filter(
         (provider) =>
@@ -187,8 +173,6 @@ export default function AdminPanel() {
           provider.Email.toLowerCase().includes(searchTerm.toLowerCase()),
       )
     }
-
-    // Filter by status
     if (statusFilter !== "all") {
       filtered = filtered.filter((provider) =>
         statusFilter === "approved" ? provider.EsAprobado : !provider.EsAprobado,
@@ -359,7 +343,7 @@ export default function AdminPanel() {
               Filtros de Búsqueda
             </Typography>
             <Grid container spacing={3} alignItems="center">
-              <Grid item xs={12} md={5}>
+              <Grid item={true} xs={12} md={5}>
                 <TextField
                   fullWidth
                   label="Buscar proveedor"
@@ -374,7 +358,7 @@ export default function AdminPanel() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item={true} xs={12} md={4}>
                 <FormControl fullWidth>
                   <InputLabel>Estado</InputLabel>
                   <Select
@@ -391,7 +375,7 @@ export default function AdminPanel() {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item={true} xs={12} md={3}>
                 <Button
                   fullWidth
                   variant="outlined"
