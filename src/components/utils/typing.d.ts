@@ -3,6 +3,8 @@
 export interface ButtonProps {
   label: string;
   onClick?: () => void;
+  colorClass?: string;
+
 }
 
 /*SUPPLIERS*/
@@ -37,14 +39,9 @@ export interface ProductDetailProps {
 }
 
 /*LANDING*/
-export interface ImageSectionProps {
-  title: string;
-  description: string;
-  image: string;
-  alt: string;
-  buttonText?: string;
-  reverse?: boolean;
-  className?: string;
+export interface Supplier {
+  name: string;
+  imageSrc: string;
 }
 
 /*PROFILE*/
@@ -105,18 +102,32 @@ export interface OptionDTO {
   ImagenBase64: string
 }
 
+export type VisualType = "cards" | "grid" | "list" | "buttons" | "bubbles";
+
 export interface QuestionDTO {
   Id: number
   Pregunta: string
   Opciones: OptionDTO[]
+  VisualType?: VisualType // ESTO PARA QUE PUEDA CAMBIAR FORMATO DE RENDERIZADO...atte Celu
 }
-
 export interface AnswerDTO {
   preguntaId: number;
   selectedOption: string;
 }
-
-
+export interface PropsCurrent {
+ currentQuestionIndex: number
+  questions: QuestionDTO[]
+  selectedOption: string
+  onSelect: (option: string) => void
+  onNext: () => void
+  onPrev: () => void
+  loading: boolean
+}
+export interface PropsResult {
+  result: FamilyResult
+  answers: AnswerDTO[]
+  onReset: () => void
+}
  export interface FamilyResult {
   nombre: string;
   descripcion: string;
@@ -142,4 +153,12 @@ export interface PropsAS {
   onNext: () => void
   onPrev: () => void
   loading: boolean
+}
+
+/**LANDING-HOWitWork */
+
+export interface StepData {
+  image: string;
+  alt: string;
+  text: string;
 }

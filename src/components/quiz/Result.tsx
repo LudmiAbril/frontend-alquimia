@@ -2,15 +2,21 @@
 import { Card, CardContent, Button } from "@mui/material"
 import { Sparkles } from "lucide-react"
 import Image from "next/image"
-import { AnswerDTO, FamilyResult } from "@/components/utils/typing"
+import { AnswerDTO, FamilyResult, PropsResult } from "@/components/utils/typing"
 
-interface Props {
-  result: FamilyResult
-  answers: AnswerDTO[]
-  onReset: () => void
+
+
+export default function Result({ result, answers, onReset }: PropsResult) {
+
+  const familiaMascotas: Record<string, string> = {
+  "Fresca": "/mascotas/fresca.png",
+  "Floral": "/mascotas/floral.png",
+  "Amaderada": "/mascotas/amaderada.png",
+  "Oriental": "/mascotas/oriental.png",
 }
 
-export default function Result({ result, answers, onReset }: Props) {
+const imagenMascota = familiaMascotas[result.nombre] || "/mascotas/surpriseQuimi.png"
+
   const resumenRespuestas = answers.reduce((acc, answer) => {
 acc[answer.selectedOption] = (acc[answer.selectedOption] || 0) + 1
 
@@ -18,25 +24,21 @@ acc[answer.selectedOption] = (acc[answer.selectedOption] || 0) + 1
   }, {} as Record<string, number>)
 
   return (
-    <div className="min-h-screen p-4 flex flex-col items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-100">
+<div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-gradient-to-br from-[#f8f2ed] via-[#fff9f5] to-[#f8f2ed]">
+  <div className="max-w-xl w-full bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl text-center border border-purple-200">
       <div className="max-w-2xl mx-auto text-center">
         <div className="mb-8">
           <div className="relative mx-auto w-48 h-48 mb-6">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full animate-pulse opacity-20"></div>
-            {result.imagen ? (
-              <Image
-                src={`data:image/png;base64,${result.imagen}`}
-                alt={result.nombre}
-                width={192}
-                height={192}
-                className="rounded-full object-cover shadow-lg"
-              />
-            ) : (
-              <div className="w-48 h-48 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                <Sparkles className="w-24 h-24 text-white" />
-              </div>
-            )}
-          </div>
+  <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full animate-pulse opacity-20" />
+  <Image
+    src={imagenMascota}
+    alt={result.nombre}
+    width={192}
+    height={192}
+    className="rounded-full object-contain shadow-lg border-4 border-purple-300"
+  />
+</div>
+
         </div>
 
         <div className="mb-6">
@@ -73,11 +75,12 @@ acc[answer.selectedOption] = (acc[answer.selectedOption] || 0) + 1
         <Button
           onClick={onReset}
           variant="outlined"
-          className="border-purple-500 text-purple-600 hover:bg-purple-100 transition"
+          className="m-4"
         >
           Volver a empezar
         </Button>
       </div>
-    </div>
+ </div>
+</div>
   )
 }

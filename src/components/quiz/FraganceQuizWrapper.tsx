@@ -1,7 +1,7 @@
 // components/quiz/FragranceQuizWrapper.tsx
 "use client"
 import { useEffect, useState } from "react"
-import { AnswerDTO, QuestionDTO, FamilyResult } from "@/components/utils/typing"
+import { AnswerDTO, QuestionDTO, FamilyResult, VisualType } from "@/components/utils/typing"
 import CurrentStep from "./CurrentStep"
 import Welcome from "./Welcome"
 import Result from "./Result"
@@ -16,20 +16,33 @@ export default function FragranceQuizWrapper() {
   const [answers, setAnswers] = useState<AnswerDTO[]>([])
   const [result, setResult] = useState<FamilyResult | null>(null)
   const [loading, setLoading] = useState(false)
+const visualMap: Record<number, VisualType> = {
+  1: "cards",
+  2: "grid",
+  3: "list",
+  4: "bubbles",
+  5: "cards",
+  6: "buttons",
+  7: "grid",
+  8: "cards",
+  9: "list",
+  10: "bubbles",
+}
 
   useEffect(() => {
     if (currentStep === "quiz" && questions.length === 0) {
       setLoading(true)
       fetch("https://localhost:5035/quiz/preguntas")
         .then((res) => res.json())
-        .then((data: QuestionDTO[]) => {
-          setQuestions(data)
-          setLoading(false)
-        })
-        .catch((error) => {
-          console.error("Error al obtener preguntas:", error)
-          setLoading(false)
-        })
+       .then((data: QuestionDTO[]) => {
+  const enrichedData = data.map((q) => ({
+    ...q,
+    VisualType: visualMap[q.Id] || "cards", 
+  }))
+  setQuestions(enrichedData)
+  setLoading(false)
+})
+
     }
   }, [currentStep])
 
@@ -60,7 +73,7 @@ export default function FragranceQuizWrapper() {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
     } else {
-      // simular resultado
+   
       setLoading(true)
       setTimeout(() => {
        setResult({
@@ -93,9 +106,6 @@ export default function FragranceQuizWrapper() {
   return (
 <div
   className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center px-6 py-12"
-  style={{
-    backgroundImage: `url(/quiz/forest.jpg)`, 
-  }}
 >
 
       {currentStep === "landing" && (
