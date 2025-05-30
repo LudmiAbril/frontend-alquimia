@@ -117,8 +117,16 @@ export interface AnswerDTO {
   preguntaId: number;
   selectedOption: string;
 }
-
-interface PropsResult {
+export interface PropsCurrent {
+  currentQuestionIndex: number
+  questions: QuestionDTO[]
+  selectedOption: string
+  onSelect: (option: string) => void
+  onNext: () => void
+  onPrev: () => void
+  loading: boolean
+}
+export interface PropsResult {
   result: FamilyResult
   answers: AnswerDTO[]
   onReset: () => void
