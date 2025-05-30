@@ -1,14 +1,8 @@
 "use client"
 import { LinearProgress, Button } from "@mui/material"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { Swiper, SwiperSlide } from "swiper/react"
-import "swiper/css"
-import "swiper/css/navigation"
-import { Navigation } from "swiper/modules"
-import QuestionCard from "./QuestionCard"
 import { QuestionDTO } from "@/components/utils/typing"
-import { Pagination } from "swiper/modules"
-import "swiper/css/pagination"
+import DynamicQuestion from "./DynamicQuestion"
 
 interface Props {
   currentQuestionIndex: number
@@ -30,7 +24,18 @@ export default function CurrentStep({
   loading,
 }: Props) {
   const progress = questions.length > 0 ? ((currentQuestionIndex + 1) / questions.length) * 100 : 0
-  const question = questions[currentQuestionIndex]
+ const question = questions[currentQuestionIndex]
+if (!question) {
+ return (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="text-center text-white animate-pulse text-lg">
+      Cargando pregunta mágica...
+    </div>
+  </div>
+)
+
+}
+
 
   return (
     <div className="min-h-screen p-4 flex flex-col">
@@ -53,26 +58,12 @@ export default function CurrentStep({
           <p className="text-white">Selecciona la opción que más te identifique</p>
         </div>
 
-        {/* Carrusel de opciones */}
-  <Swiper
-  modules={[Navigation, Pagination]}
-  navigation
-  pagination={{ clickable: true }}
-  spaceBetween={30}
-  slidesPerView={1}
-  className="w-full max-w-md mb-8"
->
-  {question?.Opciones.map((option) => (
-    <SwiperSlide key={option.Letra}>
-      <QuestionCard
-        option={option}
-        selected={selectedOption === option.Letra}
-        onClick={() => onSelect(option.Letra)}
-      />
-    </SwiperSlide>
-  ))}
-</Swiper>
-
+        {/* Componente dinámico para distintas visualizaciones */}
+        <DynamicQuestion
+          question={question}
+          selectedOption={selectedOption}
+          onSelect={onSelect}
+        />
 
         {/* Botón siguiente */}
         <Button

@@ -105,18 +105,24 @@ export interface OptionDTO {
   ImagenBase64: string
 }
 
+export type VisualType = "cards" | "grid" | "list" | "buttons" | "bubbles";
+
 export interface QuestionDTO {
   Id: number
   Pregunta: string
   Opciones: OptionDTO[]
+  VisualType?: VisualType // ESTO PARA QUE PUEDA CAMBIAR FORMATO DE RENDERIZADO...atte Celu
 }
-
 export interface AnswerDTO {
   preguntaId: number;
   selectedOption: string;
 }
 
-
+interface PropsResult {
+  result: FamilyResult
+  answers: AnswerDTO[]
+  onReset: () => void
+}
  export interface FamilyResult {
   nombre: string;
   descripcion: string;
