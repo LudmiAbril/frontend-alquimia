@@ -4,12 +4,39 @@ import SectionWrapper from '../general/SectionWrapper';
 import { DesignFieldsCard } from './DesignFieldsCard';
 import Image from 'next/image';
 
-export const designBottleSteps = ["botella, etiqueta", "textos"]
+export const designBottleSteps = ["botella", "etiqueta", "textos"]
+
+// this interface will work only for render in the moment, later it will be a png/pdf
+export interface BottleDesign {
+    volume: number; // as ml
+    form: BottleForm;
+    labelForm: string;
+    labelColor: string;
+    labelImage: string; // research for this
+    text: string;
+    textTypography: string;
+    textSize: number;
+}
+
+export interface BottleForm {
+    name: string;
+    nameToShow: string;
+}
 
 const DesignBottle = () => {
     const [currentStep, setCurrentStep] = useState<number>(0);
-    const designSteps = [
-        "botella", "etiqueta", "tipografia"]
+    const designSteps = ["botella", "etiqueta", "tipografia"];
+    const [currentDesign, setCurrentDesign] = useState<BottleDesign>({
+        volume: 30,
+        form: { name: "cubica", nameToShow: "Cúbica" },
+        labelForm: "",
+        labelColor: "",
+        labelImage: "",
+        text: "",
+        textTypography: "",
+        textSize: 8
+    });
+
 
     const advanceStep = () => {
         if (currentStep < designSteps.length - 1) {
@@ -28,11 +55,11 @@ const DesignBottle = () => {
                 <h1 className="fuente-principal text-[var(--gris4)] text-[32px] font-bold mb-4">
                     DISEÑÁ TU ENVASE
                 </h1>
-                <p>Dale personalidada tu fragancia.</p>
+                <p className='mb-9'>Dale personalidada tu fragancia.</p>
+                <DesignStepsBar currentStep={currentStep} />
                 <div className='flex items-center justify-center gap-[80px]'>
-                    <div><Image src="/design-bottle/botella-cuadrada.png" width={260} height={10} alt='botella' /></div>
-                    <DesignFieldsCard currentStep={currentStep} onNext={advanceStep} onBack={returnStep} />
-
+                    <div className='w-[20rem] h-[26rem] flex justify-center'><Image src={`/design-bottle/botella-${currentDesign.form.name}.png`} className="object-contain" width={280} height={20} alt='botella' /></div>
+                    <DesignFieldsCard currentStep={currentStep} currentDesign={currentDesign} setCurrentDesign={setCurrentDesign} onNext={advanceStep} onBack={returnStep} />
                 </div>
             </div>
         </SectionWrapper>
@@ -41,7 +68,10 @@ const DesignBottle = () => {
 
 export default DesignBottle
 
-export const DesignStepsBar = (currentStep: number) => {
+interface DesignStepsBarProps {
+    currentStep: number
+}
+const DesignStepsBar = ({ currentStep }: DesignStepsBarProps) => {
     return (
         <div className="flex items-center mb-10">
             <Image src="/BarraSteps/icono-pocion-inicio.svg" alt="paso" width={40} height={40} />
