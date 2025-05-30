@@ -1,41 +1,37 @@
-import SectionWrapper from "@/components/general/SectionWrapper";
-import TextSectionWithButton from "./TextSectionWithButton";
-import OlfactoryTest from "./OlfactoryTest";
+"use client";
 import Image from "next/image";
+import Button from "@/components/general/Button";
+import SectionWrapper from "@/components/general/SectionWrapper";
 
 export default function FragranceIntroSection() {
   return (
-    <SectionWrapper className="bg-[#D9B6E2] rounded-tl-[15rem] rounded-tr-[15rem] py-16 px-6 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start max-w-7xl mx-auto">
-        <div>
-          <TextSectionWithButton
-            title="¿NO SABÉS POR DÓNDE EMPEZAR?"
-            description={`DEJÁ QUE LA MAGIA TE GUÍE.\n\nNuestro test de aromas te orienta a través de distintas preguntas que te permitirán encontrar los aromas que se adapten a tu esencia, creando tu fórmula perfecta.`}
-            buttonText="QUIERO TOMAR EL TEST"
-          />
-        </div>
+    <SectionWrapper className="relative text-white text-center overflow-hidden min-h-[105vh] bg-[var(--lila)]">
 
-        <div>
-          <OlfactoryTest />
-        </div>
+      <div className="relative z-10  mx-auto mt-10 ">
+        <h2 className="text-center text-2xl md:text-3xl font-bold mb-10 text-[var(--gris4)]">
+          DISEÑÁ TU FRAGANCIA DESDE CERO.
+        </h2>
+        <p className="text-md md:text-base mb-10 text-[var(--gris4)]">
+          Elegí ingredientes únicos, combiná notas aromáticas y personalizá tu frasco. <br />
+          Alquimia te guía paso a paso para que explores, experimentes y crees un perfume tan único como vos.
+        </p>
 
-        <div className="w-full flex justify-center mt-8">
-          <Image
-            src="/landingImagenes/chicoAlquimista.png"
-            alt="Ilustración de alquimista"
-            width={400}
-            height={400}
-            className="rounded-2xl object-contain"
-          />
-        </div>
+        <Button
+          label="CREAR MI PERFUME"
+          onClick={() => console.log("click")}
+          colorClass="bg-[var(--violeta)] text-[var(--hueso)] hover:bg-[var(--hueso)] group"
+        />
 
-        <div className="mt-8">
-          <TextSectionWithButton
-            title="Diseñá tu fragancia desde cero, como un verdadero alquimista."
-            description={`Elegí tus ingredientes favoritos, combiná notas aromáticas y personalizá el frasco a tu gusto.\nNuestra plataforma te acompaña paso a paso para que experimentes, explores y crees una fragancia tan única como vos.`}
-            buttonText="EMPEZAR A DISEÑAR"
-          />
-        </div>
+      </div>
+
+      <div className="absolute bottom-0 left-0 w-full -mb-[1px]">
+        <Image
+          src="/LandingImage/TreeBg.svg"
+          alt="Bosque mágico"
+          width={1920}
+          height={120}
+          className="w-full h-auto block"
+        />
       </div>
     </SectionWrapper>
   );
