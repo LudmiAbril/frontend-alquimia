@@ -118,7 +118,7 @@ export interface AnswerDTO {
   selectedOption: string;
 }
 export interface PropsCurrent {
-  currentQuestionIndex: number
+ currentQuestionIndex: number
   questions: QuestionDTO[]
   selectedOption: string
   onSelect: (option: string) => void
