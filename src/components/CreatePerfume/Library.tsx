@@ -3,12 +3,46 @@
 import React, { useState, useEffect } from "react";
 import { obtenerNotasPorPaso } from "../../services/notaService";
 
+// ---------------------- INTERFACES ----------------------
 interface LibraryProps {
   currentStep: number;
   onConfirm: () => void;
   onSelectIntensity: (intensity: Intensity) => void;
 }
 
+interface Note {
+  id: number;
+  name: string;
+}
+
+interface NoteFamily {
+  family: string;
+  notes: Note[];
+}
+
+interface NoteResponse {
+  Id: number;
+  Name: string;
+}
+
+interface NoteFamilyResponse {
+  Familia: string;
+  Notas: NoteResponse[];
+}
+
+export interface Intensity {
+  name: string;
+  nameToShow: string;
+  type: string;
+  description: string;
+}
+
+interface IntensityContainerProps {
+  onConfirm: () => void;
+  onSelectIntensity: (intensity: Intensity) => void;
+}
+
+// ---------------------- COMPONENTE PRINCIPAL ----------------------
 const Library = ({ currentStep, onConfirm, onSelectIntensity }: LibraryProps) => {
   const isNoteSelectionStep = currentStep >= 1 && currentStep <= 3;
 
@@ -32,6 +66,7 @@ const Library = ({ currentStep, onConfirm, onSelectIntensity }: LibraryProps) =>
           <input
             type="text"
             className="border border-black rounded-[10px] w-full p-1"
+            placeholder="Buscar nota..."
           />
           <button className="bg-[var(--violeta)] px-8 rounded-[10px] text-white text-xs">
             FILTROS
@@ -56,96 +91,81 @@ const Library = ({ currentStep, onConfirm, onSelectIntensity }: LibraryProps) =>
 
 export default Library;
 
-// Types
-interface Note {
-  id: number;
-  name: string;
-}
-
-interface NoteFamily {
-  family: string;
-  notes: Note[];
-}
-
-interface NoteResponse {
-  Id: number;
-  Nombre: string;
-}
-
-interface NoteFamilyResponse {
-  Familia: string;
-  Notas: NoteResponse[];
-}
-
-// ContenedorNotas
+// ---------------------- NOTAS ----------------------
 export const NotesContainer = ({ step }: { step: number }) => {
   const [groupedNotes, setGroupedNotes] = useState<NoteFamily[]>([]);
 
-  useEffect(() => {
+useEffect(() => {
     const fetchNotes = async () => {
       try {
         const data = await obtenerNotasPorPaso(step);
-        const reducedNotes = data.map((item: NoteFamilyResponse) => ({
-          family: item.Familia,
-          notes: item.Notas?.map((n: NoteResponse) => ({
-            id: n.Id,
-            name: n.Nombre,
-          })) ?? [],
-        }));
-
+        console.log("Data desde la API:", data);
+        const reducedNotes = data.map((grupo: { Family: any; Notes: any[]; }) =>({
+        family: grupo.Family,
+        notes: grupo.Notes?.map((n) => ({
+          id: n.Id,
+          name: n.Name,
+        })) ?? [],
+    }));
+ 
         setGroupedNotes(reducedNotes);
       } catch (error) {
         console.error("Error al obtener notas:", error);
       }
     };
-
+ 
     fetchNotes();
   }, [step]);
 
   return (
     <div className="overflow-y-scroll max-h-[31rem] mt-6 w-full flex flex-col">
-      {groupedNotes.map(({ family, notes }, index) => (
-        <div key={`${family}-${index}`} className="flex flex-col mb-[2.43rem]">
-          <div className="flex items-center gap-2 mb-2 fuente-principal">
-            <p className="text-[var(--gris3)] text-[20px] font-medium">{family}</p>
-            <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">i</span>
-          </div>
+      {groupedNotes.length > 0 ? (
+        groupedNotes.map(({ family, notes }, index) => (
+          <div key={`${family}-${index}`} className="flex flex-col mb-[2.43rem]">
+            <div className="flex items-center gap-2 mb-2 fuente-principal">
+              <p className="text-[var(--gris3)] text-[20px] font-medium">
+                {family}
+              </p>
+              <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">
+                i
+              </span>
+            </div>
 
-          <div className="w-100 flex flex-wrap gap-[25px]">
-            {notes.map((note) => (
-              <div
-                key={note.id}
-                draggable
-                onDragStart={(e) => e.dataTransfer.setData("text/plain", note.name)}
-                className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
-              >
-                {note.name}
-              </div>
-            ))}
+            <div className="w-100 flex flex-wrap gap-[25px]">
+              {notes.length > 0 ? (
+                notes.map((note) => (
+                  <div
+                    key={note.id}
+                    draggable
+                    onDragStart={(e) =>
+                      e.dataTransfer.setData("text/plain", note.name)
+                    }
+                    className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
+                  >
+                    {note.name}
+                  </div>
+                ))
+              ) : (
+                <p>No hay notas para mostrar.</p>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>Cargando notas...</p>
+      )}
     </div>
   );
 };
 
-interface IntensityContainerProps {
-  onConfirm: () => void;
-  onSelectIntensity: (intensity: Intensity) => void;
-}
-
-export interface Intensity {
-  name: string;
-  nameToShow: string;
-  type: string;
-  description: string
-}
-
+// ---------------------- INTENSIDAD ----------------------
 export const IntensityContainer = ({
   onConfirm,
   onSelectIntensity,
 }: IntensityContainerProps) => {
-  const [selectedIntensity, setSelectedIntensity] = useState<string | null>(null);
+  const [selectedIntensity, setSelectedIntensity] = useState<string | null>(
+    null
+  );
 
   const handleSelect = (intensity: Intensity) => {
     setSelectedIntensity(intensity.nameToShow);
@@ -182,13 +202,15 @@ export const IntensityContainer = ({
             <div
               key={key}
               className={`w-[430px] h-[103px] rounded-[10px] cursor-pointer flex flex-col items-center justify-center transition
-              ${isSelected ? "bg-[var(--violeta)]" : "bg-[var(--lila)] hover:bg-[var(--violeta)]"}`}
-              onClick={() => handleSelect(
-                intensity
-              )}
+              ${
+                isSelected
+                  ? "bg-[var(--violeta)]"
+                  : "bg-[var(--lila)] hover:bg-[var(--violeta)]"
+              }`}
+              onClick={() => handleSelect(intensity)}
             >
               <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
-                {intensity.nameToShow}- {intensity.type}
+                {intensity.nameToShow} - {intensity.type}
               </p>
               <p className="text-[14px]">{intensity.description}</p>
             </div>
