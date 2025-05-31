@@ -3,6 +3,8 @@
 export interface ButtonProps {
   label: string;
   onClick?: () => void;
+  colorClass?: string;
+
 }
 
 /*SUPPLIERS*/
@@ -37,14 +39,9 @@ export interface ProductDetailProps {
 }
 
 /*LANDING*/
-export interface ImageSectionProps {
-  title: string;
-  description: string;
-  image: string;
-  alt: string;
-  buttonText?: string;
-  reverse?: boolean;
-  className?: string;
+export interface Supplier {
+  name: string;
+  imageSrc: string;
 }
 
 /*PROFILE*/
@@ -117,8 +114,16 @@ export interface AnswerDTO {
   preguntaId: number;
   selectedOption: string;
 }
-
-interface PropsResult {
+export interface PropsCurrent {
+ currentQuestionIndex: number
+  questions: QuestionDTO[]
+  selectedOption: string
+  onSelect: (option: string) => void
+  onNext: () => void
+  onPrev: () => void
+  loading: boolean
+}
+export interface PropsResult {
   result: FamilyResult
   answers: AnswerDTO[]
   onReset: () => void
@@ -148,4 +153,12 @@ export interface PropsAS {
   onNext: () => void
   onPrev: () => void
   loading: boolean
+}
+
+/**LANDING-HOWitWork */
+
+export interface StepData {
+  image: string;
+  alt: string;
+  text: string;
 }

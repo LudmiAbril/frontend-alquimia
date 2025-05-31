@@ -1,3 +1,7 @@
+import { StepData } from "@/components/utils/typing";
+import { Supplier } from "@/components/utils/typing";
+
+
 /*################OLFACTORY TEST###################*/
 export const fragranceFamilies = {
   aquatic: {
@@ -170,41 +174,52 @@ export const mockProducts = {
 
 /*################################LANDING-CARDS#############################################################*/
 
-export const creationSteps = [
-  { image: "/steps/seleccionar.png", alt: "Seleccioná", text: "Seleccioná las esencias" },
-  { image: "/steps/combinar.png", alt: "Combiná", text: "Combiná las notas" },
-  { image: "/steps/diseniar.png", alt: "Diseñá", text: "Diseñá tu packaging" },
-  { image: "/steps/provedores.png", alt: "Contactate", text: "Contactate con los proveedores" },
-  { image: "/steps/entrega.png", alt: "Recibí", text: "Recibí tus ingredientes" },
+export const howSteps: StepData[] = [
+  {
+    image: "/LandingImage/Steps/Step1Creation.svg",
+    alt: "Diseñá tu fragancia",
+    text: "Crea tu propio perfume.",
+  },
+  {
+    image: "/LandingImage/Steps/Step2Supplier.svg",
+    alt: "Personalizá el frasco",
+    text: "Contactate con los proveedores.",
+  },
+  {
+    image: "/LandingImage/Steps/Step3Materials.svg",
+    alt: "Recibí tus esencias",
+    text: "Recibi tus insgredientes.",
+  },
 ];
-
 /*################################FAQ-LANDING#############################################################*/
 
 export const faqQuestions = [
   {
-    question: "¿Por qué elegir Alquimia para crear tu perfume?",
-    answer:
-      "Porque ofrecemos una experiencia creativa, accesible y guiada para que cualquier persona pueda crear su fragancia personalizada sin necesidad de conocimientos previos.",
-  },
-  {
-    question: "¿Cómo crear tu propio perfume online?",
-    answer:
-      "Usá nuestro editor interactivo para elegir tus notas favoritas, combinarlas en una fórmula y personalizar tu envase antes de conectarte con proveedores.",
-  },
-  {
     question: "¿Cómo funciona Alquimia?",
     answer:
       "Alquimia te permite crear perfumes eligiendo tus notas favoritas, combinándolas y personalizando tu envase desde nuestra plataforma interactiva.",
+
   },
   {
-    question: "¿Necesito conocimientos previos?",
-    answer:
-      "No, nuestra experiencia está diseñada para guiarte paso a paso en todo momento.",
+    question: "¿Cómo funciona el proceso de creación?",
+    answer: "Elegís tus notas favoritas, las combinás en una fórmula y personalizás el frasco. Nosotros te guiamos en cada paso."
+
   },
   {
-    question: "¿Puedo comprar ingredientes desde la plataforma?",
-    answer:
-      "Sí. Te conectamos con proveedores registrados que ofrecen materias primas como esencias, frascos y más.",
+    question: "¿Es seguro comprar en Alquimia?",
+    answer: "Sí, usamos sistemas de pago seguros como Mercado Pago y cumplimos con estándares de protección de datos."
+  },
+  {
+    question: "¿Qué pasa si tengo un problema con mi pedido?",
+    answer: "Contamos con soporte para ayudarte en caso de errores o problemas con tu entrega."
+  },
+  {
+    question: "¿Cómo me registro como proveedor?",
+    answer: "Desde el botón 'Quiero ser proveedor' en el menu de perfil,  completás tus datos y seguís un proceso de validación."
+  },
+  {
+    question: "¿Cuántos perfumes puedo guardar en mi biblioteca?",
+    answer: "No hay un límite definido por ahora."
   },
 ];
 
@@ -219,3 +234,47 @@ export const userMenuItems = [
 
 
 
+/*################################ - TEST LANDING IMAGES - #############################################################*/
+
+export const families = [
+  { name: "Orientales", src: "/LandingImage/Test/oriental.png", alt: "orientalFamily" },
+  { name: "Floral", src: "/LandingImage/Test/floral.png", alt: "floralFamily" },
+  { name: "Frescas", src: "/LandingImage/Test/fresca.png", alt: "frescasFamily" },
+  { name: "Amaderada", src: "/LandingImage/Test/amaderada.png", alt: "amaderadaFamily" },
+];
+
+
+export const suppliers: Supplier[] = [
+  {
+    name: "Le Flour",
+    imageSrc: "/LandingImage/Suplier/leflour.jpeg",
+  },
+  {
+    name: "Aromatika",
+    imageSrc: "/LandingImage/Suplier/aromatika.jpeg",
+  },
+  {
+    name: "Glassbottles",
+    imageSrc: "/LandingImage/Suplier/glass.jpeg",
+  },
+  {
+    name: "Aromaskym",
+    imageSrc: "/LandingImage/Suplier/aromaskym.png",
+  },
+  {
+    name: "Essentia",
+    imageSrc: "/LandingImage/Suplier/glass.jpeg",
+  },
+  {
+    name: "NaturaLab",
+    imageSrc: "/LandingImage/Suplier/aromatika.jpeg",
+  },
+];
+
+/*################################ - MENSAJES QUIMI - #############################################################*/
+export const messages = [
+ "¡Bienvenide al mundo de los aromas!",
+  "Tu esencia perfecta está cerca...",
+  "Explorá las notas... yo cuido la magia",
+  "Tu fragancia habla por vos, ¡creala!"
+];

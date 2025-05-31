@@ -117,52 +117,67 @@ export default function AdminPanel() {
     { Id: 7, Nombre: "Diego Morales", Email: "diego@example.com", EsAprobado: false },
   ]
   const fetchProviders = async () => {
-    try {
-      setLoading(true)
-      // Replace with actual API call
-      // const response = await fetch('/admin/proveedores')
-      // const data = await response.json()
+  try {
+    setLoading(true)
+    const response = await fetch("http://localhost:5035/admin/listProviders", {
+      credentials: "include",
+    })
 
-      setTimeout(() => {
-        setProviders(mockProviders)
-        setFilteredProviders(mockProviders)
-        setLoading(false)
-      }, 1000)
-    } catch (error) {
-      console.error("Error fetching providers:", error)
-      setSnackbar({ open: true, message: "Error al cargar proveedores", severity: "error" })
-      setLoading(false)
-    }
+    if (!response.ok) throw new Error("Error al obtener proveedores")
+
+    const data = await response.json()
+    setProviders(data)
+    setFilteredProviders(data)
+  } catch (error) {
+    console.error("Error fetching providers:", error)
+    setSnackbar({ open: true, message: "Error al cargar proveedores", severity: "error" })
+  } finally {
+    setLoading(false)
   }
+}
+
 
   const approveProvider = async (id: number) => {
-    try {
-      // Replace with actual API call
-      // const response = await fetch(`/admin/proveedor/${id}`, { method: 'POST' })
+  try {
+    const response = await fetch(`http://localhost:5035/admin/approveProvider/${id}`, {
+      method: "POST",
+      credentials: "include",
+    })
 
-      setProviders((prev) => prev.map((p) => (p.Id === id ? { ...p, EsAprobado: true } : p)))
-      setSnackbar({ open: true, message: "Proveedor aprobado correctamente", severity: "success" })
-      setDialogOpen(false)
-    } catch (error) {
-      console.error("Error approving provider:", error)
-      setSnackbar({ open: true, message: "Error al aprobar proveedor", severity: "error" })
-    }
+    if (!response.ok) throw new Error("Error al aprobar proveedor")
+
+    setProviders((prev) =>
+      prev.map((p) => (p.Id === id ? { ...p, EsAprobado: true } : p))
+    )
+    setSnackbar({ open: true, message: "Proveedor aprobado correctamente", severity: "success" })
+    setDialogOpen(false)
+  } catch (error) {
+    console.error("Error approving provider:", error)
+    setSnackbar({ open: true, message: "Error al aprobar proveedor", severity: "error" })
   }
+}
+
 
   const deactivateProvider = async (id: number) => {
-    try {
-      // Replace with actual API call
-      // const response = await fetch(`/admin/proveedor/${id}/baja`, { method: 'PUT' })
+  try {
+    const response = await fetch(`http://localhost:5035/admin/deactivateProvider/${id}`, {
+      method: "PUT",
+      credentials: "include",
+    })
 
-      // Mock deactivation
-      setProviders((prev) => prev.map((p) => (p.Id === id ? { ...p, EsAprobado: false } : p)))
-      setSnackbar({ open: true, message: "Proveedor desactivado correctamente", severity: "success" })
-      setDialogOpen(false)
-    } catch (error) {
-      console.error("Error deactivating provider:", error)
-      setSnackbar({ open: true, message: "Error al desactivar proveedor", severity: "error" })
-    }
+    if (!response.ok) throw new Error("Error al desactivar proveedor")
+
+    setProviders((prev) =>
+      prev.map((p) => (p.Id === id ? { ...p, EsAprobado: false } : p))
+    )
+    setSnackbar({ open: true, message: "Proveedor desactivado correctamente", severity: "success" })
+    setDialogOpen(false)
+  } catch (error) {
+    console.error("Error deactivating provider:", error)
+    setSnackbar({ open: true, message: "Error al desactivar proveedor", severity: "error" })
   }
+}
+
 
   useEffect(() => {
     let filtered = providers

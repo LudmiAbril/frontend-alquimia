@@ -75,7 +75,7 @@ acc[answer.selectedOption] = (acc[answer.selectedOption] || 0) + 1
         <Button
           onClick={onReset}
           variant="outlined"
-          className="border-purple-500 text-purple-600 hover:bg-purple-100 transition"
+          className="m-4"
         >
           Volver a empezar
         </Button>

@@ -1,17 +1,21 @@
 "use client"
-import { LinearProgress, Button } from "@mui/material"
-import { ArrowLeft, ArrowRight } from "lucide-react"
-import { QuestionDTO } from "@/components/utils/typing"
+import { PropsCurrent, QuestionDTO } from "@/components/utils/typing"
 import DynamicQuestion from "./DynamicQuestion"
+import Button from "@/components/general/Button"
+import ButtonSecondary from "@/components/general/ButtonSecondary"
+import { Swiper, SwiperSlide } from "swiper/react"
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination"
+import { Navigation, Pagination } from "swiper/modules"
 
-interface Props {
-  currentQuestionIndex: number
-  questions: QuestionDTO[]
-  selectedOption: string
-  onSelect: (option: string) => void
-  onNext: () => void
-  onPrev: () => void
-  loading: boolean
+
+
+const colorMap: Record<string, string> = {
+  A: "#CD5C68",
+  B: "#6483C2",
+  C: "#E8C75C",
+  D: "#7B655A",
 }
 
 export default function CurrentStep({
@@ -22,69 +26,107 @@ export default function CurrentStep({
   onNext,
   onPrev,
   loading,
-}: Props) {
+}: PropsCurrent) {
   const progress = questions.length > 0 ? ((currentQuestionIndex + 1) / questions.length) * 100 : 0
- const question = questions[currentQuestionIndex]
-if (!question) {
- return (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="text-center text-white animate-pulse text-lg">
-      Cargando pregunta mágica...
-    </div>
-  </div>
-)
+  const question = questions[currentQuestionIndex]
 
-}
+  if (!question) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center text-white animate-pulse text-lg">
+          Cargando pregunta mágica...
+        </div>
+      </div>
+    )
+  }
 
+  const isButtonDisabled = !selectedOption || loading
 
   return (
     <div className="min-h-screen p-4 flex flex-col">
-      {/* Header de navegación y progreso */}
-      <div className="max-w-4xl mx-auto w-full mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <Button variant="contained" onClick={onPrev} className="text-purple-600">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            {currentQuestionIndex > 0 ? "Anterior" : "Inicio"}
-          </Button>
-          <span className="text-sm text-white">{currentQuestionIndex + 1} de {questions.length}</span>
+      {/* Barra de progreso con 10 pasos */}
+      <div className="max-w-5xl mx-auto w-full mb-12">
+        <div className="flex items-center justify-between">
+          <img src="/quiz/inicio.svg" alt="Inicio" className="w-8 h-8" />
+          <div className="flex-1 flex items-center justify-between px-4">
+            {questions.map((_, index) => (
+              <div
+                key={index}
+                className={`w-4 h-4 rounded-full border-2 ${
+                  index <= currentQuestionIndex ? "bg-[#9444B6] border-[#9444B6]" : "border-[#9444B6]"
+                }`}
+              ></div>
+            ))}
+          </div>
+          <img src="/quiz/final.svg" alt="Fin" className="w-8 h-8" />
         </div>
-        <LinearProgress variant="determinate" value={progress} className="h-2" />
       </div>
-
       {/* Pregunta */}
-      <div className="flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto w-full">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">{question?.Pregunta}</h2>
-          <p className="text-white">Selecciona la opción que más te identifique</p>
+      <div className="flex-1 flex flex-col lg:flex-row items-center justify-center max-w-6xl mx-auto w-full gap-10">
+        <div className="lg:w-1/2 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">{question?.Pregunta}</h2>
+          <p className="text-white text-sm md:text-base mb-6">Selecciona la opción que más te identifique</p>
+
+          {/* Opciones como carrusel si visualType es buttons */}
+          {question.VisualType === "buttons" ? (
+            <div className="bg-[#f4eaff] rounded-2xl px-6 py-4 shadow-lg mb-10 w-full max-w-md mx-auto">
+              <Swiper
+                modules={[Navigation, Pagination]}
+                navigation
+                pagination={{ clickable: true }}
+                spaceBetween={30}
+                slidesPerView={1}
+              >
+                {question.Opciones.map((opt) => (
+                  <SwiperSlide key={opt.Letra}>
+                    <button
+                      onClick={() => onSelect(opt.Letra)}
+                      style={{ border: `2px solid ${colorMap[opt.Letra]}`, color: colorMap[opt.Letra] }}
+                      className={`w-full px-6 py-4 rounded-xl font-semibold text-lg text-center transition bg-white hover:scale-105 ${
+                        selectedOption === opt.Letra ? "bg-opacity-80" : ""
+                      }`}
+                    >
+                      {opt.Texto}
+                    </button>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          ) : (
+            <div className="mb-10 w-full">
+              <DynamicQuestion
+                question={question}
+                selectedOption={selectedOption}
+                onSelect={onSelect}
+              />
+            </div>
+          )}
+
+          {/* Botones navegación */}
+          <div className="flex justify-center gap-6">
+            <ButtonSecondary
+              label={currentQuestionIndex > 0 ? "Anterior" : "Inicio"}
+              onClick={onPrev}
+            />
+            <div
+              className={`transition-all duration-300 ${
+                isButtonDisabled
+                  ? "opacity-50 cursor-not-allowed"
+                  : "animate-pulse hover:scale-105"
+              }`}
+            >
+              <Button
+                label={loading ? "Calculando..." : currentQuestionIndex === questions.length - 1 ? "Ver Resultado" : "Siguiente"}
+                onClick={isButtonDisabled ? undefined : onNext}
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Componente dinámico para distintas visualizaciones */}
-        <DynamicQuestion
-          question={question}
-          selectedOption={selectedOption}
-          onSelect={onSelect}
-        />
-
-        {/* Botón siguiente */}
-        <Button
-          onClick={onNext}
-          disabled={!selectedOption || loading}
-          className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-3 rounded-full transform transition-all hover:scale-105"
-        >
-          {loading ? (
-            <div className="flex items-center">
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-              Calculando resultado...
-            </div>
-          ) : currentQuestionIndex === questions.length - 1 ? (
-            "Ver Resultado"
-          ) : (
-            <>
-              Siguiente
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </>
-          )}
-        </Button>
+        {/* Ilustración a la derecha */}
+        <div className="hidden lg:flex justify-center items-center w-1/2">
+          <img src="/mascotas/mascotas-grupo-fight.png" alt="Mascotas" className="max-w-sm" />
+        </div>
       </div>
     </div>
   )

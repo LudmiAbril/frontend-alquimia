@@ -4,6 +4,7 @@ import Navbar from "@/components/general/Navbar";
 import Footer from '@/components/general/Footer'
 import { Roboto } from 'next/font/google'
 
+
 const roboto = Roboto({
   subsets: ['latin'],
   weight: ['400', '800'], 
