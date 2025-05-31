@@ -16,6 +16,7 @@ export default function FragranceQuizWrapper() {
   const [answers, setAnswers] = useState<AnswerDTO[]>([])
   const [result, setResult] = useState<FamilyResult | null>(null)
   const [loading, setLoading] = useState(false)
+  const URL="http://localhost:5035/quiz/preguntas";
 const visualMap: Record<number, VisualType> = {
   1: "cards",
   2: "grid",
@@ -32,7 +33,7 @@ const visualMap: Record<number, VisualType> = {
   useEffect(() => {
     if (currentStep === "quiz" && questions.length === 0) {
       setLoading(true)
-      fetch("https://localhost:5035/quiz/preguntas")
+      fetch(URL)
         .then((res) => res.json())
        .then((data: QuestionDTO[]) => {
   const enrichedData = data.map((q) => ({
