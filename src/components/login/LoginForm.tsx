@@ -1,12 +1,51 @@
 "use client";
-
+import { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
 import { FormToggleProps } from "@/components/utils/typing";
 import Link from "next/link";
 
 export default function LoginForm({ toggleForm }: FormToggleProps) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:5035/cuenta/login-json", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data?.mensaje || "Credenciales incorrectas.");
+      } else {
+        localStorage.setItem("token", data.token);
+        const payload = parseJwt(data.token);
+          if (payload?.name) {
+            localStorage.setItem("username", payload.name);
+          }
+
+          console.log("Ingreso exitoso ✅");
+          window.location.reload(); 
+      }
+    } catch (err) {
+      setError("No se pudo conectar con el servidor.");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <form className="flex flex-col gap-4">
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <div className="flex flex-col gap-1">
         <label className="text-sm font-medium text-[var(--gris4)]">
           Correo electrónico <span className="text-red-500">*</span>
@@ -16,6 +55,8 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
           placeholder="tucorreo@gmail.com"
           className="campo"
           required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 
@@ -28,6 +69,8 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
           placeholder="************"
           className="campo"
           required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
 
@@ -35,7 +78,7 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
       <a href="#" className="text-sm text-gray-500 self-end hover:underline mt-1 italic">
         Me olvidé la contraseña
       </a>
-
+      {error && <p className="text-red-500">{error}</p>}
       {/* Botón de ingreso */}
       <button
         type="submit"
@@ -76,4 +119,11 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
       </div>
     </form>
   );
+}
+function parseJwt(token: string) {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+    return null;
+  }
 }
