@@ -58,7 +58,25 @@ const DesignBottle = () => {
                 <p className='mb-9'>Dale personalidada tu fragancia.</p>
                 <DesignStepsBar currentStep={currentStep} />
                 <div className='flex items-center justify-center gap-[80px]'>
-                    <div className='w-[20rem] h-[26rem] flex justify-center'><Image src={`/design-bottle/botella-${currentDesign.form.name}.png`} className="object-contain" width={280} height={20} alt='botella' /></div>
+                    <div className="relative w-[20rem] h-[26rem] flex justify-center items-center">
+                        {/* SVG por encima de la imagen */}
+                        <div className="absolute z-10 pointer-events-none" >
+                            {/* Aquí va tu SVG */}
+                            <svg width="1200" height="300" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" fill="red" />
+                            </svg>
+                        </div>
+
+                        {/* Imagen debajo */}
+                        <Image
+                            src={`/design-bottle/botella-${currentDesign.form.name}.png`}
+                            className="object-contain z-0"
+                            width={280}
+                            height={20}
+                            alt="botella"
+                        />
+                    </div>
+
                     <DesignFieldsCard currentStep={currentStep} currentDesign={currentDesign} setCurrentDesign={setCurrentDesign} onNext={advanceStep} onBack={returnStep} />
                 </div>
             </div>
