@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import AuthModalWrapper from "@/components/login/AuthModalWrapper";
 import LoginForm from "@/components/login/LoginForm";
@@ -13,6 +13,14 @@ export default function Navbar() {
   const [activeForm, setActiveForm] = useState<"login" | "register">("login");
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+  const storedName = localStorage.getItem("username");
+  if (storedName) {
+    setUsername(storedName);
+  }
+}, []);
 
   return (
     <>
@@ -34,6 +42,11 @@ export default function Navbar() {
             <Link href="/quiz">Descubrir</Link>
             <Link href="/providers">Proveedores</Link>
           </nav>
+          {username ? (
+            <div className="w-[30px] h-[30px] rounded-full bg-[var(--violeta)] text-white flex items-center justify-center font-bold uppercase cursor-pointer">
+              {username.substring(0, 3)}
+            </div>
+          ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -46,6 +59,7 @@ export default function Navbar() {
           >
             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
           </svg>
+          )}
         </div>
       </header>
 
