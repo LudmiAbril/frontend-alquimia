@@ -1,15 +1,14 @@
 "use client"
-import { PropsCurrent, QuestionDTO } from "@/components/utils/typing"
+
+import { PropsCurrent } from "@/components/utils/typing"
 import DynamicQuestion from "./DynamicQuestion"
 import Button from "@/components/general/Button"
 import ButtonSecondary from "@/components/general/ButtonSecondary"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation, Pagination } from "swiper/modules"
 import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
-import { Navigation, Pagination } from "swiper/modules"
-
-
 
 const colorMap: Record<string, string> = {
   A: "#CD5C68",
@@ -27,7 +26,8 @@ export default function CurrentStep({
   onPrev,
   loading,
 }: PropsCurrent) {
-  const progress = questions.length > 0 ? ((currentQuestionIndex + 1) / questions.length) * 100 : 0
+  const progress =
+    questions.length > 0 ? ((currentQuestionIndex + 1) / questions.length) * 100 : 0
   const question = questions[currentQuestionIndex]
 
   if (!question) {
@@ -44,7 +44,7 @@ export default function CurrentStep({
 
   return (
     <div className="min-h-screen p-4 flex flex-col">
-      {/* Barra de progreso con 10 pasos */}
+      {/* Barra de progreso */}
       <div className="max-w-5xl mx-auto w-full mb-12">
         <div className="flex items-center justify-between">
           <img src="/quiz/inicio.svg" alt="Inicio" className="w-8 h-8" />
@@ -61,15 +61,21 @@ export default function CurrentStep({
           <img src="/quiz/final.svg" alt="Fin" className="w-8 h-8" />
         </div>
       </div>
-      {/* Pregunta */}
-      <div className="flex-1 flex flex-col lg:flex-row items-center justify-center max-w-6xl mx-auto w-full gap-10">
-        <div className="lg:w-1/2 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">{question?.Pregunta}</h2>
-          <p className="text-white text-sm md:text-base mb-6">Selecciona la opción que más te identifique</p>
 
-          {/* Opciones como carrusel si visualType es buttons */}
+      {/* Contenido principal */}
+      <div className="flex-1 flex flex-col lg:flex-row items-center justify-center max-w-6xl mx-auto w-full gap-10">
+        {/* Texto y opciones */}
+        <div className="lg:w-1/2 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+            {question?.Pregunta}
+          </h2>
+          <p className="text-white text-sm md:text-base mb-6">
+            Selecciona la opción que más te identifique
+          </p>
+
+          {/* Opciones: tipo buttons */}
           {question.VisualType === "buttons" ? (
-            <div className="bg-[#f4eaff] rounded-2xl px-6 py-4 shadow-lg mb-10 w-full max-w-md mx-auto">
+            <div className="bg-[#f4eaff] rounded-2xl px-6 py-8 shadow-xl mb-10 w-full max-w-md mx-auto">
               <Swiper
                 modules={[Navigation, Pagination]}
                 navigation
@@ -81,7 +87,10 @@ export default function CurrentStep({
                   <SwiperSlide key={opt.Letra}>
                     <button
                       onClick={() => onSelect(opt.Letra)}
-                      style={{ border: `2px solid ${colorMap[opt.Letra]}`, color: colorMap[opt.Letra] }}
+                      style={{
+                        border: `2px solid ${colorMap[opt.Letra]}`,
+                        color: colorMap[opt.Letra],
+                      }}
                       className={`w-full px-6 py-4 rounded-xl font-semibold text-lg text-center transition bg-white hover:scale-105 ${
                         selectedOption === opt.Letra ? "bg-opacity-80" : ""
                       }`}
@@ -102,7 +111,7 @@ export default function CurrentStep({
             </div>
           )}
 
-          {/* Botones navegación */}
+          {/* Botones de navegación */}
           <div className="flex justify-center gap-6">
             <ButtonSecondary
               label={currentQuestionIndex > 0 ? "Anterior" : "Inicio"}
@@ -110,20 +119,24 @@ export default function CurrentStep({
             />
             <div
               className={`transition-all duration-300 ${
-                isButtonDisabled
-                  ? "opacity-50 cursor-not-allowed"
-                  : "animate-pulse hover:scale-105"
+                isButtonDisabled ? "opacity-50 cursor-not-allowed" : "animate-pulse hover:scale-105"
               }`}
             >
               <Button
-                label={loading ? "Calculando..." : currentQuestionIndex === questions.length - 1 ? "Ver Resultado" : "Siguiente"}
+                label={
+                  loading
+                    ? "Calculando..."
+                    : currentQuestionIndex === questions.length - 1
+                    ? "Ver Resultado"
+                    : "Siguiente"
+                }
                 onClick={isButtonDisabled ? undefined : onNext}
               />
             </div>
           </div>
         </div>
 
-        {/* Ilustración a la derecha */}
+        {/* Imagen lateral */}
         <div className="hidden lg:flex justify-center items-center w-1/2">
           <img src="/mascotas/mascotas-grupo-fight.png" alt="Mascotas" className="max-w-sm" />
         </div>
