@@ -1,18 +1,14 @@
 
-import { QuestionDTO, OptionDTO } from "@/components/utils/typing"
+import {  PropsDynamic } from "@/components/utils/typing"
 import OptionGrid from "./visual/OptionGrid"
 import OptionList from "./visual/OptionList"
 import OptionCard from "./visual/OptionCard"
 import OptionBubble from "./visual/OptionBubble"
 import OptionButtons from "./visual/OptionButtons"
 
-interface Props {
-  question: QuestionDTO
-  selectedOption: string
-  onSelect: (option: string) => void
-}
 
-export default function DynamicQuestion({ question, selectedOption, onSelect }: Props) {
+
+export default function DynamicQuestion({ question, selectedOption, onSelect }: PropsDynamic) {
   switch (question.VisualType) {
     case "grid":
       return <OptionGrid question={question} selectedOption={selectedOption} onSelect={onSelect} />

@@ -45,22 +45,31 @@ export default function CurrentStep({
   return (
     <div className="min-h-screen p-4 flex flex-col">
       {/* Barra de progreso */}
-      <div className="max-w-5xl mx-auto w-full mb-12">
-        <div className="flex items-center justify-between">
-          <img src="/quiz/inicio.svg" alt="Inicio" className="w-8 h-8" />
-          <div className="flex-1 flex items-center justify-between px-4">
-            {questions.map((_, index) => (
-              <div
-                key={index}
-                className={`w-4 h-4 rounded-full border-2 ${
-                  index <= currentQuestionIndex ? "bg-[#9444B6] border-[#9444B6]" : "border-[#9444B6]"
-                }`}
-              ></div>
-            ))}
-          </div>
-          <img src="/quiz/final.svg" alt="Fin" className="w-8 h-8" />
-        </div>
-      </div>
+   <div className="max-w-5xl mx-auto w-full mb-12">
+  <div className="flex items-center justify-between relative px-2">
+    <img src="/quiz/inicio.svg" alt="Inicio" className="w-8 h-8 z-10" />
+    
+    {/* Línea de fondo */}
+    <div className="absolute top-1/2 left-10 right-10 h-0.5 bg-[#9444B6] -z-0 transform -translate-y-1/2"></div>
+
+    {/* Puntos del progreso */}
+    <div className="flex-1 flex items-center justify-between z-10 px-4">
+      {questions.map((_, index) => (
+        <div
+          key={index}
+          className={`w-4 h-4 rounded-full border-2 transition-all duration-300 ${
+            index <= currentQuestionIndex
+              ? "bg-[#9444B6] border-[#9444B6]"
+              : "bg-[#E8E3DE] border-[#9444B6]"
+          }`}
+        ></div>
+      ))}
+    </div>
+
+    <img src="/quiz/final.svg" alt="Fin" className="w-8 h-8 z-10" />
+  </div>
+</div>
+
 
       {/* Contenido principal */}
       <div className="flex-1 flex flex-col lg:flex-row items-center justify-center max-w-6xl mx-auto w-full gap-10">
