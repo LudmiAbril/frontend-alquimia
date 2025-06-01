@@ -99,9 +99,14 @@ export type StepCardProps = {
 export interface OptionDTO {
   Letra: string
   Texto: string
-  ImagenBase64: string
+  ImagenUrl: string  
 }
 
+export interface PropsDynamic {
+  question: QuestionDTO
+  selectedOption: string
+  onSelect: (option: string) => void
+}
 export type VisualType = "cards" | "grid" | "list" | "buttons" | "bubbles";
 
 export interface QuestionDTO {
@@ -133,10 +138,7 @@ export interface PropsResult {
   descripcion: string;
   imagen: string | null;
 }
-export interface PropsQuiz {
-  title: string
-  subtitle?: string
-}
+
 
 export interface PropsQC {
   option: OptionDTO 
