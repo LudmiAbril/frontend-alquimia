@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import Colorful from '@uiw/react-color-colorful';
-import { hsvaToHex } from '@uiw/color-convert'; // esto es para pasar a hex
+import { ColorResult, hsvaToHex } from '@uiw/color-convert'; // esto es para pasar a hex
 import { BottleDesign, BottleForm } from './DesignBottle';
 
 interface DesignFieldsCardProps {
@@ -17,7 +17,7 @@ export const DesignFieldsCard = ({ currentStep, currentDesign, setCurrentDesign,
     return (
         <div className="w-[38rem] h-[38rem] bg-white flex flex-col items-center p-[2.31rem] rounded-[10px] shadow-md text-center mb-10">
             {currentStep === 0 && (<BottleFields currentDesign={currentDesign} setCurrentDesign={setCurrentDesign} />)}
-            {currentStep === 1 && (<LabelFields />)}
+            {currentStep === 1 && (<LabelFields currentDesign={currentDesign} setCurrentDesign={setCurrentDesign} />)}
             {currentStep === 2 && (<TextFields />)}
             <div className='mt-6 flex justify-center gap-9 w-full'>
                 <button onClick={onBack} className='bg-[var(--violeta)] text-white py-[15px] rounded-[10px] hover:bg-[var(--lila)] transition w-[10rem] cursor-pointer'>volver</button>
@@ -82,21 +82,40 @@ export const BottleFields = ({ currentDesign, setCurrentDesign }: BottleFieldsPr
     </div>)
 }
 
-export const LabelFields = () => {
+interface LabelFieldsProps {
+    currentDesign: BottleDesign;
+    setCurrentDesign: React.Dispatch<React.SetStateAction<BottleDesign>>;
+}
+export const LabelFields = ({ currentDesign, setCurrentDesign }: LabelFieldsProps) => {
     const [hsva, setHsva] = useState({ h: 0, s: 0, v: 0, a: 0 });
     const [isChoosingColor, setIsChoosingColor] = useState(false);
+    const handleChangeColor = (color: ColorResult) => {
+        setHsva(color.hsva);
+        setCurrentDesign((prev) => ({
+            ...prev,
+            labelColor: hsvaToHex(color.hsva),
+        }));
+    };
 
     const toggleOpenColorPIcker = () => {
         setIsChoosingColor((prev) => !prev)
     }
+
+    const handleChangeLabelForm = (labelForm: string) => {
+        setCurrentDesign((prev) => ({
+            ...prev,
+            labelForm: labelForm,
+        }));
+    }
+
     return (<div className="flex flex-col flex-1 text-left items-left">
         <p className="fuente-principal uppercase text-[20px] text-[var(--gris3)] mb-4 font-extrabold">Etiqueta</p>
 
         <div className="flex-1 flex flex-col justify-center items-left">
             <p className="text-[var(--gris3)] text-[20px] font-medium mb-4">forma</p>
             <div className='flex gap-[5rem] mb-9'>
-                <button className='bg-[var(--violeta)] text-white py-[15px] rounded-[10px] hover:bg-[var(--lila)] transition w-[10rem]'>cuadrada</button>
-                <button className='bg-[var(--violeta)] text-white py-[15px] rounded-[10px] hover:bg-[var(--lila)] transition w-[10rem]'>circular</button>
+                <button onClick={() => handleChangeLabelForm("cuadrada")} className='bg-[var(--violeta)] text-white py-[15px] rounded-[10px] hover:bg-[var(--lila)] transition w-[10rem]'>cuadrada</button>
+                <button onClick={() => handleChangeLabelForm("circular")} className='bg-[var(--violeta)] text-white py-[15px] rounded-[10px] hover:bg-[var(--lila)] transition w-[10rem]'>circular</button>
             </div>
 
             <div className='flex gap-[5rem]'>
@@ -113,7 +132,7 @@ export const LabelFields = () => {
                         {isChoosingColor && (<div className="absolute top-full left-0 mt-2 z-10 shadow-lg">
                             <Colorful
                                 color={hsva}
-                                onChange={(color) => setHsva(color.hsva)}
+                                onChange={handleChangeColor}
                                 disableAlpha={true}
                             />
                         </div>)}
