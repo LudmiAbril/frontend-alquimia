@@ -16,6 +16,7 @@ export interface BottleDesign {
     text: string;
     textTypography: string;
     textSize: number;
+    imageScale: string;
 }
 
 export interface BottleForm {
@@ -34,7 +35,8 @@ const DesignBottle = () => {
         labelImage: "",
         text: "",
         textTypography: "",
-        textSize: 8
+        textSize: 16,
+        imageScale: "1"
     });
 
 
@@ -62,18 +64,58 @@ const DesignBottle = () => {
         }
     }
 
+    // funcion repartida para optimizar
+    // que el scale no se recorte la imagen si se achica, solo si se agranda
     const getLabelByBottleForm = (bottleForm: string, labelForm: string) => {
         if (labelForm === "cuadrada") {
             switch (bottleForm) {
                 case "cubica":
-                    return (<svg width="273" height="334" viewBox="0 0 273 334" xmlns="http://www.w3.org/2000/svg" className='w-[13.6rem]'>
-                        <rect width="273" height="334" fill={currentDesign.labelColor} />
-                    </svg>)
+                    return (
+                        <svg width="273" height="334" viewBox="0 0 273 334" xmlns="http://www.w3.org/2000/svg" className='w-[13.6rem]'>
+                            <rect width="273" height="334" fill={currentDesign.labelColor} />
+                            <image
+                                href={currentDesign.labelImage}
+                                x="0"
+                                y="0"
+                                width="273"
+                                height="334"
+                                transform={`scale(${currentDesign.imageScale})`}
+                                transform-origin="center"
+                            />
+                            <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                                fontSize="16"
+                                fill="white"
+                            >
+                                {currentDesign.text}
+                            </text>
+                        </svg>)
 
                 case "cilindrica":
                     return (
                         <svg width="252" height="371" viewBox="0 0 252 371" xmlns="http://www.w3.org/2000/svg" className='w-[13.2rem]'>
                             <path d="M0 0L24.3087 6.28814L42.9453 10.2182H89.1318H129.646H180.695L218.778 8.64619L251.19 0L252 359.996L229.312 367.856L125.595 371L30.791 367.856L0 359.996V0Z" fill={currentDesign.labelColor} />
+                            <image
+                                href={currentDesign.labelImage}
+                                x="0"
+                                y="0"
+                                width="252"
+                                height="371"
+                                transform={`scale(${currentDesign.imageScale})`}
+                                transform-origin="center"
+                            />   <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                                fontSize="16"
+                                fill="white"
+                            >
+                                {currentDesign.text}
+                            </text>
                         </svg>
                     )
 
@@ -81,6 +123,24 @@ const DesignBottle = () => {
                     return (
                         <svg width="438" height="267" viewBox="0 0 438 267" xmlns="http://www.w3.org/2000/svg" className='w-[19.5rem]'>
                             <path d="M26 0L69.842 3.80342L129.624 7.60684L214.173 10.6496L297.869 7.60684L355.943 3.80342L408.5 0L424 33.5L435 69.5L437.5 103L436 138.064L431.5 167L420 199.5L405.627 226.105L391 247L373.294 267H328.225H219.47H69.842L51.1481 254.5L39.2301 240L28.8018 223.5L13.227 198.092L5.38876 166.077L0 127.059V81.0376L5.38876 52.5244L13.227 24.0111L26 0Z" fill={currentDesign.labelColor} />
+                            <image
+                                href={currentDesign.labelImage}
+                                x="0"
+                                y="0"
+                                width="438"
+                                height="267"
+                                transform={`scale(${currentDesign.imageScale})`}
+                                transform-origin="center"
+                            />   <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                                fontSize="16"
+                                fill="white"
+                            >
+                                {currentDesign.text}
+                            </text>
                         </svg>
                     )
 
@@ -88,38 +148,106 @@ const DesignBottle = () => {
         }
 
         if (labelForm === "circular") {
-
             switch (bottleForm) {
                 case "cubica":
                     return (
                         <svg width="331" height="345" viewBox="0 0 331 345" xmlns="http://www.w3.org/2000/svg" className='w-[15.7rem]'>
+                            <defs>
+                                <clipPath id="ellipse-clip">
+                                    <ellipse cx="165.5" cy="172.5" rx="165.5" ry="172.5" />
+                                </clipPath>
+                            </defs>
                             <ellipse cx="165.5" cy="172.5" rx="165.5" ry="172.5" fill={currentDesign.labelColor} />
+                            <image
+                                href={currentDesign.labelImage}
+                                x="0"
+                                y="0"
+                                width="331"
+                                height="345"
+                                preserveAspectRatio="xMidYMid slice"
+                                clipPath="url(#ellipse-clip)"
+                                transform={`scale(${currentDesign.imageScale})`}
+                                transform-origin="center"
+                            />   <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                                fontSize="16"
+                                fill="white"
+                            >
+                                {currentDesign.text}
+                            </text>
                         </svg>
                     )
-
                 case "cilindrica":
                     return (
                         <svg width="251" height="383" viewBox="0 0 251 383" fill="none" xmlns="http://www.w3.org/2000/svg" className='w-[13.3rem]'>
+                            <defs>
+                                <clipPath id="ellipse-clip">
+                                    <path d="M250.5 191.5C250.5 297.263 197.245 383 126 383C54.7553 383 0 297.263 0 191.5C0 85.7375 54.7553 0 126 0C197.245 0 250.5 85.7375 250.5 191.5Z" />
+                                </clipPath>
+                            </defs>
                             <path d="M250.5 191.5C250.5 297.263 197.245 383 126 383C54.7553 383 0 297.263 0 191.5C0 85.7375 54.7553 0 126 0C197.245 0 250.5 85.7375 250.5 191.5Z" fill={currentDesign.labelColor} />
+                            <image
+                                href={currentDesign.labelImage}
+                                x="0"
+                                y="0"
+                                width="251"
+                                height="383"
+                                preserveAspectRatio="xMidYMid slice"
+                                clipPath="url(#ellipse-clip)"
+                                transform={`scale(${currentDesign.imageScale})`}
+                                transform-origin="center"
+                            />   <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                                fontSize="16"
+                                fill="white"
+                            >
+                                {currentDesign.text}
+                            </text>
                         </svg>
                     )
-
                 case "esferica":
                     return (
-
                         <svg width="346" height="343" viewBox="0 0 346 343" fill="none" xmlns="http://www.w3.org/2000/svg" className='w-[16.5rem]'>
+                            <defs>
+                                <clipPath id="ellipse-clip">
+                                    <path d="M346 171.5C346 266.217 274.635 343 175.5 343C76.3649 343 0 266.217 0 171.5C0 76.7832 76.3649 0 175.5 0C274.635 0 346 76.7832 346 171.5Z" />
+                                </clipPath>
+                            </defs>
                             <path d="M346 171.5C346 266.217 274.635 343 175.5 343C76.3649 343 0 266.217 0 171.5C0 76.7832 76.3649 0 175.5 0C274.635 0 346 76.7832 346 171.5Z" fill={currentDesign.labelColor} />
+                            <image
+                                href={currentDesign.labelImage}
+                                x="0"
+                                y="0"
+                                width="346"
+                                height="343"
+                                preserveAspectRatio="xMidYMid slice"
+                                clipPath="url(#ellipse-clip)"
+                                transform={`scale(${currentDesign.imageScale})`}
+                                transform-origin="center"
+                            />   <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dominantBaseline="middle"
+                                fontSize="16"
+                                fill="white"
+                            >
+                                {currentDesign.text}
+                            </text>
                         </svg>
-
                     )
-
             }
         }
 
     }
 
     const getLabelPositions = (bottleForm: string, labelForm: string) => {
-
         if (labelForm == "cuadrada") {
 
             switch (bottleForm) {
@@ -131,7 +259,6 @@ const DesignBottle = () => {
                     return "top-[11.4rem] left-[0.3rem]"
             }
         } else {
-            // circular label positions
             switch (bottleForm) {
                 case "cubica":
                     return "top-[7.4rem] left-[2.4rem]";
@@ -154,7 +281,7 @@ const DesignBottle = () => {
                 <div className='flex items-center justify-center gap-[80px]'>
                     <div className="relative w-[20rem] h-[26rem] flex justify-center items-center">
                         {/* SVG label*/}
-                        {currentDesign.labelForm && (<div className={`absolute z-10 pointer-events-none ${getLabelPositions(currentDesign.form.name, currentDesign.labelForm)}`}>{getLabelByBottleForm(currentDesign.form.name, currentDesign.labelForm)}</div>)}
+                        {currentDesign.labelForm && (<div className={`absolute z-10 pointer-events-none text-center text-white ${getLabelPositions(currentDesign.form.name, currentDesign.labelForm)}`}>{getLabelByBottleForm(currentDesign.form.name, currentDesign.labelForm)}</div>)}
                         {/* bottle image */}
                         <Image
                             src={`/design-bottle/botella-${currentDesign.form.name}.png`}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import Colorful from '@uiw/react-color-colorful';
 import { ColorResult, hsvaToHex } from '@uiw/color-convert'; // esto es para pasar a hex
@@ -89,6 +89,7 @@ interface LabelFieldsProps {
 export const LabelFields = ({ currentDesign, setCurrentDesign }: LabelFieldsProps) => {
     const [hsva, setHsva] = useState({ h: 0, s: 0, v: 0, a: 0 });
     const [isChoosingColor, setIsChoosingColor] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const handleChangeColor = (color: ColorResult) => {
         setHsva(color.hsva);
         setCurrentDesign((prev) => ({
@@ -108,6 +109,30 @@ export const LabelFields = ({ currentDesign, setCurrentDesign }: LabelFieldsProp
         }));
     }
 
+    const handleUploadClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setCurrentDesign((prev) => ({
+                    ...prev,
+                    labelImage: reader.result as string,
+                }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+    const onChangeImageScale = (v: string) => {
+        setCurrentDesign((prev) => ({
+            ...prev,
+            imageScale: v
+        }));
+    }
+
     return (<div className="flex flex-col flex-1 text-left items-left">
         <p className="fuente-principal uppercase text-[20px] text-[var(--gris3)] mb-4 font-extrabold">Etiqueta</p>
 
@@ -121,7 +146,22 @@ export const LabelFields = ({ currentDesign, setCurrentDesign }: LabelFieldsProp
             <div className='flex gap-[5rem]'>
                 <div>
                     <p className="text-[var(--gris3)] text-[20px] font-medium mb-4">subir mi logo</p>
-                    <button className='bg-[var(--violeta)] text-white py-[15px] rounded-[10px] hover:bg-[var(--lila)] transition w-[5rem]'><UploadFileIcon /></button>
+                    <button onClick={handleUploadClick} className='bg-[var(--violeta)] text-white py-[15px] rounded-[10px] hover:bg-[var(--lila)] transition w-[5rem]'><UploadFileIcon /></button>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        style={{ display: 'none' }}
+                    />
+                    <input
+                        type="range"
+                        min="0.5"
+                        max="1"
+                        step="0.1"
+                        value={currentDesign.imageScale}
+                        onChange={(e) => onChangeImageScale(e.target.value)}
+                    />
                 </div>
                 <div>
                     <p className="text-[var(--gris3)] text-[20px] font-medium mb-4">elegir color</p>
