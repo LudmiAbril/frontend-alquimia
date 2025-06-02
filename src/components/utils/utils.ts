@@ -226,9 +226,9 @@ export const faqQuestions = [
 /*################################NAVBAR-DROPDOWN#############################################################*/
 
 export const userMenuItems = [
-  { label: "Mis Fórmulas", href: "/perfil/formulas" },
-  { label: "Mi Biblioteca", href: "/perfil/biblioteca" },
-  { label: "Mi Cuenta", href: "/perfil/cuenta" },
+  { label: "Mis Fórmulas", href: "/profile/Formulas" },
+  { label: "Mi Biblioteca", href: "/profile/Library" },
+  { label: "Mi Cuenta", href: "/profile/Account" },
   { label: "Cerrar Sesión", href: "/logout" },
 ];
 
