@@ -82,7 +82,7 @@ export default function Paso3Pago({ onContinue, onBack, formData, setFormData }:
             Pago del Pack Anual
           </h2>
           <p className="text-sm text-center text-gray-600 mb-4">
-            Promocioná tus productos durante <strong>12 meses</strong> en AlquimIA.
+            Promocioná tus productos durante <strong>12 meses</strong> en Alquimia.
           </p>
 
           <div className="bg-[var(--violeta)] text-white text-center py-3 mb-6 rounded-lg font-semibold">
