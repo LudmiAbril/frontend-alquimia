@@ -164,3 +164,38 @@ export interface StepData {
   alt: string;
   text: string;
 }
+
+/**************************** INTERFACES DEL BACK CON LOGUIN -REGISTER  ****************************/
+
+
+export interface BackendErrorResponse {
+  mensaje?: string;
+  errors?: {
+    [key: string]: string[];
+  };
+}
+
+export interface BackendSuccessResponse<T = any> {
+  exito?: boolean;
+  mensaje?: string;
+  token?: string;
+  data?: T;
+}
+
+export interface AuthResponse {
+  token: string;
+  usuario: {
+    id: number;
+    name: string;
+    email: string;
+    rol: string;
+  };
+}
+
+export interface RegisterDTO {
+  Email: string;
+  Password: string;
+  Name: string;
+  Rol: string;
+}
+
