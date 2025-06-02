@@ -13,7 +13,7 @@ export default function Paso4Confirmacion({ onFinish }: Paso4Props) {
       {/* Columna izquierda */}
       <aside className="hidden md:flex flex-col justify-center w-[45%] px-10 text-left">
         <h2 className="text-2xl font-bold text-[var(--violeta)] mb-6 leading-snug uppercase">
-          ¡Gracias por unirte a AlquimIA!
+          ¡Gracias por unirte a Alquimia!
         </h2>
         <ul className="space-y-5 text-gray-700 text-base">
           <li className="flex items-start gap-3">
@@ -39,7 +39,7 @@ export default function Paso4Confirmacion({ onFinish }: Paso4Props) {
             ¡Registro completado!
           </h2>
           <p className="text-gray-600 mb-6">
-            Bienvenido a AlquimIA. Ya podés acceder a tu panel de proveedor y comenzar a mostrar tus productos al mundo.
+            Bienvenido a Alquimia. Ya podés acceder a tu panel de proveedor y comenzar a mostrar tus productos al mundo.
           </p>
 
           <button
