@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 import { QuestionDTO } from "@/components/utils/typing"
 
 interface Props {
@@ -14,8 +15,17 @@ export default function OptionButtons({ question, selectedOption, onSelect }: Pr
         <button
           key={opt.Letra}
           onClick={() => onSelect(opt.Letra)}
-          className={`px-6 py-3 rounded-full font-semibold transition ${selectedOption === opt.Letra ? "bg-purple-600 text-white" : "bg-purple-100 text-purple-800 hover:bg-purple-300"}`}
+          className={`flex items-center gap-4 px-6 py-3 rounded-full font-semibold transition ${
+            selectedOption === opt.Letra
+              ? "bg-purple-600 text-white"
+              : "bg-purple-100 text-purple-800 hover:bg-purple-300"
+          }`}
         >
+          {opt.ImagenUrl && (
+            <div className="relative w-8 h-8">
+              <Image src={opt.ImagenUrl} alt={opt.Texto} fill className="object-contain rounded-full" />
+            </div>
+          )}
           {opt.Texto}
         </button>
       ))}

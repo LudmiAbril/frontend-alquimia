@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 import { QuestionDTO } from "@/components/utils/typing"
 
 interface Props {
@@ -14,9 +15,18 @@ export default function OptionList({ question, selectedOption, onSelect }: Props
         <li
           key={opt.Letra}
           onClick={() => onSelect(opt.Letra)}
-          className={`py-3 px-6 rounded-lg cursor-pointer border-l-4 ${selectedOption === opt.Letra ? "border-purple-600 bg-purple-200/40" : "border-transparent hover:border-purple-300"}`}
+          className={`flex items-center gap-4 py-3 px-6 rounded-lg cursor-pointer border-l-4 ${
+            selectedOption === opt.Letra
+              ? "border-purple-600 bg-purple-200/40"
+              : "border-transparent hover:border-purple-300"
+          }`}
         >
-          {opt.Texto}
+          {opt.ImagenUrl && (
+            <div className="relative w-10 h-10">
+              <Image src={opt.ImagenUrl} alt={opt.Texto} fill className="object-contain rounded" />
+            </div>
+          )}
+          <span>{opt.Texto}</span>
         </li>
       ))}
     </ul>
