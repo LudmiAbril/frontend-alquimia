@@ -5,6 +5,7 @@ import Step1Account from './Step1Account';
 import Step2Business from './Step2Business';
 import Step3Payment from './Step3Payment';
 import Step4Confirmation from './Step4Confirmation';
+import { useRouter } from "next/navigation";
 
 export interface ProviderFormData {
     email: string;
@@ -24,7 +25,7 @@ export interface ProviderFormData {
 
 const RegisterSteps = () => {
     const [step, setStep] = useState(1);
-
+    const router = useRouter();
     const [formData, setFormData] = useState<ProviderFormData>({
         email: "",
         password: "",
@@ -114,6 +115,7 @@ const RegisterSteps = () => {
             {step === 4 && (
                 <Step4Confirmation
                     onFinish={() => console.log("Proceso finalizado")}
+                    //onFinish={() => router.push("/panel")}
                 />
             )}
         </div>
