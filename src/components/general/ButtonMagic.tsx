@@ -22,7 +22,7 @@ export default function MagicButton({ label, loading = false, ...props }: MagicB
         </div>
       ) : (
         <>
-          <Sparkles className="h-5 w-5 animate-ping" />
+          <Sparkles className="h-5 w-5 " />
           {label}
         </>
       )}
