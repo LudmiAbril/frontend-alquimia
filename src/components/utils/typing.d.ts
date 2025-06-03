@@ -95,7 +95,10 @@ export type StepCardProps = {
 
 /**QUIZ */
 
-
+export interface WelcomeFamiliesProps {
+  onStart: () => void;
+  loading: boolean;
+}
 export interface OptionDTO {
   Letra: string
   Texto: string
