@@ -1,4 +1,4 @@
-import { StepData } from "@/components/utils/typing";
+import { ProviderFormData, StepData } from "@/components/utils/typing";
 import { Supplier } from "@/components/utils/typing";
 
 
@@ -272,9 +272,44 @@ export const suppliers: Supplier[] = [
 ];
 
 /*################################ - MENSAJES QUIMI - #############################################################*/
-export const messages = [
+export const messagesLanding = [
  "¡Bienvenide al mundo de los aromas!",
   "Tu esencia perfecta está cerca...",
   "Explorá las notas... yo cuido la magia",
   "Tu fragancia habla por vos, ¡creala!"
+];
+
+
+export const proveedorMessages = [
+  "¿Listo para vender tus creaciones?",
+  "Subí tus productos y empezá a perfumar el mundo.",
+  "¡Los aromas esperan por vos, proveedor!",
+];
+
+/*################################ - CONSTANTES RREGISTRO PROVEDOR - #############################################################*/
+
+export const initialFormData: ProviderFormData = {
+  email: "",
+  password: "",
+  empresa: "",
+  cuil: "",
+  productosSeleccionados: [],
+  otroProducto: "",
+  rubro: "",
+  tarjeta: {
+    nombre: "",
+    numero: "",
+    vencimiento: "",
+    cvc: "",
+  },
+};
+
+
+export const PRODUCT_OPTIONS = [
+  "Esencias",
+  "Envases",
+  "Alcohol",
+  "Fijadores",
+  "Etiquetas",
+  "Otro",
 ];

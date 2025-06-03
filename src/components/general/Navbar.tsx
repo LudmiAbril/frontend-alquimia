@@ -36,7 +36,7 @@ export default function Navbar() {
         <div className="flex items-center gap-[50px]">
           <nav className="flex items-center gap-[50px]">
             <Link href="/">Home</Link>
-            <Link href="/createParfum">Diseñar</Link>
+            <Link href="/createParfum">Crear perfume</Link>
             <Link href="/quiz">Descubrir</Link>
             <Link href="/providers">Proveedores</Link>
           </nav>

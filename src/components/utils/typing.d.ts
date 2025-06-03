@@ -199,3 +199,52 @@ export interface RegisterDTO {
   Rol: string;
 }
 
+//interfaz de mascota
+export interface FloatingMascotProps {
+  messages: string[];
+    imageSrc?: string;
+}
+
+//********************************** INTERFACES DE PROVEDOR REGISTRO ******************************************** */
+
+export interface ProviderFormData {
+  email: string;
+  password: string;
+  empresa: string;
+  cuil: string;
+  productosSeleccionados: string[];
+  otroProducto: string;
+  rubro: string;
+  tarjeta: {
+    nombre: string;
+    numero: string;
+    vencimiento: string;
+    cvc: string;
+  };
+}
+
+
+export interface Paso1Props {
+  onContinue: () => void;
+  formData: ProviderFormData;
+  setFormData: (data: ProviderFormData) => void;
+}
+
+export interface Paso2Props {
+  onContinue: () => void;
+  onBack: () => void;
+  formData: ProviderFormData;
+  setFormData: (data: ProviderFormData) => void;
+}
+
+export interface Paso3Props {
+  onContinue: () => void;
+  onBack: () => void;
+  formData: ProviderFormData;
+  setFormData: (data: ProviderFormData) => void;
+}
+
+
+export interface Paso4Props {
+  onFinish: () => void;
+}

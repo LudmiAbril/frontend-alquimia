@@ -2,16 +2,16 @@
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import { Paso4Props } from "../utils/typing";
+import SectionWrapper from "../general/SectionWrapper";
 
-interface Paso4Props {
-  onFinish: () => void;
-}
 
 export default function Paso4Confirmacion({ onFinish }: Paso4Props) {
   return (
-    <div className="flex min-h-screen bg-[#f4efeb]">
-      {/* Columna izquierda */}
-      <aside className="hidden md:flex flex-col justify-center w-[45%] px-10 text-left">
+     <SectionWrapper className="bg-[var(--hueso)]">
+       
+         <div className="flex gap-14">
+       <aside className="hidden md:flex flex-col items-start w-[45%] px-5 text-left py-10">
         <h2 className="text-2xl font-bold text-[var(--violeta)] mb-6 leading-snug uppercase">
           ¡Gracias por unirte a Alquimia!
         </h2>
@@ -51,5 +51,7 @@ export default function Paso4Confirmacion({ onFinish }: Paso4Props) {
         </div>
       </main>
     </div>
+            </SectionWrapper>
+    
   );
 }
