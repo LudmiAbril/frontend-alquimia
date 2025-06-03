@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { obtenerNotasPorPaso } from "../../services/notaService";
+import { getIntensities } from "@/services/createPerfumeService";
 
 // ---------------------- INTERFACES ----------------------
 interface LibraryProps {
@@ -31,10 +32,10 @@ interface NoteFamilyResponse {
 }
 
 export interface Intensity {
-  name: string;
-  nameToShow: string;
-  type: string;
-  description: string;
+  Id: number;
+  Name: string;
+  Description: string;
+  Category: string;
 }
 
 interface IntensityContainerProps {
@@ -95,25 +96,25 @@ export default Library;
 export const NotesContainer = ({ step }: { step: number }) => {
   const [groupedNotes, setGroupedNotes] = useState<NoteFamily[]>([]);
 
-useEffect(() => {
+  useEffect(() => {
     const fetchNotes = async () => {
       try {
         const data = await obtenerNotasPorPaso(step);
         console.log("Data desde la API:", data);
-        const reducedNotes = data.map((grupo: { Family: any; Notes: any[]; }) =>({
-        family: grupo.Family,
-        notes: grupo.Notes?.map((n) => ({
-          id: n.Id,
-          name: n.Name,
-        })) ?? [],
-    }));
- 
+        const reducedNotes = data.map((grupo: { Family: any; Notes: any[]; }) => ({
+          family: grupo.Family,
+          notes: grupo.Notes?.map((n) => ({
+            id: n.Id,
+            name: n.Name,
+          })) ?? [],
+        }));
+
         setGroupedNotes(reducedNotes);
       } catch (error) {
         console.error("Error al obtener notas:", error);
       }
     };
- 
+
     fetchNotes();
   }, [step]);
 
@@ -138,8 +139,7 @@ useEffect(() => {
                     key={note.id}
                     draggable
                     onDragStart={(e) =>
-                      e.dataTransfer.setData("text/plain", note.name)
-                    }
+                      e.dataTransfer.setData("text/plain", JSON.stringify({ id: note.id, name: note.name }))}
                     className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
                   >
                     {note.name}
@@ -154,7 +154,7 @@ useEffect(() => {
       ) : (
         <p>Cargando notas...</p>
       )}
-    </div>
+    </div >
   );
 };
 
@@ -166,53 +166,68 @@ export const IntensityContainer = ({
   const [selectedIntensity, setSelectedIntensity] = useState<string | null>(
     null
   );
+  const [intensities, setIntensities] = useState<Intensity[]>([]);
 
   const handleSelect = (intensity: Intensity) => {
-    setSelectedIntensity(intensity.nameToShow);
+    setSelectedIntensity(intensity.Name);
     onSelectIntensity(intensity);
   };
 
-  const intensities: Intensity[] = [
-    {
-      name: "low",
-      nameToShow: "Baja",
-      type: "Body Splash",
-      description: "dura alrededor de 1-3 horas y tiene poca proyección",
-    },
-    {
-      name: "medium",
-      nameToShow: "Media",
-      type: "Eau De Toilette",
-      description: "dura alrededor de 3-5 horas y tiene buena proyección",
-    },
-    {
-      name: "high",
-      nameToShow: "Alta",
-      type: "Eau De Parfum",
-      description: "dura alrededor de 5-8 horas y tiene buena proyección.",
-    },
-  ];
+  useEffect(() => {
+    const fetchIntensities = async () => {
+      const intensities = await getIntensities();
+      console.log(intensities)
+      setIntensities(intensities);
+    };
+
+    fetchIntensities();
+  }, []);
+
+
+
+  // const intensities: Intensity[] = [
+  //   {
+  //     id: 1,
+  //     name: "low",
+  //     nameToShow: "Baja",
+  //     type: "Body Splash",
+  //     description: "dura alrededor de 1-3 horas y tiene poca proyección",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "medium",
+  //     nameToShow: "Media",
+  //     type: "Eau De Toilette",
+  //     description: "dura alrededor de 3-5 horas y tiene buena proyección",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "high",
+  //     nameToShow: "Alta",
+  //     type: "Eau De Parfum",
+  //     description: "dura alrededor de 5-8 horas y tiene buena proyección.",
+  //   },
+  // ];
 
   return (
     <div className="mt-[3rem]">
       <div className="flex flex-col gap-[46px] items-center text-white">
         {intensities.map((intensity, key) => {
-          const isSelected = selectedIntensity === intensity.nameToShow;
+          const isSelected = selectedIntensity === intensity.Name;
           return (
             <div
               key={key}
               className={`w-[430px] h-[103px] rounded-[10px] cursor-pointer flex flex-col items-center justify-center transition
-              ${
-                isSelected
+              ${isSelected
                   ? "bg-[var(--violeta)]"
                   : "bg-[var(--lila)] hover:bg-[var(--violeta)]"
-              }`}
+                }`}
               onClick={() => handleSelect(intensity)}
             >
               <p className="fuente-principal uppercase font-bold text-[20px] mb-2">
-                {intensity.nameToShow} - {intensity.type}
+                {intensity.Name} - {intensity.Category}
               </p>
-              <p className="text-[14px]">{intensity.description}</p>
+              <p className="text-[14px]">{intensity.Description}</p>
             </div>
           );
         })}
