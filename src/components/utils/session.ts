@@ -45,7 +45,7 @@ export async function sendRegisterProvider(formData: ProviderFormData): Promise<
       cuil: formData.cuil,
       rubro: formData.rubro,
       productosSeleccionados: formData.productosSeleccionados,
-      tarjetaNombre: formData.tarjeta.nombre,
+      //tarjetaNombre: formData.tarjeta.nombre,
       tarjetaNumero: formData.tarjeta.numero,
       tarjetaVencimiento: formData.tarjeta.vencimiento,
       tarjetaCVC: formData.tarjeta.cvc,
