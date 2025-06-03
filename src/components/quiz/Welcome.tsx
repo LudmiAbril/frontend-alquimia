@@ -6,6 +6,7 @@ import Image from "next/image";
 import Button from "@/components/general/Button";
 import SectionWrapper from "@/components/general/SectionWrapper";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { Sparkles } from "lucide-react";
 
 // Cada familia olfativa con su mascota, descripción y color
 const families = [
@@ -35,7 +36,7 @@ const families = [
   },
 ];
 
-export default function Welcome() {
+export default function Welcome({ onStart, loading }: { onStart: () => void; loading: boolean }) {
   const [hovered, setHovered] = useState<string | null>(null);
 
   return (
@@ -115,12 +116,24 @@ export default function Welcome() {
         <p className="text-[16px] font-semibold text-[var(--gris4)] mb-3">
           ¿QUERÉS SABER CUAL FAMILIA OLFATIVA ES LA TUYA?
         </p>
-        <Button
-          label="COMENZAR QUIZ"
-          onClick={() => console.log("Ir al test")}
-          colorClass="bg-[#9444B6] text-white hover:bg-[#7a2f96]"
-        />
-   
+       
+       <button
+          onClick={onStart}
+          disabled={loading}
+          className="bg-[#9444B6] text-white px-6 py-2 rounded-full hover:bg-[#7a2f96] transition-all shadow-md flex items-center"
+        >
+          {loading ? (
+            <div className="flex items-center">
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+              Cargando preguntas...
+            </div>
+          ) : (
+            <>
+              <Sparkles className="mr-2 h-5 w-5 text-white" />
+              Comenzar Quiz
+            </>
+          )}
+        </button>
       </div>
     </SectionWrapper>
   );
