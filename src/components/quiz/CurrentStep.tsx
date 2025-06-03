@@ -4,18 +4,10 @@ import { PropsCurrent } from "@/components/utils/typing"
 import DynamicQuestion from "./DynamicQuestion"
 import Button from "@/components/general/Button"
 import ButtonSecondary from "@/components/general/ButtonSecondary"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Pagination } from "swiper/modules"
-import "swiper/css"
-import "swiper/css/navigation"
-import "swiper/css/pagination"
+import { motion } from "framer-motion"
+import { colorMap } from "../utils/utils"
 
-const colorMap: Record<string, string> = {
-  A: "#CD5C68",
-  B: "#6483C2",
-  C: "#E8C75C",
-  D: "#7B655A",
-}
+
 
 export default function CurrentStep({
   currentQuestionIndex,
@@ -26,21 +18,18 @@ export default function CurrentStep({
   onPrev,
   loading,
 }: PropsCurrent) {
-  const progress =
-    questions.length > 0 ? ((currentQuestionIndex + 1) / questions.length) * 100 : 0
   const question = questions[currentQuestionIndex]
+  const isButtonDisabled = !selectedOption || loading
 
   if (!question) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center text-white animate-pulse text-lg">
+        <div className="text-center text-[var(--gris4)] animate-pulse text-lg">
           Cargando pregunta mágica...
         </div>
       </div>
     )
   }
-
-  const isButtonDisabled = !selectedOption || loading
 
   return (
     <div className="min-h-screen p-4 flex flex-col">
@@ -48,11 +37,7 @@ export default function CurrentStep({
       <div className="max-w-5xl mx-auto w-full mb-12">
         <div className="flex items-center justify-between relative px-2">
           <img src="/quiz/inicio.svg" alt="Inicio" className="w-8 h-8 z-10" />
-
-          {/* Línea de fondo */}
           <div className="absolute top-1/2 left-10 right-10 h-0.5 bg-[#9444B6] -z-0 transform -translate-y-1/2"></div>
-
-          {/* Puntos del progreso */}
           <div className="flex-1 flex items-center justify-between z-10 px-4">
             {questions.map((_, index) => (
               <div
@@ -65,48 +50,23 @@ export default function CurrentStep({
               ></div>
             ))}
           </div>
-
           <img src="/quiz/final.svg" alt="Fin" className="w-8 h-8 z-10" />
         </div>
       </div>
 
-      {/* Contenido principal */}
-      <div className="flex-1 flex flex-col items-center justify-center max-w-3xl mx-auto w-full gap-10 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+      {/* Pregunta + opciones */}
+      <div className="flex-1 flex flex-col items-center justify-center max-w-3xl mx-auto w-full gap-2 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--gris4)] mb-2">
           {question?.Pregunta}
         </h2>
-        <p className="text-white text-sm md:text-base mb-6">
+        <p className="text-[var(--gris4)] text-sm md:text-base mb-6">
           Selecciona la opción que más te identifique
         </p>
 
-        {question.VisualType === "buttons" ? (
-          <div className="bg-[#f4eaff] rounded-2xl px-6 py-8 shadow-xl mb-10 w-full max-w-md">
-            <Swiper
-              modules={[Navigation, Pagination]}
-              navigation
-              pagination={{ clickable: true }}
-              spaceBetween={30}
-              slidesPerView={1}
-            >
-              {question.Opciones.map((opt) => (
-                <SwiperSlide key={opt.Letra}>
-                  <button
-                    onClick={() => onSelect(opt.Letra)}
-                    style={{
-                      border: `2px solid ${colorMap[opt.Letra]}`,
-                      color: colorMap[opt.Letra],
-                    }}
-                    className={`w-full px-6 py-4 rounded-xl font-semibold text-lg text-center transition bg-white hover:scale-105 ${
-                      selectedOption === opt.Letra ? "bg-opacity-80" : ""
-                    }`}
-                  >
-                    {opt.Texto}
-                  </button>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        ) : (
+      
+    
+        
+          
           <div className="mb-10 w-full">
             <DynamicQuestion
               question={question}
@@ -114,7 +74,7 @@ export default function CurrentStep({
               onSelect={onSelect}
             />
           </div>
-        )}
+    
 
         {/* Botones de navegación */}
         <div className="flex justify-center gap-6">
