@@ -2,24 +2,38 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface LoadingProps {
   onFinish: () => void;
+  onLoading: () => Promise<void>;
   onClose: () => void;
 }
 
-const Loading = ({ onFinish, onClose }: LoadingProps) => {
+const Loading = ({ onFinish, onClose, onLoading }: LoadingProps) => {
   const [progress, setProgress] = useState(0);
   const hasFinished = useRef(false);
   const progressBarRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+   useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    async function runLoading() {
+      await onLoading(); // espera que termine la función async
+
+      // Después que terminó onLoading, avanzamos al 100%
+      setProgress(100);
+    }
+
+    runLoading();
+
+    // Mientras tanto subimos progresivamente hasta 90% para que no se quede estático
+    interval = setInterval(() => {
       setProgress((prev) => {
-        const next = prev + 1;
-        return next <= 100 ? next : 100;
+        // no pasar de 90 mientras no termine onLoading
+        if (prev < 90) return prev + 1;
+        return prev;
       });
     }, 30);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [onLoading]);
 
   useEffect(() => {
     if (progress === 100 && !hasFinished.current) {

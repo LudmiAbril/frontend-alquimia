@@ -42,7 +42,7 @@ const CreatePerfumeSteps = () => {
     baseNotes: [],
     heartNotes: [],
     topNotes: [],
-    intensity: { name: "", nameToShow: "", type: "", description: "" }
+    intensity: { Id: 0, Name: "", Category: "", Description: "" }
   });
 
   const advanceStep = () => {
