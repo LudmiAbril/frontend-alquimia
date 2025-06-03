@@ -4,10 +4,7 @@ import { PropsCurrent } from "@/components/utils/typing"
 import DynamicQuestion from "./DynamicQuestion"
 import Button from "@/components/general/Button"
 import ButtonSecondary from "@/components/general/ButtonSecondary"
-import { motion } from "framer-motion"
-import { colorMap } from "../utils/utils"
-
-
+import { useState, useEffect } from "react"
 
 export default function CurrentStep({
   currentQuestionIndex,
@@ -19,7 +16,18 @@ export default function CurrentStep({
   loading,
 }: PropsCurrent) {
   const question = questions[currentQuestionIndex]
-  const isButtonDisabled = !selectedOption || loading
+  const [localSelection, setLocalSelection] = useState<string>(selectedOption || "")
+
+  useEffect(() => {
+    setLocalSelection(selectedOption || "")
+  }, [selectedOption, question])
+
+  const handleSelect = (option: string) => {
+    setLocalSelection(option)
+    onSelect(option)
+  }
+
+  const isButtonDisabled = !localSelection || loading
 
   if (!question) {
     return (
@@ -63,18 +71,13 @@ export default function CurrentStep({
           Selecciona la opción que más te identifique
         </p>
 
-      
-    
-        
-          
-          <div className="mb-10 w-full">
-            <DynamicQuestion
-              question={question}
-              selectedOption={selectedOption}
-              onSelect={onSelect}
-            />
-          </div>
-    
+        <div className="mb-10 w-full">
+          <DynamicQuestion
+            question={question}
+            selectedOption={localSelection}
+            onSelect={handleSelect}
+          />
+        </div>
 
         {/* Botones de navegación */}
         <div className="flex justify-center gap-6">
