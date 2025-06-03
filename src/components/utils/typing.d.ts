@@ -201,4 +201,13 @@ export interface RegisterDTO {
   Name: string;
   Rol: string;
 }
+/**************************** SEARCHER  ****************************/
+export interface  PropsSearch  {
+  results: any[]
+  isLoading: boolean
+}
 
+export interface PropsInput {
+  query: string
+  setQuery: (q: string) => void
+}
