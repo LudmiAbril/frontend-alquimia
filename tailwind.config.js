@@ -14,6 +14,10 @@ module.exports = {
         gris2: "var(--gris2)",
         gris3: "var(--gris3)",
         gris4: "var(--gris4)",
+        customA: '#156E86',
+        customB: '#F56A80',
+        customC: '#F8A301',
+        customD: '#1F583B',
       },
       fontFamily: {
         roboto: "var(--font-roboto)",
@@ -21,7 +25,7 @@ module.exports = {
       },
       backgroundImage: {
         degrade: "var(--degrade)",
-      },
+      },  
       animation: {
         fadeIn: "fadeIn 0.6s ease forwards",
         brillar: "brillar 1s ease-out infinite",
