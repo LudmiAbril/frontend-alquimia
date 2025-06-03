@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import ConfirmFormulaModal from "./ConfirmFormulaModal";
 import ResultCard, { perfumeData } from "./ResultCard";
 import Image from "next/image";
+import { submitFormula } from "@/services/createPerfumeService";
 
 interface FormulaResultProps {
   resultPerfume: perfumeData
 }
-const FormulaResult = ({resultPerfume} :FormulaResultProps) => {
+const FormulaResult = ({ resultPerfume }: FormulaResultProps) => {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
   const toggleConfirmationModal = () => {
     setIsConfirmationModalOpen((prev) => !prev);
   };
 
-   return (
+  return (
     <>
       <div className="flex flex-col items-center justify-center ">
         <h1 className="fuente-principal text-[var(--gris4)] text-[32px] font-bold mb-4">
@@ -49,3 +50,19 @@ const FormulaResult = ({resultPerfume} :FormulaResultProps) => {
 
 
 export default FormulaResult;
+
+export interface SaveFormulaDTO {
+  IntensityId: number;
+  CreatorId: number;
+  TopNotes: NotesGroupDTO;
+  HeartNotes: NotesGroupDTO;
+  BaseNotes: NotesGroupDTO;
+}
+
+export interface NoteDTO {
+  Id: number;
+}
+
+export interface NotesGroupDTO {
+  [key: string]: { Id: number };
+}

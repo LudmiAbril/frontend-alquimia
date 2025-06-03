@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Library from "./Library";
 import ConfirmCreationModal from "./ConfirmCreationModal";
 import LoadingModal from "./Loading";
 import { createSteps } from "./CreatePerfumeSteps";
 import { perfumeData } from "./ResultCard";
 import Image from "next/image";
+import { SaveFormulaDTO } from "./FormulaResult";
+import { submitFormula } from "@/services/createPerfumeService";
 
 interface CreatePerfumeProps {
   currentStep: number;
@@ -18,28 +22,26 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
 
-
   const handleDrop = (e: React.DragEvent<HTMLImageElement>) => {
     e.preventDefault();
     const note = e.dataTransfer.getData("text/plain");
-
+    const noteparsed = JSON.parse(note);
     setCurrentPerfume((prev) => {
       if (!prev) return prev;
 
       const newNotes = { ...prev };
 
       if (currentStep === 1) {
-        newNotes.baseNotes = [...prev.baseNotes, note];
+        newNotes.baseNotes = [...prev.baseNotes, noteparsed];
       } else if (currentStep === 2) {
-        newNotes.heartNotes = [...prev.heartNotes, note];
+        newNotes.heartNotes = [...prev.heartNotes, noteparsed];
       } else if (currentStep === 3) {
-        newNotes.topNotes = [...prev.topNotes, note];
+        newNotes.topNotes = [...prev.topNotes, noteparsed];
       }
 
       return newNotes;
     });
   };
-
   const handleDragOver = (e: React.DragEvent<HTMLImageElement>) => e.preventDefault();
 
   const toggleConfirmModal = () => setShowConfirmModal((prev) => !prev);
@@ -49,6 +51,32 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
     toggleConfirmModal();
     toggleLoading();
   };
+
+
+  const HandleSubmitFormula = async () => {
+    const topNotesObj = mapNotesArrayToObject(currentPerfume.topNotes);
+    const heartNotesObj = mapNotesArrayToObject(currentPerfume.heartNotes);
+    const baseNotesObj = mapNotesArrayToObject(currentPerfume.baseNotes);
+    const userId = Number(localStorage.getItem("userId"));
+    const payload: SaveFormulaDTO = {
+      IntensityId: currentPerfume.intensity.Id,
+      CreatorId: userId,
+      TopNotes: topNotesObj,
+      HeartNotes: heartNotesObj,
+      BaseNotes: baseNotesObj,
+    }
+    await submitFormula(payload);
+  }
+
+  function mapNotesArrayToObject(notesArray: { id: number }[]) {
+    const result: Record<string, { Id: number }> = {};
+    notesArray.forEach((note, idx) => {
+      const key = `Note${idx + 1}`;
+      result[key] = { Id: note.id };
+    });
+    return result;
+  }
+
 
   return (
     <>
@@ -89,17 +117,19 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
 
             {currentStep === 1 && currentPerfume.baseNotes.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de fondo: <strong>{currentPerfume.baseNotes.join(", ")}</strong>
+                Notas de fondo:   <strong>
+                  {currentPerfume.baseNotes.map((note) => note.name).join(", ")}
+                </strong>
               </p>
             )}
             {currentStep === 2 && currentPerfume.heartNotes.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de corazón: <strong>{currentPerfume.heartNotes.join(", ")}</strong>
+                Notas de corazón: <strong>{currentPerfume.heartNotes.map((note) => note.name).join(", ")}</strong>
               </p>
             )}
             {currentStep === 3 && currentPerfume.topNotes.length > 0 && (
               <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de salida: <strong>{currentPerfume.topNotes.join(", ")}</strong>
+                Notas de salida: <strong>{currentPerfume.topNotes.map((note) => note.name).join(", ")}</strong>
               </p>
             )}
           </div>
@@ -118,7 +148,7 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
         <ConfirmCreationModal onClose={toggleConfirmModal} onConfirm={confirmCreation} />
       )}
 
-      {showLoading && <LoadingModal onFinish={onNext} onClose={toggleLoading} />}
+      {showLoading && <LoadingModal onFinish={onNext} onLoading={HandleSubmitFormula} onClose={toggleLoading} />}
     </>
   );
 };
@@ -135,8 +165,8 @@ export const StepCard = ({ currentStep, onNext, onBack }: StepCardProps) => {
   return (
     <div className="flex items-center gap-6">
       <Image
-      width={20}
-      height={20}
+        width={20}
+        height={20}
         src={
           currentStep <= 1
             ? "/svgGeneral/arrow-left-inactive.svg"
@@ -156,7 +186,7 @@ export const StepCard = ({ currentStep, onNext, onBack }: StepCardProps) => {
         <p>{createSteps[currentStep].descripcion}</p>
       </div>
       <Image
-       width={20} height={20}
+        width={20} height={20}
         src={
           currentStep >= 4
             ? "/svgGeneral/arrow-right-inactive.svg"

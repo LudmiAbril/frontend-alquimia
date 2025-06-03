@@ -3,6 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Intensity } from "./Library";
+import { NoteDTO } from "./FormulaResult";
 
 interface ResultCardProps {
   perfume: perfumeData
@@ -87,11 +88,17 @@ const ResultCard = ({ perfume }: ResultCardProps) => {
 export default ResultCard;
 
 export interface perfumeData {
-  baseNotes: string[],
-  heartNotes: string[],
-  topNotes: string[],
+  baseNotes: Note[],
+  heartNotes: Note[],
+  topNotes: Note[],
   intensity: Intensity
 }
+
+export interface Note {
+  id: number;
+  name: string
+}
+
 
 // COMPONENTES SECUNDARIOS
 interface CompositionProps {
@@ -105,37 +112,37 @@ export const Composition = ({ perfume }: CompositionProps) => {
       <div className="mt-10 mb-[4rem]">
         <div className=" px-10 text-center">
           <div className="border-b border-[var(--gris2)] flex justify-between px-6 pb-1 mb-4 uppercase fuente-principal text-[14px] text-[var(--gris3)]"><p>nota</p> <p>esencia</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Fondo</p><p>{perfume.baseNotes.join(', ')}</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Corazón</p><p>{perfume.heartNotes.join(', ')}</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Salida</p><p>{perfume.topNotes.join(', ')}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Fondo</p><p>{perfume.baseNotes.map((note) => note.name).join(', ')}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Corazón</p><p>{perfume.heartNotes.map((note) => note.name).join(', ')}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Salida</p><p>{perfume.topNotes.map((note) => note.name).join(', ')}</p></div>
         </div>
       </div>
-      <p className="text-[12px] text-[var(--gris3)]">Intensidad <span className="font-bold uppercase">{perfume.intensity.name}</span> ({perfume.intensity.type})</p>
+      <p className="text-[12px] text-[var(--gris3)]">Intensidad <span className="font-bold uppercase">{perfume.intensity.Name}</span> ({perfume.intensity.Category})</p>
     </div>
   );
 };
 
 interface FormulaProps {
-  intensity:  Intensity
+  intensity: Intensity
 }
 
 export const Formula = ({ intensity }: FormulaProps) => {
   const formulaByIntensity = {
-    low: {
+    Baja: {
       base: "10ml",
       heart: "15ml",
       top: "5ml",
       alcohol: "65ml",
       water: "5ml"
     },
-    medium: {
+    Media: {
       base: "15ml",
       heart: "20ml",
       top: "10ml",
       alcohol: "50ml",
       water: "5ml"
     },
-    high: {
+    Alta: {
       base: "20ml",
       heart: "25ml",
       top: "15ml",
@@ -144,7 +151,7 @@ export const Formula = ({ intensity }: FormulaProps) => {
     }
   };
 
-  const formula = formulaByIntensity[intensity.name.toLowerCase() as keyof typeof formulaByIntensity];
+  const formula = formulaByIntensity[intensity.Name as keyof typeof formulaByIntensity];
   return (
     <div className="flex flex-col w-[38rem]">
       <p className="fuente-principal text-[var(--gris4)] uppercase text-[20px]">Fórmula</p>
