@@ -42,7 +42,14 @@ export async function sendRegisterProvider(formData: ProviderFormData): Promise<
       email: formData.email,
       password: formData.password,
       name: formData.empresa, // nombre que espera el backend
-    };
+      cuil: formData.cuil,
+      rubro: formData.rubro,
+      productosSeleccionados: formData.productosSeleccionados,
+      tarjetaNombre: formData.tarjeta.nombre,
+      tarjetaNumero: formData.tarjeta.numero,
+      tarjetaVencimiento: formData.tarjeta.vencimiento,
+      tarjetaCVC: formData.tarjeta.cvc,
+      };
 
     const response = await fetch("http://localhost:5035/cuenta/registrar-proveedor", {
       method: "POST",
