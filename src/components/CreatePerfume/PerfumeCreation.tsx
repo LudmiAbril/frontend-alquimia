@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Library from "./Library";
 import ConfirmCreationModal from "./ConfirmCreationModal";
 import LoadingModal from "./Loading";
@@ -40,7 +42,6 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
       return newNotes;
     });
   };
-
   const handleDragOver = (e: React.DragEvent<HTMLImageElement>) => e.preventDefault();
 
   const toggleConfirmModal = () => setShowConfirmModal((prev) => !prev);
@@ -51,14 +52,15 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
     toggleLoading();
   };
 
+
   const HandleSubmitFormula = async () => {
     const topNotesObj = mapNotesArrayToObject(currentPerfume.topNotes);
     const heartNotesObj = mapNotesArrayToObject(currentPerfume.heartNotes);
     const baseNotesObj = mapNotesArrayToObject(currentPerfume.baseNotes);
-
+    const userId = Number(localStorage.getItem("userId"));
     const payload: SaveFormulaDTO = {
       IntensityId: currentPerfume.intensity.Id,
-      CreatorId: 53, // trer del localstorage
+      CreatorId: userId,
       TopNotes: topNotesObj,
       HeartNotes: heartNotesObj,
       BaseNotes: baseNotesObj,

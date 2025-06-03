@@ -2,19 +2,20 @@ import { RegisterDTO } from "./typing";
 
 export function saveSessionData(token: string) {
   localStorage.setItem("token", token);
-
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));
 
-    if (payload?.name) {
-      localStorage.setItem("username", payload.name);
+    if (payload?.["user-name"]) {
+      localStorage.setItem("username", payload["user-name"]);
     }
 
-    if (payload?.email) {
-      localStorage.setItem("useremail", payload.email);
+    if (payload?.["name-identifier"]) {
+      localStorage.setItem("userId", payload["name-identifier"]);
     }
 
-    console.log("Sesión guardada con éxito ✅");
+    if (payload?.["email"]) {
+      localStorage.setItem("useremail", payload["email"]);
+    }
   } catch (error) {
     console.error("Token inválido", error);
   }

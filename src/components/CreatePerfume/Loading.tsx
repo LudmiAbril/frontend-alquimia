@@ -27,7 +27,7 @@ const Loading = ({ onFinish, onClose, onLoading }: LoadingProps) => {
     interval = setInterval(() => {
       setProgress((prev) => {
         // no pasar de 90 mientras no termine onLoading
-        if (prev < 90) return prev + 1;
+        if (prev < 50) return prev + 1;
         return prev;
       });
     }, 30);
