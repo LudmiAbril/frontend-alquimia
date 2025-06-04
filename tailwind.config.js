@@ -25,7 +25,10 @@ module.exports = {
       },
       backgroundImage: {
         degrade: "var(--degrade)",
-      },  
+      },  perspective: {
+  '2500px': '2500px',
+},
+
       animation: {
         fadeIn: "fadeIn 0.6s ease forwards",
         brillar: "brillar 1s ease-out infinite",
