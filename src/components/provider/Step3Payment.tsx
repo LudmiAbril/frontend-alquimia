@@ -71,6 +71,15 @@ export default function Paso3Pago({ onContinue, onBack, formData, setFormData }:
               Promocioná tus productos durante <strong>12 meses</strong> en Alquimia.
             </p>
 
+                 {/* Indicador de progreso */}
+          <div className="flex justify-center gap-4 mb-6">
+            <div className="w-4 h-4 bg-[var(--violeta)] rounded-full" />
+            <div className="w-4 h-4 bg-[var(--violeta)] rounded-full" />
+            <div className="w-4 h-4 bg-[var(--violeta)] rounded-full" />
+            <div className="w-4 h-4 bg-gray-300 rounded-full" />
+          </div>
+
+
             <div className="bg-[var(--violeta)] text-white text-center py-3 mb-6 rounded-lg font-semibold">
               PACK ANUAL: $25.000 ARS
             </div>
