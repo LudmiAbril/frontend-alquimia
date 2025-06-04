@@ -6,8 +6,8 @@ import TestIntroSection from "@/components/landing/TestIntroSection";
 import SuppliersSection from "@/components/landing/SuppliersSection";
 import CustomDesignSection from "@/components/landing/CustomDesignSection";
 import FAQAccordion from "@/components/landing/FAQAccordion";
-import SupplierCarousel from "@/components/landing/SupplierCarousel";
-import MascotaFlotante from "@/components/general/MascotaFlotante";
+import FloatingMascot from "@/components/general/MascotaFlotante";
+import { messagesLanding } from "@/components/utils/utils";
 
 export default function Home() {
   return (
@@ -20,8 +20,10 @@ export default function Home() {
       <SuppliersSection />
       <CustomDesignSection />
       <FAQAccordion />
-      <MascotaFlotante />
-
+      <FloatingMascot
+        messages={messagesLanding}
+        imageSrc="/Quimi/quimiLanding.png"
+      />
     </>
   );
 }
