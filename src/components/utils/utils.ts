@@ -3,39 +3,13 @@ import { Supplier } from "@/components/utils/typing";
 
 
 /*################OLFACTORY TEST###################*/
-export const fragranceFamilies = {
-  aquatic: {
-    text: "Marinas/Cítricas.",
-    color: "#66cccc",
-    description: "Fragancias frescas inspiradas en el mar, ideales para días cálidos.",
-    image: "./img/familias/acuatica.jpg",
-  },
-  fruity: {
-    text: "Frutales/Florales.",
-    color: "#ff6699",
-    description: "Notas jugosas y dulces como frutas del trópico y flores exóticas.",
-    image: "./img/familias/frutal.jpg",
-  },
-  woody: {
-    text: "Amaderadas/Especiadas.",
-    color: "#cc9966",
-    description: "Aromas cálidos y terrosos, elegantes y envolventes.",
-    image: "./img/familias/madera.jpg",
-  },
-  ambery: {
-    text: "Gourmand/Ambaradas.",
-    color: "#9966cc",
-    description: "Esencias dulces, profundas y sensuales como la vainilla y el ámbar.",
-    image: "./img/familias/ambarada.jpg",
-  },
-};
+export const colorMap: Record<string, string> = {
+  A: "border-customA hover:bg-customA",
+  B: "border-customB hover:bg-customB",
+  C: "border-customC hover:bg-customC",
+  D: "border-customD hover:bg-customD",
+}
 
-export const potionSvgPaths = [
-  "/potion/potion00.svg",
-  "/potion/potion01.svg",
-  "/potion/potion03.svg",
-  "/potion/potion04.svg",
-];
 
 /*################################SUPPLIERS#############################################################*/
 export const bestSellingProducts = [
@@ -226,9 +200,9 @@ export const faqQuestions = [
 /*################################NAVBAR-DROPDOWN#############################################################*/
 
 export const userMenuItems = [
-  { label: "Mis Fórmulas", href: "/perfil/formulas" },
-  { label: "Mi Biblioteca", href: "/perfil/biblioteca" },
-  { label: "Mi Cuenta", href: "/perfil/cuenta" },
+  { label: "Mis Fórmulas", href: "/profile/Formulas" },
+  { label: "Mi Biblioteca", href: "/profile/Library" },
+  { label: "Mi Cuenta", href: "/profile/Account" },
   { label: "Cerrar Sesión", href: "/logout" },
 ];
 
@@ -278,3 +252,46 @@ export const messages = [
   "Explorá las notas... yo cuido la magia",
   "Tu fragancia habla por vos, ¡creala!"
 ];
+
+
+/*################################ - QUIZ - #############################################################*/
+
+export const familiesQuiz = [
+  {
+    id: 1,
+    name: "Amaderada",
+    image: "/mascotas/amaderada.png",
+    description: "Profunda, misteriosa y cálida. Ideal para quienes aman la elegancia natural."
+  },
+  {
+    id: 2,
+    name: "Floral",
+    image: "/mascotas/floral.png",
+    description: "Delicada, romántica y luminosa. Un bouquet que celebra la sensibilidad."
+  },
+  {
+    id: 3,
+    name: "Fresca",
+    image: "/mascotas/fresca.png",
+    description: "Pura, revitalizante y ligera. Para quienes irradian energía."
+  },
+  {
+    id: 4,
+    name: "Oriental",
+    image: "/mascotas/oriental.png",
+    description: "Exótica, intensa y envolvente. Perfecta para almas magnéticas."
+  }
+]
+
+  export const familyPet: Record<string, string> = {
+    "Fresca": "/mascotas/fresca.png",
+    "Floral": "/mascotas/floral.png",
+    "Amaderada": "/mascotas/amaderada.png",
+    "Oriental": "/mascotas/oriental.png",
+  }
+export const backgroundByFamily: Record<string, string> = {
+  "Fresca": "/quiz/familia-fondos/frescaBack.png",
+  "Floral": "/quiz/familia-fondos/floralBack.png",
+  "Amaderada": "/quiz/familia-fondos/amaderadaBack.png",
+  "Oriental": "/quiz/familia-fondos/orientalBack.png",
+}

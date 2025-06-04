@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CreationStep from "./PerfumeCreation";
-import FormulaResult from "./FormulaResult";
+import FormulaResult, { GetFormulaResponse } from "./FormulaResult";
 import SectionWrapper from "../general/SectionWrapper";
 import Welcome from "./Welcome";
 import { perfumeData } from "./ResultCard";
@@ -42,7 +42,46 @@ const CreatePerfumeSteps = () => {
     baseNotes: [],
     heartNotes: [],
     topNotes: [],
-    intensity: { name: "", nameToShow: "", type: "", description: "" }
+    intensity: { Id: 0, Name: "", Category: "", Description: "" }
+  });
+  const [resultFormula, setResultFormula] = useState<GetFormulaResponse>({
+    IdCreador: 0,
+    ConcentracionAgua: 0,
+    ConcentracionAlcohol: 0,
+    ConcentracionEsencia: 0,
+    Intensity: {
+      Id: 0,
+      Name: "",
+      Category: "",
+      Description: ""
+    },
+    NotasCorazonIds: {
+      Note1: {
+        Description: "",
+        Duration: "",
+        Family: "",
+        Name: "",
+        Sector: ""
+      },
+    },
+    NotasFondoIds: {
+      Note1: {
+        Name: "",
+        Family: "",
+        Sector: "",
+        Description: "",
+        Duration: ""
+      },
+    },
+    NotasSalidaIds: {
+      Note1: {
+        Name: "",
+        Family: "",
+        Sector: "",
+        Description: "",
+        Duration: ""
+      },
+    }
   });
 
   const advanceStep = () => {
@@ -65,9 +104,9 @@ const CreatePerfumeSteps = () => {
         <CreationStep
           currentStep={currentStep}
           onNext={advanceStep}
-          onBack={returnStep} currentPerfume={currentPerfume} setCurrentPerfume={setCurrentPerfume} />
+          onBack={returnStep} currentPerfume={currentPerfume} setCurrentPerfume={setCurrentPerfume} setResultFormula={setResultFormula} />
       ) : (
-        <FormulaResult resultPerfume={currentPerfume} />
+        <FormulaResult resultPerfume={resultFormula} />
       )}
     </SectionWrapper>
   );

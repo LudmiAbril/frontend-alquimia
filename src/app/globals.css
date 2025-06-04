@@ -179,6 +179,12 @@ h2 {
   }
 }
 
+
+  .glow {
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.6), 0 0 12px rgba(255, 255, 255, 0.4);
+  }
+
+
 .magical-hover::before {
   content: "";
   position: absolute;
@@ -211,4 +217,18 @@ h2 {
 .swiper-pagination-bullet-active {
   opacity: 1;
   transform: scale(1.2);
+}
+.cover-image {
+  transition: transform 0.3s ease;
+}
+
+
+.card {
+  perspective: 2500px;
+}
+.cover-image {
+  object-fit: cover;
+}
+.character {
+  transition: all 0.5s;
 }

@@ -9,7 +9,7 @@ export default function RedirectGooglePage() {
   useEffect(() => {
     const verificarEstado = async () => {
       try {
-        const response = await fetch("https://localhost:7164/cuenta/auth/status", {
+        const response = await fetch("http://localhost:5035/cuenta/auth/status", {
           credentials: "include",
         });
 

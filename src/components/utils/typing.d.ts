@@ -95,13 +95,21 @@ export type StepCardProps = {
 
 /**QUIZ */
 
-
+export interface WelcomeFamiliesProps {
+  onStart: () => void;
+  loading: boolean;
+}
 export interface OptionDTO {
   Letra: string
   Texto: string
-  ImagenBase64: string
+  ImagenUrl: string  
 }
 
+export interface PropsDynamic {
+  question: QuestionDTO
+  selectedOption: string
+  onSelect: (option: string) => void
+}
 export type VisualType = "cards" | "grid" | "list" | "buttons" | "bubbles";
 
 export interface QuestionDTO {
@@ -133,10 +141,7 @@ export interface PropsResult {
   descripcion: string;
   imagen: string | null;
 }
-export interface PropsQuiz {
-  title: string
-  subtitle?: string
-}
+
 
 export interface PropsQC {
   option: OptionDTO 
@@ -161,4 +166,48 @@ export interface StepData {
   image: string;
   alt: string;
   text: string;
+}
+
+/**************************** INTERFACES DEL BACK CON LOGUIN -REGISTER  ****************************/
+
+
+export interface BackendErrorResponse {
+  mensaje?: string;
+  errors?: {
+    [key: string]: string[];
+  };
+}
+
+export interface BackendSuccessResponse<T = any> {
+  exito?: boolean;
+  mensaje?: string;
+  token?: string;
+  data?: T;
+}
+
+export interface AuthResponse {
+  token: string;
+  usuario: {
+    id: number;
+    name: string;
+    email: string;
+    rol: string;
+  };
+}
+
+export interface RegisterDTO {
+  Email: string;
+  Password: string;
+  Name: string;
+  Rol: string;
+}
+/**************************** SEARCHER  ****************************/
+export interface  PropsSearch  {
+  results: any[]
+  isLoading: boolean
+}
+
+export interface PropsInput {
+  query: string
+  setQuery: (q: string) => void
 }

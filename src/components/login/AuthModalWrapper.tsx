@@ -36,14 +36,14 @@ export default function AuthModalWrapper({ children, title, onClose }: AuthModal
           </button>
 
           {/* Logo y título */}
-          <div className="flex flex-col items-center space-y-2 mb-6">
+          <div className="flex flex-col items-center space-y-1 mb-6">
             <div className="w-16 flex items-center justify-center">
               <Image
-                src="/logo/LogoVioleta.svg"
+                src="/logo/LogotipoVioleta.svg"
                 alt="Logo"
-                className="w-10 h-10 object-contain"
-                width={10}
-                height={10}
+                className="w-20 h-15 object-contain"
+                width={20}
+                height={20}
               />
             </div>
             <h2 className="text-xl font-bold uppercase text-[var(--gris4)]">{title}</h2>
