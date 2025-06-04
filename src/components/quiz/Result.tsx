@@ -1,18 +1,13 @@
 "use client"
-
-import Image from "next/image"
 import { PropsResult } from "@/components/utils/typing"
 import Card3D from "./Card3d"
+import { backgroundByFamily, familyPet } from "../utils/utils"
 
 export default function Result({ result, answers, onReset }: PropsResult) {
-  const familiaMascotas: Record<string, string> = {
-    "Fresca": "/mascotas/fresca.png",
-    "Floral": "/mascotas/floral.png",
-    "Amaderada": "/mascotas/amaderada.png",
-    "Oriental": "/mascotas/oriental.png",
-  }
 
-  const imagenMascota = familiaMascotas[result.nombre] || "/mascotas/surpriseQuimi.png"
+const backgroundImage = backgroundByFamily[result.nombre] || "/backgrounds/default.png"
+
+  const familyPets= familyPet[result.nombre] || "/mascotas/surpriseQuimi.png"
 
   const resumenRespuestas = answers.reduce((acc, answer) => {
     acc[answer.selectedOption] = (acc[answer.selectedOption] || 0) + 1
@@ -23,9 +18,9 @@ export default function Result({ result, answers, onReset }: PropsResult) {
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-[var(--hueso)]">
       <div className="flex flex-col lg:flex-row items-center gap-10 max-w-5xl w-full">
         {/* Card 3D estilo Mythrill */}
- <Card3D
-  backgroundSrc="/quiz/02-clima/invierno.png"
-  characterSrc={imagenMascota}
+<Card3D
+  backgroundSrc={backgroundImage}
+  characterSrc={familyPets}
   alt={result.nombre}
 />
 
