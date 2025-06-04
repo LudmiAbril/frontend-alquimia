@@ -5,9 +5,9 @@ import { backgroundByFamily, familyPet } from "../utils/utils"
 
 export default function Result({ result, answers, onReset }: PropsResult) {
 
-const backgroundImage = backgroundByFamily[result.nombre] || "/backgrounds/default.png"
+const backgroundImage = backgroundByFamily[result.nombre] || "/quiz/familia-fondos/amaderadaBack.png"
 
-  const familyPets= familyPet[result.nombre] || "/mascotas/surpriseQuimi.png"
+  const familyPets= familyPet[result.nombre] || "/mascotas/amaderada.png"
 
   const resumenRespuestas = answers.reduce((acc, answer) => {
     acc[answer.selectedOption] = (acc[answer.selectedOption] || 0) + 1
@@ -19,10 +19,9 @@ const backgroundImage = backgroundByFamily[result.nombre] || "/backgrounds/defau
       <div className="flex flex-col lg:flex-row items-center gap-10 max-w-5xl w-full">
         {/* Card 3D estilo Mythrill */}
 <Card3D
-  backgroundSrc={backgroundImage}
-  characterSrc={familyPets}
-  alt={result.nombre}
-/>
+          backgroundSrc={backgroundImage}
+          characterSrc={familyPets}
+          alt={result.nombre} title={result.nombre}/>
 
 
         {/* Contenido textual */}

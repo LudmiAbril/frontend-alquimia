@@ -290,8 +290,8 @@ export const familiesQuiz = [
     "Oriental": "/mascotas/oriental.png",
   }
 export const backgroundByFamily: Record<string, string> = {
-  "Fresca": "/backgrounds/fresca.png",
-  "Floral": "/backgrounds/floral.png",
-  "Amaderada": "/backgrounds/amaderada.png",
-  "Oriental": "/backgrounds/oriental.png",
+  "Fresca": "/quiz/familia-fondos/frescaBack.png",
+  "Floral": "/quiz/familia-fondos/floralBack.png",
+  "Amaderada": "/quiz/familia-fondos/amaderadaBack.png",
+  "Oriental": "/quiz/familia-fondos/orientalBack.png",
 }
