@@ -7,8 +7,8 @@ import LoadingModal from "./Loading";
 import { createSteps } from "./CreatePerfumeSteps";
 import { perfumeData } from "./ResultCard";
 import Image from "next/image";
-import { SaveFormulaDTO } from "./FormulaResult";
-import { submitFormula } from "@/services/createPerfumeService";
+import { GetFormulaResponse, SaveFormulaDTO } from "./FormulaResult";
+import { getFormulaById, submitFormula } from "@/services/createPerfumeService";
 
 interface CreatePerfumeProps {
   currentStep: number;
@@ -16,9 +16,10 @@ interface CreatePerfumeProps {
   onBack: () => void;
   currentPerfume: perfumeData;
   setCurrentPerfume: React.Dispatch<React.SetStateAction<perfumeData>>;
+  setResultFormula:  React.Dispatch<React.SetStateAction<GetFormulaResponse>>;
 }
 
-const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrentPerfume }: CreatePerfumeProps) => {
+const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrentPerfume, setResultFormula }: CreatePerfumeProps) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
 
@@ -52,7 +53,6 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
     toggleLoading();
   };
 
-
   const HandleSubmitFormula = async () => {
     const topNotesObj = mapNotesArrayToObject(currentPerfume.topNotes);
     const heartNotesObj = mapNotesArrayToObject(currentPerfume.heartNotes);
@@ -65,7 +65,15 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
       HeartNotes: heartNotesObj,
       BaseNotes: baseNotesObj,
     }
-    await submitFormula(payload);
+    const newFormulaId = await submitFormula(payload);
+    if (newFormulaId) {
+      getResultFormula(newFormulaId);
+    }
+  }
+
+  const getResultFormula = async (id: number) => {
+    const newFormula = await getFormulaById(id);
+    if (newFormula) { setResultFormula(newFormula) }
   }
 
   function mapNotesArrayToObject(notesArray: { id: number }[]) {

@@ -3,10 +3,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Intensity } from "./Library";
-import { NoteDTO } from "./FormulaResult";
+import { GetFormulaResponse } from "./FormulaResult";
 
 interface ResultCardProps {
-  perfume: perfumeData
+  perfume: GetFormulaResponse
 }
 const ResultCard = ({ perfume }: ResultCardProps) => {
   const [dataToShow, setDataToShow] = useState("composition");
@@ -16,7 +16,6 @@ const ResultCard = ({ perfume }: ResultCardProps) => {
     setEditable((prev) => !prev);
   };
 
-  // falta variable x cada tamaño ml y seleccion card instensidad (que quede seleccionada)
   return (
     <div className="w-[38rem] h-[44rem] bg-white flex flex-col items-center justify-center p-[41px] rounded-[10px] shadow-md text-center mb-10">
       {/* input nombre y descarga */}
@@ -45,7 +44,7 @@ const ResultCard = ({ perfume }: ResultCardProps) => {
       {/* contenido intermedio si hay, ocupa el espacio vertical restante */}
       <div className="flex-grow flex items-center justify-center">
         {dataToShow === "composition" && <Composition perfume={perfume} />}
-        {dataToShow === "formula" && <Formula intensity={perfume.intensity} />}
+        {dataToShow === "formula" && <Formula perfume={perfume} />}
         {dataToShow === "steps" && <Steps />}
       </div>
 
@@ -102,7 +101,7 @@ export interface Note {
 
 // COMPONENTES SECUNDARIOS
 interface CompositionProps {
-  perfume: perfumeData
+  perfume: GetFormulaResponse
 }
 
 export const Composition = ({ perfume }: CompositionProps) => {
@@ -112,57 +111,46 @@ export const Composition = ({ perfume }: CompositionProps) => {
       <div className="mt-10 mb-[4rem]">
         <div className=" px-10 text-center">
           <div className="border-b border-[var(--gris2)] flex justify-between px-6 pb-1 mb-4 uppercase fuente-principal text-[14px] text-[var(--gris3)]"><p>nota</p> <p>esencia</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Fondo</p><p>{perfume.baseNotes.map((note) => note.name).join(', ')}</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Corazón</p><p>{perfume.heartNotes.map((note) => note.name).join(', ')}</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Salida</p><p>{perfume.topNotes.map((note) => note.name).join(', ')}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Fondo</p>  <p>
+            {Object.values(perfume.NotasFondoIds || {})
+              .filter((note) => note !== null)
+              .map((note) => note!.Name)
+              .join(', ')}
+          </p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Corazón</p>  <p>
+            {Object.values(perfume.NotasCorazonIds || {})
+              .filter((note) => note !== null)
+              .map((note) => note!.Name)
+              .join(', ')}
+          </p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Salida</p>  <p>
+            {Object.values(perfume.NotasSalidaIds || {})
+              .filter((note) => note !== null)
+              .map((note) => note!.Name)
+              .join(', ')}
+          </p></div>
         </div>
       </div>
-      <p className="text-[12px] text-[var(--gris3)]">Intensidad <span className="font-bold uppercase">{perfume.intensity.Name}</span> ({perfume.intensity.Category})</p>
+      <p className="text-[12px] text-[var(--gris3)]">Intensidad <span className="font-bold uppercase">{perfume.Intensity.Name}</span> ({perfume.Intensity.Category})</p>
     </div>
   );
 };
 
 interface FormulaProps {
-  intensity: Intensity
+  perfume: GetFormulaResponse
 }
 
-export const Formula = ({ intensity }: FormulaProps) => {
-  const formulaByIntensity = {
-    Baja: {
-      base: "10ml",
-      heart: "15ml",
-      top: "5ml",
-      alcohol: "65ml",
-      water: "5ml"
-    },
-    Media: {
-      base: "15ml",
-      heart: "20ml",
-      top: "10ml",
-      alcohol: "50ml",
-      water: "5ml"
-    },
-    Alta: {
-      base: "20ml",
-      heart: "25ml",
-      top: "15ml",
-      alcohol: "35ml",
-      water: "5ml"
-    }
-  };
+export const Formula = ({ perfume }: FormulaProps) => {
 
-  const formula = formulaByIntensity[intensity.Name as keyof typeof formulaByIntensity];
   return (
     <div className="flex flex-col w-[38rem]">
       <p className="fuente-principal text-[var(--gris4)] uppercase text-[20px]">Fórmula</p>
       <div className="mt-10 ">
         <div className=" px-10 text-center">
           <div className="border-b border-[var(--gris2)] flex justify-between px-6 pb-1 mb-4 uppercase fuente-principal text-[14px] text-[var(--gris3)]"><p>componente</p> <p>cantidad</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Mezcla aromatica de notas base</p><p>{formula.base}</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Mezcla aromatica de notas de corazón</p><p>{formula.heart}</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Mezcla aromatica de notas de salida</p><p>{formula.top}</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Alcohol Etílico</p><p>{formula.alcohol}</p></div>
-          <div className="flex justify-between mb-4 px-6"><p>Agua Destilada</p><p>{formula.water}</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Concentracion de escencia</p><p>{perfume.ConcentracionEsencia}%</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Alcohol Etílico</p><p>{perfume.ConcentracionAlcohol}%</p></div>
+          <div className="flex justify-between mb-4 px-6"><p>Agua Destilada</p><p>{perfume.ConcentracionAgua}%</p></div>
         </div>
       </div>
     </div>
