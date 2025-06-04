@@ -97,7 +97,7 @@ const CreatePerfumeSteps = () => {
   };
 
   return (
-    <SectionWrapper className="bg-[#f9f4f1]">
+    <SectionWrapper className="bg-[#E8E3DE]">
       {currentStep === 0 ? (
         <Welcome onNext={advanceStep} />
       ) : currentStep < createSteps.length - 1 ? (

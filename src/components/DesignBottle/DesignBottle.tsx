@@ -308,7 +308,7 @@ const goToProviders =() => {
     }
 
     return (
-        <SectionWrapper className="bg-[#f9f4f1]">
+        <SectionWrapper className="bg-[var(--hueso)]">
             <div className="flex flex-col items-center">
                 <h1 className="fuente-principal text-[var(--gris4)] text-[32px] font-bold mb-4">
                     DISEÑÁ TU ENVASE
