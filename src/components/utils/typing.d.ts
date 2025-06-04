@@ -255,3 +255,18 @@ export interface PropsInput {
   query: string
   setQuery: (q: string) => void
 }
+
+/**Interfaz de FastAPI*/
+export interface PerfumeNotesResult {
+  perfume: string;
+  brand: string;
+  notes: string[];
+}
+// export interface  PropsSearch  {
+//   results: any[]
+//   isLoading: boolean
+// }
+export interface PropsSearch {
+  result: PerfumeNotesResult | null
+  isLoading: boolean
+}
