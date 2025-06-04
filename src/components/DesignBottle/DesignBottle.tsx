@@ -3,8 +3,23 @@ import React, { useState } from 'react'
 import SectionWrapper from '../general/SectionWrapper';
 import { DesignFieldsCard } from './DesignFieldsCard';
 import Image from 'next/image';
+import ConfirmBottleDesignModal from './ConfirmBottleDesignModal';
+import { useRouter } from 'next/navigation';
+
 
 export const designBottleSteps = ["botella", "etiqueta", "textos"]
+export type FontKey = keyof typeof fontMap;
+
+const fontMap = {
+    roboto: 'Roboto, sans-serif',
+    greatVibes: '"Great Vibes", cursive',
+    petitFormalScript: '"Petit Formal Script", cursive',
+    josefinSans: '"Josefin Sans", sans-serif',
+    paprika: '"Paprika", system-ui',
+    charmonman: ' "Charmonman", cursive',
+    libreBaskerville: '"Libre Baskerville", serif',
+    badScript: '"Bad Script", cursive',
+} as const;
 
 // this interface will work only for render in the moment, later it will be a png/pdf
 export interface BottleDesign {
@@ -14,7 +29,7 @@ export interface BottleDesign {
     labelColor: string;
     labelImage: string; // research for this
     text: string;
-    textTypography: string;
+    textTypography: FontKey;
     textSize: number;
     textColor: string;
     imageScale: string;
@@ -26,6 +41,8 @@ export interface BottleForm {
 }
 
 const DesignBottle = () => {
+     const router = useRouter();
+    const [openFinishModal, setOpenFinishModal] = useState(false);
     const [currentStep, setCurrentStep] = useState<number>(0);
     const designSteps = ["botella", "etiqueta", "tipografia"];
     const [currentDesign, setCurrentDesign] = useState<BottleDesign>({
@@ -35,18 +52,25 @@ const DesignBottle = () => {
         labelColor: "#000000",
         labelImage: "",
         text: "",
-        textTypography: "Roboto",
-        textSize: 16,
+        textTypography: "roboto",
+        textSize: 30,
         textColor: "#ffffff",
         imageScale: "1"
     });
 
 
     const advanceStep = () => {
+        if (currentStep === 2) {
+            toggleOpenFinishDesignModal()
+        }
         if (currentStep < designSteps.length - 1) {
             setCurrentStep((prev) => prev + 1);
         }
     };
+
+    const toggleOpenFinishDesignModal = () => {
+        setOpenFinishModal((prev) => !prev)
+    }
 
     const returnStep = () => {
         if (currentStep > 0) {
@@ -65,6 +89,11 @@ const DesignBottle = () => {
             return "w-[28rem] h-[33rem]"
         }
     }
+
+
+const goToProviders =() => {
+    router.push("/providers");
+}
 
     // funcion repartida para optimizar
     // que el scale no se recorte la imagen si se achica, solo si se agranda
@@ -91,7 +120,7 @@ const DesignBottle = () => {
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
                                 fill={currentDesign.textColor}
-                                fontFamily={currentDesign.textTypography}
+                                fontFamily={fontMap[currentDesign.textTypography]}
                             >
                                 {currentDesign.text}
                             </text>
@@ -116,7 +145,7 @@ const DesignBottle = () => {
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
                                 fill={currentDesign.textColor}
-                                fontFamily={currentDesign.textTypography}
+                                fontFamily={fontMap[currentDesign.textTypography]}
                             >
                                 {currentDesign.text}
                             </text>
@@ -142,7 +171,7 @@ const DesignBottle = () => {
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
                                 fill={currentDesign.textColor}
-                                fontFamily={currentDesign.textTypography}
+                                fontFamily={fontMap[currentDesign.textTypography]}
                             >
                                 {currentDesign.text}
                             </text>
@@ -180,7 +209,7 @@ const DesignBottle = () => {
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
                                 fill={currentDesign.textColor}
-                                fontFamily={currentDesign.textTypography}
+                                fontFamily={fontMap[currentDesign.textTypography]}
                             >
                                 {currentDesign.text}
                             </text>
@@ -212,7 +241,7 @@ const DesignBottle = () => {
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
                                 fill={currentDesign.textColor}
-                                fontFamily={currentDesign.textTypography}
+                                fontFamily={fontMap[currentDesign.textTypography]}
                             >
                                 {currentDesign.text}
                             </text>
@@ -244,7 +273,7 @@ const DesignBottle = () => {
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
                                 fill={currentDesign.textColor}
-                                fontFamily={currentDesign.textTypography}
+                                fontFamily={fontMap[currentDesign.textTypography]}
                             >
                                 {currentDesign.text}
                             </text>
@@ -303,6 +332,7 @@ const DesignBottle = () => {
                     <DesignFieldsCard currentStep={currentStep} currentDesign={currentDesign} setCurrentDesign={setCurrentDesign} onNext={advanceStep} onBack={returnStep} />
                 </div>
             </div>
+            {openFinishModal && (<ConfirmBottleDesignModal onClose={toggleOpenFinishDesignModal} onConfirm={goToProviders} />)}
         </SectionWrapper>
     )
 }

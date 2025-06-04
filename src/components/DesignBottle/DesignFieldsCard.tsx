@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import Colorful from '@uiw/react-color-colorful';
 import { ColorResult, hexToHsva, hsvaToHex } from '@uiw/color-convert'; // esto es para pasar a hex
-import { BottleDesign, BottleForm } from './DesignBottle';
+import { BottleDesign, BottleForm, FontKey } from './DesignBottle';
 
 interface DesignFieldsCardProps {
     currentStep: number;
@@ -133,7 +133,14 @@ export const LabelFields = ({ currentDesign, setCurrentDesign }: LabelFieldsProp
         }));
     }
 
-    return (<div className="flex flex-col flex-1 text-left items-left">
+    const removeImage = () => {
+        setCurrentDesign((prev) => ({
+            ...prev,
+            labelImage: "",
+        }));
+    }
+
+    return (<div className="flex flex-col flex-1 text-left">
         <p className="fuente-principal uppercase text-[20px] text-[var(--gris3)] mb-4 font-extrabold">Etiqueta</p>
 
         <div className="flex-1 flex flex-col justify-center items-left">
@@ -154,7 +161,7 @@ export const LabelFields = ({ currentDesign, setCurrentDesign }: LabelFieldsProp
                         onChange={handleFileChange}
                         style={{ display: 'none' }}
                     />
-                    <input
+                    {currentDesign.labelImage && (<>   <button onClick={removeImage} className="bg-[var(--gris1)] text-white py-[15px] px-2 rounded-[10px] hover:bg-[var(--gris3)] transition ">Eliminar imagen</button><input
                         type="range"
                         min="0.5"
                         max="1"
@@ -162,6 +169,8 @@ export const LabelFields = ({ currentDesign, setCurrentDesign }: LabelFieldsProp
                         value={currentDesign.imageScale}
                         onChange={(e) => onChangeImageScale(e.target.value)}
                     />
+                    </>)}
+
                 </div>
                 <div>
                     <p className="text-[var(--gris3)] text-[20px] font-medium mb-4">elegir color</p>
@@ -202,17 +211,17 @@ export const TextFields = ({ currentDesign, setCurrentDesign }: TextsFieldsProps
         }));
     };
 
-    return (<div className="flex flex-col flex-1 text-left">
+    return (<div className="flex flex-col flex-1 text-left self-start">
         <p className="fuente-principal uppercase text-[20px] text-[var(--gris3)] mb-4 font-extrabold">Textos</p>
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="flex-1 flex flex-col gap-2">
             <p className="text-[var(--gris3)] text-[20px] font-medium mb-4">ingresa un texto</p>
-            <div className='flex gap-[1rem] mb-9'>
+            <div className='flex gap-[1rem] items-left'>
                 <input
-                    className="border border-black rounded-[10px] w-full p-1"
+                    className="border border-black rounded-[10px] w-[20rem] p-1"
                     placeholder="Ingresa un texto..."
                     value={currentDesign.text}
                     type="text"
-                    maxLength={15}
+                    maxLength={20}
                     onChange={(e) =>
                         setCurrentDesign((prev) => ({
                             ...prev,
@@ -226,23 +235,24 @@ export const TextFields = ({ currentDesign, setCurrentDesign }: TextsFieldsProps
             justar recorte + fixear el diseño de las opciones, stepbar icons y la pantalla en general + back con pdf/jpg */}
             <div className='flex gap-[1rem]'>
                 <select
-                    className="border border-black rounded-[10px] w-full p-1"
+                    className="border border-black rounded-[10px] p-1"
                     value={currentDesign.textTypography}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                        const value = e.target.value as FontKey;
                         setCurrentDesign((prev) => ({
                             ...prev,
-                            textTypography: e.target.value,
-                        }))
-                    }
+                            textTypography: value,
+                        }));
+                    }}
                 >
-                    <option value="Roboto">Roboto</option>
-                    <option value="sans-serif">Sans-serif</option>
-                    <option value="Arial">Arial</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Courier New">Courier New</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Tahoma">Tahoma</option>
+                    <option value="roboto">Roboto</option>
+                    <option value="josefinSans">Josefin Sans</option>
+                    <option value="libreBaskerville">Libre Baskerville</option>
+                    <option value="greatVibes">Great Vibes</option>
+                    <option value="petitFormalScript">Petit Formal Script</option>
+                    <option value="charmonman">Charmonman</option>
+                    <option value="paprika">Paprika</option>
+                    <option value="badScript">Bad Script</option>
 
                 </select>
             </div>
@@ -262,6 +272,8 @@ export const TextFields = ({ currentDesign, setCurrentDesign }: TextsFieldsProps
                     <option value="20">20</option>
                     <option value="26">26</option>
                     <option value="30">30</option>
+                    <option value="34">34</option>
+                    <option value="36">36</option>
                 </select>
             </div>
             <p className="text-[var(--gris3)] text-[20px] font-medium mb-4">Color</p>
