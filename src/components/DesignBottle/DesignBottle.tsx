@@ -16,6 +16,7 @@ export interface BottleDesign {
     text: string;
     textTypography: string;
     textSize: number;
+    textColor: string;
     imageScale: string;
 }
 
@@ -31,11 +32,12 @@ const DesignBottle = () => {
         volume: 30,
         form: { name: "cubica", nameToShow: "Cúbica" },
         labelForm: "",
-        labelColor: "black",
+        labelColor: "#000000",
         labelImage: "",
         text: "",
-        textTypography: "",
+        textTypography: "Roboto",
         textSize: 16,
+        textColor: "#ffffff",
         imageScale: "1"
     });
 
@@ -87,8 +89,9 @@ const DesignBottle = () => {
                                 y="50%"
                                 textAnchor="middle"
                                 dominantBaseline="middle"
-                                fontSize="16"
-                                fill="white"
+                                fontSize={currentDesign.textSize}
+                                fill={currentDesign.textColor}
+                                fontFamily={currentDesign.textTypography}
                             >
                                 {currentDesign.text}
                             </text>
@@ -111,8 +114,9 @@ const DesignBottle = () => {
                                 y="50%"
                                 textAnchor="middle"
                                 dominantBaseline="middle"
-                                fontSize="16"
-                                fill="white"
+                                fontSize={currentDesign.textSize}
+                                fill={currentDesign.textColor}
+                                fontFamily={currentDesign.textTypography}
                             >
                                 {currentDesign.text}
                             </text>
@@ -136,8 +140,9 @@ const DesignBottle = () => {
                                 y="50%"
                                 textAnchor="middle"
                                 dominantBaseline="middle"
-                                fontSize="16"
-                                fill="white"
+                                fontSize={currentDesign.textSize}
+                                fill={currentDesign.textColor}
+                                fontFamily={currentDesign.textTypography}
                             >
                                 {currentDesign.text}
                             </text>
@@ -173,8 +178,9 @@ const DesignBottle = () => {
                                 y="50%"
                                 textAnchor="middle"
                                 dominantBaseline="middle"
-                                fontSize="16"
-                                fill="white"
+                                fontSize={currentDesign.textSize}
+                                fill={currentDesign.textColor}
+                                fontFamily={currentDesign.textTypography}
                             >
                                 {currentDesign.text}
                             </text>
@@ -204,8 +210,9 @@ const DesignBottle = () => {
                                 y="50%"
                                 textAnchor="middle"
                                 dominantBaseline="middle"
-                                fontSize="16"
-                                fill="white"
+                                fontSize={currentDesign.textSize}
+                                fill={currentDesign.textColor}
+                                fontFamily={currentDesign.textTypography}
                             >
                                 {currentDesign.text}
                             </text>
@@ -235,8 +242,9 @@ const DesignBottle = () => {
                                 y="50%"
                                 textAnchor="middle"
                                 dominantBaseline="middle"
-                                fontSize="16"
-                                fill="white"
+                                fontSize={currentDesign.textSize}
+                                fill={currentDesign.textColor}
+                                fontFamily={currentDesign.textTypography}
                             >
                                 {currentDesign.text}
                             </text>
@@ -281,7 +289,7 @@ const DesignBottle = () => {
                 <div className='flex items-center justify-center gap-[80px]'>
                     <div className="relative w-[20rem] h-[26rem] flex justify-center items-center">
                         {/* SVG label*/}
-                        {currentDesign.labelForm && (<div className={`absolute z-10 pointer-events-none text-center text-white ${getLabelPositions(currentDesign.form.name, currentDesign.labelForm)}`}>{getLabelByBottleForm(currentDesign.form.name, currentDesign.labelForm)}</div>)}
+                        {currentDesign.labelForm && (<div className={`absolute z-10 pointer-events-none text-center ${getLabelPositions(currentDesign.form.name, currentDesign.labelForm)}`}>{getLabelByBottleForm(currentDesign.form.name, currentDesign.labelForm)}</div>)}
                         {/* bottle image */}
                         <Image
                             src={`/design-bottle/botella-${currentDesign.form.name}.png`}
