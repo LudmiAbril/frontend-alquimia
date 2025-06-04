@@ -14,6 +14,10 @@ module.exports = {
         gris2: "var(--gris2)",
         gris3: "var(--gris3)",
         gris4: "var(--gris4)",
+        customA: '#156E86',
+        customB: '#F56A80',
+        customC: '#F8A301',
+        customD: '#1F583B',
       },
       fontFamily: {
         roboto: "var(--font-roboto)",
@@ -21,7 +25,7 @@ module.exports = {
       },
       backgroundImage: {
         degrade: "var(--degrade)",
-      },
+      },  
       animation: {
         fadeIn: "fadeIn 0.6s ease forwards",
         brillar: "brillar 1s ease-out infinite",
@@ -38,7 +42,17 @@ module.exports = {
           "0%": { transform: "scale(0.5)", opacity: "0" },
           "50%": { transform: "scale(1.2)", opacity: "1" },
           "100%": { transform: "scale(0.5)", opacity: "0" },
-        },
+        },glow: {
+      "0%": {
+        boxShadow: "0 0 0px var(--violeta)",
+      },
+      "50%": {
+        boxShadow: "0 0 18px 6px var(--violeta-claro)",
+      },
+      "100%": {
+        boxShadow: "0 0 0px var(--violeta)",
+      },
+    },
         shine: {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(100%)" },

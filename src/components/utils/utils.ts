@@ -3,39 +3,13 @@ import { Supplier } from "@/components/utils/typing";
 
 
 /*################OLFACTORY TEST###################*/
-export const fragranceFamilies = {
-  aquatic: {
-    text: "Marinas/Cítricas.",
-    color: "#66cccc",
-    description: "Fragancias frescas inspiradas en el mar, ideales para días cálidos.",
-    image: "./img/familias/acuatica.jpg",
-  },
-  fruity: {
-    text: "Frutales/Florales.",
-    color: "#ff6699",
-    description: "Notas jugosas y dulces como frutas del trópico y flores exóticas.",
-    image: "./img/familias/frutal.jpg",
-  },
-  woody: {
-    text: "Amaderadas/Especiadas.",
-    color: "#cc9966",
-    description: "Aromas cálidos y terrosos, elegantes y envolventes.",
-    image: "./img/familias/madera.jpg",
-  },
-  ambery: {
-    text: "Gourmand/Ambaradas.",
-    color: "#9966cc",
-    description: "Esencias dulces, profundas y sensuales como la vainilla y el ámbar.",
-    image: "./img/familias/ambarada.jpg",
-  },
-};
+export const colorMap: Record<string, string> = {
+  A: "border-customA hover:bg-customA",
+  B: "border-customB hover:bg-customB",
+  C: "border-customC hover:bg-customC",
+  D: "border-customD hover:bg-customD",
+}
 
-export const potionSvgPaths = [
-  "/potion/potion00.svg",
-  "/potion/potion01.svg",
-  "/potion/potion03.svg",
-  "/potion/potion04.svg",
-];
 
 /*################################SUPPLIERS#############################################################*/
 export const bestSellingProducts = [
