@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+"use client"
 
+import React, { useState } from "react";
 import ConfirmFormulaModal from "./ConfirmFormulaModal";
-import ResultCard, { perfumeData } from "./ResultCard";
+import ResultCard from "./ResultCard";
 import Image from "next/image";
-import { submitFormula } from "@/services/createPerfumeService";
+import { Intensity } from "./Library";
 
 interface FormulaResultProps {
-  resultPerfume: perfumeData
+  resultPerfume: GetFormulaResponse
 }
 const FormulaResult = ({ resultPerfume }: FormulaResultProps) => {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
@@ -59,10 +60,33 @@ export interface SaveFormulaDTO {
   BaseNotes: NotesGroupDTO;
 }
 
+export interface GetFormulaResponse {
+  IdCreador: number;
+  ConcentracionAgua: number;
+  ConcentracionAlcohol: number;
+  ConcentracionEsencia: number;
+  Intensity: Intensity;
+  NotasCorazonIds: GetNotesGroupDTO;
+  NotasFondoIds: GetNotesGroupDTO;
+  NotasSalidaIds: GetNotesGroupDTO;
+}
+
 export interface NoteDTO {
   Id: number;
 }
 
 export interface NotesGroupDTO {
   [key: string]: { Id: number };
+}
+
+export interface GetNotesGroupDTO {
+  [key: string]: GetNoteDTO | null;
+}
+
+export interface GetNoteDTO {
+  Description: string;
+  Duration: string;
+  Family: string;
+  Name: string;
+  Sector: string;
 }
