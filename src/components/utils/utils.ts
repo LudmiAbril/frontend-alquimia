@@ -1,4 +1,4 @@
-import { StepData } from "@/components/utils/typing";
+import { ProviderFormData, StepData } from "@/components/utils/typing";
 import { Supplier } from "@/components/utils/typing";
 
 
@@ -246,7 +246,7 @@ export const suppliers: Supplier[] = [
 ];
 
 /*################################ - MENSAJES QUIMI - #############################################################*/
-export const messages = [
+export const messagesLanding = [
  "¡Bienvenide al mundo de los aromas!",
   "Tu esencia perfecta está cerca...",
   "Explorá las notas... yo cuido la magia",
@@ -254,35 +254,39 @@ export const messages = [
 ];
 
 
-/*################################ - QUIZ - #############################################################*/
+export const proveedorMessages = [
+  "¿Listo para vender tus creaciones?",
+  "Subí tus productos y empezá a perfumar el mundo.",
+  "¡Los aromas esperan por vos, proveedor!",
+];
 
-export const familiesQuiz = [
-  {
-    id: 1,
-    name: "Amaderada",
-    image: "/mascotas/amaderada.png",
-    description: "Profunda, misteriosa y cálida. Ideal para quienes aman la elegancia natural."
-  },
-  {
-    id: 2,
-    name: "Floral",
-    image: "/mascotas/floral.png",
-    description: "Delicada, romántica y luminosa. Un bouquet que celebra la sensibilidad."
-  },
-  {
-    id: 3,
-    name: "Fresca",
-    image: "/mascotas/fresca.png",
-    description: "Pura, revitalizante y ligera. Para quienes irradian energía."
-  },
-  {
-    id: 4,
-    name: "Oriental",
-    image: "/mascotas/oriental.png",
-    description: "Exótica, intensa y envolvente. Perfecta para almas magnéticas."
-  }
-]
+/*################################ - CONSTANTES RREGISTRO PROVEDOR - #############################################################*/
 
+export const initialFormData: ProviderFormData = {
+  email: "",
+  password: "",
+  empresa: "",
+  cuil: "",
+  productosSeleccionados: [],
+  otroProducto: "",
+  rubro: "",
+  tarjeta: {
+    nombre: "",
+    numero: "",
+    vencimiento: "",
+    cvc: "",
+  },
+};
+
+
+export const PRODUCT_OPTIONS = [
+  "Esencias",
+  "Envases",
+  "Alcohol",
+  "Fijadores",
+  "Etiquetas",
+  "Otro",
+];
   export const familyPet: Record<string, string> = {
     "Fresca": "/mascotas/fresca.png",
     "Floral": "/mascotas/floral.png",

@@ -5,31 +5,26 @@ import ScienceIcon from "@mui/icons-material/Science";
 import SearchIcon from "@mui/icons-material/Search";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import HandshakeIcon from "@mui/icons-material/Handshake";
-import { ProviderFormData } from "./RegisterSteps";
+import FloatingMascot from "../general/MascotaFlotante";
+import { proveedorMessages } from "../utils/utils";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { getPasswordStrength, validateRegisterForm } from "../utils/getBackendErrorMessage";
+import { Paso1Props } from "../utils/typing";
+import SectionWrapper from "../general/SectionWrapper";
 
-interface Paso1Props {
-  onContinue: () => void;
-  formData: ProviderFormData;
-  setFormData: (data: ProviderFormData) => void;
-}
 
 export default function Paso1Cuenta({ onContinue, formData, setFormData }: Paso1Props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState<"Débil" | "Media" | "Segura">("Débil");
 
   const handleNext = () => {
-    if (!formData.email || !formData.password || !confirmPassword) {
-      setError("Por favor completá todos los campos.");
-      return;
-    }
-
-    if (formData.password !== confirmPassword) {
-      setError("Las contraseñas no coinciden.");
-      return;
-    }
-
-    if (formData.password.length < 8) {
-      setError("La contraseña debe tener al menos 8 caracteres.");
+    const errorMsg = validateRegisterForm("Proveedor", formData.email, formData.password, confirmPassword);
+    if (errorMsg) {
+      setError(errorMsg);
       return;
     }
 
@@ -38,13 +33,18 @@ export default function Paso1Cuenta({ onContinue, formData, setFormData }: Paso1
   };
 
   return (
-    <div className="flex min-h-screen bg-[#f4efeb]">
-      {/* Columna izquierda con beneficios */}
-      <aside className="hidden md:flex flex-col justify-center w-[45%] px-10 text-left ml-15">
-        <h2 className="text-2xl font-bold text-[var(--violeta)] mb-6 leading-snug uppercase">
+        <SectionWrapper className="bg-[var(--hueso)]">
+    
+      <div className="flex gap-14">
+    <aside className="hidden md:flex flex-col items-start w-[45%] px-5 text-left py-10">
+          <h2 className="text-2xl font-bold text-[var(--violeta)] mb-6 leading-snug uppercase">
           Unite a Alquimia y hacé crecer tu emprendimiento
         </h2>
-        <ul className="space-y-5 text-gray-700 text-base">
+       
+         <p className="text-ml text-gray-700 mb-6 text-left">
+          Conoce los beneficios de unirte con Alquimia:
+          </p>
+        <ul className="space-y-8 text-gray-700 text-base">
           <li className="flex items-start gap-3">
             <ScienceIcon className="text-[var(--violeta)]" />
             Promocioná tus productos ante creadores de perfumes de todo el país.
@@ -64,8 +64,8 @@ export default function Paso1Cuenta({ onContinue, formData, setFormData }: Paso1
         </ul>
       </aside>
 
-      {/* Columna derecha: Formulario */}
-      <main className="w-[55%] flex items-center justify-center px-6 py-12">
+    
+    <main className="w-[55%] flex items-center justify-center px-4 py-9">
         <div className="w-full max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg animate-fade-in">
           <h2 className="text-xl font-bold text-center text-gray-800 mb-2 uppercase">
             Registrarse como Proveedor
@@ -101,26 +101,51 @@ export default function Paso1Cuenta({ onContinue, formData, setFormData }: Paso1
               <label className="block text-sm font-semibold mb-1 text-gray-700">
                 Contraseña
               </label>
-              <input
-                type="password"
-                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--violeta)]"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="w-full border border-gray-300 rounded px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-[var(--violeta)]"
+                  value={formData.password}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setFormData({ ...formData, password: val });
+                    setPasswordStrength(getPasswordStrength(val));
+                  }}
+                  placeholder="••••••••"
+                />
+                <button type="button" className="absolute top-2 right-3  text-gray-400" onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
+                </button>
+              </div>
+              <p className="text-[11px] text-gray-500 mt-1 italic">
+          Mínimo 8 caracteres, 1 mayúscula, 1 número y 1 carácter especial.
+        </p>
+              {formData.password && (
+                <p className={`text-sm mt-1 ${
+                  passwordStrength === "Débil" ? "text-red-500" :
+                  passwordStrength === "Media" ? "text-yellow-500" : "text-green-600"
+                }`}>
+                  Fortaleza: {passwordStrength}
+                </p>
+              )}
             </div>
 
             <div>
               <label className="block text-sm font-semibold mb-1 text-gray-700">
                 Confirmar contraseña
               </label>
-              <input
-                type="password"
-                className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--violeta)]"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  className="w-full border border-gray-300 rounded px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-[var(--violeta)]"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="••••••••"
+                />
+                <button type="button" className="absolute top-2 right-3 text-gray-400" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                  {showConfirmPassword ? <VisibilityOffIcon fontSize="small" /> : <VisibilityIcon fontSize="small" />}
+                </button>
+              </div>
             </div>
 
             {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
@@ -135,7 +160,13 @@ export default function Paso1Cuenta({ onContinue, formData, setFormData }: Paso1
             </div>
           </div>
         </div>
+        <FloatingMascot
+          messages={proveedorMessages}
+          imageSrc="/Quimi/quimiLanding.png"
+        />
       </main>
     </div>
+        </SectionWrapper>
+    
   );
 }

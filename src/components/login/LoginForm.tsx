@@ -86,12 +86,12 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
         </div>
       </div>
 
-      <a
-        href="#"
+      <Link
+        href="/RecoverPassord"
         className="text-sm text-gray-500 self-end hover:underline mt-1 italic"
       >
         Me olvidé la contraseña
-      </a>
+      </Link>
 
       {error && <p className="text-red-500">{error}</p>}
 
@@ -124,7 +124,7 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
           </button>
         </p>
         <Link
-          href="/registroProveedor"
+          href="/registerProveedor"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[var(--violeta)] italic font-small"
