@@ -6,10 +6,10 @@ export const obtenerNotasPorPaso = async (paso: number) => {
       url = "http://localhost:5035/creator/base-notes";
       break;
     case 2:
-      url = "http://localhost:5035/creator/heart-notes";
+      url = "https://localhost:5035/creador/heart-notes";
       break;
     case 3:
-      url = "http://localhost:5035/creator/top-notes";
+      url = "https://localhost:5035/creador/top-notes";
       break;
     default:
       return [];

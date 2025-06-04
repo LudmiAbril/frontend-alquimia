@@ -299,3 +299,33 @@ export const backgroundByFamily: Record<string, string> = {
   "Amaderada": "/quiz/familia-fondos/amaderadaBack.png",
   "Oriental": "/quiz/familia-fondos/orientalBack.png",
 }
+
+
+/*################################ - QUIZ - #############################################################*/
+
+export const familiesQuiz = [
+  {
+    id: 1,
+    name: "Amaderada",
+    image: "/mascotas/amaderada.png",
+    description: "Profunda, misteriosa y cálida. Ideal para quienes aman la elegancia natural."
+  },
+  {
+    id: 2,
+    name: "Floral",
+    image: "/mascotas/floral.png",
+    description: "Delicada, romántica y luminosa. Un bouquet que celebra la sensibilidad."
+  },
+  {
+    id: 3,
+    name: "Fresca",
+    image: "/mascotas/fresca.png",
+    description: "Pura, revitalizante y ligera. Para quienes irradian energía."
+  },
+  {
+    id: 4,
+    name: "Oriental",
+    image: "/mascotas/oriental.png",
+    description: "Exótica, intensa y envolvente. Perfecta para almas magnéticas."
+  }
+]

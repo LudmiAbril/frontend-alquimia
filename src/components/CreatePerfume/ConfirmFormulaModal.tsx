@@ -7,9 +7,10 @@ import React from "react";
 const ConfirmFormulaModal = () => {
   const router = useRouter();
 
-  const handleRedirectToSuppliers = () => {
-    router.push("/proveedores");
+  const handleRedirect = (route : string) : void => {
+    router.push(route);
   };
+
 
   return (
     <div className="fixed inset-0 bg-[#240E25]/75 bg-opacity-50 flex items-center justify-center z-50">
@@ -22,12 +23,13 @@ const ConfirmFormulaModal = () => {
         <div className="flex flex-col justify-center items-center mt-6 w-full gap-6">
           <button
             className="bg-[var(--lila)] hover:bg-[var(--violeta)] text-white py-[15px] rounded-[10px] transition w-full cursor-pointer"
+           onClick={()=> handleRedirect("/diseniarBotella")}
           >
             Diseñá tu botella gratis (opcional)
           </button>
 
           <button
-            onClick={handleRedirectToSuppliers}
+            onClick={()=> handleRedirect("/proveedores")}
             className="bg-[var(--violeta)] text-white py-[15px] rounded-[10px] hover:bg-[var(--lila)] transition w-full cursor-pointer"
           >
             Buscar proveedores
