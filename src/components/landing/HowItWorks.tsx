@@ -34,7 +34,7 @@ export default function HowItWorks() {
       </div>
 
        <p className="text-center text-base font-semibold mx-auto mt-[55px] text-[var(--gris4)]">
-        No necesitás ser experto, nosotros con Alquimia vamos a guiarte a formular la fragancia perfecta.
+        No necesitás ser experto, Alquimia va a guiarte a formular la fragancia perfecta.
       </p>
 
     </SectionWrapper>

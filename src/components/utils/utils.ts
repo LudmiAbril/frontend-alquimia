@@ -151,8 +151,8 @@ export const mockProducts = {
 export const howSteps: StepData[] = [
   {
     image: "/LandingImage/Steps/Step1Creation.svg",
-    alt: "Diseñá tu fragancia",
-    text: "Crea tu propio perfume.",
+    alt: "Creá tu fragancia",
+    text: "Creá tu propio perfume.",
   },
   {
     image: "/LandingImage/Steps/Step2Supplier.svg",
@@ -162,7 +162,7 @@ export const howSteps: StepData[] = [
   {
     image: "/LandingImage/Steps/Step3Materials.svg",
     alt: "Recibí tus esencias",
-    text: "Recibi tus insgredientes.",
+    text: "Recibí tus ingredientes.",
   },
 ];
 /*################################FAQ-LANDING#############################################################*/
@@ -247,7 +247,7 @@ export const suppliers: Supplier[] = [
 
 /*################################ - MENSAJES QUIMI - #############################################################*/
 export const messagesLanding = [
- "¡Bienvenide al mundo de los aromas!",
+ "¡Bienvenidos al mundo de los aromas!",
   "Tu esencia perfecta está cerca...",
   "Explorá las notas... yo cuido la magia",
   "Tu fragancia habla por vos, ¡creala!"
@@ -328,4 +328,12 @@ export const familiesQuiz = [
     image: "/mascotas/oriental.png",
     description: "Exótica, intensa y envolvente. Perfecta para almas magnéticas."
   }
+]
+
+
+export const PROVIDER_TABS = [
+  { label: "Home", value: "home" },
+  { label: "Productos", value: "products" },
+  { label: "Tipo de productos", value: "types" },
+  
 ]

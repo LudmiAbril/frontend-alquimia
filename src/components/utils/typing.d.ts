@@ -4,6 +4,7 @@ export interface ButtonProps {
   label: string;
   onClick?: () => void;
   colorClass?: string;
+href?: string
 
 }
 
@@ -254,4 +255,11 @@ export interface Paso4Props {
 export interface PropsInput {
   query: string
   setQuery: (q: string) => void
+}
+
+
+export interface Provider {
+  id: number
+  name: string
+  description: string
 }

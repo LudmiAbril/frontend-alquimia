@@ -30,7 +30,8 @@ export default function Hero() {
           <p className="text-lg md:text-xl mb-5 pb-5">
             Creatividad, emoción y aroma. Todo desde una plataforma hecha para no expertos.
           </p>
-          <Button label="Empezar a crear" onClick={() => setIsModalOpen(true)} />
+          <Button label="Empezar a crear" 
+          onClick={() => setIsModalOpen(true)} />
         </div>
       </div>
 
