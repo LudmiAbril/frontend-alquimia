@@ -212,3 +212,17 @@ h2 {
   opacity: 1;
   transform: scale(1.2);
 }
+.cover-image {
+  transition: transform 0.3s ease;
+}
+
+
+.card {
+  perspective: 2500px;
+}
+.cover-image {
+  object-fit: cover;
+}
+.character {
+  transition: all 0.5s;
+}
