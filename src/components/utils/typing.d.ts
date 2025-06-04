@@ -95,7 +95,10 @@ export type StepCardProps = {
 
 /**QUIZ */
 
-
+export interface WelcomeFamiliesProps {
+  onStart: () => void;
+  loading: boolean;
+}
 export interface OptionDTO {
   Letra: string
   Texto: string
@@ -198,4 +201,13 @@ export interface RegisterDTO {
   Name: string;
   Rol: string;
 }
+/**************************** SEARCHER  ****************************/
+export interface  PropsSearch  {
+  results: any[]
+  isLoading: boolean
+}
 
+export interface PropsInput {
+  query: string
+  setQuery: (q: string) => void
+}
