@@ -337,3 +337,9 @@ export const PROVIDER_TABS = [
   { label: "Tipo de productos", value: "types" },
   
 ]
+
+export const STATUS_OPTIONS = [
+  { label: "Todos", value: "all" },
+  { label: "Aprobados", value: "approved" },
+  { label: "Pendientes", value: "pending" },
+] as const;

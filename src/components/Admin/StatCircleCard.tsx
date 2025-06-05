@@ -1,15 +1,8 @@
-// components/admin/StatCircleCard.tsx
-"use client"
+"use client";
 
-import { Box, Typography, Paper } from "@mui/material"
-import { motion } from "framer-motion"
-import { ReactNode } from "react"
-
-interface StatCircleCardProps {
-  icon: ReactNode
-  value: number
-  label: string
-}
+import { Box, Typography, Paper } from "@mui/material";
+import { motion } from "framer-motion";
+import { StatCircleCardProps } from "../utils/typing";
 
 export default function StatCircleCard({ icon, value, label }: StatCircleCardProps) {
   return (
@@ -44,5 +37,5 @@ export default function StatCircleCard({ icon, value, label }: StatCircleCardPro
         </Typography>
       </Paper>
     </motion.div>
-  )
+  );
 }

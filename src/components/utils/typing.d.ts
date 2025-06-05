@@ -263,3 +263,55 @@ export interface Provider {
   name: string
   description: string
 }
+
+export interface ProviderDTO {
+  Id: number
+  Nombre: string
+  Email: string
+  EsAprobado: boolean
+}
+
+export const API_ROUTES = {
+  LIST_PROVIDERS: "http://localhost:5035/admin/listProviders",
+  APPROVE_PROVIDER: (id: number) => `http://localhost:5035/admin/approveProvider/${id}`,
+  DEACTIVATE_PROVIDER: (id: number) => `http://localhost:5035/admin/deactivateProvider/${id}`,
+};
+
+export interface StatCircleCardProps {
+  icon: React.ReactNode;
+  value: number;
+  label: string;
+}
+
+export interface ProviderStatsProps {
+  total: number
+  approved: number
+  pending: number
+}
+
+
+export interface ProviderTableProps {
+  providers: ProviderDTO[]
+  loading: boolean
+  onProviderClick: (provider: ProviderDTO) => void
+  onApprove: (id: number) => Promise<void>
+  onDeactivate: (id: number) => Promise<void>
+}
+
+
+export interface ProviderDetailDialogProps {
+  provider: ProviderDTO | null
+  open: boolean
+  onClose: () => void
+  onApprove: (id: number) => void
+  onDeactivate: (id: number) => void
+}
+
+
+export interface ProviderFiltersProps {
+  searchTerm: string
+  setSearchTerm: Dispatch<SetStateAction<string>>
+  statusFilter: "all" | "approved" | "pending"
+  setStatusFilter: Dispatch<SetStateAction<"all" | "approved" | "pending">>
+  fetchProviders: () => void
+}
