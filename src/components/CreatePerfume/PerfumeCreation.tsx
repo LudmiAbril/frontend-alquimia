@@ -5,10 +5,13 @@ import Library from "./Library";
 import ConfirmCreationModal from "./ConfirmCreationModal";
 import LoadingModal from "./Loading";
 import { createSteps } from "./CreatePerfumeSteps";
-import { perfumeData } from "./ResultCard";
+import { Note, perfumeData } from "./ResultCard";
 import Image from "next/image";
 import { GetFormulaResponse, SaveFormulaDTO } from "./FormulaResult";
 import { getFormulaById, submitFormula } from "@/services/createPerfumeService";
+import ClearIcon from '@mui/icons-material/Clear';
+import { color } from "framer-motion";
+import LimitModal from "./LimitModal";
 
 interface CreatePerfumeProps {
   currentStep: number;
@@ -16,36 +19,50 @@ interface CreatePerfumeProps {
   onBack: () => void;
   currentPerfume: perfumeData;
   setCurrentPerfume: React.Dispatch<React.SetStateAction<perfumeData>>;
-  setResultFormula:  React.Dispatch<React.SetStateAction<GetFormulaResponse>>;
+  setResultFormula: React.Dispatch<React.SetStateAction<GetFormulaResponse>>;
 }
 
 const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrentPerfume, setResultFormula }: CreatePerfumeProps) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
+  const [hasReachedNoteLimit, setHasReachedNoteLimit] = useState(false);
 
   const handleDrop = (e: React.DragEvent<HTMLImageElement>) => {
     e.preventDefault();
     const note = e.dataTransfer.getData("text/plain");
-    const noteparsed = JSON.parse(note);
-    setCurrentPerfume((prev) => {
-      if (!prev) return prev;
+    const noteparsed: Note = JSON.parse(note);
 
-      const newNotes = { ...prev };
+    if (!currentPerfume) return;
 
-      if (currentStep === 1) {
-        newNotes.baseNotes = [...prev.baseNotes, noteparsed];
-      } else if (currentStep === 2) {
-        newNotes.heartNotes = [...prev.heartNotes, noteparsed];
-      } else if (currentStep === 3) {
-        newNotes.topNotes = [...prev.topNotes, noteparsed];
-      }
+    const currentNotes =
+      currentStep === 1
+        ? currentPerfume.baseNotes
+        : currentStep === 2
+          ? currentPerfume.heartNotes
+          : currentPerfume.topNotes;
 
-      return newNotes;
-    });
+    const isDuplicate = currentNotes.some((n) => n.id === noteparsed.id);
+    const hasReachedLimit = currentNotes.length >= 4;
+
+    if (hasReachedLimit) setHasReachedNoteLimit(true);
+    if (isDuplicate || hasReachedLimit) return;
+
+    const updatedNotes = [...currentNotes, noteparsed];
+
+    const updatedPerfume = {
+      ...currentPerfume,
+      baseNotes: currentStep === 1 ? updatedNotes : currentPerfume.baseNotes,
+      heartNotes: currentStep === 2 ? updatedNotes : currentPerfume.heartNotes,
+      topNotes: currentStep === 3 ? updatedNotes : currentPerfume.topNotes,
+    };
+
+    setCurrentPerfume(updatedPerfume);
   };
+
   const handleDragOver = (e: React.DragEvent<HTMLImageElement>) => e.preventDefault();
 
   const toggleConfirmModal = () => setShowConfirmModal((prev) => !prev);
+  const toggleLimitModal = () => setHasReachedNoteLimit((prev) => !prev);
   const toggleLoading = () => setShowLoading((prev) => !prev);
 
   const confirmCreation = () => {
@@ -85,6 +102,18 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
     return result;
   }
 
+  const deleteNote = (noteId: number) => {
+    setCurrentPerfume((prev) => {
+      if (!prev) return prev;
+
+      return {
+        ...prev,
+        baseNotes: prev.baseNotes.filter((note) => note.id !== noteId),
+        heartNotes: prev.heartNotes.filter((note) => note.id !== noteId),
+        topNotes: prev.topNotes.filter((note) => note.id !== noteId),
+      };
+    });
+  };
 
   return (
     <>
@@ -112,7 +141,7 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
         {/* Frasco y biblioteca */}
         <div className="flex justify-center gap-[80px]">
           <div className="flex flex-col items-center gap-[50px]">
-            <StepCard currentStep={currentStep} onNext={onNext} onBack={onBack} />
+            <StepCard currentStep={currentStep} onNext={onNext} onBack={onBack} currentPerfume={currentPerfume} />
 
             <Image
               src="/frasco-diseño.svg"
@@ -122,38 +151,85 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
               width={300}
               height={100}
             />
-
+            {/* reutilizar esto */}
             {currentStep === 1 && currentPerfume.baseNotes.length > 0 && (
-              <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de fondo:   <strong>
-                  {currentPerfume.baseNotes.map((note) => note.name).join(", ")}
-                </strong>
-              </p>
+              <div className="flex gap-2 flex-col gap-2 items-center justify-center">
+                <p className="mt-4 text-[var(--gris4)] text-lg">Notas de Fondo:</p>
+                <div className="flex gap-4 flex-wrap">
+                  {currentPerfume.baseNotes.map((note) => (
+                    <button
+                      key={note.id}
+                      onClick={() => deleteNote(note.id)}
+                      className="items-center px-3 py-1 rounded-[10px] bg-[var(--violeta)] hover:bg-[var(--gris3)] transition-colors duration-200 text-white"
+                    >
+                      <span>{note.name}</span>
+                      <span
+                        className="ml-2"
+                      >
+                        <ClearIcon sx={{ color: "white" }} />
+                      </span>
+                    </button>
+                  ))}</div>
+
+              </div>
             )}
             {currentStep === 2 && currentPerfume.heartNotes.length > 0 && (
-              <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de corazón: <strong>{currentPerfume.heartNotes.map((note) => note.name).join(", ")}</strong>
-              </p>
+              <div className="flex gap-2 flex-col gap-2 items-center justify-center">
+                <p className="mt-4 text-[var(--gris4)] text-lg">Notas de Corazón:</p>
+                <div className="flex gap-4 flex-wrap">
+                  {currentPerfume.heartNotes.map((note) => (
+                    <button
+                      key={note.id}
+                      onClick={() => deleteNote(note.id)}
+                      className="items-center px-3 py-1 rounded-[10px] bg-[var(--violeta)] hover:bg-[var(--gris3)] transition-colors duration-200 text-white"
+                    >
+                      <span>{note.name}</span>
+                      <span
+                        className="ml-2"
+                      >
+                        <ClearIcon sx={{ color: "white" }} />
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
             {currentStep === 3 && currentPerfume.topNotes.length > 0 && (
-              <p className="mt-4 text-[var(--gris4)] text-lg">
-                Notas de salida: <strong>{currentPerfume.topNotes.map((note) => note.name).join(", ")}</strong>
-              </p>
+              <div className="flex flex-col gap-2 items-center justify-center">
+                <p className="mt-4 text-[var(--gris4)] text-lg">Notas de Salida:</p>
+                <div className="flex gap-4 flex-wrap">
+                  {currentPerfume.topNotes.map((note) => (
+                    <button
+                      key={note.id}
+                      onClick={() => deleteNote(note.id)}
+                      className="items-center px-3 py-1 rounded-[10px] bg-[var(--violeta)] hover:bg-[var(--gris3)] transition-colors duration-200 text-white"
+                    >
+                      <span>{note.name}</span>
+                      <span
+                        className="ml-2"
+                      >
+                        <ClearIcon sx={{ color: "white" }} />
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             )}
           </div>
 
           <Library
             currentStep={currentStep}
             onConfirm={toggleConfirmModal}
-            onSelectIntensity={(intensity) =>
-              setCurrentPerfume((prev) => ({ ...prev, intensity }))
-            }
-          />
+            onSelectIntensity={(intensity) => setCurrentPerfume((prev) => ({ ...prev, intensity }))} currentPerfume={currentPerfume} />
         </div>
       </div>
 
       {showConfirmModal && (
         <ConfirmCreationModal onClose={toggleConfirmModal} onConfirm={confirmCreation} />
+      )}
+
+      {hasReachedNoteLimit && (
+        <LimitModal onClose={toggleLimitModal} />
       )}
 
       {showLoading && <LoadingModal onFinish={onNext} onLoading={HandleSubmitFormula} onClose={toggleLoading} />}
@@ -165,20 +241,42 @@ export default CreatePerfume;
 
 interface StepCardProps {
   currentStep: number;
+  currentPerfume: perfumeData;
   onNext: () => void;
   onBack: () => void;
 }
 
-export const StepCard = ({ currentStep, onNext, onBack }: StepCardProps) => {
+
+export const StepCard = ({ currentStep, onNext, onBack, currentPerfume }: StepCardProps) => {
+  const getNextArrowImage = () => {
+    if (currentStep >= 4) {
+      return "/svgGeneral/arrow-right-inactive.svg";
+    }
+
+    return canGoNext()
+      ? "/svgGeneral/arrow-right-active.svg"
+      : "/svgGeneral/arrow-right-inactive.svg";
+  };
+
+
+  const canGoNext = () => {
+    const currentNotes =
+      currentStep === 1
+        ? currentPerfume.baseNotes
+        : currentStep === 2
+          ? currentPerfume.heartNotes
+          : currentPerfume.topNotes;
+
+    return currentNotes.length > 0;
+  };
+
   return (
     <div className="flex items-center gap-6">
       <Image
         width={20}
         height={20}
-        src={
-          currentStep <= 1
-            ? "/svgGeneral/arrow-left-inactive.svg"
-            : "/svgGeneral/arrow-left-active.svg"
+        src={currentStep <= 1 ? "/svgGeneral/arrow-left-inactive.svg"
+          : "/svgGeneral/arrow-left-active.svg"
         }
         alt="volver"
         className="cursor-pointer"
@@ -196,14 +294,12 @@ export const StepCard = ({ currentStep, onNext, onBack }: StepCardProps) => {
       <Image
         width={20} height={20}
         src={
-          currentStep >= 4
-            ? "/svgGeneral/arrow-right-inactive.svg"
-            : "/svgGeneral/arrow-right-active.svg"
+          getNextArrowImage()
         }
         alt="avanzar"
-        className="cursor-pointer"
+        className={`${canGoNext() ? 'cursor-pointer' : ''}`}
         onClick={() => {
-          if (currentStep < 4) onNext();
+          if (canGoNext()) onNext();
         }}
       />
     </div>
