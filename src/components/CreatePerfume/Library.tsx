@@ -224,11 +224,16 @@ export const IntensityContainer = ({
         })}
       </div>
       <button
-        className="bg-[var(--violeta)] px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase cursor-pointer"
-        onClick={onConfirm}
+        disabled={!selectedIntensity}
+        className={`px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase transition-colors duration-200 ${selectedIntensity
+            ? "bg-[var(--violeta)] cursor-pointer"
+            : "bg-gray-400"
+          }`}
+        onClick={selectedIntensity ? onConfirm : undefined}
       >
         confirmar
       </button>
+
     </div>
   );
 };
