@@ -315,3 +315,13 @@ export interface ProviderFiltersProps {
   setStatusFilter: Dispatch<SetStateAction<"all" | "approved" | "pending">>
   fetchProviders: () => void
 }
+
+/***CREAR PERFUME */
+export interface NoteInfoResponse {
+  Id: number;
+  Name: string;
+  Family: string;
+  Sector: string;
+  Description: string;
+  Duration: string;
+}

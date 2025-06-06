@@ -147,23 +147,32 @@ export const NotesContainer = ({ currentStep, currentPerfume }: NotesContainerPr
                 </span>
               </div>
 
-              <div className="w-100 flex flex-wrap gap-[25px]">
-                {filteredNotes.length > 0 ? (
-                  filteredNotes.map((note) => (
-                    <div
-                      key={note.id}
-                      draggable
-                      onDragStart={(e) =>
-                        e.dataTransfer.setData("text/plain", JSON.stringify({ id: note.id, name: note.name }))}
-                      className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
-                    >
-                      {note.name}
-                    </div>
-                  ))
-                ) : (
-                  <p>No hay notas para mostrar.</p>
-                )}
-              </div>
+      <div className="w-100 flex flex-wrap gap-[25px]">
+  {filteredNotes.length > 0 ? (
+    filteredNotes.map((note) => (
+      <div
+        key={note.id}
+        draggable
+        onDragStart={(e) =>
+          e.dataTransfer.setData(
+            "application/json",
+            JSON.stringify({
+              id: note.id,
+              name: note.name,
+              family: family, 
+            })
+          )
+        }
+        className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
+      >
+        {note.name}
+      </div>
+    ))
+  ) : (
+    <p>No hay notas para mostrar.</p>
+  )}
+</div>
+
             </div>
           );
         })

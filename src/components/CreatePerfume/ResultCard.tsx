@@ -60,7 +60,7 @@ const ResultCard = ({ perfume }: ResultCardProps) => {
               <EditIcon
                 sx={{ color: "var(--gris3)", cursor: "pointer" }}
                 onClick={toggleEnableEdit}
-              /> {updateSuccess && (<p className={`${updateMessage ? "text-green" : "text-red"}`}>{updateMessage}</p>)}
+              /> {updateSuccess && (<p className={`${updateMessage ? "text-lime-600" : "text-red-600"}`}>{updateMessage}</p>)}
             </>)}
         </div>
 

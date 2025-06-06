@@ -5,6 +5,7 @@ import ConfirmFormulaModal from "./ConfirmFormulaModal";
 import ResultCard from "./ResultCard";
 import Image from "next/image";
 import { Intensity } from "./Library";
+import AnimatePotion from "./AnimatePotion";
 
 interface FormulaResultProps {
   resultPerfume: GetFormulaResponse
@@ -28,12 +29,7 @@ const FormulaResult = ({ resultPerfume }: FormulaResultProps) => {
           <ResultCard perfume={resultPerfume} />
           {/*frasco y boton confirmar */}
           <div className="flex flex-col items-center">
-            <Image
-              src="/frasco-color.svg"
-              alt="frasco final"
-              className="w-[300px]"
-              width={300}
-              height={100}
+            <AnimatePotion
             />
             <button
               className="bg-[var(--violeta)] px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase cursor-pointer"
