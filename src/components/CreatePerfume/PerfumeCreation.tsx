@@ -28,51 +28,63 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [hasReachedNoteLimit, setHasReachedNoteLimit] = useState(false);
-    const svgContainerRef = useRef<HTMLDivElement>(null);
-    const [showParticles, setShowParticles] = useState(false);
+  const svgContainerRef = useRef<HTMLDivElement>(null);
+  const [showParticles, setShowParticles] = useState(false);
 
-    const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
-  e.preventDefault();
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const { id, name, family } = JSON.parse(e.dataTransfer.getData("application/json"));
 
-  const { id, name, family } = JSON.parse(e.dataTransfer.getData("application/json"));
-  const color = getColorByFamily(family);
-  setShowParticles(true);
+    if (!currentPerfume) return;
 
-  setTimeout(() => setShowParticles(false), 2000);
+    const currentNotes =
+      currentStep === 1
+        ? currentPerfume.baseNotes
+        : currentStep === 2
+          ? currentPerfume.heartNotes
+          : currentPerfume.topNotes;
 
-  if (svgContainerRef.current) {
-    await animateBottle(
-      [
-        "/animationsSVG/potion_1.svg",
-        "/animationsSVG/potion_2.svg",
-        "/animationsSVG/potion_3.svg",
-        "/animationsSVG/potion_4.svg",
-        "/animationsSVG/potion_5.svg",
-        "/animationsSVG/potion_6.svg",
-        "/animationsSVG/potion_7.svg",
-        "/animationsSVG/potion_8.svg",
-        "/animationsSVG/potion_9.svg",
-        "/animationsSVG/potion_10.svg",
-      ],
-      color,
-      svgContainerRef.current
-    );
-  }
+    const isDuplicate = currentNotes.some((n) => n.id === id);
+    const hasReachedLimit = currentNotes.length >= 4;
 
-  setCurrentPerfume((prev) => {
-    if (!prev) return prev;
-    const newNotes = { ...prev };
-    const newNote = { id, name };
+    if (hasReachedLimit) setHasReachedNoteLimit(true);
+    if (isDuplicate || hasReachedLimit) return;
 
-    if (currentStep === 1) newNotes.baseNotes = [...prev.baseNotes, newNote];
-    else if (currentStep === 2) newNotes.heartNotes = [...prev.heartNotes, newNote];
-    else if (currentStep === 3) newNotes.topNotes = [...prev.topNotes, newNote];
+    const updatedNotes = [...currentNotes, { id, name }];
 
-    return newNotes;
-  });
-};
+    const updatedPerfume = {
+      ...currentPerfume,
+      baseNotes: currentStep === 1 ? updatedNotes : currentPerfume.baseNotes,
+      heartNotes: currentStep === 2 ? updatedNotes : currentPerfume.heartNotes,
+      topNotes: currentStep === 3 ? updatedNotes : currentPerfume.topNotes,
+    };
 
+    setCurrentPerfume(updatedPerfume);
 
+    const color = getColorByFamily(family);
+    setShowParticles(true);
+
+    setTimeout(() => setShowParticles(false), 2000);
+
+    if (svgContainerRef.current) {
+      await animateBottle(
+        [
+          "/animationsSVG/potion_1.svg",
+          "/animationsSVG/potion_2.svg",
+          "/animationsSVG/potion_3.svg",
+          "/animationsSVG/potion_4.svg",
+          "/animationsSVG/potion_5.svg",
+          "/animationsSVG/potion_6.svg",
+          "/animationsSVG/potion_7.svg",
+          "/animationsSVG/potion_8.svg",
+          "/animationsSVG/potion_9.svg",
+          "/animationsSVG/potion_10.svg",
+        ],
+        color,
+        svgContainerRef.current
+      );
+    }
+  };
 
 
   const handleDragOver = (e: React.DragEvent<HTMLImageElement>) => e.preventDefault();
@@ -130,27 +142,27 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
       };
     });
   };
-useEffect(() => {
-  const loadInitialBottle = async () => {
-    if (!svgContainerRef.current) return;
+  useEffect(() => {
+    const loadInitialBottle = async () => {
+      if (!svgContainerRef.current) return;
 
-    const res = await fetch("/animationsSVG/potion_1.svg");
-    const text = await res.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, "image/svg+xml");
-    const svg = doc.querySelector("svg");
+      const res = await fetch("/animationsSVG/potion_1.svg");
+      const text = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, "image/svg+xml");
+      const svg = doc.querySelector("svg");
 
-    if (!svg) return;
+      if (!svg) return;
 
-    svg.setAttribute("width", "300");
-    svg.setAttribute("height", "300");
+      svg.setAttribute("width", "300");
+      svg.setAttribute("height", "300");
 
-    svgContainerRef.current.innerHTML = "";
-    svgContainerRef.current.appendChild(svg);
-  };
+      svgContainerRef.current.innerHTML = "";
+      svgContainerRef.current.appendChild(svg);
+    };
 
-  loadInitialBottle();
-}, []);
+    loadInitialBottle();
+  }, []);
 
   return (
     <>
@@ -179,20 +191,20 @@ useEffect(() => {
         <div className="flex justify-center gap-[80px]">
           <div className="flex flex-col items-center gap-[50px]">
             <StepCard currentStep={currentStep} onNext={onNext} onBack={onBack} currentPerfume={currentPerfume} />
-<div className="relative w-[300px] h-[300px]">
-  <div
-    ref={svgContainerRef}
-    onDrop={handleDrop}
-    onDragOver={handleDragOver}
-    className="w-full h-full"
-  ></div>
+            <div className="relative w-[300px] h-[300px]">
+              <div
+                ref={svgContainerRef}
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+                className="w-full h-full"
+              ></div>
 
-  {showParticles && (
-    <div className="absolute inset-0 pointer-events-none z-10">
-      <PotionParticles />
-    </div>
-  )}
-</div>
+              {showParticles && (
+                <div className="absolute inset-0 pointer-events-none z-10">
+                  <PotionParticles />
+                </div>
+              )}
+            </div>
 
             {/* reutilizar esto */}
             {currentStep === 1 && currentPerfume.baseNotes.length > 0 && (
