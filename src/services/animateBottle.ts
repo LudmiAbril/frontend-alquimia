@@ -2,19 +2,8 @@
 
 export async function animateBottle(svgPaths: string[], color: string, container: HTMLDivElement) {
 
-  const audio = new Audio("/sounds/shh.mp3");
+  const audio = new Audio("/sounds/pop.mp3");
   audio.play();
-  for (let i = 0; i < 10; i++) {
-    const sparkle = document.createElement("div");
-    sparkle.className = "absolute rounded-full w-[20px] h-[20px] animate-sparkle pointer-events-none";
-    sparkle.style.backgroundImage = `radial-gradient(circle, ${color} 0%, transparent 80%)`;
-    sparkle.style.left = `${Math.random() * 90}%`;
-    sparkle.style.top = `${Math.random() * 90}%`;
-    sparkle.style.zIndex = "20";
-    container.appendChild(sparkle);
-
-    setTimeout(() => sparkle.remove(), 1000);
-  }
 
   for (let i = 0; i < svgPaths.length; i++) {
     const res = await fetch(svgPaths[i]);
@@ -28,23 +17,20 @@ export async function animateBottle(svgPaths: string[], color: string, container
     svg.setAttribute("width", "300");
     svg.setAttribute("height", "300");
 
-
-
-const fill = svg.querySelectorAll(".fill");
-if (fill.length > 0) {
-  fill.forEach(el => el.setAttribute("fill", color));
-} else {
-  svg.style.color = color; 
-}
-
-
+    const fill = svg.querySelectorAll(".fill");
+    if (fill.length > 0) {
+      fill.forEach(el => el.setAttribute("fill", color));
+    } else {
+      svg.style.color = color;
+    }
 
     container.innerHTML = "";
     container.appendChild(svg);
-
-    await new Promise((res) => setTimeout(res, 300));
+    await new Promise(res => setTimeout(res, 300));
   }
 }
+
+
 
 export const familyColors: Record<string, string> = {
   Frutal: "#F5A623",

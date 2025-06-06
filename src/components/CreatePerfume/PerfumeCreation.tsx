@@ -12,6 +12,9 @@ import ClearIcon from '@mui/icons-material/Clear';
 import LimitModal from "./LimitModal";
 import { getFormulaById, submitFormula } from "@/services/createPerfumeService";
 import { animateBottle, getColorByFamily } from "@/services/animateBottle";
+import PotionParticles from "./PotionParticles";
+
+
 interface CreatePerfumeProps {
   currentStep: number;
   onNext: () => void;
@@ -26,13 +29,16 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
   const [showLoading, setShowLoading] = useState(false);
   const [hasReachedNoteLimit, setHasReachedNoteLimit] = useState(false);
     const svgContainerRef = useRef<HTMLDivElement>(null);
-    
-const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+    const [showParticles, setShowParticles] = useState(false);
+
+    const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
   e.preventDefault();
 
   const { id, name, family } = JSON.parse(e.dataTransfer.getData("application/json"));
   const color = getColorByFamily(family);
+  setShowParticles(true);
 
+  setTimeout(() => setShowParticles(false), 2000);
 
   if (svgContainerRef.current) {
     await animateBottle(
@@ -56,8 +62,7 @@ const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
   setCurrentPerfume((prev) => {
     if (!prev) return prev;
     const newNotes = { ...prev };
-const newNote = { id, name };
-
+    const newNote = { id, name };
 
     if (currentStep === 1) newNotes.baseNotes = [...prev.baseNotes, newNote];
     else if (currentStep === 2) newNotes.heartNotes = [...prev.heartNotes, newNote];
@@ -66,6 +71,7 @@ const newNote = { id, name };
     return newNotes;
   });
 };
+
 
 
 
@@ -173,13 +179,22 @@ useEffect(() => {
         <div className="flex justify-center gap-[80px]">
           <div className="flex flex-col items-center gap-[50px]">
             <StepCard currentStep={currentStep} onNext={onNext} onBack={onBack} currentPerfume={currentPerfume} />
+<div className="relative w-[300px] h-[300px]">
+  <div
+    ref={svgContainerRef}
+    onDrop={handleDrop}
+    onDragOver={handleDragOver}
+    className="w-full h-full"
+  ></div>
 
-           <div
-  ref={svgContainerRef}
-  onDrop={handleDrop}
-  onDragOver={handleDragOver}
-  className="w-[300px] h-[300px]"
-></div>
+  {showParticles && (
+    <div className="absolute inset-0 pointer-events-none z-10">
+      <PotionParticles />
+    </div>
+  )}
+</div>
+
+
 
 
             {/* reutilizar esto */}
