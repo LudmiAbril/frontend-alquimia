@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -22,9 +22,9 @@ const ResultCard = ({ perfume }: ResultCardProps) => {
     setEditable((prev) => !prev);
   };
 
-  const handleSubmitName = (formulaId: number, formulaName: string) => {
+  const handleSubmitName = async (formulaId: number, formulaName: string) => {
     try {
-      updateFormulaName(formulaId, formulaName);
+      await updateFormulaName(formulaId, formulaName);
       setUpdateSuccess(true)
       setUpdateMessage("Se actualizo el nombre")
     } catch (error) {
@@ -60,7 +60,11 @@ const ResultCard = ({ perfume }: ResultCardProps) => {
               <EditIcon
                 sx={{ color: "var(--gris3)", cursor: "pointer" }}
                 onClick={toggleEnableEdit}
-              /> {updateSuccess && (<p className={`${updateMessage ? "text-lime-600" : "text-red-600"}`}>{updateMessage}</p>)}
+              /> {updateMessage && (
+                <p className={`${updateSuccess ? "text-lime-600" : "text-red-600"}`}>
+                  {updateMessage}
+                </p>
+              )}
             </>)}
         </div>
 
