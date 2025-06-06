@@ -34,3 +34,6 @@ export const getIntensities = async (): Promise<Intensity[]> => {
     const data = await res.json();
     return data;
 }
+
+
+

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Library from "./Library";
 import ConfirmCreationModal from "./ConfirmCreationModal";
 import LoadingModal from "./Loading";
@@ -8,11 +8,10 @@ import { createSteps } from "./CreatePerfumeSteps";
 import { Note, perfumeData } from "./ResultCard";
 import Image from "next/image";
 import { GetFormulaResponse, SaveFormulaDTO } from "./FormulaResult";
-import { getFormulaById, submitFormula } from "@/services/createPerfumeService";
 import ClearIcon from '@mui/icons-material/Clear';
-import { color } from "framer-motion";
 import LimitModal from "./LimitModal";
-
+import { getFormulaById, submitFormula } from "@/services/createPerfumeService";
+import { animateBottle, getColorByFamily } from "@/services/animateBottle";
 interface CreatePerfumeProps {
   currentStep: number;
   onNext: () => void;
@@ -26,38 +25,49 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [hasReachedNoteLimit, setHasReachedNoteLimit] = useState(false);
+    const svgContainerRef = useRef<HTMLDivElement>(null);
+    
+const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+  e.preventDefault();
 
-  const handleDrop = (e: React.DragEvent<HTMLImageElement>) => {
-    e.preventDefault();
-    const note = e.dataTransfer.getData("text/plain");
-    const noteparsed: Note = JSON.parse(note);
+  const { id, name, family } = JSON.parse(e.dataTransfer.getData("application/json"));
+  const color = getColorByFamily(family);
 
-    if (!currentPerfume) return;
 
-    const currentNotes =
-      currentStep === 1
-        ? currentPerfume.baseNotes
-        : currentStep === 2
-          ? currentPerfume.heartNotes
-          : currentPerfume.topNotes;
+  if (svgContainerRef.current) {
+    await animateBottle(
+      [
+        "/animationsSVG/potion_1.svg",
+        "/animationsSVG/potion_2.svg",
+        "/animationsSVG/potion_3.svg",
+        "/animationsSVG/potion_4.svg",
+        "/animationsSVG/potion_5.svg",
+        "/animationsSVG/potion_6.svg",
+        "/animationsSVG/potion_7.svg",
+        "/animationsSVG/potion_8.svg",
+        "/animationsSVG/potion_9.svg",
+        "/animationsSVG/potion_10.svg",
+      ],
+      color,
+      svgContainerRef.current
+    );
+  }
 
-    const isDuplicate = currentNotes.some((n) => n.id === noteparsed.id);
-    const hasReachedLimit = currentNotes.length >= 4;
+  setCurrentPerfume((prev) => {
+    if (!prev) return prev;
+    const newNotes = { ...prev };
+const newNote = { id, name };
 
-    if (hasReachedLimit) setHasReachedNoteLimit(true);
-    if (isDuplicate || hasReachedLimit) return;
 
-    const updatedNotes = [...currentNotes, noteparsed];
+    if (currentStep === 1) newNotes.baseNotes = [...prev.baseNotes, newNote];
+    else if (currentStep === 2) newNotes.heartNotes = [...prev.heartNotes, newNote];
+    else if (currentStep === 3) newNotes.topNotes = [...prev.topNotes, newNote];
 
-    const updatedPerfume = {
-      ...currentPerfume,
-      baseNotes: currentStep === 1 ? updatedNotes : currentPerfume.baseNotes,
-      heartNotes: currentStep === 2 ? updatedNotes : currentPerfume.heartNotes,
-      topNotes: currentStep === 3 ? updatedNotes : currentPerfume.topNotes,
-    };
+    return newNotes;
+  });
+};
 
-    setCurrentPerfume(updatedPerfume);
-  };
+
 
   const handleDragOver = (e: React.DragEvent<HTMLImageElement>) => e.preventDefault();
 
@@ -114,6 +124,27 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
       };
     });
   };
+useEffect(() => {
+  const loadInitialBottle = async () => {
+    if (!svgContainerRef.current) return;
+
+    const res = await fetch("/animationsSVG/potion_1.svg");
+    const text = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "image/svg+xml");
+    const svg = doc.querySelector("svg");
+
+    if (!svg) return;
+
+    svg.setAttribute("width", "300");
+    svg.setAttribute("height", "300");
+
+    svgContainerRef.current.innerHTML = "";
+    svgContainerRef.current.appendChild(svg);
+  };
+
+  loadInitialBottle();
+}, []);
 
   return (
     <>
@@ -143,14 +174,14 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
           <div className="flex flex-col items-center gap-[50px]">
             <StepCard currentStep={currentStep} onNext={onNext} onBack={onBack} currentPerfume={currentPerfume} />
 
-            <Image
-              src="/frasco-diseño.svg"
-              alt="frasco de tu perfume"
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              width={300}
-              height={100}
-            />
+           <div
+  ref={svgContainerRef}
+  onDrop={handleDrop}
+  onDragOver={handleDragOver}
+  className="w-[300px] h-[300px]"
+></div>
+
+
             {/* reutilizar esto */}
             {currentStep === 1 && currentPerfume.baseNotes.length > 0 && (
               <div className="flex gap-2 flex-col gap-2 items-center justify-center">
@@ -270,7 +301,9 @@ export const StepCard = ({ currentStep, onNext, onBack, currentPerfume }: StepCa
     return currentNotes.length > 0;
   };
 
+
   return (
+
     <div className="flex items-center gap-6">
       <Image
         width={20}

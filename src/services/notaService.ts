@@ -21,3 +21,4 @@ export const obtenerNotasPorPaso = async (paso: number) => {
   console.log(data)
   return await data;
 };
+
