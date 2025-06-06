@@ -194,9 +194,6 @@ useEffect(() => {
   )}
 </div>
 
-
-
-
             {/* reutilizar esto */}
             {currentStep === 1 && currentPerfume.baseNotes.length > 0 && (
               <div className="flex gap-2 flex-col gap-2 items-center justify-center">
