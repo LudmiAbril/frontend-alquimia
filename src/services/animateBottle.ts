@@ -13,12 +13,16 @@ export async function animateBottle(svgPaths: string[], color: string, container
     svg.setAttribute("width", "300");
     svg.setAttribute("height", "300");
 
-    const relleno = svg.querySelector(".relleno");
-    if (relleno) {
-      relleno.setAttribute("fill", color);
-    } else {
-      svg.style.color = color; // fallback
-    }
+
+
+const fill = svg.querySelectorAll(".fill");
+if (fill.length > 0) {
+  fill.forEach(el => el.setAttribute("fill", color));
+} else {
+  svg.style.color = color; 
+}
+
+
 
     container.innerHTML = "";
     container.appendChild(svg);
