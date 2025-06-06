@@ -1,6 +1,21 @@
-import { NoteInfoResponse } from "@/components/utils/typing";
+
 
 export async function animateBottle(svgPaths: string[], color: string, container: HTMLDivElement) {
+
+  const audio = new Audio("/sounds/shh.mp3");
+  audio.play();
+  for (let i = 0; i < 10; i++) {
+    const sparkle = document.createElement("div");
+    sparkle.className = "absolute rounded-full w-[20px] h-[20px] animate-sparkle pointer-events-none";
+    sparkle.style.backgroundImage = `radial-gradient(circle, ${color} 0%, transparent 80%)`;
+    sparkle.style.left = `${Math.random() * 90}%`;
+    sparkle.style.top = `${Math.random() * 90}%`;
+    sparkle.style.zIndex = "20";
+    container.appendChild(sparkle);
+
+    setTimeout(() => sparkle.remove(), 1000);
+  }
+
   for (let i = 0; i < svgPaths.length; i++) {
     const res = await fetch(svgPaths[i]);
     const text = await res.text();
