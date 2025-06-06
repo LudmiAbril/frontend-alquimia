@@ -11,10 +11,21 @@ interface ResultCardProps {
 const ResultCard = ({ perfume }: ResultCardProps) => {
   const [dataToShow, setDataToShow] = useState("composition");
   const [editable, setEditable] = useState(false);
+  const [updatesMessage, setUpdateMessage] = useState("");
 
   const toggleEnableEdit = () => {
     setEditable((prev) => !prev);
   };
+
+  const handleSubmitName = (formulaId: number) => {
+    try {
+      // submitFormulaName(formulaID);
+      setUpdateMessage("nombre guardado.")
+    } catch (error) {
+      console.error(error)
+      setUpdateMessage("nombre guardado.")
+    }
+  }
 
   return (
     <div className="w-[38rem] h-[44rem] bg-white flex flex-col items-center justify-center p-[41px] rounded-[10px] shadow-md text-center mb-10">
@@ -23,16 +34,17 @@ const ResultCard = ({ perfume }: ResultCardProps) => {
         <div className="flex items-center gap-2">
           <input
             type="text"
-            defaultValue="Fresca dulzura"
+            defaultValue="Mi formula"
+            maxLength={20}
             disabled={!editable}
             className={`fuente-principal font-bold text-[20px] text-[var(--gris3)] border-b border-gray-400 outline-none transition-all uppercase 
     ${editable ? "cursor-text" : "border-transparent bg-transparent cursor-default"}
   `}
           />
-          {editable ? (<CheckCircleIcon
+          {editable ? (<button onClick={() => handleSubmitName(13)}><CheckCircleIcon
             sx={{ color: "var(--gris3)", cursor: "pointer" }}
             onClick={toggleEnableEdit}
-          />) : (<EditIcon
+          /></button>) : (<EditIcon
             sx={{ color: "var(--gris3)", cursor: "pointer" }}
             onClick={toggleEnableEdit}
           />)}
