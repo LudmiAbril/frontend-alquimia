@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+"use client"
+
+import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Intensity } from "./Library";
 import { GetFormulaResponse } from "./FormulaResult";
+import { updateFormulaName } from "@/services/createPerfumeService";
 
 interface ResultCardProps {
   perfume: GetFormulaResponse
@@ -11,19 +14,23 @@ interface ResultCardProps {
 const ResultCard = ({ perfume }: ResultCardProps) => {
   const [dataToShow, setDataToShow] = useState("composition");
   const [editable, setEditable] = useState(false);
-  const [updatesMessage, setUpdateMessage] = useState("");
+  const [updateMessage, setUpdateMessage] = useState("");
+  const [updateSuccess, setUpdateSuccess] = useState<boolean | null>(null);
+  const [formulaName, setFormulaName] = useState("Mi fórmula");
 
   const toggleEnableEdit = () => {
     setEditable((prev) => !prev);
   };
 
-  const handleSubmitName = (formulaId: number) => {
+  const handleSubmitName = (formulaId: number, formulaName: string) => {
     try {
-      // submitFormulaName(formulaID);
-      setUpdateMessage("nombre guardado.")
+      updateFormulaName(formulaId, formulaName);
+      setUpdateSuccess(true)
+      setUpdateMessage("Se actualizo el nombre")
     } catch (error) {
       console.error(error)
-      setUpdateMessage("nombre guardado.")
+      setUpdateSuccess(false)
+      setUpdateMessage("Error al actualizar nombre")
     }
   }
 
@@ -34,20 +41,27 @@ const ResultCard = ({ perfume }: ResultCardProps) => {
         <div className="flex items-center gap-2">
           <input
             type="text"
-            defaultValue="Mi formula"
+            value={formulaName}
             maxLength={20}
             disabled={!editable}
+            onChange={(e) => setFormulaName(e.target.value)}
             className={`fuente-principal font-bold text-[20px] text-[var(--gris3)] border-b border-gray-400 outline-none transition-all uppercase 
     ${editable ? "cursor-text" : "border-transparent bg-transparent cursor-default"}
   `}
           />
-          {editable ? (<button onClick={() => handleSubmitName(13)}><CheckCircleIcon
-            sx={{ color: "var(--gris3)", cursor: "pointer" }}
-            onClick={toggleEnableEdit}
-          /></button>) : (<EditIcon
-            sx={{ color: "var(--gris3)", cursor: "pointer" }}
-            onClick={toggleEnableEdit}
-          />)}
+          {editable ?
+            (<button onClick={() => handleSubmitName(perfume.Id, formulaName)}>
+              <CheckCircleIcon
+                sx={{ color: "var(--gris3)", cursor: "pointer" }}
+                onClick={toggleEnableEdit}
+              />
+            </button>)
+            : (<>
+              <EditIcon
+                sx={{ color: "var(--gris3)", cursor: "pointer" }}
+                onClick={toggleEnableEdit}
+              /> {updateSuccess && (<p className={`${updateMessage ? "text-green" : "text-red"}`}>{updateMessage}</p>)}
+            </>)}
         </div>
 
         <DownloadIcon sx={{ color: "var(--gris3)", cursor: "pointer" }} />

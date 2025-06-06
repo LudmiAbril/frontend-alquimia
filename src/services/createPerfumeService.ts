@@ -34,3 +34,16 @@ export const getIntensities = async (): Promise<Intensity[]> => {
     const data = await res.json();
     return data;
 }
+
+export const updateFormulaName = async (formulaId: number, newName: string) => {
+    try {
+        const response = await fetch(`http://localhost:5035/creator/formula/${formulaId}/titulo}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newName),
+        });
+        if (!response.ok) throw new Error("Error al actualizar nombre de la formula.");
+    } catch (error) {
+        console.error(error)
+    }
+}

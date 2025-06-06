@@ -61,6 +61,7 @@ export interface SaveFormulaDTO {
 }
 
 export interface GetFormulaResponse {
+  Id: number;
   IdCreador: number;
   ConcentracionAgua: number;
   ConcentracionAlcohol: number;

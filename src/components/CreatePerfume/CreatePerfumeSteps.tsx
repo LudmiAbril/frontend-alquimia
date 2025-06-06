@@ -45,6 +45,7 @@ const CreatePerfumeSteps = () => {
     intensity: { Id: 0, Name: "", Category: "", Description: "" }
   });
   const [resultFormula, setResultFormula] = useState<GetFormulaResponse>({
+    Id: 0,
     IdCreador: 0,
     ConcentracionAgua: 0,
     ConcentracionAlcohol: 0,
