@@ -4,7 +4,6 @@ import OptionGrid from "./visual/OptionGrid"
 import OptionList from "./visual/OptionList"
 import OptionCard from "./visual/OptionCard"
 import OptionBubble from "./visual/OptionBubble"
-import OptionButtons from "./visual/OptionTwo"
 import OptionTwo from "./visual/OptionTwo"
 
 
@@ -17,9 +16,9 @@ const overrideMap: Record<number, string> = {
 5:"cards",
 6:"grid",
 7:"cards",
-8:"cards",
+8:"grid",
 9:"bubbles",
-10:"grid"
+10:"cards"
 }
 
 export default function DynamicQuestion({ question, selectedOption, onSelect }: PropsDynamic) {

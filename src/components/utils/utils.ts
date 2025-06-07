@@ -330,6 +330,20 @@ export const familiesQuiz = [
   }
 ]
 
+ export const messages = [
+    [
+      "Las familias olfativas son grupos de perfumes con aromas parecidos porque comparten ingredientes clave.",
+    ],    [
+      "Te ayudan a entender qué fragancias van con vos. ¡Es como tener una brújula aromática!"
+    ],
+    [
+      "Cada familia tiene su personalidad. Algunas son frescas y chispeantes, otras cálidas y misteriosas.",
+    ],
+        [
+      "Explorarlas es descubrir un poco más sobre vos."
+    ]
+  ]
+
 
 export const PROVIDER_TABS = [
   { label: "Home", value: "home" },

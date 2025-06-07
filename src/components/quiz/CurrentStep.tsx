@@ -53,7 +53,7 @@ export default function CurrentStep({
                 className={`w-4 h-4 rounded-full border-2 transition-all duration-300 ${
                   index <= currentQuestionIndex
                     ? "bg-[#9444B6] border-[#9444B6]"
-                    : "bg-[#E8E3DE] border-[#9444B6]"
+                    : "bg-white border-[#9444B6]"
                 }`}
               ></div>
             ))}
