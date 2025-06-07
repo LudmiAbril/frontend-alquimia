@@ -2,8 +2,16 @@
 import { AnswerDTO, QuestionDTO, FamilyResult, VisualType } from "@/components/utils/typing"
 
 const visualMap: Record<number, VisualType> = {
-  1: "cards", 2: "grid", 3: "list", 4: "bubbles", 5: "cards",
-  6: "buttons", 7: "grid", 8: "cards", 9: "list", 10: "bubbles",
+  1: "bubbles",
+  2: "two",
+  3: "cards",
+  4: "grid",
+5:"cards",
+6:"grid",
+7:"cards",
+8:"grid",
+9:"bubbles",
+10:"cards"
 }
 
 const URL = "http://localhost:5035/quiz/questions"
