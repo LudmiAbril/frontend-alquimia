@@ -111,7 +111,7 @@ export interface PropsDynamic {
   selectedOption: string
   onSelect: (option: string) => void
 }
-export type VisualType = "cards" | "grid" | "list" | "buttons" | "bubbles";
+export type VisualType = "cards" | "grid" | "list" | "two" | "bubbles";
 
 export interface QuestionDTO {
   Id: number

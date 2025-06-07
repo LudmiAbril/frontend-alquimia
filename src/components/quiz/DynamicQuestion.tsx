@@ -4,20 +4,21 @@ import OptionGrid from "./visual/OptionGrid"
 import OptionList from "./visual/OptionList"
 import OptionCard from "./visual/OptionCard"
 import OptionBubble from "./visual/OptionBubble"
-import OptionButtons from "./visual/OptionButtons"
+import OptionButtons from "./visual/OptionTwo"
+import OptionTwo from "./visual/OptionTwo"
 
 
 
 const overrideMap: Record<number, string> = {
   1: "bubbles",
-  2: "cards",
-  3: "buttons",
-  4: "list",
+  2: "two",
+  3: "cards",
+  4: "grid",
 5:"cards",
-6:"buttons",
-7:"bubbles",
+6:"grid",
+7:"cards",
 8:"cards",
-9:"buttons",
+9:"bubbles",
 10:"grid"
 }
 
@@ -26,15 +27,17 @@ export default function DynamicQuestion({ question, selectedOption, onSelect }: 
 console.log("Pregunta ID:", question.Id)
 console.log("Componente a renderizar:", visualType)
   switch (visualType) {
-    case "grid":
-      return <OptionGrid question={question} selectedOption={selectedOption} onSelect={onSelect} />
-    case "bubbles":
-      return <OptionBubble question={question} selectedOption={selectedOption} onSelect={onSelect} />
-    case "buttons":
-      return <OptionButtons question={question} selectedOption={selectedOption} onSelect={onSelect} />
-    case "list":
-      return <OptionList question={question} selectedOption={selectedOption} onSelect={onSelect} />
-    default:
-      return <OptionCard question={question} selectedOption={selectedOption} onSelect={onSelect} />
-  }
+  case "grid":
+    return <OptionGrid question={question} selectedOption={selectedOption} onSelect={onSelect} />
+  case "bubbles":
+    return <OptionBubble question={question} selectedOption={selectedOption} onSelect={onSelect} />
+ 
+  case "list":
+    return <OptionList question={question} selectedOption={selectedOption} onSelect={onSelect} />
+  case "two":
+    return <OptionTwo question={question} selectedOption={selectedOption} onSelect={onSelect} />
+  default:
+    return <OptionCard question={question} selectedOption={selectedOption} onSelect={onSelect} />
+}
+
 }
