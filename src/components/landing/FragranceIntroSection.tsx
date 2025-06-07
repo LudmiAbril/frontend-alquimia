@@ -19,7 +19,7 @@ export default function FragranceIntroSection() {
         <Button
           label="CREAR MI PERFUME"
         href="/createParfum"
-          colorClass="bg-[var(--violeta)] text-[var(--hueso)] hover:bg-[var(--hueso)] group"
+          colorClass="bg-[var(--violeta)] text-[var(--hueso)] hover:bg-[var(--hueso)] group hover:text-[var(--violeta)]"
         />
 
       </div>

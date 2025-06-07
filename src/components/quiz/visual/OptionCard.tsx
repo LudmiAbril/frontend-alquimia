@@ -7,6 +7,9 @@ import { PropsDynamic } from "@/components/utils/typing"
 export default function OptionCards({ question, selectedOption, onSelect }: PropsDynamic) {
   const validOptions = question.Opciones.filter(option => option.Texto?.trim())
 
+  const isValidUrl = (url: string | undefined) =>
+    !!url && (url.startsWith("/") || url.startsWith("http"))
+
   return (
     <div className="flex flex-wrap justify-center items-start gap-6 w-full px-4 py-8">
       <div className="flex flex-row gap-6 min-w-fit justify-start items-start">
@@ -46,12 +49,14 @@ export default function OptionCards({ question, selectedOption, onSelect }: Prop
               </div>
 
               {/* Imagen con filtro oscuro */}
-              <Image
-                src={option.ImagenUrl}
-                alt={option.Texto}
-                fill
-                className="object-cover grayscale group-hover:grayscale-0 brightness-[0.4] group-hover:brightness-100 transition-all duration-500"
-              />
+              {isValidUrl(option.ImagenUrl) && (
+                <Image
+                  src={option.ImagenUrl!}
+                  alt={option.Texto}
+                  fill
+                  className="object-cover grayscale group-hover:grayscale-0 brightness-[0.4] group-hover:brightness-100 transition-all duration-500"
+                />
+              )}
 
               {/* Texto sobre la imagen */}
               <div className="absolute bottom-4 w-full text-center z-10">

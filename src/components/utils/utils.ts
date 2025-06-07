@@ -206,6 +206,12 @@ export const userMenuItems = [
   { label: "Cerrar Sesión", href: "/logout" },
 ];
 
+export const providerMenuItems = [
+  { href: "/home", label: "Home" },
+  { href: "/subirProducto", label: "Subir Producto" },
+  { href: "/cuenta", label: "Mi Cuenta" },
+  { href: "/logout", label: "Cerrar Sesión" },
+];
 
 
 /*################################ - TEST LANDING IMAGES - #############################################################*/
@@ -365,10 +371,3 @@ export const attributesProduct = [
   { label: "Sin parabenos", value: "paraben" },
 ];
 
-
-export const providerMenuItems = [
-  { href: "/home", label: "Home" },
-  { href: "/subirProducto", label: "Subir Producto" },
-  { href: "/cuenta", label: "Mi Cuenta" },
-  { href: "/logout", label: "Cerrar Sesión" },
-];

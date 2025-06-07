@@ -7,6 +7,9 @@ import { PropsDynamic } from "@/components/utils/typing"
 export default function OptionGrid({ question, selectedOption, onSelect }: PropsDynamic) {
   const validOptions = question.Opciones.filter(opt => opt.Texto?.trim())
 
+  const isValidUrl = (url: string | undefined) =>
+    !!url && (url.startsWith("/") || url.startsWith("http"))
+
   return (
     <div className="w-full flex justify-center">
       <div className={`grid grid-cols-2 gap-6 mt-6 max-w-[500px]`}>
@@ -29,10 +32,10 @@ export default function OptionGrid({ question, selectedOption, onSelect }: Props
                     : "bg-white text-[var(--violeta)] border-[var(--violeta)] hover:bg-[var(--lila)] hover:text-white"
                 }`}
             >
-              {opt.ImagenUrl && (
+              {isValidUrl(opt.ImagenUrl) && (
                 <div className="relative w-20 h-20 mx-auto mb-3 rounded-full overflow-hidden border-2 border-[var(--violeta)]">
                   <Image
-                    src={opt.ImagenUrl}
+                    src={opt.ImagenUrl!}
                     alt={opt.Texto}
                     fill
                     className="object-cover"
