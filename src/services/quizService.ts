@@ -6,7 +6,7 @@ const visualMap: Record<number, VisualType> = {
   6: "buttons", 7: "grid", 8: "cards", 9: "list", 10: "bubbles",
 }
 
-const URL = "http://localhost:5035/quiz/preguntas"
+const URL = "http://localhost:5035/quiz/questions"
 
 export const fetchQuestions = async (): Promise<QuestionDTO[]> => {
   const res = await fetch(URL)
@@ -24,14 +24,29 @@ export const buildAnswer = (
   preguntaId: questionId,
   selectedOption,
 })
+const RESULT_URL = "http://localhost:5035/quiz/result"
 
-export const simulateResult = (): Promise<FamilyResult> =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        nombre: "Aromática",
-        descripcion: "Fresca, limpia y natural",
-        imagen: null,
-      })
-    }, 1500)
+export const fetchQuizResult = async (answers: AnswerDTO[]): Promise<FamilyResult> => {
+  const response = await fetch(RESULT_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(answers),
   })
+
+  if (!response.ok) {
+    throw new Error("No se pudo obtener el resultado del test.")
+  }
+
+  const data = await response.json()
+
+  return {
+    nombre: data.SuperFamily,
+    descripcion: `Tu perfil olfativo es ${data.SuperFamily}.\nSubfamilias: ${data.AllSubFamilies.join(", ")}`,
+    imagen: null, 
+    formulas: data.Formulas,
+    subfamilias: data.AllSubFamilies,
+    concentracion: data.ConcentrationType,
+  }
+}
