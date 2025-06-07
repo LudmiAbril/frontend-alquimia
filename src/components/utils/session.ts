@@ -25,7 +25,7 @@ export function saveSessionData(token: string) {
 
 
 export async function registerUser(data: RegisterDTO) {
-  const response = await fetch("http://localhost:5035/cuenta/registrar-json", {
+  const response = await fetch("http://localhost:5035/account/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -52,7 +52,7 @@ export async function sendRegisterProvider(formData: ProviderFormData): Promise<
       tarjetaCVC: formData.tarjeta.cvc,
       };
 
-    const response = await fetch("http://localhost:5035/cuenta/registrar-proveedor", {
+    const response = await fetch("http://localhost:5035/account/register-provider", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
