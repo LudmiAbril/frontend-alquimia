@@ -262,6 +262,7 @@ export interface Provider {
   id: number
   name: string
   description: string
+  stock: number
 }
 
 export interface ProviderDTO {
@@ -316,6 +317,18 @@ export interface ProviderFiltersProps {
   fetchProviders: () => void
 }
 
+
+export interface Option {
+  label: string;
+  value: string;
+}
+
+ export interface PropsSelect {
+  options: Option[];
+  selected: string[];
+  onChange: (selected: string[]) => void;
+  multiple?: boolean;
+ }
 /***CREAR PERFUME */
 export interface NoteInfoResponse {
   Id: number;
