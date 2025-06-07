@@ -14,30 +14,34 @@ export interface ProductCardProps {
   price: number;
   category: string;
   image: string;
+  slug: string;
 }
 
-export type PageProps = {
-  params: {
-    slug: string;
+export interface ProductDTO {
+  id: number;
+  name: string;
+  description: string;
+productType: string; 
+  provider: {
+    id: number;
+    nombre: string;
+    email: string;
+    esAprobado: boolean;
   };
-};
-
-export interface Product {
-  name: string;
-  price: number;
-  image: string;
-  category: string;
+  supplierName: string | null;
+  variants: {
+    id: number;
+    volume: number;
+    unit: string;
+    price: number;
+    stock: number;
+    isHypoallergenic: boolean | null;
+    isVegan: boolean | null;
+    isParabenFree: boolean | null;
+  }[];
 }
 
-export interface ProductDetailProps {
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-  supplier: string;
-  mainCategory: string;
-  subCategory?: string;
-}
+
 
 /*LANDING*/
 export interface Supplier {
@@ -280,6 +284,8 @@ export interface ProviderDTO {
   Email: string
   EsAprobado: boolean
 }
+
+
 
 export const API_ROUTES = {
   LIST_PROVIDERS: "http://localhost:5035/admin/listProviders",
