@@ -33,6 +33,7 @@ export interface BottleDesign {
     textSize: number;
     textColor: string;
     imageScale: string;
+    textYPosition: number;
 }
 
 export interface BottleForm {
@@ -41,7 +42,7 @@ export interface BottleForm {
 }
 
 const DesignBottle = () => {
-     const router = useRouter();
+    const router = useRouter();
     const [openFinishModal, setOpenFinishModal] = useState(false);
     const [currentStep, setCurrentStep] = useState<number>(0);
     const designSteps = ["botella", "etiqueta", "tipografia"];
@@ -55,7 +56,8 @@ const DesignBottle = () => {
         textTypography: "roboto",
         textSize: 30,
         textColor: "#ffffff",
-        imageScale: "1"
+        imageScale: "1",
+        textYPosition: 0.5
     });
 
 
@@ -91,9 +93,9 @@ const DesignBottle = () => {
     }
 
 
-const goToProviders =() => {
-    router.push("/providers");
-}
+    const goToProviders = () => {
+        router.push("/providers");
+    }
 
     // funcion repartida para optimizar
     // que el scale no se recorte la imagen si se achica, solo si se agranda
@@ -115,7 +117,7 @@ const goToProviders =() => {
                             />
                             <text
                                 x="50%"
-                                y="50%"
+                                y={`${currentDesign.textYPosition * 100}%`}
                                 textAnchor="middle"
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
@@ -140,7 +142,7 @@ const goToProviders =() => {
                                 transform-origin="center"
                             />   <text
                                 x="50%"
-                                y="50%"
+                                y={`${currentDesign.textYPosition * 100}%`}
                                 textAnchor="middle"
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
@@ -166,7 +168,7 @@ const goToProviders =() => {
                                 transform-origin="center"
                             />   <text
                                 x="50%"
-                                y="50%"
+                                y={`${currentDesign.textYPosition * 100}%`}
                                 textAnchor="middle"
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
@@ -204,7 +206,7 @@ const goToProviders =() => {
                                 transform-origin="center"
                             />   <text
                                 x="50%"
-                                y="50%"
+                                y={`${currentDesign.textYPosition * 100}%`}
                                 textAnchor="middle"
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
@@ -236,7 +238,7 @@ const goToProviders =() => {
                                 transform-origin="center"
                             />   <text
                                 x="50%"
-                                y="50%"
+                                y={`${currentDesign.textYPosition * 100}%`}
                                 textAnchor="middle"
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
@@ -268,7 +270,7 @@ const goToProviders =() => {
                                 transform-origin="center"
                             />   <text
                                 x="50%"
-                                y="50%"
+                                y={`${currentDesign.textYPosition * 100}%`}
                                 textAnchor="middle"
                                 dominantBaseline="middle"
                                 fontSize={currentDesign.textSize}
@@ -311,7 +313,7 @@ const goToProviders =() => {
         <SectionWrapper className="bg-[var(--hueso)]">
             <div className="flex flex-col items-center">
                 <h1 className="fuente-principal text-[var(--gris4)] text-[32px] font-bold mb-4">
-                    DISEÑÁ TU ENVASE
+                    DISEÑÁ TU BOTELLA
                 </h1>
                 <p className='mb-9'>Dale personalidada tu fragancia.</p>
                 <DesignStepsBar currentStep={currentStep} />
@@ -345,7 +347,7 @@ interface DesignStepsBarProps {
 const DesignStepsBar = ({ currentStep }: DesignStepsBarProps) => {
     return (
         <div className="flex items-center mb-10">
-            <Image src="/BarraSteps/icono-pocion-inicio.svg" alt="paso" width={40} height={40} />
+            <Image src="/design-bottle/icon-bottle-label-start.svg" alt="icono-frasco" width={60} height={40} />
             {designBottleSteps.map((step, index) => (
                 <React.Fragment key={step}>
                     <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
@@ -356,6 +358,6 @@ const DesignStepsBar = ({ currentStep }: DesignStepsBarProps) => {
                 </React.Fragment>
             ))}
             <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
-            <Image src="/BarraSteps/icono-pocion-final.svg" alt="" width={40} height={40} />
+            <Image src="/design-bottle/icon-bottle-label-end.svg" alt="icono-frasco" width={60} height={40} />
         </div>)
 }
