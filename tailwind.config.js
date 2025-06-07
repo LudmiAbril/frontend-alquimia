@@ -22,6 +22,7 @@ module.exports = {
       fontFamily: {
         roboto: "var(--font-roboto)",
         principal: "var(--font-principal)",
+              volkorn: ['"Vollkorn"', 'serif'],
       },
       backgroundImage: {
         degrade: "var(--degrade)",

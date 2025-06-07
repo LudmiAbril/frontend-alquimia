@@ -1,6 +1,6 @@
 export const obtenerNotasPorPaso = async (paso: number) => {
   let url = "";
-
+  const token = localStorage.getItem('token');
   switch (paso) {
     case 1:
       url = "http://localhost:5035/creator/base-notes";
@@ -15,9 +15,15 @@ export const obtenerNotasPorPaso = async (paso: number) => {
       return [];
   }
 
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    }
+  });
+
   if (!res.ok) throw new Error("Error al obtener las notas");
-  const data= await res.json()
-  console.log(data)
-  return await data;
+  const data = await res.json();
+  console.log(data);
+  return data;
 };

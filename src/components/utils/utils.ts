@@ -151,8 +151,8 @@ export const mockProducts = {
 export const howSteps: StepData[] = [
   {
     image: "/LandingImage/Steps/Step1Creation.svg",
-    alt: "Diseñá tu fragancia",
-    text: "Crea tu propio perfume.",
+    alt: "Creá tu fragancia",
+    text: "Creá tu propio perfume.",
   },
   {
     image: "/LandingImage/Steps/Step2Supplier.svg",
@@ -162,7 +162,7 @@ export const howSteps: StepData[] = [
   {
     image: "/LandingImage/Steps/Step3Materials.svg",
     alt: "Recibí tus esencias",
-    text: "Recibi tus insgredientes.",
+    text: "Recibí tus ingredientes.",
   },
 ];
 /*################################FAQ-LANDING#############################################################*/
@@ -247,7 +247,7 @@ export const suppliers: Supplier[] = [
 
 /*################################ - MENSAJES QUIMI - #############################################################*/
 export const messagesLanding = [
- "¡Bienvenide al mundo de los aromas!",
+ "¡Bienvenidos al mundo de los aromas!",
   "Tu esencia perfecta está cerca...",
   "Explorá las notas... yo cuido la magia",
   "Tu fragancia habla por vos, ¡creala!"
@@ -299,3 +299,76 @@ export const backgroundByFamily: Record<string, string> = {
   "Amaderada": "/quiz/familia-fondos/amaderadaBack.png",
   "Oriental": "/quiz/familia-fondos/orientalBack.png",
 }
+
+
+/*################################ - QUIZ - #############################################################*/
+
+export const familiesQuiz = [
+  {
+    id: 1,
+    name: "Amaderada",
+    image: "/mascotas/amaderada.png",
+    description: "Profunda, misteriosa y cálida. Ideal para quienes aman la elegancia natural."
+  },
+  {
+    id: 2,
+    name: "Floral",
+    image: "/mascotas/floral.png",
+    description: "Delicada, romántica y luminosa. Un bouquet que celebra la sensibilidad."
+  },
+  {
+    id: 3,
+    name: "Fresca",
+    image: "/mascotas/fresca.png",
+    description: "Pura, revitalizante y ligera. Para quienes irradian energía."
+  },
+  {
+    id: 4,
+    name: "Oriental",
+    image: "/mascotas/oriental.png",
+    description: "Exótica, intensa y envolvente. Perfecta para almas magnéticas."
+  }
+]
+
+ export const messages = [
+    [
+      "Las familias olfativas son grupos de perfumes con aromas parecidos porque comparten ingredientes clave.",
+    ],    [
+      "Te ayudan a entender qué fragancias van con vos. ¡Es como tener una brújula aromática!"
+    ],
+    [
+      "Cada familia tiene su personalidad. Algunas son frescas y chispeantes, otras cálidas y misteriosas.",
+    ],
+        [
+      "Explorarlas es descubrir un poco más sobre vos."
+    ]
+  ]
+
+
+export const PROVIDER_TABS = [
+  { label: "Home", value: "home" },
+  { label: "Productos", value: "products" },
+  { label: "Tipo de productos", value: "types" },
+  
+]
+
+export const STATUS_OPTIONS = [
+  { label: "Todos", value: "all" },
+  { label: "Aprobados", value: "approved" },
+  { label: "Pendientes", value: "pending" },
+] as const;
+
+
+export const attributesProduct = [
+  { label: "Vegano", value: "vegano" },
+  { label: "Hipoalergénico", value: "hipo" },
+  { label: "Sin parabenos", value: "paraben" },
+];
+
+
+export const providerMenuItems = [
+  { href: "/home", label: "Home" },
+  { href: "/subirProducto", label: "Subir Producto" },
+  { href: "/cuenta", label: "Mi Cuenta" },
+  { href: "/logout", label: "Cerrar Sesión" },
+];

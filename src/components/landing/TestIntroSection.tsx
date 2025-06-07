@@ -78,7 +78,7 @@ export default function TestIntroSection() {
                     </p>
                     <Button
                         label="QUIERO TOMAR EL TEST"
-                        onClick={() => console.log("Ir al test")}
+                        href="/quiz"
                         colorClass="bg-violeta text-white hover:bg-[#7a2f96]"
                     />
                 </div>

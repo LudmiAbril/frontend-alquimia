@@ -18,7 +18,7 @@ export default function FragranceIntroSection() {
 
         <Button
           label="CREAR MI PERFUME"
-          onClick={() => console.log("click")}
+        href="/createParfum"
           colorClass="bg-[var(--violeta)] text-[var(--hueso)] hover:bg-[var(--hueso)] group"
         />
 

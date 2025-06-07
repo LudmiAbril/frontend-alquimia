@@ -7,8 +7,10 @@ import Link from "next/link";
 import { saveSessionData } from "../utils/session";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useRouter } from "next/dist/client/components/navigation";
 
 export default function LoginForm({ toggleForm }: FormToggleProps) {
+  const router = useRouter(); // 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +23,7 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5035/cuenta/login-json", {
+      const response = await fetch("http://localhost:5035/account/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -33,9 +35,10 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
         setError(data?.mensaje || "Credenciales incorrectas.");
         return;
       }
-
       saveSessionData(data.token);
-      window.location.reload();
+
+      // Redirección según rol
+      
     } catch {
       setError("No se pudo conectar con el servidor.");
     } finally {

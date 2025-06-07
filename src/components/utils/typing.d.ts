@@ -4,6 +4,7 @@ export interface ButtonProps {
   label: string;
   onClick?: () => void;
   colorClass?: string;
+href?: string
 
 }
 
@@ -110,7 +111,7 @@ export interface PropsDynamic {
   selectedOption: string
   onSelect: (option: string) => void
 }
-export type VisualType = "cards" | "grid" | "list" | "buttons" | "bubbles";
+export type VisualType = "cards" | "grid" | "list" | "two" | "bubbles";
 
 export interface QuestionDTO {
   Id: number
@@ -136,10 +137,19 @@ export interface PropsResult {
   answers: AnswerDTO[]
   onReset: () => void
 }
- export interface FamilyResult {
-  nombre: string;
-  descripcion: string;
-  imagen: string | null;
+export interface FormulaResult {
+  TopNote: string
+  HeartNote: string
+  BaseNote: string
+}
+
+export interface FamilyResult {
+  nombre: string
+  descripcion: string
+  imagen: string | null
+  formulas?: FormulaResult[]
+  subfamilias?: string[]
+  concentracion?: string
 }
 
 
@@ -256,6 +266,87 @@ export interface PropsInput {
   setQuery: (q: string) => void
 }
 
+
+export interface Provider {
+  id: number
+  name: string
+  description: string
+  stock: number
+}
+
+export interface ProviderDTO {
+  Id: number
+  Nombre: string
+  Email: string
+  EsAprobado: boolean
+}
+
+export const API_ROUTES = {
+  LIST_PROVIDERS: "http://localhost:5035/admin/listProviders",
+  APPROVE_PROVIDER: (id: number) => `http://localhost:5035/admin/approveProvider/${id}`,
+  DEACTIVATE_PROVIDER: (id: number) => `http://localhost:5035/admin/deactivateProvider/${id}`,
+};
+
+export interface StatCircleCardProps {
+  icon: React.ReactNode;
+  value: number;
+  label: string;
+}
+
+export interface ProviderStatsProps {
+  total: number
+  approved: number
+  pending: number
+}
+
+
+export interface ProviderTableProps {
+  providers: ProviderDTO[]
+  loading: boolean
+  onProviderClick: (provider: ProviderDTO) => void
+  onApprove: (id: number) => Promise<void>
+  onDeactivate: (id: number) => Promise<void>
+}
+
+
+export interface ProviderDetailDialogProps {
+  provider: ProviderDTO | null
+  open: boolean
+  onClose: () => void
+  onApprove: (id: number) => void
+  onDeactivate: (id: number) => void
+}
+
+
+export interface ProviderFiltersProps {
+  searchTerm: string
+  setSearchTerm: Dispatch<SetStateAction<string>>
+  statusFilter: "all" | "approved" | "pending"
+  setStatusFilter: Dispatch<SetStateAction<"all" | "approved" | "pending">>
+  fetchProviders: () => void
+}
+
+
+export interface Option {
+  label: string;
+  value: string;
+}
+
+ export interface PropsSelect {
+  options: Option[];
+  selected: string[];
+  onChange: (selected: string[]) => void;
+  multiple?: boolean;
+ }
+/***CREAR PERFUME */
+export interface NoteInfoResponse {
+  Id: number;
+  Name: string;
+  Family: string;
+  Sector: string;
+  Description: string;
+  Duration: string;
+}
 /**Interfaz de FastAPI*/
 export interface PerfumeNotesResult {
   perfume: string;

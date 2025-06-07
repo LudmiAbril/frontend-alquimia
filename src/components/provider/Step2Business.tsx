@@ -68,6 +68,14 @@ export default function Paso2Empresa({ onContinue, onBack, formData, setFormData
             <p className="text-sm text-gray-600 mb-6 text-center">
               Completá los datos para mostrar tu propuesta.
             </p>
+            
+             {/* Indicador de progreso */}
+          <div className="flex justify-center gap-4 mb-6">
+            <div className="w-4 h-4 bg-[var(--violeta)] rounded-full" />
+            <div className="w-4 h-4 bg-[var(--violeta)] rounded-full" />
+            <div className="w-4 h-4 bg-gray-300 rounded-full" />
+            <div className="w-4 h-4 bg-gray-300 rounded-full" />
+          </div>
 
             <div className="space-y-4">
               <div>

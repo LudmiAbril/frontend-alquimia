@@ -45,6 +45,7 @@ const CreatePerfumeSteps = () => {
     intensity: { Id: 0, Name: "", Category: "", Description: "" }
   });
   const [resultFormula, setResultFormula] = useState<GetFormulaResponse>({
+    Id: 0,
     IdCreador: 0,
     ConcentracionAgua: 0,
     ConcentracionAlcohol: 0,
@@ -97,7 +98,7 @@ const CreatePerfumeSteps = () => {
   };
 
   return (
-    <SectionWrapper className="bg-[#f9f4f1]">
+    <SectionWrapper className="bg-[#E8E3DE]">
       {currentStep === 0 ? (
         <Welcome onNext={advanceStep} />
       ) : currentStep < createSteps.length - 1 ? (

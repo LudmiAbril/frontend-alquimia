@@ -3,12 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { obtenerNotasPorPaso } from "../../services/notaService";
 import { getIntensities } from "@/services/createPerfumeService";
+import { perfumeData } from "./ResultCard";
 
 // ---------------------- INTERFACES ----------------------
 interface LibraryProps {
   currentStep: number;
   onConfirm: () => void;
   onSelectIntensity: (intensity: Intensity) => void;
+  currentPerfume: perfumeData;
 }
 
 interface Note {
@@ -44,7 +46,7 @@ interface IntensityContainerProps {
 }
 
 // ---------------------- COMPONENTE PRINCIPAL ----------------------
-const Library = ({ currentStep, onConfirm, onSelectIntensity }: LibraryProps) => {
+const Library = ({ currentStep, onConfirm, onSelectIntensity, currentPerfume }: LibraryProps) => {
   const isNoteSelectionStep = currentStep >= 1 && currentStep <= 3;
 
   const title = isNoteSelectionStep ? "Biblioteca de notas" : "Intensidad";
@@ -78,7 +80,7 @@ const Library = ({ currentStep, onConfirm, onSelectIntensity }: LibraryProps) =>
       {/* contenedor de contenido */}
       <div className="max-h-full w-full">
         {isNoteSelectionStep ? (
-          <NotesContainer step={currentStep} />
+          <NotesContainer currentStep={currentStep} currentPerfume={currentPerfume} />
         ) : (
           <IntensityContainer
             onConfirm={onConfirm}
@@ -92,14 +94,19 @@ const Library = ({ currentStep, onConfirm, onSelectIntensity }: LibraryProps) =>
 
 export default Library;
 
+
+interface NotesContainerProps {
+  currentStep: number;
+  currentPerfume: perfumeData;
+}
 // ---------------------- NOTAS ----------------------
-export const NotesContainer = ({ step }: { step: number }) => {
+export const NotesContainer = ({ currentStep, currentPerfume }: NotesContainerProps) => {
   const [groupedNotes, setGroupedNotes] = useState<NoteFamily[]>([]);
 
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const data = await obtenerNotasPorPaso(step);
+        const data = await obtenerNotasPorPaso(currentStep);
         console.log("Data desde la API:", data);
         const reducedNotes = data.map((grupo: { Family: any; Notes: any[]; }) => ({
           family: grupo.Family,
@@ -116,47 +123,66 @@ export const NotesContainer = ({ step }: { step: number }) => {
     };
 
     fetchNotes();
-  }, [step]);
+  }, [currentStep]);
+
+  const usedNoteIds = new Set([
+    ...currentPerfume?.baseNotes.map((note) => note.id) ?? [],
+    ...currentPerfume?.heartNotes.map((note) => note.id) ?? [],
+    ...currentPerfume?.topNotes.map((note) => note.id) ?? [],
+  ]);
 
   return (
     <div className="overflow-y-scroll max-h-[31rem] mt-6 w-full flex flex-col">
       {groupedNotes.length > 0 ? (
-        groupedNotes.map(({ family, notes }, index) => (
-          <div key={`${family}-${index}`} className="flex flex-col mb-[2.43rem]">
-            <div className="flex items-center gap-2 mb-2 fuente-principal">
-              <p className="text-[var(--gris3)] text-[20px] font-medium">
-                {family}
-              </p>
-              <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">
-                i
-              </span>
-            </div>
+        groupedNotes.map(({ family, notes }, index) => {
+          const filteredNotes = notes.filter((note) => !usedNoteIds.has(note.id));
+          return (
+            <div key={`${family}-${index}`} className="flex flex-col mb-[2.43rem]">
+              <div className="flex items-center gap-2 mb-2 fuente-principal">
+                <p className="text-[var(--gris3)] text-[20px] font-medium">
+                  {family}
+                </p>
+                <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">
+                  i
+                </span>
+              </div>
 
-            <div className="w-100 flex flex-wrap gap-[25px]">
-              {notes.length > 0 ? (
-                notes.map((note) => (
-                  <div
-                    key={note.id}
-                    draggable
-                    onDragStart={(e) =>
-                      e.dataTransfer.setData("text/plain", JSON.stringify({ id: note.id, name: note.name }))}
-                    className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
-                  >
-                    {note.name}
-                  </div>
-                ))
-              ) : (
-                <p>No hay notas para mostrar.</p>
-              )}
+      <div className="w-100 flex flex-wrap gap-[25px]">
+  {filteredNotes.length > 0 ? (
+    filteredNotes.map((note) => (
+      <div
+        key={note.id}
+        draggable
+        onDragStart={(e) =>
+          e.dataTransfer.setData(
+            "application/json",
+            JSON.stringify({
+              id: note.id,
+              name: note.name,
+              family: family, 
+            })
+          )
+        }
+        className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
+      >
+        {note.name}
+      </div>
+    ))
+  ) : (
+    <p>No hay notas para mostrar.</p>
+  )}
+</div>
+
             </div>
-          </div>
-        ))
+          );
+        })
       ) : (
         <p>Cargando notas...</p>
       )}
-    </div >
+    </div>
   );
 };
+
 
 // ---------------------- INTENSIDAD ----------------------
 export const IntensityContainer = ({
@@ -183,32 +209,6 @@ export const IntensityContainer = ({
     fetchIntensities();
   }, []);
 
-
-
-  // const intensities: Intensity[] = [
-  //   {
-  //     id: 1,
-  //     name: "low",
-  //     nameToShow: "Baja",
-  //     type: "Body Splash",
-  //     description: "dura alrededor de 1-3 horas y tiene poca proyección",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "medium",
-  //     nameToShow: "Media",
-  //     type: "Eau De Toilette",
-  //     description: "dura alrededor de 3-5 horas y tiene buena proyección",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "high",
-  //     nameToShow: "Alta",
-  //     type: "Eau De Parfum",
-  //     description: "dura alrededor de 5-8 horas y tiene buena proyección.",
-  //   },
-  // ];
-
   return (
     <div className="mt-[3rem]">
       <div className="flex flex-col gap-[46px] items-center text-white">
@@ -233,11 +233,16 @@ export const IntensityContainer = ({
         })}
       </div>
       <button
-        className="bg-[var(--violeta)] px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase cursor-pointer"
-        onClick={onConfirm}
+        disabled={!selectedIntensity}
+        className={`px-8 py-2 rounded-[10px] text-white text-xs mt-[3rem] uppercase transition-colors duration-200 ${selectedIntensity
+            ? "bg-[var(--violeta)] cursor-pointer"
+            : "bg-gray-400"
+          }`}
+        onClick={selectedIntensity ? onConfirm : undefined}
       >
         confirmar
       </button>
+
     </div>
   );
 };
