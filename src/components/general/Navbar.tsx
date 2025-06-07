@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession } from "@/hooks/useSession";
@@ -22,16 +21,16 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`absolute top-0 left-0 z-[9999] w-full bg-transparent px-10 pt-5 flex justify-between items-center transition-colors duration-200 ${
+        className={`absolute top-0 left-0 z-[9999] w-full bg-transparent px-10  flex justify-between items-center transition-colors duration-200 ${
           isHome ? "text-white" : "text-[var(--violeta)]"
         }`}
       >
         <Image
           src={isHome ? "/Logo/logotipo.svg" : "/Logo/LogotipoVioleta.svg"}
           alt="Logo"
-          width={62}
-          height={72}
-          className="w-[62px]"
+          width={75}
+          height={87}
+          className="w-[75px] h-[87px] object-contain"
         />
 
         <div className="flex items-center gap-[50px]">

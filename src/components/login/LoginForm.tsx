@@ -7,10 +7,8 @@ import Link from "next/link";
 import { saveSessionData } from "../utils/session";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useRouter } from "next/dist/client/components/navigation";
 
 export default function LoginForm({ toggleForm }: FormToggleProps) {
-  const router = useRouter(); // 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -23,6 +21,7 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
     setLoading(true);
 
     try {
+      // Paso 1: login
       const response = await fetch("http://localhost:5035/account/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,10 +34,41 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
         setError(data?.mensaje || "Credenciales incorrectas.");
         return;
       }
-      saveSessionData(data.token);
 
-      // Redirección según rol
-      
+      const token = data.token;
+      saveSessionData(token);
+
+      // Paso 2: obtener perfil con el token
+      const perfilResponse = await fetch("http://localhost:5035/account/perfil", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const perfil = await perfilResponse.json();
+
+      if (!perfilResponse.ok) {
+        setError("Error al obtener perfil del usuario.");
+        return;
+      }
+
+      // Paso 3: redirigir según rol
+      const rol = perfil.rol;
+
+      switch (rol) {
+        case "Admin":
+          window.location.href = "/admin/home";
+          break;
+        case "Proveedor":
+          window.location.href = "/home";
+         break;
+        case "Creador":
+          window.location.href = "/home/user";
+          break;
+        default:
+          window.location.href = "/home/user";
+          break;
+      }
     } catch {
       setError("No se pudo conectar con el servidor.");
     } finally {

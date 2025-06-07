@@ -10,8 +10,10 @@ export default function SuppliersSection() {
             <h2 className="text-center text-2xl font-bold text-[var(--gris4)] mt-6">
                 TODOS LOS INGREDIENTES, A UN HECHIZO DE DISTANCIA
             </h2>
-            <p className="text-[var(--gris4)] mt-10 text-left max-w-4xl mx-auto">
-                Desde envases encantados hasta esencias únicas, encontrá todo lo que necesitás para dar vida a tu perfume. Conoce a nuestros proveedores
+            <p className="text-[var(--gris4)] mt-10 text-center max-w-4xl mx-auto">
+                Desde envases encantados hasta esencias únicas, encontrá todo lo que necesitás para dar vida a tu perfume.
+                <br />
+                Conocé a nuestros proveedores
             </p>
 
             <SupplierCarousel />
