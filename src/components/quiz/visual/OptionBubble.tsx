@@ -11,18 +11,24 @@ export default function OptionBubble({ question, selectedOption, onSelect }: Pro
     setInternalSelected(selectedOption)
   }, [selectedOption])
 
+  const isValidUrl = (url: string | undefined) =>
+    !!url && (url.startsWith("/") || url.startsWith("http"))
+
   return (
     <div className="flex flex-wrap justify-center gap-8 mt-8">
       {question.Opciones.map((opt) => {
         const isSelected = internalSelected === opt.Letra
+        const { ImagenUrl, Texto, Letra } = opt
+
+        console.log("ImagenUrl:", ImagenUrl)
 
         return (
           <button
-            key={opt.Letra}
+            key={Letra}
             type="button"
             onClick={() => {
-              setInternalSelected(opt.Letra)
-              onSelect(opt.Letra)
+              setInternalSelected(Letra)
+              onSelect(Letra)
             }}
             className={`w-32 h-32 rounded-full flex flex-col items-center justify-center text-center text-sm font-semibold cursor-pointer transition-all duration-300 overflow-hidden
               ${
@@ -31,17 +37,17 @@ export default function OptionBubble({ question, selectedOption, onSelect }: Pro
                   : "bg-purple-200/30 text-gray-800 hover:bg-purple-300 hover:scale-105"
               }`}
           >
-            {opt.ImagenUrl && (
+            {isValidUrl(ImagenUrl) && (
               <div className="relative w-16 h-16 mb-2">
                 <Image
-                  src={opt.ImagenUrl}
-                  alt={opt.Texto}
+                  src={ImagenUrl!}
+                  alt={Texto}
                   fill
                   className="object-contain rounded-full"
                 />
               </div>
             )}
-            <span className="px-2">{opt.Texto}</span>
+            <span className="px-2">{Texto}</span>
           </button>
         )
       })}

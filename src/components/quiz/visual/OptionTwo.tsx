@@ -16,6 +16,9 @@ export default function OptionTwo({ question, selectedOption, onSelect }: PropsD
     }
   }, [selectedOption])
 
+  const isValidUrl = (url: string | undefined) =>
+    !!url && (url.startsWith("/") || url.startsWith("http"))
+
   const validOptions = question.Opciones.filter(
     (opt) => opt.Letra?.trim() && opt.Texto?.trim()
   )
@@ -62,10 +65,10 @@ export default function OptionTwo({ question, selectedOption, onSelect }: PropsD
             </div>
 
             {/* Imagen rectangular visible siempre */}
-            {opt.ImagenUrl && (
+            {isValidUrl(opt.ImagenUrl) && (
               <div className="relative w-full h-[140px] mb-4 rounded-2xl overflow-hidden border-2 border-[var(--violeta)] shadow-md z-10">
                 <Image
-                  src={opt.ImagenUrl}
+                  src={opt.ImagenUrl!}
                   alt={opt.Texto}
                   fill
                   className="object-cover transition-transform duration-300 group-hover:brightness-105"
