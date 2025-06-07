@@ -17,6 +17,44 @@ export interface ProductCardProps {
   slug: string;
 }
 
+export interface ProductDTO {
+  id: number;
+  name: string;
+  description: string;
+  productType: {
+    id: number;
+    description: string;
+  };
+  provider: {
+    id: number;
+    nombre: string;
+    email: string;
+    esAprobado: boolean;
+  };
+  supplierName: string | null;
+  variants: {
+    id: number;
+    volume: number;
+    unit: string;
+    price: number;
+    stock: number;
+    isHypoallergenic: boolean | null;
+    isVegan: boolean | null;
+    isParabenFree: boolean | null;
+  }[];
+}
+
+export interface ProductVariantDTO {
+  id: number;
+  volume: number;
+  unit: string;
+  price: number;
+  stock: number;
+  isHypoallergenic: boolean | null;
+  isVegan: boolean | null;
+  isParabenFree: boolean | null;
+}
+
 
 export type PageProps = {
   params: {
@@ -272,27 +310,6 @@ export interface ProviderDTO {
   Nombre: string
   Email: string
   EsAprobado: boolean
-}
-
-export interface ProductDTO {
-  id: number;
-  name: string;
-  description: string;
-  productType: {
-    id: number;
-    description: string;
-  };
-  supplierName: string | null;
-  variants: {
-    id: number;
-    volume: number;
-    unit: string;
-    price: number;
-    stock: number;
-    isHypoallergenic: boolean;
-    isVegan: boolean | null;
-    isParabenFree: boolean | null;
-  }[];
 }
 
 

@@ -13,10 +13,10 @@ export default function NotFound() {
 
         <Image
           src="/404.png"
-          alt="Alphonse en modo alquimista"
+          alt="Quimi triste"
           width={192}
           height={192}
-          className="mb-6 shadow-md rounded-lg"
+          className="mb-6 "
         />
 
         <h1 className="text-4xl font-bold text-[#9444B6] mb-4">¡Oops! No encontramos lo que buscás</h1>

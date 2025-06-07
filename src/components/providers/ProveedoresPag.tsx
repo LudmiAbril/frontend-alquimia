@@ -6,27 +6,43 @@ import SidebarFilter from "./SidebarFilter";
 import ProductCard from "./CardProducto";
 import Button from "../general/Button";
 import { ProductDTO } from "../utils/typing";
+import Image from "next/image";
+import { getCategoryLabel } from "../utils/getcategorylabel";
 
 export default function ProovedoresPage() {
   const [groupedProducts, setGroupedProducts] = useState<Record<string, ProductDTO[]>>({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch("http://localhost:5035/product/all");
-        const data: ProductDTO[] = await response.json();
 
-        // Agrupar productos por la descripción del tipo
+        if (!response.ok) {
+          console.error("❌ Error al hacer fetch:", response.statusText);
+          setError(true);
+          return;
+        }
+
+        const data: ProductDTO[] = await response.json();
+        console.log("✅ Productos recibidos:", data);
+
         const grouped = data.reduce((acc, product) => {
-          const category = product.productType?.description?.trim() || "Otros";
+const category = getCategoryLabel(product);
+
           if (!acc[category]) acc[category] = [];
           acc[category].push(product);
           return acc;
         }, {} as Record<string, ProductDTO[]>);
 
+        console.log("📦 Agrupados por categoría:", grouped);
         setGroupedProducts(grouped);
-      } catch (error) {
-        console.error("Error al cargar productos:", error);
+      } catch (err) {
+        console.error("💥 Error inesperado al cargar productos:", err);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -46,7 +62,24 @@ export default function ProovedoresPage() {
             <SidebarFilter />
 
             <div className="space-y-12">
-              {Object.entries(groupedProducts).map(([title, products], idx) => (
+              {loading && (
+                <div className="flex flex-col items-center justify-center py-20 opacity-80">
+                  <Image src="/mascotas/lookingQuimi.png" alt="Cargando productos..." width={140} height={140} />
+                  <p className="mt-4qtext-sm text-gray-600">Cargando productos...</p>
+                </div>
+              )}
+
+              {error && (
+                <p className="text-center text-red-500">
+                  Ocurrió un error al cargar los productos. Intentá nuevamente más tarde.
+                </p>
+              )}
+
+              {!loading && !error && Object.keys(groupedProducts).length === 0 && (
+                <p className="text-center text-gray-500">No se encontraron productos.</p>
+              )}
+
+              {!loading && !error && Object.entries(groupedProducts).map(([title, products], idx) => (
                 <div key={`${title}-${idx}`}>
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold">{title}</h2>
@@ -59,14 +92,17 @@ export default function ProovedoresPage() {
                         .replace(/\s+/g, "-")
                         .replace(/[^a-z0-9\-]/g, "");
 
-                      return (
-                    <ProductCard
-  key={product.id ? `product-${product.id}` : `${product.name}-${Math.random()}`}
+                      const price = product.variants?.[0]?.price || 0;
 
-                          name={product.name}
-                          price={product.variants?.[0]?.price || 0}
-                          category={product.productType?.description || "Otros"}
-                          image={"/default-product.jpg"}
+                      return (
+                        <ProductCard
+                          key={product.id ? `product-${product.id}` : `${product.name}-${Math.random()}`}
+                          name={product.name || "Producto sin nombre"}
+                          price={price}
+             category={getCategoryLabel(product)}
+
+
+                          image="/default-product.jpg"
                           slug={slug}
                         />
                       );
@@ -82,6 +118,17 @@ export default function ProovedoresPage() {
           <Button label={"RECLAMÁ TU CÓDIGO"} />
         </div>
       </main>
+
+      {/* Panel de debug visual */}
+      {!loading && !error && (
+        <div className="fixed bottom-0 right-0 z-50 bg-black text-white text-xs p-3 max-w-xs max-h-[200px] overflow-auto opacity-70 rounded-tl-xl">
+          <p className="font-bold mb-1">🧪 Debug:</p>
+          <p>Total categorías: {Object.keys(groupedProducts).length}</p>
+          {Object.entries(groupedProducts).map(([cat, prods]) => (
+            <p key={cat}>• {cat}: {prods.length}</p>
+          ))}
+        </div>
+      )}
     </SectionWrapper>
   );
 }
