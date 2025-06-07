@@ -328,4 +328,13 @@ export interface Option {
   selected: string[];
   onChange: (selected: string[]) => void;
   multiple?: boolean;
+ }
+/***CREAR PERFUME */
+export interface NoteInfoResponse {
+  Id: number;
+  Name: string;
+  Family: string;
+  Sector: string;
+  Description: string;
+  Duration: string;
 }
