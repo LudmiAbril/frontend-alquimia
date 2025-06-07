@@ -21,10 +21,7 @@ export interface ProductDTO {
   id: number;
   name: string;
   description: string;
-  productType: {
-    id: number;
-    description: string;
-  };
+productType: string; 
   provider: {
     id: number;
     nombre: string;
@@ -44,40 +41,7 @@ export interface ProductDTO {
   }[];
 }
 
-export interface ProductVariantDTO {
-  id: number;
-  volume: number;
-  unit: string;
-  price: number;
-  stock: number;
-  isHypoallergenic: boolean | null;
-  isVegan: boolean | null;
-  isParabenFree: boolean | null;
-}
 
-
-export type PageProps = {
-  params: {
-    slug: string;
-  };
-};
-
-export interface Product {
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-}
-
-export interface ProductDetailProps {
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-  supplier: string;
-  mainCategory: string;
-  subCategory?: string;
-}
 
 /*LANDING*/
 export interface Supplier {

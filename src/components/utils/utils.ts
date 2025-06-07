@@ -40,12 +40,13 @@ export const bestSellingProducts = [
 ];
 
 export const productCategories = [
-  "Esencias",
+  "Esencia",
   "Packaging",
-  "Envases",
-  "Alcoholes",
-  "Aguas Destiladas",
+  "Envase",
+  "Alcohol",
+  "Agua Destilada",
 ];
+
 
 export const mockProducts = {
   "Más vendidos": [

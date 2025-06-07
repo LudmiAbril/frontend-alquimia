@@ -9,18 +9,25 @@ export default function ProductCard({ name, price, category, image, slug }: Prod
         src={image}
         alt={name ? `Imagen de ${name}` : "Producto sin nombre"}
         className="h-32 object-contain mx-auto mb-2"
-        height={32}
-        width={100}
+        width={120}
+        height={120}
+        priority
       />
-   <div className="text-sm font-semibold">{name || "Producto sin nombre"}</div>
-<div className="text-xs text-gray-500">{category || "Otros"}</div>
-<div className="text-md font-bold">
-  {price > 0 ? `$${price.toLocaleString()}` : "$Precio no disponible"}
-</div>
 
+      <div>
+        <div className="text-sm font-semibold text-black">
+          {name || "Producto sin nombre"}
+        </div>
+        <div className="text-xs text-gray-500">
+          {category || "Otros"}
+        </div>
+        <div className="text-md font-bold mt-1">
+          {price > 0 ? `$${price.toLocaleString()}` : "$Precio no disponible"}
+        </div>
+      </div>
 
-      <Link href={`/proveedores/${slug}`}>
-        <span className="mt-2 text-[#4a7f5c] font-semibold hover:underline text-sm cursor-pointer">
+      <Link href={`/proveedores/${slug}`} className="mt-2">
+        <span className="text-[#4a7f5c] font-semibold hover:underline text-sm cursor-pointer">
           Ver más
         </span>
       </Link>
