@@ -262,6 +262,7 @@ export interface Provider {
   id: number
   name: string
   description: string
+  stock: number
 }
 
 export interface ProviderDTO {
@@ -314,4 +315,17 @@ export interface ProviderFiltersProps {
   statusFilter: "all" | "approved" | "pending"
   setStatusFilter: Dispatch<SetStateAction<"all" | "approved" | "pending">>
   fetchProviders: () => void
+}
+
+
+export interface Option {
+  label: string;
+  value: string;
+}
+
+ export interface PropsSelect {
+  options: Option[];
+  selected: string[];
+  onChange: (selected: string[]) => void;
+  multiple?: boolean;
 }

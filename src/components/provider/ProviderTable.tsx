@@ -11,11 +11,12 @@ export default function ProviderTable({ providers }: Props) {
   return (
     <table className="w-full bg-white rounded-xl border text-sm overflow-hidden">
       <thead>
-        <tr className="bg-[#f9f9f9] text-left text-[var(--gris4)]">
-          <th className="py-3 px-4">ID</th>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th className="text-center">Acciones</th>
+        <tr className="bg-[#f9f9f9] text-center text-[var(--gris4)]">
+          <th className="py-3 px-4 ">ID</th>
+          <th >Nombre</th>
+          <th >Descripción</th>
+          <th >Stock</th>
+          <th >Acciones</th>
         </tr>
       </thead>
       <tbody>
