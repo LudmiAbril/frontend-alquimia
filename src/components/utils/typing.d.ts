@@ -137,10 +137,19 @@ export interface PropsResult {
   answers: AnswerDTO[]
   onReset: () => void
 }
- export interface FamilyResult {
-  nombre: string;
-  descripcion: string;
-  imagen: string | null;
+export interface FormulaResult {
+  TopNote: string
+  HeartNote: string
+  BaseNote: string
+}
+
+export interface FamilyResult {
+  nombre: string
+  descripcion: string
+  imagen: string | null
+  formulas?: FormulaResult[]
+  subfamilias?: string[]
+  concentracion?: string
 }
 
 
