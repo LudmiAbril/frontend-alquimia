@@ -8,16 +8,19 @@ interface CustomButtonProps {
   children: ReactNode
   variant?: "contained" | "outlined"
   color?: "primary" | "error"
+  className?: string
 }
 
 export default function CustomButton({
   onClick,
   children,
+  className,
   variant = "contained",
   color = "primary",
 }: CustomButtonProps) {
   return (
     <Button
+     className={className} 
       onClick={onClick}
       variant={variant}
       color={color}

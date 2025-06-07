@@ -343,3 +343,18 @@ export const STATUS_OPTIONS = [
   { label: "Aprobados", value: "approved" },
   { label: "Pendientes", value: "pending" },
 ] as const;
+
+
+export const attributesProduct = [
+  { label: "Vegano", value: "vegano" },
+  { label: "Hipoalergénico", value: "hipo" },
+  { label: "Sin parabenos", value: "paraben" },
+];
+
+
+export const providerMenuItems = [
+  { href: "/home", label: "Home" },
+  { href: "/subirProducto", label: "Subir Producto" },
+  { href: "/cuenta", label: "Mi Cuenta" },
+  { href: "/logout", label: "Cerrar Sesión" },
+];

@@ -1,3 +1,5 @@
+"use client";
+
 import Hero from "@/components/landing/Hero";
 import DiscoverSection from "@/components/landing/DiscoverSection";
 import HowItWorks from "@/components/landing/HowItWorks";
