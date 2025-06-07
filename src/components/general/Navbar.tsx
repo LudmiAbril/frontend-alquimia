@@ -39,7 +39,7 @@ export default function Navbar() {
             <Link href="/">Home</Link>
             <Link href="/createParfum">Crear perfume</Link>
             <Link href="/quiz">Descubrir</Link>
-            <Link href="/providers">Proveedores</Link>
+            <Link href="/proovedores">Proveedores</Link>
           </nav>
 
           {username ? (

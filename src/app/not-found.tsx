@@ -21,11 +21,11 @@ export default function NotFound() {
 
         <h1 className="text-4xl font-bold text-[#9444B6] mb-4">¡Oops! No encontramos lo que buscás</h1>
         <p className="text-gray-600 text-lg mb-8">
-          Parece que esta fragancia aún no existe. Volvé a explorar la biblioteca de proveedores.
+         A veces la magia lleva tiempo, probá más tarde.
         </p>
 
-        <Link href="/proveedores">
-          <Button label="Volver a proveedores" />
+        <Link href="/page">
+          <Button label="Volver a Inicio" />
         </Link>
       </div>
     </SectionWrapper>

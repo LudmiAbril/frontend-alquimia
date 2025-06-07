@@ -14,7 +14,9 @@ export interface ProductCardProps {
   price: number;
   category: string;
   image: string;
+  slug: string;
 }
+
 
 export type PageProps = {
   params: {
@@ -271,6 +273,29 @@ export interface ProviderDTO {
   Email: string
   EsAprobado: boolean
 }
+
+export interface ProductDTO {
+  id: number;
+  name: string;
+  description: string;
+  productType: {
+    id: number;
+    description: string;
+  };
+  supplierName: string | null;
+  variants: {
+    id: number;
+    volume: number;
+    unit: string;
+    price: number;
+    stock: number;
+    isHypoallergenic: boolean;
+    isVegan: boolean | null;
+    isParabenFree: boolean | null;
+  }[];
+}
+
+
 
 export const API_ROUTES = {
   LIST_PROVIDERS: "http://localhost:5035/admin/listProviders",
