@@ -20,9 +20,10 @@ export default function ProviderTable({ providers }: Props) {
         </tr>
       </thead>
       <tbody>
-        {providers.map((p) => (
-          <ProviderRow key={p.id} provider={p} />
-        ))}
+       {providers.map((p, index) => (
+  <ProviderRow key={p.id ?? `provider-${index}`} provider={p} />
+))}
+
       </tbody>
     </table>
   )
