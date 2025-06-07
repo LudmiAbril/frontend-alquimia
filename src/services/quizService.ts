@@ -6,7 +6,7 @@ const visualMap: Record<number, VisualType> = {
   6: "buttons", 7: "grid", 8: "cards", 9: "list", 10: "bubbles",
 }
 
-const URL = "http://localhost:5035/quiz/preguntas"
+const URL = "http://localhost:5035/quiz/questions"
 
 export const fetchQuestions = async (): Promise<QuestionDTO[]> => {
   const res = await fetch(URL)

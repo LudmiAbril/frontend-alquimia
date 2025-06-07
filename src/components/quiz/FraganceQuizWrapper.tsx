@@ -73,7 +73,7 @@ export default function FragranceQuizWrapper() {
   }
 
   return (
-    <div className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat bg-white flex flex-col items-center justify-center px-6 py-12">
       {currentStep === "landing" && <Welcome onStart={startQuiz} loading={loading} />}
       {currentStep === "quiz" && (
         <CurrentStep
