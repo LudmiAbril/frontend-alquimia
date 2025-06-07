@@ -13,13 +13,13 @@ const ConfirmBottleDesignModal = ({ onClose, onConfirm }: ConfirmBottleDesignMod
                 <div className="flex justify-center mt-6 gap-4">
                     <button
                         onClick={onClose}
-                        className="bg-blue-600  text-white px-4 py-2 rounded transition"
+                        className="border border-[var(--violeta)]  text-[var(--violeta)] px-4 py-2 rounded rounded-[10px] transition"
                     >
                         Volver
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="bg-[var(--violeta)]  hover:bg-[var(--lila)] text-white px-4 py-2 rounded transition"
+                        className="bg-[var(--violeta)]  hover:bg-[var(--lila)] text-white px-4 py-2 rounded rounded-[10px] transition"
                     >
                         Ir a Proveedores
                     </button>
