@@ -16,7 +16,8 @@ export default function ProovedoresPage() {
   const [error, setError] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc" | "popular">("popular");
-const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -42,13 +43,22 @@ const [searchTerm, setSearchTerm] = useState("");
     fetchProducts();
   }, []);
 
-const finalGrouped = Object.entries(groupedProducts).reduce((acc, [category, products]) => {
-  if (selectedCategory && category !== selectedCategory) return acc;
- const filtered = products.filter(p =>
-    p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.productType.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const toggleCategory = (cat: string) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [cat]: !prev[cat],
+    }));
+  };
+
+  const finalGrouped = Object.entries(groupedProducts).reduce((acc, [category, products]) => {
+    if (selectedCategory && category !== selectedCategory) return acc;
+
+    const filtered = products.filter((p) =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.productType.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     let sorted = [...filtered];
     if (sortOrder === "asc") {
       sorted.sort((a, b) => (a.variants?.[0]?.price ?? 0) - (b.variants?.[0]?.price ?? 0));
@@ -56,7 +66,7 @@ const finalGrouped = Object.entries(groupedProducts).reduce((acc, [category, pro
       sorted.sort((a, b) => (b.variants?.[0]?.price ?? 0) - (a.variants?.[0]?.price ?? 0));
     }
 
-     acc[category] = sorted;
+    acc[category] = sorted;
     return acc;
   }, {} as typeof groupedProducts);
 
@@ -70,11 +80,11 @@ const finalGrouped = Object.entries(groupedProducts).reduce((acc, [category, pro
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-10">
-     <SidebarFilter
-  onFilter={(category) => setSelectedCategory(category)}
-  onSort={(order) => setSortOrder(order)}
-  onSearch={(term) => setSearchTerm(term)} 
-/>
+            <SidebarFilter
+              onFilter={setSelectedCategory}
+              onSort={setSortOrder}
+              onSearch={setSearchTerm}
+            />
 
             <div className="space-y-12">
               {loading && (
@@ -95,35 +105,47 @@ const finalGrouped = Object.entries(groupedProducts).reduce((acc, [category, pro
               )}
 
               {!loading && !error &&
-                Object.entries(finalGrouped).map(([title, products], idx) => (
-                  <div key={`${title}-${idx}`}>
-                    <div className="flex justify-between items-center mb-4">
-                      <h2 className="text-xl font-semibold">{title}</h2>
-                      <a href="#" className="text-sm text-[#9444B6] hover:underline">Ver todo</a>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                      {products.map((product, index) => {
-                        const price = product.variants?.[0]?.price ?? 0;
-                        const slug = `${product.name}-${product.id}`
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")
-                          .replace(/[^a-z0-9\-]/g, "");
-                        const key = product.id ? `product-${product.id}` : `product-fallback-${index}`;
+                Object.entries(finalGrouped).map(([title, products], idx) => {
+                  const isExpanded = expandedCategories[title];
+                  const visibleProducts = isExpanded ? products : products.slice(0, 4);
 
-                        return (
-                          <ProductCard
-                            key={key}
-                            name={product.name || "Producto sin nombre"}
-                            price={price}
-                            category={getCategoryLabel(product)}
-                            image="/default-product.jpg"
-                            slug={slug}
-                          />
-                        );
-                      })}
+                  return (
+                    <div key={`${title}-${idx}`}>
+                      <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-xl font-semibold">{title}</h2>
+                        {products.length > 4 && (
+                          <button
+                            onClick={() => toggleCategory(title)}
+                            className="text-sm text-[#9444B6] hover:underline"
+                          >
+                            {isExpanded ? "Ver menos" : "Ver todo"}
+                          </button>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {visibleProducts.map((product, index) => {
+                          const price = product.variants?.[0]?.price ?? 0;
+                          const slug = `${product.name}-${product.id}`
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")
+                            .replace(/[^a-z0-9\-]/g, "");
+                          const key = product.id ? `product-${product.id}` : `product-fallback-${index}`;
+
+                          return (
+                            <ProductCard
+                              key={key}
+                              name={product.name}
+                              price={price}
+                              category={getCategoryLabel(product)}
+                              image="/default-product.jpg"
+                              slug={slug}
+                            />
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
             </div>
           </div>
         </section>
@@ -132,16 +154,6 @@ const finalGrouped = Object.entries(groupedProducts).reduce((acc, [category, pro
           <Button label={"RECLAMÁ TU CÓDIGO"} />
         </div>
       </main>
-
-      {!loading && !error && (
-        <div className="fixed bottom-0 right-0 z-50 bg-black text-white text-xs p-3 max-w-xs max-h-[200px] overflow-auto opacity-70 rounded-tl-xl">
-          <p className="font-bold mb-1">🧪 Debug:</p>
-          <p>Total categorías: {Object.keys(groupedProducts).length}</p>
-          {Object.entries(groupedProducts).map(([cat, prods]) => (
-            <p key={cat}>• {cat}: {prods.length}</p>
-          ))}
-        </div>
-      )}
     </SectionWrapper>
   );
 }
