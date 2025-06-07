@@ -21,7 +21,7 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5035/cuenta/login-json", {
+      const response = await fetch("http://localhost:5035/account/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

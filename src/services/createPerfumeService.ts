@@ -30,10 +30,23 @@ export const getFormulaById = async (formulaId: number): Promise<GetFormulaRespo
 }
 
 export const getIntensities = async (): Promise<Intensity[]> => {
-    const res = await fetch("http://localhost:5035/creator/intensities");
-    const data = await res.json();
-    return data;
-}
+  const token = localStorage.getItem("token");
+
+  const res = await fetch("http://localhost:5035/creator/intensities", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("Error fetching intensities");
+  }
+
+  const data = await res.json();
+  return data;
+};
+
 
 export const updateFormulaName = async (formulaId: number, newName: string) => {
     try {
