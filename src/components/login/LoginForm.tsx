@@ -120,7 +120,7 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
       </div>
 
       <Link
-        href="/RecoverPassord"
+        href="/recuperarContrasenia"
         className="text-sm text-gray-500 self-end hover:underline mt-1 italic"
       >
         Me olvidé la contraseña

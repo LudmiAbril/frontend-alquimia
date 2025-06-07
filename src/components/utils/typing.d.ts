@@ -347,3 +347,11 @@ export interface NoteInfoResponse {
   Description: string;
   Duration: string;
 }
+
+export interface UserDTO {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+  isProvider: boolean;
+}
