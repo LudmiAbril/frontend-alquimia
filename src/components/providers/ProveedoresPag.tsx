@@ -149,14 +149,13 @@ variants: product.variants,
 });
   return (
 <ProductCard
-      key={key}
-      name={product.name}
-      price={product.price ?? 0}
-      volume={product.volume}
-      unit={product.unit}
-      category={getCategoryLabel(product)}
-      image="/default-product.jpg"
-      slug={slug} id={product.id}/>
+  id={product.id}
+  name={product.name}
+  image="/default-product.jpg"
+  category={getCategoryLabel(product)}
+  variants={product.variants}
+/>
+
 
 
 

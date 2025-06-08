@@ -13,24 +13,29 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<ProductDTO | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (!id) return;
+useEffect(() => {
+  if (!id) return;
 
-    const fetchAndFindProduct = async () => {
-      try {
-        const allProducts = await getAllProducts();
-        const found = allProducts.find((p) => p.id === Number(id));
-        setProduct(found ?? null);
-      } catch (err) {
-        console.error("Error al cargar producto:", err);
-        setProduct(null);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchAndFindProduct = async () => {
+    try {
+      const allProducts = await getAllProducts();
+      const found = allProducts.find((p) => p.id === Number(id));
 
-    fetchAndFindProduct();
-  }, [id]);
+      console.log("🧪 Producto encontrado:", found); // <-- DEBUG
+      console.log("🔍 Variantes:", found?.variants);  // <-- DEBUG
+
+      setProduct(found ?? null);
+    } catch (err) {
+      console.error("Error al cargar producto:", err);
+      setProduct(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchAndFindProduct();
+}, [id]);
+
 
   if (loading) return <p className="text-center py-12">Cargando producto...</p>;
 
@@ -47,9 +52,9 @@ export default function ProductDetailPage() {
     );
   }
 
-  const minVariant = product.variants?.length
-    ? product.variants.reduce((min, v) => (v.price < min.price ? v : min), product.variants[0])
-    : null;
+  const validVariants = product.variants?.filter((v) => typeof v.price === "number") || [];
+  const hasPrices = validVariants.length > 0;
+  const minPrice = hasPrices ? Math.min(...validVariants.map(v => v.price!)) : null;
 
   return (
     <SectionWrapper>
@@ -75,7 +80,7 @@ export default function ProductDetailPage() {
         {/* Detalles */}
         <div className="text-left">
           <nav className="text-xs text-gray-500 uppercase mb-2 tracking-wide">
-            Proveedores / Esencias / {product.name}
+            Proveedores / {product.productType?.toUpperCase()} / {product.name}
           </nav>
 
           <p className="text-sm text-[var(--violeta)] font-semibold mb-1">
@@ -84,24 +89,24 @@ export default function ProductDetailPage() {
 
           <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
 
-          {minVariant?.price ? (
+          {hasPrices ? (
             <>
-              <p className="text-2xl font-bold text-gray-800 mb-0">${minVariant.price.toLocaleString()}</p>
-              <p className="text-sm text-gray-400 mb-6">precio sin Alquimia ${(minVariant.price * 1.2).toLocaleString()}</p>
+              <p className="text-2xl font-bold text-gray-800 mb-0">${minPrice!.toLocaleString()}</p>
+              <p className="text-sm text-gray-400 mb-6">precio sin Alquimia ${(minPrice! * 1.2).toLocaleString()}</p>
             </>
           ) : (
             <p className="text-md text-gray-500 mb-4">Precio no disponible</p>
           )}
 
           <h3 className="text-sm font-bold mb-1 uppercase tracking-wide">Detalle del producto</h3>
-          <p className="text-sm text-gray-700 mb-6">{product.description || "Sin descripción disponible."}</p>
+          <p className="text-sm text-gray-700 mb-6">
+            {product.description || "Sin descripción disponible."}
+          </p>
 
-          {/* Botón destacado */}
           <div className="flex gap-3 mb-8">
             <Button label="VISITAR PROVEEDOR" />
           </div>
 
-          {/* Variantes */}
           <h3 className="text-sm font-bold mb-2 uppercase tracking-wide">Presentaciones disponibles:</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             {product.variants.map((v, index) => (
@@ -110,17 +115,16 @@ export default function ProductDetailPage() {
                 className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
               >
                 <p className="text-sm font-medium mb-1">
-                  {v.volume} {v.unit}
+                  {v.volume ?? "?"} {v.unit ?? ""}
                 </p>
                 <p className="text-lg font-bold text-[var(--violeta)]">
-                  {v.price != null ? `$${v.price.toLocaleString()}` : "Precio no disponible"}
+                  {typeof v.price === "number" ? `$${v.price.toLocaleString()}` : "Precio no disponible"}
                 </p>
                 <p className="text-xs text-gray-500 mt-1">Stock: {v.stock ?? "?"}</p>
               </div>
             ))}
           </div>
 
-          {/* Acciones */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Button label="SUMAR A BIBLIOTECA" />
             <Button label="RECLAMAR CÓDIGO" />
