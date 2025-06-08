@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export function useSession() {
   const [username, setUsername] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
-
+ 
   useEffect(() => {
     const name = localStorage.getItem("username");
     const mail = localStorage.getItem("useremail");

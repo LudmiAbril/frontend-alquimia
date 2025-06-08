@@ -48,22 +48,25 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
       const perfil = await perfilResponse.json();
 
       if (!perfilResponse.ok) {
-        setError("Error al obtener perfil del usuario.");
-        return;
-      }
+  setError("Error al obtener perfil del usuario.");
+  return;
+}
 
-      // Paso 3: redirigir según rol
-      const rol = perfil.rol;
+// Guardar datos en localStorage
+localStorage.setItem("username", perfil.nombre);   // ✅ ahora se puede usar en useSession
+localStorage.setItem("useremail", perfil.email);
 
+// Paso 3: redirigir según rol
+const rol = perfil.rol;
       switch (rol) {
         case "Admin":
-          window.location.href = "/admin/home";
+          window.location.href = "/admin";
           break;
         case "Proveedor":
           window.location.href = "/home";
          break;
         case "Creador":
-          window.location.href = "/home/user";
+          window.location.href = "/home";
           break;
         default:
           window.location.href = "/home/user";
