@@ -7,6 +7,7 @@ import { ProductDTO } from "@/components/utils/typing";
 import Image from "next/image";
 import Button from "@/components/general/Button";
 import SectionWrapper from "../general/SectionWrapper";
+import Link from "next/link";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -21,8 +22,7 @@ useEffect(() => {
       const allProducts = await getAllProducts();
       const found = allProducts.find((p) => p.id === Number(id));
 
-      console.log("🧪 Producto encontrado:", found); // <-- DEBUG
-      console.log("🔍 Variantes:", found?.variants);  // <-- DEBUG
+
 
       setProduct(found ?? null);
     } catch (err) {
@@ -79,11 +79,17 @@ useEffect(() => {
 
         {/* Detalles */}
         <div className="text-left">
-          <nav className="text-xs text-gray-500 uppercase mb-2 tracking-wide">
-            Proveedores / {product.productType?.toUpperCase()} / {product.name}
-          </nav>
-
-          <p className="text-sm text-[var(--violeta)] font-semibold mb-1">
+        
+<nav className="text-xs text-gray-500 uppercase mb-2 tracking-wide space-x-1">
+  <Link href="/proveedores" className="hover:underline text-[var(--violeta)] font-medium">
+    Proveedores
+  </Link>
+  <span>/</span>
+  <span>{product.productType?.toUpperCase()}</span>
+  <span>/</span>
+  <span className="text-gray-800">{product.name}</span>
+</nav>
+          <p className="text-sm font-semibold mb-1">
             vendido por {product.provider?.Nombre?.toUpperCase() || "PROVEEDOR"}
           </p>
 

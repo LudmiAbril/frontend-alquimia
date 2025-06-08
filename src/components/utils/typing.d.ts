@@ -18,6 +18,7 @@ export interface ProductCardProps {
     price: number;
     volume: number;
     unit: string;
+        stock?: number;
   }[];
 }
 

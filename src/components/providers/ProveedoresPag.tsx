@@ -105,7 +105,8 @@ export default function ProovedoresPage() {
               {!loading && !error &&
                 Object.entries(finalGrouped).map(([title, products], idx) => {
                   const isExpanded = expandedCategories[title];
-                  const visibleProducts = isExpanded ? products : products.slice(0, 4);
+            const visibleProducts = isExpanded ? products : products.slice(0, 3);
+
 
                   return (
                     <div key={`${title}-${idx}`}>
@@ -120,35 +121,17 @@ export default function ProovedoresPage() {
                           </button>
                         )}
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {visibleProducts.map((product, index) => {
-const validVariants = product.variants?.filter(v => v.price > 0) || [];
-const minVariant = validVariants.length > 0
-  ? validVariants.reduce((min, curr) => (curr.price < min.price ? curr : min))
-  : null;
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
-const price = minVariant?.price ?? 0;
-const volume = minVariant?.volume;
-const unit = minVariant?.unit;
+                  {visibleProducts.map((product) => {
 
 
 
-  const slug = `${product.name}-${product.id}`
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9\-]/g, "");
-    
-  const key = product.id ? `product-${product.id}` : `product-fallback-${index}`;
 
-  console.log("🔍 DEBUG", {
-name: product.name,
-price,
-volume,
-unit,
-variants: product.variants,
-});
   return (
+    
 <ProductCard
+  key={product.id} 
   id={product.id}
   name={product.name}
   image="/default-product.jpg"
