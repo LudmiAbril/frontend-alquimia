@@ -17,7 +17,7 @@ export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeForm, setActiveForm] = useState<"login" | "register">("login");
-
+console.log("✅ Navbar montado");
   return (
     <>
       <header
