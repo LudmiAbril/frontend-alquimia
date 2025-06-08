@@ -1,17 +1,28 @@
 "use client"
 
-import { PropsResult } from "@/components/utils/typing"
+import { PropsResult, SummaryItem } from "@/components/utils/typing"
 import Card3D from "./Card3d"
-import { backgroundByFamily, familyPet } from "../utils/utils"
+import { answerSummaryMap, backgroundByFamily, familyPet } from "../utils/utils"
+import { useState } from "react"
 
-export default function Result({ result, answers, onReset }: PropsResult) {
+export default function Result({ result, answers, onReset }: PropsResult){ 
+
   const backgroundImage = backgroundByFamily[result.nombre] || "/quiz/familia-fondos/amaderadaBack.png"
   const familyPets = familyPet[result.nombre] || "/mascotas/amaderada.png"
+const [showFormula, setShowFormula] = useState(false);
 
-  const resumenRespuestas = answers.reduce((acc, answer) => {
-    acc[answer.selectedOption] = (acc[answer.selectedOption] || 0) + 1
-    return acc
-  }, {} as Record<string, number>)
+
+
+const dynamicSummary: SummaryItem[] = answers
+  .map((answer) => {
+const entry = answerSummaryMap[answer.questionId]?.[answer.selectedOption];
+
+
+    return entry ?? null;
+  })
+  .filter((e): e is SummaryItem => e !== null);
+
+
 
   const formula = result.formulas?.[0]
 
@@ -74,17 +85,25 @@ export default function Result({ result, answers, onReset }: PropsResult) {
           )}
 
           {/* Resumen de respuestas */}
-          <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6 mb-8">
-            <h3 className="font-bold text-lg mb-4 text-purple-800">Resumen de tus respuestas:</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-              {Object.entries(resumenRespuestas).map(([letra, count]) => (
-                <div key={letra} className="text-center">
-                  <div className="font-bold text-purple-600">{letra}</div>
-                  <div className="text-gray-600">{count} respuesta(s)</div>
-                </div>
-              ))}
-            </div>
-          </div>
+<section className="bg-white border border-gray-200 rounded-xl p-6 mb-8 shadow-md max-w-2xl mx-auto">
+  <h3 className="text-center text-lg font-semibold text-gray-700 mb-4">Resumen de tu test</h3>
+<ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  {dynamicSummary.map((item, idx) => (
+    <li
+      key={idx}
+      className="flex items-center gap-4 p-4 rounded-xl shadow-sm"
+      style={{ backgroundColor: item.color }}
+    >
+      <div className="text-3xl">{item.icon}</div>
+      <div className="text-sm text-gray-800">
+        <strong>{item.label}:</strong> {item.value}
+      </div>
+    </li>
+  ))}
+</ul>
+
+</section>
+
 
       <button
   onClick={onReset}
@@ -93,6 +112,19 @@ export default function Result({ result, answers, onReset }: PropsResult) {
  
   Volver a empezar
 </button>
+{!showFormula && (
+  <button
+    onClick={() => setShowFormula(true)}
+    className="bg-[var(--violeta)] text-white px-6 py-3 rounded-full mt-6 hover:scale-105 transition-all"
+  >
+    Ver fórmula recomendada
+  </button>
+)}
+{showFormula && (
+  <div className="...">{/* mostrar fórmula aquí */}</div>
+)}
+
+
 
         </div>
       </div>

@@ -112,7 +112,12 @@ export interface PropsDynamic {
   onSelect: (option: string) => void
 }
 export type VisualType = "cards" | "grid" | "list" | "two" | "bubbles";
-
+export interface SummaryItem  {
+  label: string
+  value: string
+  icon: string
+  color: string
+};
 export interface QuestionDTO {
   Id: number
   Pregunta: string
@@ -120,7 +125,7 @@ export interface QuestionDTO {
   VisualType?: VisualType // ESTO PARA QUE PUEDA CAMBIAR FORMATO DE RENDERIZADO...atte Celu
 }
 export interface AnswerDTO {
-  preguntaId: number;
+  questionId: number;
   selectedOption: string;
 }
 export interface PropsCurrent {
