@@ -17,57 +17,50 @@ export default function OptionCards({ question, selectedOption, onSelect }: Prop
           const isSelected = selectedOption === option.Letra
 
           return (
-            <motion.div
-              key={option.Letra}
-              className={`relative min-w-[220px] h-[320px] rounded-xl overflow-hidden cursor-pointer group border transition-all duration-300 ${
-                isSelected
-                  ? "border-[var(--violeta)] scale-105 shadow-lg"
-                  : "border-gray-400 hover:border-[var(--violeta)]"
-              }`}
-              onClick={() => onSelect(option.Letra)}
-              whileHover={{ scale: 1.05 }}
-            >
-              {/* BRILLO VIOLETA en hover */}
-              <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                <div className="w-full h-full bg-gradient-to-br from-[var(--violeta)]/20 to-[var(--lila)]/10 blur-2xl animate-pulse rounded-xl" />
-              </div>
+<motion.div
+  key={option.Letra}
+  className={`relative min-w-[220px] h-[320px] rounded-xl overflow-hidden cursor-pointer group border-2 transition-all duration-300
+    ${isSelected ? "border-[var(--violeta)] border-4 scale-105 shadow-lg ring-4 ring-[var(--lila)]" : "border-gray-300 hover:border-[var(--violeta)]"}`}
+  onClick={() => onSelect(option.Letra)}
+  whileHover={{ scale: 1.05 }}
+>
+  {/* Imagen */}
+  {isValidUrl(option.ImagenUrl) && (
+    <Image
+      src={option.ImagenUrl!}
+      alt={option.Texto}
+      fill
+      className="object-cover brightness-90 group-hover:brightness-100 transition-all duration-500"
+    />
+  )}
 
-              {/* DESTELLOS flotantes */}
-              <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                {[...Array(6)].map((_, i) => (
-                  <span
-                    key={i}
-                    className="absolute w-1.5 h-1.5 bg-[var(--lila)] rounded-full opacity-70 animate-firefly"
-                    style={{
-                      top: `${Math.random() * 100}%`,
-                      left: `${Math.random() * 100}%`,
-                      animationDelay: `${Math.random() * 2}s`,
-                      animationDuration: `${2 + Math.random() * 3}s`,
-                    }}
-                  />
-                ))}
-              </div>
+  {/* Gradiente inferior para legibilidad */}
+  <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-black/60 to-transparent z-20" />
 
-              {/* Imagen con filtro oscuro */}
-              {isValidUrl(option.ImagenUrl) && (
-                <Image
-                  src={option.ImagenUrl!}
-                  alt={option.Texto}
-                  fill
-                  className="object-cover grayscale group-hover:grayscale-0 brightness-[0.4] group-hover:brightness-100 transition-all duration-500"
-                />
-              )}
+  {/* Fireflies mágicos (z-30 para estar arriba de la imagen y gradiente) */}
+  <div className="absolute inset-0 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+    {[...Array(6)].map((_, i) => (
+      <span
+        key={i}
+        className="absolute w-1.5 h-1.5 bg-[var(--lila)] rounded-full opacity-80 animate-firefly"
+        style={{
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 2}s`,
+          animationDuration: `${2 + Math.random() * 3}s`,
+        }}
+      />
+    ))}
+  </div>
 
-              {/* Texto sobre la imagen */}
-              <div className="absolute bottom-4 w-full text-center z-10">
-                <p className="text-white text-lg font-semibold uppercase tracking-wider drop-shadow-md px-2">
-                  {option.Texto}
-                </p>
-              </div>
+  {/* Texto sobre imagen */}
+  <div className="absolute bottom-4 w-full text-center z-40">
+    <p className="text-white text-base font-bold uppercase tracking-wide drop-shadow-md px-2 leading-tight">
+      {option.Texto}
+    </p>
+  </div>
+</motion.div>
 
-              {/* Sombra interna */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none" />
-            </motion.div>
           )
         })}
       </div>
