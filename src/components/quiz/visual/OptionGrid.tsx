@@ -33,9 +33,9 @@ export default function OptionGrid({ question, selectedOption, onSelect }: Props
                 backgroundPosition: "center",
               }}
             >
-              {/* Overlay */}
+     
               <div className="absolute inset-0 bg-black/30 group-hover:bg-[var(--violeta)]/40 transition-colors duration-300" />
-{/* Fireflies */}
+
 <div className="absolute inset-0 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
   {[...Array(5)].map((_, i) => (
     <span
@@ -51,7 +51,6 @@ export default function OptionGrid({ question, selectedOption, onSelect }: Props
   ))}
 </div>
 
-              {/* Texto */}
               <div className="relative z-10 h-full flex items-center justify-center text-white text-center px-4">
                 <p className="text-lg font-semibold drop-shadow-md">{opt.Texto}</p>
               </div>

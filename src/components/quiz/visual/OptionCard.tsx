@@ -24,7 +24,7 @@ export default function OptionCards({ question, selectedOption, onSelect }: Prop
   onClick={() => onSelect(option.Letra)}
   whileHover={{ scale: 1.05 }}
 >
-  {/* Imagen */}
+
   {isValidUrl(option.ImagenUrl) && (
     <Image
       src={option.ImagenUrl!}
@@ -34,10 +34,10 @@ export default function OptionCards({ question, selectedOption, onSelect }: Prop
     />
   )}
 
-  {/* Gradiente inferior para legibilidad */}
+
   <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-black/60 to-transparent z-20" />
 
-  {/* Fireflies mágicos (z-30 para estar arriba de la imagen y gradiente) */}
+
   <div className="absolute inset-0 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
     {[...Array(6)].map((_, i) => (
       <span
@@ -53,7 +53,7 @@ export default function OptionCards({ question, selectedOption, onSelect }: Prop
     ))}
   </div>
 
-  {/* Texto sobre imagen */}
+
   <div className="absolute bottom-4 w-full text-center z-40">
     <p className="text-white text-base font-bold uppercase tracking-wide drop-shadow-md px-2 leading-tight">
       {option.Texto}
