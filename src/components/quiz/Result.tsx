@@ -48,6 +48,7 @@ const entry = answerSummaryMap[answer.questionId]?.[key];
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-500 to-purple-600 bg-clip-text text-transparent mb-6">
             {result.nombre}
           </h2>
+            {/* subfamilias porque la Familia que da el quiz en realidad agrupa a otras*/}
           {result.subfamilias && result.subfamilias.length > 0 && (
             <div className="mb-6">
               <h3 className="text-md font-semibold text-purple-800 mb-2">Subfamilias destacadas:</h3>
@@ -60,7 +61,7 @@ const entry = answerSummaryMap[answer.questionId]?.[key];
               </ul>
             </div>
           )}
-
+  {/* a partir de esto después se generá la receta como en core */}
           {formula && (
             <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6 mb-6">
               <h3 className="text-md font-semibold text-purple-800 mb-4">Fórmula sugerida para vos:</h3>
@@ -80,17 +81,16 @@ const entry = answerSummaryMap[answer.questionId]?.[key];
               </div>
             </div>
           )}
-
+  {/* the concentration */}
           {result.concentracion && result.concentracion !== "Desconocido" && (
             <p className="mb-6 text-sm italic text-gray-600">
               Concentración sugerida: <span className="font-medium">{result.concentracion}</span>
             </p>
           )}
-{result.nombre && familyDescriptions[result.nombre] && (
-  <p className="mt-6 text-[var(--gris4)] leading-relaxed max-w-xl text-sm md:text-base">
-    {familyDescriptions[result.nombre]}
-  </p>
-)}
+                {/* desc mágica de las familias hshs */}
+<p className="mt-10 text-[var(--gris4)] leading-relaxed max-w-xl text-sm md:text-base">
+  {familyDescriptions[result.nombre]}
+</p>
 
           {/* Resumen de respuestas */}
 {!showSummary && (
@@ -101,13 +101,12 @@ const entry = answerSummaryMap[answer.questionId]?.[key];
     Ver resumen de tus respuestas
   </button>
 )}
-
 {showSummary && (
-  <section className="bg-white border border-gray-200 rounded-xl p-6 mb-8 shadow-md max-w-xl mx-auto">
+  <section className="bg-white border border-gray-200 rounded-xl p-6 mt-10 mb-8 shadow-md max-w-xl mx-auto">
     <h3 className="text-center text-lg font-semibold text-gray-800 mb-4 uppercase tracking-wide">
       Resumen de tus respuestas
     </h3>
-    <ul className="text-sm text-gray-700 space-y-2">
+    <ul className="text-sm text-gray-700 space-y-3">
       {dynamicSummary.map((item, idx) => (
         <li key={idx}>
           <strong className="font-semibold">{item.label}:</strong> {item.value}
