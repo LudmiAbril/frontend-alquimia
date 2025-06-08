@@ -1,48 +1,39 @@
 "use client"
-import Image from "next/image"
+
 import { motion } from "framer-motion"
 import { PropsDynamic } from "@/components/utils/typing"
-import { colorMap } from "@/components/utils/utils"
-
-
 
 export default function OptionList({ question, selectedOption, onSelect }: PropsDynamic) {
   return (
-    <ul className="space-y-4 max-w-md mx-auto mt-6">
+    <ul className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-8 max-w-5xl mx-auto">
       {question.Opciones.map((opt) => {
-        const colorStyles = colorMap[opt.Letra] || "border-purple-400 hover:border-purple-300 hover:bg-purple-100"
         const isSelected = selectedOption === opt.Letra
 
         return (
           <motion.li
             key={opt.Letra}
             onClick={() => onSelect(opt.Letra)}
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.98 }}
-            className={`group relative flex items-center gap-4 py-3 px-6 rounded-lg cursor-pointer border-l-4 transition-all duration-300 ${
-              isSelected
-                ? "bg-gradient-to-br from-purple-600 to-fuchsia-500 border-purple-700 text-white shadow-md"
-                : `bg-white text-gray-800 ${colorStyles}`
-            }`}
+            role="button"
+            aria-pressed={isSelected}
+            className={`group flex flex-col items-center cursor-pointer transition-all duration-300`}
           >
-            {/* Destello mágico */}
-            {isSelected && (
-              <motion.div
-                layoutId="sparkle"
-                className="absolute -inset-0.5 rounded-lg pointer-events-none border border-white/50 animate-pulse"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-              />
-            )}
+            {/* Círculo con imagen */}
+            <div
+              className={`
+                w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-cover bg-center shadow-md
+                transition-all duration-300
+                ${isSelected ? "ring-4 ring-[var(--lila)]" : "hover:ring-2 hover:ring-[var(--violeta)]"}
+              `}
+              style={{ backgroundImage: `url(${opt.ImagenUrl})` }}
+            />
 
-            {opt.ImagenUrl && (
-              <div className="relative w-10 h-10 flex-shrink-0">
-                <Image src={opt.ImagenUrl} alt={opt.Texto} fill className="object-contain rounded" />
-              </div>
-            )}
-            <span className="text-sm font-medium z-10">{opt.Texto}</span>
+            {/* Texto debajo */}
+            <div className="mt-3 text-center max-w-[8rem] text-sm text-gray-800 dark:text-gray-100">
+              <p className="font-semibold leading-tight">{opt.Texto.split(",")[0]}</p>
+              <p className="text-xs opacity-70 mt-1">{opt.Texto.split(",").slice(1).join(",")}</p>
+            </div>
           </motion.li>
         )
       })}

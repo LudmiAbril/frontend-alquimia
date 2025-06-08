@@ -5,12 +5,12 @@ const visualMap: Record<number, VisualType> = {
   1: "bubbles",
   2: "two",
   3: "cards",
-  4: "cards",
+  4: "grid",
 5:"cards",
 6:"cards",
-7:"cards",
-8:"grid",
-9:"bubbles",
+7:"list",
+8:"cards",
+9:"grid",
 10:"cards"
 }
 
