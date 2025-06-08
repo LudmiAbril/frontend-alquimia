@@ -66,7 +66,7 @@ const rol = perfil.rol;
           window.location.href = "/home";
          break;
         case "Creador":
-          window.location.href = "/home";
+          window.location.href = "/";
           break;
         default:
           window.location.href = "/home/user";
