@@ -7,30 +7,35 @@ import { useState } from "react"
 import ButtonSecondary from "../general/ButtonSecondary"
 import Button from "../general/Button"
 
-export default function Result({ result, answers, onReset }: PropsResult){ 
-
+export default function Result({ result, answers, onReset }: PropsResult) {
   const backgroundImage = backgroundByFamily[result.nombre] || "/quiz/familia-fondos/amaderadaBack.png"
   const familyPets = familyPet[result.nombre] || "/mascotas/amaderada.png"
-const [showFormula, setShowFormula] = useState(false);
-const [showSummary, setShowSummary] = useState(false);
+  
+  const [showSummary, setShowSummary] = useState(false)
 
+  console.log("Respuestas:", answers)
 
- console.log("Respuestas:", answers)
-const dynamicSummary: SummaryItem[] = answers
-  .map((answer) => {
-const optionLetterToNumber = { A: "1", B: "2", C: "3", D: "4" };
-const key = optionLetterToNumber[answer.selectedOption as keyof typeof optionLetterToNumber];
-const entry = answerSummaryMap[answer.questionId]?.[key];
+  // Lógica para generar el resumen de respuestas
+  const dynamicSummary: SummaryItem[] = answers
+    .map((answer) => {
+      const optionLetterToNumber = { A: "1", B: "2", C: "3", D: "4" }
+      const key = optionLetterToNumber[answer.selectedOption as keyof typeof optionLetterToNumber]
+      const entry = answerSummaryMap[answer.questionId]?.[key]
+      return entry ?? null
+    })
+    .filter((e): e is SummaryItem => e !== null)
 
-
-
-    return entry ?? null;
-  })
-  .filter((e): e is SummaryItem => e !== null);
-
-
-
+  // Datos de la fórmula que ya vienen del resultado del quiz
   const formula = result.formulas?.[0]
+
+  // Asegurarse de que `concentracion` tenga un valor válido (si es "Desconocido", asignamos "Body Splash")
+  const concentration = result.concentracion && result.concentracion !== "Desconocido" 
+    ? result.concentracion 
+    : "Body Splash";
+
+  // Log para revisar los valores de la fórmula y concentración
+  console.log("Formula:", formula)
+  console.log("Concentración:", concentration)
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 ">
@@ -48,7 +53,8 @@ const entry = answerSummaryMap[answer.questionId]?.[key];
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-500 to-purple-600 bg-clip-text text-transparent mb-6">
             {result.nombre}
           </h2>
-            {/* subfamilias porque la Familia que da el quiz en realidad agrupa a otras*/}
+
+          {/* Subfamilias porque la Familia que da el quiz en realidad agrupa a otras */}
           {result.subfamilias && result.subfamilias.length > 0 && (
             <div className="mb-6">
               <h3 className="text-md font-semibold text-purple-800 mb-2">Subfamilias destacadas:</h3>
@@ -61,7 +67,8 @@ const entry = answerSummaryMap[answer.questionId]?.[key];
               </ul>
             </div>
           )}
-  {/* a partir de esto después se generá la receta como en core */}
+
+          {/* Fórmula sugerida */}
           {formula && (
             <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6 mb-6">
               <h3 className="text-md font-semibold text-purple-800 mb-4">Fórmula sugerida para vos:</h3>
@@ -81,66 +88,59 @@ const entry = answerSummaryMap[answer.questionId]?.[key];
               </div>
             </div>
           )}
-  {/* the concentration */}
-          {result.concentracion && result.concentracion !== "Desconocido" && (
+
+          {/* Concentración sugerida */}
+          {concentration && concentration !== "Desconocido" && (
             <p className="mb-6 text-sm italic text-gray-600">
-              Concentración sugerida: <span className="font-medium">{result.concentracion}</span>
+              Concentración sugerida: <span className="font-medium">{concentration}</span>
             </p>
           )}
-                {/* desc mágica de las familias hshs */}
-<p className="mt-10 text-[var(--gris4)] leading-relaxed max-w-xl text-sm md:text-base">
-  {familyDescriptions[result.nombre]}
-</p>
+
+          {/* Descripción mágica de las familias */}
+          <p className="mt-10 text-[var(--gris4)] leading-relaxed max-w-xl text-sm md:text-base">
+            {familyDescriptions[result.nombre]}
+          </p>
 
           {/* Resumen de respuestas */}
-{!showSummary && (
-  <button
-    onClick={() => setShowSummary(true)}
-    className="mt-6 text-sm underline text-purple-700 hover:text-purple-900 transition"
-  >
-    Ver resumen de tus respuestas
-  </button>
-)}
-{showSummary && (
-  <section className="bg-white border border-gray-200 rounded-xl p-6 mt-10 mb-8 shadow-md max-w-xl mx-auto">
-    <h3 className="text-center text-lg font-semibold text-gray-800 mb-4 uppercase tracking-wide">
-      Resumen de tus respuestas
-    </h3>
-    <ul className="text-sm text-gray-700 space-y-3">
-      {dynamicSummary.map((item, idx) => (
-        <li key={idx}>
-          <strong className="font-semibold">{item.label}:</strong> {item.value}
-        </li>
-      ))}
-    </ul>
-    <button
-      onClick={() => setShowSummary(false)}
-      className="mt-6 block mx-auto text-sm text-purple-600 hover:underline"
-    >
-      Ocultar resumen
-    </button>
-  </section>
-)}
+          {!showSummary && (
+            <button
+              onClick={() => setShowSummary(true)}
+              className="mt-6 text-sm underline text-purple-700 hover:text-purple-900 transition"
+            >
+              Ver resumen de tus respuestas
+            </button>
+          )}
+          {showSummary && (
+            <section className="bg-white border border-gray-200 rounded-xl p-6 mt-10 mb-8 shadow-md max-w-xl mx-auto">
+              <h3 className="text-center text-lg font-semibold text-gray-800 mb-4 uppercase tracking-wide">
+                Resumen de tus respuestas
+              </h3>
+              <ul className="text-sm text-gray-700 space-y-3">
+                {dynamicSummary.map((item, idx) => (
+                  <li key={idx}>
+                    <strong className="font-semibold">{item.label}:</strong> {item.value}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => setShowSummary(false)}
+                className="mt-6 block mx-auto text-sm text-purple-600 hover:underline"
+              >
+                Ocultar resumen
+              </button>
+            </section>
+          )}
 
-
-
-{/* Acciones */}
-<div className="flex  items-center gap-4 mt-6 w-full">
-  <ButtonSecondary
-    label="Volver a empezar"
-    onClick={onReset}
-  />
-  {!showSummary && (
-  
-<Button
-  label="fórmula recomendada"
-  href={`/quiz/formula?top=${encodeURIComponent(formula?.TopNote || "")}&heart=${encodeURIComponent(formula?.HeartNote || "")}&base=${encodeURIComponent(formula?.BaseNote || "")}&type=${encodeURIComponent(result.concentracion || "")}`}
-/>
-  )}
-</div>
-
-
-
+          {/* Acciones */}
+          <div className="flex items-center gap-4 mt-6 w-full">
+            <ButtonSecondary label="Volver a empezar" onClick={onReset} />
+            {!showSummary && formula && (
+              <Button
+                label="Fórmula recomendada"
+                href={`/quiz/formula?top=${encodeURIComponent(formula.TopNote)}&heart=${encodeURIComponent(formula.HeartNote)}&base=${encodeURIComponent(formula.BaseNote)}&type=${encodeURIComponent(concentration)}`}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
