@@ -24,7 +24,7 @@ export default function NotFound() {
          A veces la magia lleva tiempo, probá más tarde.
         </p>
 
-        <Link href="/page">
+        <Link href="/">
           <Button label="Volver a Inicio" />
         </Link>
       </div>

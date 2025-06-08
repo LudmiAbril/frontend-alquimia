@@ -61,11 +61,9 @@ export default function ProovedoresPage() {
 
     let sorted = [...filtered];
     if (sortOrder === "asc") {
-      sorted.sort((a, b) => (a.variants?.[0]?.price ?? 0) - (b.variants?.[0]?.price ?? 0));
-    } else if (sortOrder === "desc") {
-      sorted.sort((a, b) => (b.variants?.[0]?.price ?? 0) - (a.variants?.[0]?.price ?? 0));
-    }
+   sorted.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
 
+    } 
     acc[category] = sorted;
     return acc;
   }, {} as typeof groupedProducts);
@@ -123,25 +121,50 @@ export default function ProovedoresPage() {
                         )}
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {visibleProducts.map((product, index) => {
-                          const price = product.variants?.[0]?.price ?? 0;
-                          const slug = `${product.name}-${product.id}`
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")
-                            .replace(/[^a-z0-9\-]/g, "");
-                          const key = product.id ? `product-${product.id}` : `product-fallback-${index}`;
+                  {visibleProducts.map((product, index) => {
+const validVariants = product.variants?.filter(v => v.price > 0) || [];
+const minVariant = validVariants.length > 0
+  ? validVariants.reduce((min, curr) => (curr.price < min.price ? curr : min))
+  : null;
 
-                          return (
-                            <ProductCard
-                              key={key}
-                              name={product.name}
-                              price={price}
-                              category={getCategoryLabel(product)}
-                              image="/default-product.jpg"
-                              slug={slug}
-                            />
-                          );
-                        })}
+const price = minVariant?.price ?? 0;
+const volume = minVariant?.volume;
+const unit = minVariant?.unit;
+
+
+
+  const slug = `${product.name}-${product.id}`
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9\-]/g, "");
+    
+  const key = product.id ? `product-${product.id}` : `product-fallback-${index}`;
+
+  console.log("🔍 DEBUG", {
+name: product.name,
+price,
+volume,
+unit,
+variants: product.variants,
+});
+  return (
+<ProductCard
+  key={key}
+  name={product.name}
+  price={product.price ?? 0}
+  volume={product.volume}
+  unit={product.unit}
+  category={getCategoryLabel(product)}
+  image="/default-product.jpg"
+  slug={slug}
+/>
+
+
+
+
+  );
+})}
+
                       </div>
                     </div>
                   );

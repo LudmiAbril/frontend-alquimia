@@ -12,33 +12,25 @@ href?: string
 export interface ProductCardProps {
   name: string;
   price: number;
-  category: string;
+  volume?: number;
+  unit?: string;
+  category?: string;
   image: string;
   slug: string;
 }
+
+
 
 export interface ProductDTO {
   id: number;
   name: string;
   description: string;
-productType: string; 
-  provider: {
-    id: number;
-    nombre: string;
-    email: string;
-    esAprobado: boolean;
-  };
-  supplierName: string | null;
-  variants: {
-    id: number;
-    volume: number;
-    unit: string;
-    price: number;
-    stock: number;
-    isHypoallergenic: boolean | null;
-    isVegan: boolean | null;
-    isParabenFree: boolean | null;
-  }[];
+  productType: string;
+  provider: ProviderDTO;
+  variants: ProductVariantDTO[];
+  price?: number;
+  volume?: number;
+  unit?: string;
 }
 
 

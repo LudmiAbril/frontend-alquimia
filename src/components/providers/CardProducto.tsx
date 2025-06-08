@@ -2,7 +2,22 @@ import Link from "next/link";
 import Image from "next/image";
 import { ProductCardProps } from "../utils/typing";
 
-export default function ProductCard({ name, price, category, image, slug }: ProductCardProps) {
+export default function ProductCard({
+  name,
+  price,
+  category,
+  image,
+  slug,
+  volume,
+  unit
+}: ProductCardProps) {
+
+  console.log("🧪 DEBUG ProductCard");
+  console.log("➡️ name:", name);
+  console.log("➡️ price:", price);
+  console.log("➡️ volume:", volume);
+  console.log("➡️ unit:", unit);
+
   return (
     <div className="bg-white rounded-xl shadow-sm p-4 flex flex-col justify-between min-h-[260px]">
       <Image
@@ -22,7 +37,16 @@ export default function ProductCard({ name, price, category, image, slug }: Prod
           {category || "Otros"}
         </div>
         <div className="text-md font-bold mt-1">
-          {price > 0 ? `$${price.toLocaleString()}` : "$Precio no disponible"}
+          {price > 0 ? (
+            <>
+              ${price.toLocaleString()}
+              {volume && unit && (
+                <span className="text-xs font-normal text-gray-600"> • {volume} {unit}</span>
+              )}
+            </>
+          ) : (
+            "$Precio no disponible"
+          )}
         </div>
       </div>
 
