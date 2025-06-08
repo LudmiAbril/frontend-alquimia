@@ -7,16 +7,12 @@ export default function ProductCard({
   price,
   category,
   image,
-  slug,
   volume,
-  unit
+  unit,
+  id
 }: ProductCardProps) {
 
-  console.log("🧪 DEBUG ProductCard");
-  console.log("➡️ name:", name);
-  console.log("➡️ price:", price);
-  console.log("➡️ volume:", volume);
-  console.log("➡️ unit:", unit);
+
 
   return (
     <div className="bg-white rounded-xl shadow-sm p-4 flex flex-col justify-between min-h-[260px]">
@@ -49,12 +45,16 @@ export default function ProductCard({
           )}
         </div>
       </div>
+<Link href={`/producto/${id}`} className="mt-2">
 
-      <Link href={`/proveedores/${slug}`} className="mt-2">
-        <span className="text-[#4a7f5c] font-semibold hover:underline text-sm cursor-pointer">
-          Ver más
-        </span>
-      </Link>
+
+
+  <span className="text-[#4a7f5c] font-semibold hover:underline text-sm cursor-pointer">
+    Ver más
+  </span>
+</Link>
+
+
     </div>
   );
 }

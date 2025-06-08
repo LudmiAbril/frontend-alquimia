@@ -1,57 +1,132 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getAllProducts } from "@/services/productService";
+import { ProductDTO } from "@/components/utils/typing";
 import Image from "next/image";
-import Link from "next/link";
-import Button from "../general/Button";
+import Button from "@/components/general/Button";
+import SectionWrapper from "../general/SectionWrapper";
 
-export default function ProductDetail() {
-  const params = useSearchParams();
+export default function ProductDetailPage() {
+  const { id } = useParams();
+  const [product, setProduct] = useState<ProductDTO | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const name = params.get("name") ?? "Sin nombre";
-  const price = Number(params.get("price") ?? 0);
-  const volume = params.get("volume");
-  const unit = params.get("unit");
-  const supplier = params.get("supplier") ?? "Proveedor";
-  const mainCategory = params.get("mainCategory") ?? "Otros";
-  const subCategory = params.get("subCategory");
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchAndFindProduct = async () => {
+      try {
+        const allProducts = await getAllProducts();
+        const found = allProducts.find((p) => p.id === Number(id));
+        setProduct(found ?? null);
+      } catch (err) {
+        console.error("Error al cargar producto:", err);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAndFindProduct();
+  }, [id]);
+
+  if (loading) return <p className="text-center py-12">Cargando producto...</p>;
+
+  if (!product) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20">
+        <Image src="/mascotas/sadQuimi.png" alt="No encontrado" width={140} height={140} />
+        <p className="text-center text-xl mt-4 text-[var(--violeta)] font-semibold">
+          ¡Oops! No encontramos lo que buscás
+        </p>
+        <p className="text-center text-gray-600 mt-1">A veces la magia lleva tiempo, probá más tarde.</p>
+        <Button label="Volver a inicio" />
+      </div>
+    );
+  }
+
+  const minVariant = product.variants?.length
+    ? product.variants.reduce((min, v) => (v.price < min.price ? v : min), product.variants[0])
+    : null;
 
   return (
-    <main className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-10">
-      <div className="flex flex-col items-center">
-        <Image src="/default-product.jpg" alt={name} className="w-60 h-60 object-contain" width={240} height={240} />
-      </div>
-
-      <div>
-        {/* Miga de pan navegable */}
-        <nav className="text-sm text-gray-500 mb-1 space-x-1">
-          <Link href="/proveedores" className="hover:underline">PROVEEDORES</Link>
-          <span>/</span>
-          <Link href={`/proveedores/${mainCategory.toLowerCase()}`} className="hover:underline">{mainCategory.toUpperCase()}</Link>
-          {subCategory && (
-            <>
-              <span>/</span>
-              <Link href={`/proveedores/${mainCategory.toLowerCase()}/${subCategory.toLowerCase()}`} className="hover:underline">
-                {subCategory.toUpperCase()}
-              </Link>
-            </>
-          )}
-        </nav>
-
-        <p className="text-sm text-[var(--violeta)] font-medium mb-2">
-          vendido por <span className="font-semibold">{supplier.toUpperCase()}</span>
-        </p>
-
-        <h1 className="text-3xl font-bold mb-2">{name}</h1>
-        <p className="text-xl font-semibold mb-1">${price}</p>
-
-        <h3 className="font-semibold mb-1">DETALLE DEL PRODUCTO</h3>
-        <p className="mb-4">{volume && unit ? `Presentación de ${volume} ${unit}.` : "Presentación no disponible."}</p>
-
-        <Button label="VISITAR PROVEEDOR" />
-        <div className="flex gap-4 mt-6">
-          <Button label="SUMAR A BIBLIOTECA" />
+    <SectionWrapper>
+      <main className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        {/* Imagen */}
+        <div className="flex flex-col items-center gap-6">
+          <Image
+            src="/default-product.jpg"
+            alt={`Imagen de ${product.name}`}
+            width={280}
+            height={280}
+            className="object-contain rounded-xl shadow-sm"
+          />
+          <Image
+            src="/logos/danfa-logo.png"
+            alt="Proveedor"
+            width={90}
+            height={40}
+            className="mt-4"
+          />
         </div>
-      </div>
-    </main>
+
+        {/* Detalles */}
+        <div className="text-left">
+          <nav className="text-xs text-gray-500 uppercase mb-2 tracking-wide">
+            Proveedores / Esencias / {product.name}
+          </nav>
+
+          <p className="text-sm text-[var(--violeta)] font-semibold mb-1">
+            vendido por {product.provider?.Nombre?.toUpperCase() || "PROVEEDOR"}
+          </p>
+
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
+
+          {minVariant?.price ? (
+            <>
+              <p className="text-2xl font-bold text-gray-800 mb-0">${minVariant.price.toLocaleString()}</p>
+              <p className="text-sm text-gray-400 mb-6">precio sin Alquimia ${(minVariant.price * 1.2).toLocaleString()}</p>
+            </>
+          ) : (
+            <p className="text-md text-gray-500 mb-4">Precio no disponible</p>
+          )}
+
+          <h3 className="text-sm font-bold mb-1 uppercase tracking-wide">Detalle del producto</h3>
+          <p className="text-sm text-gray-700 mb-6">{product.description || "Sin descripción disponible."}</p>
+
+          {/* Botón destacado */}
+          <div className="flex gap-3 mb-8">
+            <Button label="VISITAR PROVEEDOR" />
+          </div>
+
+          {/* Variantes */}
+          <h3 className="text-sm font-bold mb-2 uppercase tracking-wide">Presentaciones disponibles:</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            {product.variants.map((v, index) => (
+              <div
+                key={`variant-${v.id ?? index}`}
+                className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
+              >
+                <p className="text-sm font-medium mb-1">
+                  {v.volume} {v.unit}
+                </p>
+                <p className="text-lg font-bold text-[var(--violeta)]">
+                  {v.price != null ? `$${v.price.toLocaleString()}` : "Precio no disponible"}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">Stock: {v.stock ?? "?"}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Acciones */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button label="SUMAR A BIBLIOTECA" />
+            <Button label="RECLAMAR CÓDIGO" />
+          </div>
+        </div>
+      </main>
+    </SectionWrapper>
   );
 }

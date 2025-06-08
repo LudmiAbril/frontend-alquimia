@@ -10,6 +10,7 @@ href?: string
 
 /*SUPPLIERS*/
 export interface ProductCardProps {
+  id:number,
   name: string;
   price: number;
   volume?: number;

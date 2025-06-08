@@ -36,3 +36,34 @@ export async function getAllProducts(): Promise<ProductDTO[]> {
   return normalizedData.filter(p => !!p.id && !!p.name?.trim());
 }
 
+//########A ESPERA DE ENDPOINT NUEVOS
+// export async function getProductById(id: string): Promise<ProductDTO | null> {
+//   const response = await fetch(`http://localhost:5035/product/${id}`);
+//   if (!response.ok) return null;
+
+//   const data = await response.json();
+
+//   const validVariants = data.Variants?.filter((v: any) => v.Price > 0) || [];
+//   const minVariant = validVariants.length > 0
+//     ? validVariants.reduce((min: any, curr: any) => (curr.Price < min.Price ? curr : min))
+//     : null;
+
+//   return {
+//     id: data.Id,
+//     name: data.Name,
+//     description: data.Description,
+//     productType: data.ProductType,
+//     provider: {
+//       id: data.Provider?.Id,
+//       nombre: data.Provider?.Nombre,
+//       email: data.Provider?.Email,
+//       esAprobado: data.Provider?.EsAprobado,
+//     },
+//     supplierName: data.SupplierName,
+//     variants: data.Variants,
+//     price: minVariant?.Price ?? 0,
+//     volume: minVariant?.Volume,
+//     unit: minVariant?.Unit,
+//   };
+// }
+
