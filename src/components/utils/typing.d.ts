@@ -112,12 +112,15 @@ export interface PropsDynamic {
   onSelect: (option: string) => void
 }
 export type VisualType = "cards" | "grid" | "list" | "two" | "bubbles";
-export interface SummaryItem  {
+
+export interface SummaryItem {
   label: string
   value: string
   icon: string
   color: string
-};
+}
+
+
 export interface QuestionDTO {
   Id: number
   Pregunta: string

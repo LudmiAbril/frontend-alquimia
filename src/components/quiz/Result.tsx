@@ -4,18 +4,24 @@ import { PropsResult, SummaryItem } from "@/components/utils/typing"
 import Card3D from "./Card3d"
 import { answerSummaryMap, backgroundByFamily, familyPet } from "../utils/utils"
 import { useState } from "react"
+import ButtonSecondary from "../general/ButtonSecondary"
+import Button from "../general/Button"
 
 export default function Result({ result, answers, onReset }: PropsResult){ 
 
   const backgroundImage = backgroundByFamily[result.nombre] || "/quiz/familia-fondos/amaderadaBack.png"
   const familyPets = familyPet[result.nombre] || "/mascotas/amaderada.png"
 const [showFormula, setShowFormula] = useState(false);
+const [showSummary, setShowSummary] = useState(false);
 
 
-
+ console.log("Respuestas:", answers)
 const dynamicSummary: SummaryItem[] = answers
   .map((answer) => {
-const entry = answerSummaryMap[answer.questionId]?.[answer.selectedOption];
+const optionLetterToNumber = { A: "1", B: "2", C: "3", D: "4" };
+const key = optionLetterToNumber[answer.selectedOption as keyof typeof optionLetterToNumber];
+const entry = answerSummaryMap[answer.questionId]?.[key];
+
 
 
     return entry ?? null;
@@ -42,9 +48,6 @@ const entry = answerSummaryMap[answer.questionId]?.[answer.selectedOption];
           <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-500 to-purple-600 bg-clip-text text-transparent mb-6">
             {result.nombre}
           </h2>
-
-          <p className="text-lg text-gray-700 leading-relaxed mb-6 whitespace-pre-line">{result.descripcion}</p>
-
           {result.subfamilias && result.subfamilias.length > 0 && (
             <div className="mb-6">
               <h3 className="text-md font-semibold text-purple-800 mb-2">Subfamilias destacadas:</h3>
@@ -85,44 +88,52 @@ const entry = answerSummaryMap[answer.questionId]?.[answer.selectedOption];
           )}
 
           {/* Resumen de respuestas */}
-<section className="bg-white border border-gray-200 rounded-xl p-6 mb-8 shadow-md max-w-2xl mx-auto">
-  <h3 className="text-center text-lg font-semibold text-gray-700 mb-4">Resumen de tu test</h3>
-<ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-  {dynamicSummary.map((item, idx) => (
-    <li
-      key={idx}
-      className="flex items-center gap-4 p-4 rounded-xl shadow-sm"
-      style={{ backgroundColor: item.color }}
-    >
-      <div className="text-3xl">{item.icon}</div>
-      <div className="text-sm text-gray-800">
-        <strong>{item.label}:</strong> {item.value}
-      </div>
-    </li>
-  ))}
-</ul>
-
-</section>
-
-
-      <button
-  onClick={onReset}
-  className="bg-[var(--violeta)] text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-[0_0_12px_4px_rgba(148,68,182,0.5)] hover:scale-105"
->
- 
-  Volver a empezar
-</button>
-{!showFormula && (
+{!showSummary && (
   <button
-    onClick={() => setShowFormula(true)}
-    className="bg-[var(--violeta)] text-white px-6 py-3 rounded-full mt-6 hover:scale-105 transition-all"
+    onClick={() => setShowSummary(true)}
+    className="mt-6 text-sm underline text-purple-700 hover:text-purple-900 transition"
   >
-    Ver fórmula recomendada
+    Ver resumen de tus respuestas
   </button>
 )}
-{showFormula && (
-  <div className="...">{/* mostrar fórmula aquí */}</div>
+
+{showSummary && (
+  <section className="bg-white border border-gray-200 rounded-xl p-6 mb-8 shadow-md max-w-xl mx-auto">
+    <h3 className="text-center text-lg font-semibold text-gray-800 mb-4 uppercase tracking-wide">
+      Resumen de tus respuestas
+    </h3>
+    <ul className="text-sm text-gray-700 space-y-2">
+      {dynamicSummary.map((item, idx) => (
+        <li key={idx}>
+          <strong className="font-semibold">{item.label}:</strong> {item.value}
+        </li>
+      ))}
+    </ul>
+    <button
+      onClick={() => setShowSummary(false)}
+      className="mt-6 block mx-auto text-sm text-purple-600 hover:underline"
+    >
+      Ocultar resumen
+    </button>
+  </section>
 )}
+
+
+
+{/* Acciones */}
+<div className="flex  items-center gap-4 mt-6 w-full">
+  <ButtonSecondary
+    label="Volver a empezar"
+    onClick={onReset}
+  />
+  {!showSummary && (
+  
+<Button
+  label="fórmula recomendada"
+  href={`/quiz/formula?top=${encodeURIComponent(formula?.TopNote || "")}&heart=${encodeURIComponent(formula?.HeartNote || "")}&base=${encodeURIComponent(formula?.BaseNote || "")}&type=${encodeURIComponent(result.concentracion || "")}`}
+/>
+  )}
+</div>
 
 
 
