@@ -296,11 +296,19 @@ export const PRODUCT_OPTIONS = [
 ];
 /*################################ - QUIZ - #############################################################*/
 export const familyDescriptions: Record<string, string> = {
-  Fresca: "¿A qué huele? Imaginá una brisa suave en una mañana de verano, con toques de limón, hojas verdes y agua cristalina. Las fragancias frescas son como una poción mágica de energía y limpieza.",
-  Floral: "¿A qué huele? Como un ramo recién cortado en primavera. Rosas, jazmín y peonías bailan en el aire. Las fragancias florales son románticas, delicadas y soñadoras, como hechizos de amor.",
-  Amaderada: "¿A qué huele? Bosques encantados al atardecer. Cedro, sándalo y vetiver crean un aroma cálido, envolvente y profundo, perfecto para quienes tienen un alma misteriosa.",
-  Oriental: "¿A qué huele? Perfumes exóticos, dulces y envolventes con especias, ámbar o vainilla. Como un ritual alquímico de seducción, que deja rastro de magia por donde pasás.",
+  Fresca:
+    "¿A qué huele? A una ráfaga de aire puro después de una tormenta de verano. Notas chispeantes de limón, menta y hojas verdes que despiertan tus sentidos como si tomaras una poción de vitalidad líquida. Son fragancias que limpian el alma y refrescan el día como magia embotellada.",
+
+  Floral:
+    "¿A qué huele? A un jardín secreto al amanecer. Rosas aterciopeladas, jazmines enredados y peonías en flor danzan en el viento. Las fragancias florales son como un conjuro de ternura: románticas, etéreas y cargadas de poesía.",
+
+  Amaderada:
+    "¿A qué huele? A senderos escondidos entre árboles antiguos. Cedro, sándalo y vetiver te envuelven como un hechizo cálido y terroso. Son perfumes con alma de bosque encantado, donde cada nota parece susurrar una historia ancestral.",
+
+  Oriental:
+    "¿A qué huele? A misterios bajo la luz de las velas. Canela, ámbar, vainilla y especias envuelven el aire como un conjuro dulce y seductor. Las fragancias orientales son hechizos sensuales, que dejan un aura encantada tras cada paso.",
 }
+
 
   export const familyPet: Record<string, string> = {
     "Fresca": "/mascotas/fresca.png",
