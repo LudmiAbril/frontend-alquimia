@@ -295,6 +295,12 @@ export const PRODUCT_OPTIONS = [
   "Otro",
 ];
 /*################################ - QUIZ - #############################################################*/
+export const familyDescriptions: Record<string, string> = {
+  Fresca: "¿A qué huele? Imaginá una brisa suave en una mañana de verano, con toques de limón, hojas verdes y agua cristalina. Las fragancias frescas son como una poción mágica de energía y limpieza.",
+  Floral: "¿A qué huele? Como un ramo recién cortado en primavera. Rosas, jazmín y peonías bailan en el aire. Las fragancias florales son románticas, delicadas y soñadoras, como hechizos de amor.",
+  Amaderada: "¿A qué huele? Bosques encantados al atardecer. Cedro, sándalo y vetiver crean un aroma cálido, envolvente y profundo, perfecto para quienes tienen un alma misteriosa.",
+  Oriental: "¿A qué huele? Perfumes exóticos, dulces y envolventes con especias, ámbar o vainilla. Como un ritual alquímico de seducción, que deja rastro de magia por donde pasás.",
+}
 
   export const familyPet: Record<string, string> = {
     "Fresca": "/mascotas/fresca.png",

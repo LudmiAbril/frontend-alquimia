@@ -2,7 +2,7 @@
 
 import { PropsResult, SummaryItem } from "@/components/utils/typing"
 import Card3D from "./Card3d"
-import { answerSummaryMap, backgroundByFamily, familyPet } from "../utils/utils"
+import { answerSummaryMap, backgroundByFamily, familyDescriptions, familyPet } from "../utils/utils"
 import { useState } from "react"
 import ButtonSecondary from "../general/ButtonSecondary"
 import Button from "../general/Button"
@@ -86,6 +86,11 @@ const entry = answerSummaryMap[answer.questionId]?.[key];
               Concentración sugerida: <span className="font-medium">{result.concentracion}</span>
             </p>
           )}
+{result.nombre && familyDescriptions[result.nombre] && (
+  <p className="mt-6 text-[var(--gris4)] leading-relaxed max-w-xl text-sm md:text-base">
+    {familyDescriptions[result.nombre]}
+  </p>
+)}
 
           {/* Resumen de respuestas */}
 {!showSummary && (
