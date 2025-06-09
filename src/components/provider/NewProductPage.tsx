@@ -7,7 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SelectableButtonGroup from "./common/SelectableButtonGroup";
 import SnackbarFeedback from "./common/SnackbarFeedback";
 import { attributesProduct } from "../utils/utils";
-import { useImageUpload } from "@/services/useImageUpload";
+import { useImageUpload } from "@/services/useImageUploadService";
 import { useProductForm } from "@/services/useProductForm";
 
 export default function NewProductPage() {

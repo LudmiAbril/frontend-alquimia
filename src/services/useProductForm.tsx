@@ -24,7 +24,6 @@ export function useProductForm(imageUrls: string[], defaultCategory = "") {
   const [providerId, setProviderId] = useState<number | null>(null);
 
   /* ────────────── Effects ────────────── */
-  // Obtiene el ID del proveedor autenticado
   useEffect(() => {
     const fetchProviderId = async () => {
       const token = localStorage.getItem("token");
@@ -145,7 +144,6 @@ export function useProductForm(imageUrls: string[], defaultCategory = "") {
         return { success: false, message: "No se encontró el token." };
       }
 
-      /* Payload que el backend espera */
  const payload = {
   name: productName.trim(),
   description: description.trim(),

@@ -6,11 +6,11 @@ import BadgeIcon from "@mui/icons-material/Badge";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import { formatCuit, validateStep2Form } from "../utils/getBackendErrorMessage";
-import {  Paso2Props } from "../utils/typing";
-import { PRODUCT_OPTIONS } from "../utils/utils";
+import { productOptions } from "../utils/utils";
 import SectionWrapper from "../general/SectionWrapper";
+import { Step2Props } from "../utils/typing";
 
-export default function Paso2Empresa({ onContinue, onBack, formData, setFormData }: Paso2Props) {
+export default function Step2Company({ onContinue, onBack, formData, setFormData }: Step2Props) {
   const [error, setError] = useState("");
 
   const toggleProducto = (producto: string) => {
@@ -51,7 +51,7 @@ export default function Paso2Empresa({ onContinue, onBack, formData, setFormData
             </li>
             <li className="flex items-start gap-3">
               <InventoryIcon className="text-[var(--violeta)]" />
-              Seleccioná los productos que promocionás en AlquimIA.
+              Seleccioná los productos que promocionás en Alquimia.
             </li>
             <li className="flex items-start gap-3">
               <LocalOfferIcon className="text-[var(--violeta)]" />
@@ -69,7 +69,6 @@ export default function Paso2Empresa({ onContinue, onBack, formData, setFormData
               Completá los datos para mostrar tu propuesta.
             </p>
             
-             {/* Indicador de progreso */}
           <div className="flex justify-center gap-4 mb-6">
             <div className="w-4 h-4 bg-[var(--violeta)] rounded-full" />
             <div className="w-4 h-4 bg-[var(--violeta)] rounded-full" />
@@ -113,7 +112,7 @@ export default function Paso2Empresa({ onContinue, onBack, formData, setFormData
                   ¿Qué productos ofrecés?
                 </label>
                 <div className="grid grid-cols-2 gap-2">
-                  {PRODUCT_OPTIONS.map((op) => (
+                  {productOptions.map((op) => (
                     <label
                       key={op}
                       className={`flex items-center px-3 py-2 border rounded cursor-pointer ${formData.productosSeleccionados?.includes(op)

@@ -1,20 +1,16 @@
-// hooks/useImageUpload.ts
-"use client";
 
+
+import { CloudinaryResponse } from "@/components/utils/typing";
 import { useState } from "react";
 
-interface CloudinaryResponse {
-  secure_url: string;
-  public_id: string;
-}
 
 export function useImageUpload() {
   const [images, setImages] = useState<File[]>([]);
   const [urls, setUrls] = useState<string[]>([]);
   const [message, setMessage] = useState<string>("");
 
-  const cloudName = "dxnwcmh1j"; // Reemplazá con tu cloud name
-  const uploadPreset = "alquimia-productos"; // Reemplazá con tu preset unsigned
+  const cloudName = "dxnwcmh1j";
+  const uploadPreset = "alquimia-productos"; 
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -69,7 +65,7 @@ export function useImageUpload() {
 
   return {
     images,
-    urls, // ⬅️ acá accedés a las URLs de Cloudinary
+    urls, //  acá accedés a las URLs de Cloudinary
     message,
     handleImageUpload,
     handleRemoveImage,

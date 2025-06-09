@@ -6,9 +6,9 @@ import Step1Account from "./Step1Account";
 import Step2Business from "./Step2Business";
 import Step3Payment from "./Step3Payment";
 import Step4Confirmation from "./Step4Confirmation";
-import { sendRegisterProvider } from "../utils/session";
 import { ProviderFormData } from "../utils/typing";
 import { initialFormData } from "../utils/utils";
+import { sendRegisterProvider } from "@/services/sessionService";
 
 export default function RegisterSteps() {
   const [step, setStep] = useState(1);

@@ -2,7 +2,7 @@
 
 import SearchInput from "@/components/Searcher/SearchInput"
 import SearchResult from "@/components/Searcher/SearchResult"
-import { useSearch } from "@/services/useSearch"
+import { useSearch } from "@/services/useSearchService"
 
 
 export default function SearchPage() {

@@ -6,9 +6,9 @@ import ProviderFilters from "@/components/admin/ProviderFilters"
 import ProviderTable from "@/components/admin/AdminTable"
 import ProviderStats from "@/components/admin/ProviderStats"
 import MagicParticles from "@/components/general/MagicParticles"
-import { approveProvider, deactivateProvider } from "@/services/providerFunctions"
+import { approveProvider, deactivateProvider } from "@/services/providerFunctionsService"
 import { ProviderDTO } from "../utils/typing"
-import { fetchProviders } from "@/services/providerFunctions"
+import { fetchProviders } from "@/services/providerFunctionsService"
 
 
 export default function AdminPanel() {

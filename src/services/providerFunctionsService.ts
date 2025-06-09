@@ -1,4 +1,3 @@
-"use client"
 
 import { ProviderDTO } from "@/components/utils/typing";
 

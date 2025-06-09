@@ -7,10 +7,10 @@ import ScheduleIcon from "@mui/icons-material/Schedule";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import CircularProgress from "@mui/material/CircularProgress";
 import SectionWrapper from "../general/SectionWrapper";
-import { Paso3Props } from "../utils/typing";
+import { Step3Props } from "../utils/typing";
 import { validatePaymentForm, getCardBrand, formatCardExpiry } from "../utils/getBackendErrorMessage";
 
-export default function Paso3Pago({ onContinue, onBack, formData, setFormData }: Paso3Props) {
+export default function Step3Payment ({ onContinue, onBack, formData, setFormData }: Step3Props) {
   const [error, setError] = useState("");
   const [estadoPago, setEstadoPago] = useState<"idle" | "verificando" | "exito">("idle");
 
@@ -24,7 +24,6 @@ export default function Paso3Pago({ onContinue, onBack, formData, setFormData }:
 
     setError("");
     setEstadoPago("verificando");
-
     setTimeout(() => {
       setEstadoPago("exito");
       setTimeout(() => {
@@ -71,7 +70,6 @@ export default function Paso3Pago({ onContinue, onBack, formData, setFormData }:
               Promocioná tus productos durante <strong>12 meses</strong> en Alquimia.
             </p>
 
-                 {/* Indicador de progreso */}
           <div className="flex justify-center gap-4 mb-6">
             <div className="w-4 h-4 bg-[var(--violeta)] rounded-full" />
             <div className="w-4 h-4 bg-[var(--violeta)] rounded-full" />

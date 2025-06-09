@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FormToggleProps } from "@/components/utils/typing";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
-import { saveSessionData } from "../utils/session";
+import { saveSessionData } from "../../services/sessionService";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 

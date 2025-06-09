@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InfoIcon from "@mui/icons-material/Info";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
-import { Paso4Props } from "../utils/typing";
+import { Step4Props } from "../utils/typing";
 import SectionWrapper from "../general/SectionWrapper";
 
-export default function Paso4Confirmacion({  }: Paso4Props) {
+export default function Step4Confirmation({  }: Step4Props) {
   const router = useRouter();
 
   return (
@@ -33,7 +33,6 @@ export default function Paso4Confirmacion({  }: Paso4Props) {
           </ul>
         </aside>
 
-        {/* Columna derecha */}
         <main className="w-[55%] flex items-center justify-center px-6 py-12">
           <div className="w-full max-w-md mx-auto bg-white p-10 rounded-xl shadow-lg text-center">
             <MarkEmailReadIcon className="text-[var(--violeta)] mb-4" style={{ fontSize: "3rem" }} />

@@ -10,11 +10,11 @@ import { proveedorMessages } from "../utils/utils";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { getPasswordStrength, validateRegisterForm } from "../utils/getBackendErrorMessage";
-import { Paso1Props } from "../utils/typing";
+import { Step1Props } from "../utils/typing";
 import SectionWrapper from "../general/SectionWrapper";
 
 
-export default function Paso1Cuenta({ onContinue, formData, setFormData }: Paso1Props) {
+export default function Step1Cuenta({ onContinue, formData, setFormData }: Step1Props) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -82,7 +82,6 @@ export default function Paso1Cuenta({ onContinue, formData, setFormData }: Paso1
             <div className="w-4 h-4 bg-gray-300 rounded-full" />
           </div>
 
-          {/* Formulario */}
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-semibold mb-1 text-gray-700">

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FormToggleProps, RegisterDTO } from "@/components/utils/typing";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
-import { registerUser, saveSessionData } from "../utils/session";
+import { registerUser, saveSessionData } from "../../services/sessionService";
 import { validateRegisterForm, getPasswordStrength } from "../utils/getBackendErrorMessage";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";

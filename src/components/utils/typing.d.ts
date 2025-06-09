@@ -105,8 +105,8 @@ export interface ProductDTO {
   id: number;
   name: string;
   description: string;
-  productType?: any; // ajustalo si sabés el tipo
-  provider?: any;    // ajustalo si sabés el tipo
+  productType?: any; 
+  provider?: any;    
   price?: number;
   volume?: number;
   unit?: string;
@@ -340,28 +340,28 @@ export interface ProviderFormData {
 }
 
 
-export interface Paso1Props {
+export interface Step1Props {
   onContinue: () => void;
   formData: ProviderFormData;
   setFormData: (data: ProviderFormData) => void;
 }
 
-export interface Paso2Props {
-  onContinue: () => void;
-  onBack: () => void;
-  formData: ProviderFormData;
-  setFormData: (data: ProviderFormData) => void;
-}
-
-export interface Paso3Props {
+export interface Step2Props {
   onContinue: () => void;
   onBack: () => void;
   formData: ProviderFormData;
   setFormData: (data: ProviderFormData) => void;
 }
 
+export interface Step3Props {
+  onContinue: () => void;
+  onBack: () => void;
+  formData: ProviderFormData;
+  setFormData: (data: ProviderFormData) => void;
+}
 
-export interface Paso4Props {
+
+export interface Step4Props {
   onFinish: () => void;
 }
 export interface PropsInput {
@@ -443,6 +443,8 @@ export interface PropsSelect {
   onChange: (selected: string[]) => void;
   multiple?: boolean;
 }
+
+
 /***CREAR PERFUME */
 export interface NoteInfoResponse {
   Id: number;
@@ -486,4 +488,9 @@ export interface VariantDTO {
   isHypoallergenic: boolean;
   isVegan: boolean;
   isParabenFree: boolean;
+}
+
+export interface CloudinaryResponse {
+  secure_url: string;
+  public_id: string;
 }

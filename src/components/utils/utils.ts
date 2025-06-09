@@ -330,7 +330,7 @@ export const initialFormData: ProviderFormData = {
 };
 
 
-export const PRODUCT_OPTIONS = [
+export const productOptions = [
   "Esencias",
   "Envases",
   "Alcohol",
@@ -474,19 +474,6 @@ export const messages = [
   ]
 ]
 
-
-export const PROVIDER_TABS = [
-  { label: "Home", value: "home" },
-  { label: "Productos", value: "products" },
-  { label: "Tipo de productos", value: "types" },
-
-]
-
-export const STATUS_OPTIONS = [
-  { label: "Todos", value: "all" },
-  { label: "Aprobados", value: "approved" },
-  { label: "Pendientes", value: "pending" },
-] as const;
 
 
 export const attributesProduct = [
