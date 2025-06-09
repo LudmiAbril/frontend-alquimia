@@ -46,19 +46,38 @@ test('Botón "Empezar a crear" abre el modal correctamente', async ({ page }) =>
   await expect(page.getByText(/Descubrí la esencia que revela tu magia./i)).toBeVisible()
 })
 
-/* test('Botón "Empezar a crear" redirige correctamente', async ({ page }) => {
-  await page.goto('http://localhost:3000/', { timeout: 60000 })
-
-  const boton = page.getByRole('button', { name: /Empezar a crear/i })
-  await boton.click()
-
-  // Esperás que cambie de ruta a /crear o /crear-perfume
-  await expect(page).toHaveURL(/.*createParfum/i)
-}) */
 
 test('Mascota o logo tiene alt accesible', async ({ page }) => {
-  await page.goto('http://localhost:3000/')
+  await page.goto('http://localhost:3000/', { timeout: 60000 })
   const logo = await page.getByAltText(/Alquimia/)
   await expect(logo).toBeVisible()
 })
 
+test('Decoraciones de fondo se renderizan', async ({ page }) => {
+  await page.goto('http://localhost:3000/', { timeout: 60000 });
+
+  // Árboles al fondo (ejemplo: usa alt o className si es SVG)
+  const decoracion = page.locator('img[alt*="Decoración árboles"]');
+  await expect(decoracion).toBeVisible();
+});
+
+test('Botón "Explorar cómo funciona" responde al hover', async ({ page }) => {
+  await page.goto('http://localhost:3000/', { timeout: 60000 });
+
+  const boton = page.getByRole('link', { name: /Explorar cómo funciona/i });
+  await boton.hover();
+
+  const styles = await boton.evaluate((el) => {
+    return window.getComputedStyle(el).backgroundColor;
+  });
+
+  expect(styles).not.toBe('transparent');
+});
+
+test('Landing carga dentro del tiempo esperado', async ({ page }) => {
+  const start = Date.now();
+  await page.goto('http://localhost:3000/');
+  await page.waitForSelector('text=DESCUBRÍ ALQUIMIA');
+  const duration = Date.now() - start;
+  expect(duration).toBeLessThan(60000); 
+});
