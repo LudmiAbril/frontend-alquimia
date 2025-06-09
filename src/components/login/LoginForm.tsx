@@ -53,8 +53,10 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
 }
 
 // Guardar datos en localStorage
-localStorage.setItem("username", perfil.nombre);   // ✅ ahora se puede usar en useSession
+localStorage.setItem("username", perfil.nombre);   
 localStorage.setItem("useremail", perfil.email);
+
+
 
 // Paso 3: redirigir según rol
 const rol = perfil.rol;

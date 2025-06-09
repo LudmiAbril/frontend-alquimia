@@ -19,15 +19,8 @@ export default function Home() {
       <HowItWorks />
       <FragranceIntroSection />
       <TestIntroSection />
-      <SuppliersSection />
       <CustomDesignSection />
-      
-      <div className="flex items-center justify-center my-16">
-        <div className="h-px bg-[var(--violeta)] w-1/3" />
-        <div className="mx-4 w-[10px]" /> 
-        <div className="h-px bg-[var(--violeta)] w-1/3" />
-      </div>
-
+      <SuppliersSection />
       <FAQAccordion />
       <FloatingMascot
         messages={messagesLanding}

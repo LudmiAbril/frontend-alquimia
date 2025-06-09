@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import CloseIcon from "@mui/icons-material/Close";
-import Button from "../general/Button";
 
 export default function DiscoverModal({ onClose }: { onClose: () => void }) {
   const [isVisible, setIsVisible] = useState(false);

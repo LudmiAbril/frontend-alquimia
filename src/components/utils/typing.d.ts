@@ -120,6 +120,10 @@ export interface Supplier {
   name: string;
   imageSrc: string;
 }
+export interface ImageModalProps {
+  selectedImg: string | null;
+  onClose: () => void;
+}
 
 /*PROFILE*/
 export interface AuthModalProps {
@@ -187,6 +191,7 @@ export interface PropsDynamic {
   selectedOption: string
   onSelect: (option: string) => void
 }
+
 export type VisualType = "cards" | "grid" | "list" | "two" | "bubbles";
 
 export interface SummaryItem {
@@ -201,8 +206,10 @@ export interface QuestionDTO {
   Id: number
   Pregunta: string
   Opciones: OptionDTO[]
-  VisualType?: VisualType // ESTO PARA QUE PUEDA CAMBIAR FORMATO DE RENDERIZADO...atte Celu
+  VisualType?: VisualType 
 }
+
+
 export interface AnswerDTO {
   questionId: number;
   selectedOption: string;
@@ -440,4 +447,31 @@ export interface UserDTO {
   email: string;
   role: string;
   isProvider: boolean;
+}
+
+export interface SectionWrapperProps {
+  children: ReactNode;
+  className?: string;
+  id?: string;
+  ariaLabel?: string;
+}
+
+
+export interface PropsRow {
+  provider: Provider;
+}
+
+export interface SearchResult {
+  id: number;
+  name: string;
+}
+export interface VariantDTO {
+  id: number;
+  volume: number;
+  unit: string;
+  price: number;
+  stock: number;
+  isHypoallergenic: boolean;
+  isVegan: boolean;
+  isParabenFree: boolean;
 }
