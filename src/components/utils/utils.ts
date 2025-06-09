@@ -1,5 +1,44 @@
 import { ProviderFormData, StepData } from "@/components/utils/typing";
 import { Supplier } from "@/components/utils/typing";
+import { getFormulaById } from "@/services/createPerfumeService";
+
+/* CREATE PERFUME */
+export const createSteps = [
+  {
+    nombre: "Bienvenida",
+    descripcion:
+      "Te damos la bienvenida al diseño de tu perfume personalizado.",
+  },
+  {
+    nombre: "Nota Base",
+    descripcion: "Profunda, duradera... la estela que perdura.",
+  },
+  {
+    nombre: "Nota Corazón",
+    descripcion: "El alma de tu fragancia, donde reside su identidad.",
+  },
+  {
+    nombre: "Nota Salida",
+    descripcion: "La nota de salida es la primera impresión: volátil y vibrante.",
+  },
+  {
+    nombre: "Intensidad",
+    descripcion: "Ajustá la intensidad general del perfume según tu preferencia.",
+  },
+  {
+    nombre: "Fórmula",
+    descripcion: "Acá podés ver el resultado final de tu fórmula personalizada.",
+  },
+];
+
+export const mapNotesArrayToObject = (notesArray: { id: number }[]) => {
+  const result: Record<string, { Id: number }> = {};
+  notesArray.forEach((note, idx) => {
+    const key = `Note${idx + 1}`;
+    result[key] = { Id: note.id };
+  });
+  return result;
+}
 
 
 /*################OLFACTORY TEST###################*/
@@ -254,7 +293,7 @@ export const suppliers: Supplier[] = [
 
 /*################################ - MENSAJES QUIMI - #############################################################*/
 export const messagesLanding = [
- "¡Bienvenidos al mundo de los aromas!",
+  "¡Bienvenidos al mundo de los aromas!",
   "Tu esencia perfecta está cerca...",
   "Explorá las notas... yo cuido la magia",
   "Tu fragancia habla por vos, ¡creala!"
@@ -294,12 +333,12 @@ export const PRODUCT_OPTIONS = [
   "Etiquetas",
   "Otro",
 ];
-  export const familyPet: Record<string, string> = {
-    "Fresca": "/mascotas/fresca.png",
-    "Floral": "/mascotas/floral.png",
-    "Amaderada": "/mascotas/amaderada.png",
-    "Oriental": "/mascotas/oriental.png",
-  }
+export const familyPet: Record<string, string> = {
+  "Fresca": "/mascotas/fresca.png",
+  "Floral": "/mascotas/floral.png",
+  "Amaderada": "/mascotas/amaderada.png",
+  "Oriental": "/mascotas/oriental.png",
+}
 export const backgroundByFamily: Record<string, string> = {
   "Fresca": "/quiz/familia-fondos/frescaBack.png",
   "Floral": "/quiz/familia-fondos/floralBack.png",
@@ -337,26 +376,26 @@ export const familiesQuiz = [
   }
 ]
 
- export const messages = [
-    [
-      "Las familias olfativas son grupos de perfumes con aromas parecidos porque comparten ingredientes clave.",
-    ],    [
-      "Te ayudan a entender qué fragancias van con vos. ¡Es como tener una brújula aromática!"
-    ],
-    [
-      "Cada familia tiene su personalidad. Algunas son frescas y chispeantes, otras cálidas y misteriosas.",
-    ],
-        [
-      "Explorarlas es descubrir un poco más sobre vos."
-    ]
+export const messages = [
+  [
+    "Las familias olfativas son grupos de perfumes con aromas parecidos porque comparten ingredientes clave.",
+  ], [
+    "Te ayudan a entender qué fragancias van con vos. ¡Es como tener una brújula aromática!"
+  ],
+  [
+    "Cada familia tiene su personalidad. Algunas son frescas y chispeantes, otras cálidas y misteriosas.",
+  ],
+  [
+    "Explorarlas es descubrir un poco más sobre vos."
   ]
+]
 
 
 export const PROVIDER_TABS = [
   { label: "Home", value: "home" },
   { label: "Productos", value: "products" },
   { label: "Tipo de productos", value: "types" },
-  
+
 ]
 
 export const STATUS_OPTIONS = [
