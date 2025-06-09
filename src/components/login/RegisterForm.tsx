@@ -47,11 +47,13 @@ export default function RegisterForm({ toggleForm }: FormToggleProps) {
       saveSessionData(result.token);
       setSuccessMessage("¡Registro exitoso! Redirigiendo...");
       setTimeout(() => window.location.reload(), 2000);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+   } catch (err: unknown) {
+  if (err instanceof Error) {
+    setError(err.message);
+  } else {
+    setError("Unknown error occurred");
+  }
+}
   };
 
   return (

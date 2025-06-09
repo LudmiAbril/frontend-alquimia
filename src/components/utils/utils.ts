@@ -1,6 +1,5 @@
 import { ProviderFormData, StepData } from "@/components/utils/typing";
 import { Supplier } from "@/components/utils/typing";
-import { getFormulaById } from "@/services/createPerfumeService";
 
 /* CREATE PERFUME */
 export const createSteps = [
@@ -190,17 +189,17 @@ export const mockProducts = {
 
 export const howSteps: StepData[] = [
   {
-    image: "/LandingImage/Steps/Step1Creation.svg",
+    image: "/landingImagenes/pasos/Step1Creation.svg",
     alt: "Creá tu fragancia",
     text: "Creá tu propio perfume.",
   },
   {
-    image: "/LandingImage/Steps/Step2Supplier.svg",
+    image: "/landingImagenes/pasos/Step2Supplier.svg",
     alt: "Personalizá el frasco",
     text: "Contactate con los proveedores.",
   },
   {
-    image: "/LandingImage/Steps/Step3Materials.svg",
+    image: "/landingImagenes/pasos/Step3Materials.svg",
     alt: "Recibí tus esencias",
     text: "Recibí tus ingredientes.",
   },
@@ -257,40 +256,46 @@ export const providerMenuItems = [
 /*################################ - TEST LANDING IMAGES - #############################################################*/
 
 export const families = [
-  { name: "Orientales", src: "/LandingImage/Test/oriental.png", alt: "orientalFamily" },
-  { name: "Floral", src: "/LandingImage/Test/floral.png", alt: "floralFamily" },
-  { name: "Frescas", src: "/LandingImage/Test/fresca.png", alt: "frescasFamily" },
-  { name: "Amaderada", src: "/LandingImage/Test/amaderada.png", alt: "amaderadaFamily" },
+  { name: "Orientales", src: "/landingImagenes/test/oriental.png", alt: "orientalFamily" },
+  { name: "Floral", src: "/landingImagenes/test/floral.png", alt: "floralFamily" },
+  { name: "Frescas", src: "/landingImagenes/test/fresca.png", alt: "frescasFamily" },
+  { name: "Amaderada", src: "/landingImagenes/test/amaderada.png", alt: "amaderadaFamily" },
 ];
 
 
 export const suppliers: Supplier[] = [
   {
     name: "Le Flour",
-    imageSrc: "/LandingImage/Suplier/leflour.jpeg",
+    imageSrc: "/landingImagenes/proveedor/leflour.png",
   },
   {
     name: "Aromatika",
-    imageSrc: "/LandingImage/Suplier/aromatika.jpeg",
+    imageSrc: "/landingImagenes/proveedor/aromatika.png",
   },
   {
     name: "Glassbottles",
-    imageSrc: "/LandingImage/Suplier/glass.jpeg",
+    imageSrc: "/landingImagenes/proveedor/glass.png",
   },
-  {
-    name: "Aromaskym",
-    imageSrc: "/LandingImage/Suplier/aromaskym.png",
-  },
+  
   {
     name: "Essentia",
-    imageSrc: "/LandingImage/Suplier/glass.jpeg",
+    imageSrc: "/landingImagenes/proveedor/Essentia.png",
   },
   {
     name: "NaturaLab",
-    imageSrc: "/LandingImage/Suplier/aromatika.jpeg",
+    imageSrc: "/landingImagenes/proveedor/NaturaLab.png",
   },
 ];
 
+
+ export const etiquetas = [
+    "/landingImagenes/etiquetas/etiqueta1.png",
+    "/landingImagenes/etiquetas/etiqueta2.png",
+    "/landingImagenes/etiquetas/etiqueta3.png",
+    "/landingImagenes/etiquetas/etiqueta4.png",
+    "/landingImagenes/etiquetas/etiqueta5.png",
+    "/landingImagenes/etiquetas/etiqueta6.png",
+  ];
 /*################################ - MENSAJES QUIMI - #############################################################*/
 export const messagesLanding = [
   "¡Bienvenidos al mundo de los aromas!",

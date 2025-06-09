@@ -5,7 +5,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Avatar,
   Box,
   Typography,
   Chip,

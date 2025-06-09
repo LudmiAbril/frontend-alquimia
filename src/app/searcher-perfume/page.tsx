@@ -3,10 +3,10 @@
 
 import SearchInput from "@/components/Searcher/SearchInput"
 import SearchResult from "@/components/Searcher/SearchResult"
-import { useSearch } from "@/hooks/useSearch"
+import { useSearcher } from "@/services/useSearcher"
 
 export default function PerfumePage() {
-  const { query, setQuery, result, isLoading } = useSearch()
+  const { query, setQuery, result, isLoading } = useSearcher()
   console.log("🚀 result que se pasa a SearchResult:", result)
 
   return (

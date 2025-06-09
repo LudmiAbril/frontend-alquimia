@@ -11,7 +11,6 @@ const Footer = () => {
 
   return (
     <footer className="text-sm">
-      {/* Fondo blanco con árboles */}
       <div className={isQuizPage ? "bg-white" : "bg-[#E8E3DE]"}>
         <Image
           src="/svgGeneral/TreeFooter.svg"
@@ -22,44 +21,41 @@ const Footer = () => {
         />
       </div>
 
-      {/* Fondo violeta (se mantiene siempre) */}
-      <div className="bg-[#9444B6] text-white px-10 py-9 -mt-1">
-        <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
-          {/* Logo */}
+      <div className="bg-[#9444B6] text-white px-10 py-8 -mt-1">
+        <div className="flex flex-col gap-6 md:flex-row md:justify-between md:items-center">
           <Image
             src="/Logo/logotipo.svg"
             alt="Logo Alquimia"
-            className="w-[90px] h-[80px]"
-            width={90}
-            height={80}
+            className="w-[120px] h-[110px]" 
+            width={120}
+            height={110}
           />
 
-          {/* Redes */}
           <div className="flex flex-col items-end">
-            <p className="mb-4">Encontranos en:</p>
-            <div className="flex gap-8">
+            <p className="mb-4 text-lg font-semibold">Encontranos en:</p>  
+            <div className="flex gap-10">
               <Image
-                src="/Redes/tiktokIcon.svg"
+                src="/redes/tiktokIcon.svg"
                 alt="TikTok"
-                className="w-[32px] h-[32px] cursor-pointer"
-                width={32}
-                height={32}
+                className="w-[40px] h-[40px] cursor-pointer"  
+                width={40}
+                height={40}
               />
               <Image
-                src="/Redes/instagram.svg"
+                src="/redes/instagram.svg"
                 alt="Instagram"
-                className="w-[32px] h-[32px] cursor-pointer"
-                width={32}
-                height={32}
+                className="w-[40px] h-[40px] cursor-pointer"  
+                width={40}
+                height={40}
               />
             </div>
           </div>
         </div>
 
-        {/* Línea divisoria */}
-        <div className="border-t border-[#E8E3DE] my-5" />
+      
+        <div className="border-t border-[#E8E3DE] my-4" />  
 
-        <div className="flex flex-col md:flex-row justify-between gap-3 text-[13px] leading-snug">
+        <div className="flex flex-col md:flex-row justify-between gap-6 text-lg leading-snug">  
           <p>
             © 2025 Alquimia, todos los derechos reservados. No nos
             responsabilizamos por el uso inapropiado de ingredientes.
@@ -69,7 +65,7 @@ const Footer = () => {
               href="/legales/terminos"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white underline hover:opacity-90 transition-opacity"
+              className="text-white underline hover:opacity-90 transition-opacity text-lg"  
             >
               Términos y condiciones
             </Link>
