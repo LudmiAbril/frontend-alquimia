@@ -1,25 +1,26 @@
+import { SearchResult } from "@/components/utils/typing";
 import { useEffect, useState } from "react"
 
+
 export function useSearch() {
-  const [query, setQuery] = useState("")
-  const [results, setResults] = useState<any[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<SearchResult[]>([]); 
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (!query.trim()) return setResults([])
+      if (!query.trim()) return setResults([]);
 
-      setIsLoading(true)
+      setIsLoading(true);
 
-      //ACÁ EL FETCH AXEL
       fetch(`/api/search?q=${query}`)
         .then((res) => res.json())
         .then((data) => setResults(data))
-        .finally(() => setIsLoading(false))
-    }, 500)
+        .finally(() => setIsLoading(false));
+    }, 500);
 
-    return () => clearTimeout(timeout)
-  }, [query])
+    return () => clearTimeout(timeout);
+  }, [query]);
 
-  return { query, setQuery, results, isLoading }
+  return { query, setQuery, results, isLoading };
 }

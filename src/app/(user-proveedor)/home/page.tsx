@@ -1,10 +1,7 @@
 "use client";
 
-import SectionWrapper from "@/components/general/SectionWrapper";
-import CustomButton from "@/components/provider/CustomButton";
 import ProviderMenu from "@/components/provider/ProviderMenu";
 import ProviderTable from "@/components/provider/ProviderTable";
-import ProviderTabs from "@/components/provider/ProviderTabs";
 import { IconButton, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";

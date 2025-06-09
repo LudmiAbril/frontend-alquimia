@@ -14,39 +14,42 @@ export default function FAQAccordion() {
 
   return (
     <SectionWrapper className="bg-[var(--hueso)] mb-20">
-      <h2 className="text-2xl md:text-3xl font-bold text-center mb-12 text-[var(--gris4)] uppercase">
+            <div className="relative z-10 mx-auto px-4 sm:px-6 md:px-8 max-w-6xl">
+
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--gris4)] mb-10 text-center uppercase">
         Preguntas frecuentes
       </h2>
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         {faqQuestions.map((item, index) => (
           <div
             key={index}
-            className="rounded-xl bg-white shadow-sm transition-all"
+            className="rounded-xl bg-white shadow-lg transition-all"
           >
             <button
               onClick={() => toggle(index)}
-              className="w-full p-5 flex justify-between items-center text-left text-[#444] font-semibold hover:bg-[var(--lila)] rounded-xl transition-colors"
+              className="w-full p-6 flex justify-between items-center text-left text-lg md:text-xl font-semibold hover:bg-[var(--lila)] rounded-xl transition-colors"
             >
-              <span>{item.question}</span>
+              <span className="text-[var(--gris4)]">{item.question}</span>
               <ExpandMoreIcon
                 className={`transition-transform duration-300 text-[#9444B6] ${
                   openIndex === index ? "rotate-180" : ""
                 }`}
-                style={{ fontSize: "20px" }}
+                style={{ fontSize: "28px" }}  
               />
             </button>
             <div
-              className={`px-5 overflow-hidden text-sm text-gray-600 transition-all duration-300 ${
+              className={`px-6 overflow-hidden text-base text-gray-600 transition-all duration-300 ${
                 openIndex === index
-                  ? "max-h-[300px] pb-4 pt-3"
+                  ? "max-h-[500px] pb-6 pt-4"  
                   : "max-h-0 pt-0 pb-0"
               }`}
             >
-              {openIndex === index && item.answer}
+              {openIndex === index && <p className="text-lg md:text-xl">{item.answer}</p>} 
             </div>
           </div>
         ))}
+      </div>
       </div>
     </SectionWrapper>
   );

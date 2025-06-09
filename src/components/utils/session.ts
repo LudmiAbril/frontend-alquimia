@@ -42,11 +42,10 @@ export async function sendRegisterProvider(formData: ProviderFormData): Promise<
     const payload = {
       email: formData.email,
       password: formData.password,
-      name: formData.empresa, // nombre que espera el backend
+      name: formData.empresa,
       cuil: formData.cuil,
       rubro: formData.rubro,
       productosSeleccionados: formData.productosSeleccionados,
-      //tarjetaNombre: formData.tarjeta.nombre,
       tarjetaNumero: formData.tarjeta.numero,
       tarjetaVencimiento: formData.tarjeta.vencimiento,
       tarjetaCVC: formData.tarjeta.cvc,
@@ -69,7 +68,6 @@ export async function sendRegisterProvider(formData: ProviderFormData): Promise<
     const data = await response.json();
     console.log("✅ Registro exitoso:", data);
 
-    // Guardar token
     localStorage.setItem("token", data.token);
     return true;
 

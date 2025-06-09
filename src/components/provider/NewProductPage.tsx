@@ -1,6 +1,11 @@
 "use client";
 
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
+=======
+import { useRef } from "react";
+import { ChangeEvent } from "react";
+>>>>>>> middleDevelopLanding
 import { TextField, MenuItem } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
