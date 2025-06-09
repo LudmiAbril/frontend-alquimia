@@ -3,14 +3,17 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "@/services/productService";
-import { ProductDTO } from "@/components/Utils/typing";
+
 import Image from "next/image";
 import Button from "@/components/General/Button";
 import SectionWrapper from "../General/SectionWrapper";
 import Link from "next/link";
+import { ProductDTO } from "../utils/typing";
 
 export default function ProductDetailPage() {
-  const { id } = useParams();
+const params = useParams();
+const id = Array.isArray(params.id) ? params.id[0] : params.id;
+
   const [product, setProduct] = useState<ProductDTO | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -115,7 +118,8 @@ useEffect(() => {
 
           <h3 className="text-sm font-bold mb-2 uppercase tracking-wide">Presentaciones disponibles:</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-            {product.variants.map((v, index) => (
+           {product.variants?.map((v, index) => (
+
               <div
                 key={`variant-${v.id ?? index}`}
                 className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
