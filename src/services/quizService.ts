@@ -7,10 +7,10 @@ const visualMap: Record<number, VisualType> = {
   3: "cards",
   4: "grid",
 5:"cards",
-6:"grid",
-7:"cards",
-8:"grid",
-9:"bubbles",
+6:"cards",
+7:"list",
+8:"cards",
+9:"grid",
 10:"cards"
 }
 
@@ -29,7 +29,7 @@ export const buildAnswer = (
   questionId: number,
   selectedOption: string
 ): AnswerDTO => ({
-  preguntaId: questionId,
+  questionId: questionId,
   selectedOption,
 })
 const RESULT_URL = "http://localhost:5035/quiz/result"
@@ -58,3 +58,14 @@ export const fetchQuizResult = async (answers: AnswerDTO[]): Promise<FamilyResul
     concentracion: data.ConcentrationType,
   }
 }
+
+export const addOrUpdateAnswer = (
+  answers: AnswerDTO[],
+  questionId: number,
+  selectedOption: string
+): AnswerDTO[] => {
+  return [
+    ...answers.filter((a) => a.questionId !== questionId),
+    { questionId, selectedOption },
+  ];
+};

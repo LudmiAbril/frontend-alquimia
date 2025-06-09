@@ -86,14 +86,18 @@ export interface GetNoteDTO {
 
 /*SUPPLIERS*/
 export interface ProductCardProps {
+  id: number;
   name: string;
-  price: number;
-  volume?: number;
-  unit?: string;
   category?: string;
   image: string;
-  slug: string;
+  variants?: {
+    price: number;
+    volume: number;
+    unit: string;
+        stock?: number;
+  }[];
 }
+
 
 
 
@@ -185,6 +189,14 @@ export interface PropsDynamic {
 }
 export type VisualType = "cards" | "grid" | "list" | "two" | "bubbles";
 
+export interface SummaryItem {
+  label: string
+  value: string
+  icon: string
+  color: string
+}
+
+
 export interface QuestionDTO {
   Id: number
   Pregunta: string
@@ -192,7 +204,7 @@ export interface QuestionDTO {
   VisualType?: VisualType // ESTO PARA QUE PUEDA CAMBIAR FORMATO DE RENDERIZADO...atte Celu
 }
 export interface AnswerDTO {
-  preguntaId: number;
+  questionId: number;
   selectedOption: string;
 }
 export interface PropsCurrent {

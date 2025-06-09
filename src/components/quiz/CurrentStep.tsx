@@ -40,9 +40,10 @@ export default function CurrentStep({
   }
 
   return (
-    <div className="min-h-screen p-4 flex flex-col">
+    <div className="min-h-screen p-4 flex flex-col mt-[32px]">
       {/* Barra de progreso */}
-      <div className="max-w-5xl mx-auto w-full mb-12">
+<div className="max-w-5xl mx-auto w-full mb-6">
+
         <div className="flex items-center justify-between relative px-2">
           <img src="/quiz/inicio.svg" alt="Inicio" className="w-8 h-8 z-10" />
           <div className="absolute top-1/2 left-10 right-10 h-0.5 bg-[#9444B6] -z-0 transform -translate-y-1/2"></div>
@@ -63,7 +64,7 @@ export default function CurrentStep({
       </div>
 
       {/* Pregunta + opciones */}
-      <div className="flex-1 flex flex-col items-center justify-center max-w-3xl mx-auto w-full gap-2 text-center">
+      <div className="flex flex flex-col items-center justify-center max-w-3xl mx-auto w-full gap-2 text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-[var(--gris4)] mb-2">
           {question?.Pregunta}
         </h2>

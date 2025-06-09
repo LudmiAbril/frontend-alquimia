@@ -20,3 +20,4 @@ const SearchBar = ({ searchTerm, setSearchTerm }: SearchBarProps) => {
         </button>
     </div>)
 }
+export default SearchBar;
