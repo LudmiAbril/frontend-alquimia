@@ -23,7 +23,7 @@ const ConfirmFormulaModal = () => {
         <div className="flex flex-col justify-center items-center mt-6 w-full gap-6">
           <button
             className="bg-[var(--lila)] hover:bg-[var(--violeta)] text-white py-[15px] rounded-[10px] transition w-full cursor-pointer"
-           onClick={()=> handleRedirect("/diseniarBotella")}
+           onClick={()=> handleRedirect("/diseniar-botella")}
           >
             Diseñá tu botella gratis (opcional)
           </button>
