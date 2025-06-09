@@ -5,12 +5,14 @@ import SectionWrapper from "../General/SectionWrapper";
 import SidebarFilter from "./SidebarFilter";
 import ProductCard from "./CardProducto";
 import Button from "../General/Button";
-import { ProductDTO } from "../Utils/typing";
-import Image from "next/image";
-import { getCategoryLabel } from "../Utils/getcategorylabel";
-import { getAllProducts } from "@/services/productService";
 
-export default function ProovedoresPage() {
+import Image from "next/image";
+
+import { getAllProducts } from "@/services/productService";
+import { ProductDTO } from "../utils/typing";
+import { getCategoryLabel } from "../utils/getcategorylabel";
+
+export default function ProvidersesPage() {
   const [groupedProducts, setGroupedProducts] = useState<Record<string, ProductDTO[]>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
