@@ -8,6 +8,27 @@ export interface ButtonProps {
 
 }
 
+/* DESIGN BOTTLE */
+export interface BottleDesign {
+  volume: number;
+  form: BottleForm;
+  labelForm: string;
+  labelColor: string;
+  labelImage: string;
+  text: string;
+  textTypography: FontKey;
+  textSize: number;
+  textColor: string;
+  imageScale: string;
+  textYPosition: number;
+}
+
+export interface BottleForm {
+  name: string;
+  nameToShow: string;
+}
+
+
 /* CREATE PERFUME */
 
 export interface perfumeData {
@@ -94,7 +115,7 @@ export interface ProductCardProps {
     price: number;
     volume: number;
     unit: string;
-        stock?: number;
+    stock?: number;
   }[];
 }
 
@@ -218,7 +239,7 @@ export interface QuestionDTO {
   Id: number
   Pregunta: string
   Opciones: OptionDTO[]
-  VisualType?: VisualType 
+  VisualType?: VisualType
 }
 
 

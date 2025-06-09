@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { GetFormulaResponse, perfumeData } from '@/components/utils/typing';
 import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
