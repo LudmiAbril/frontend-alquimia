@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { Box, Container, Typography, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogActions, Avatar, Chip, Button } from "@mui/material"
 import ProviderFilters from "@/components/admin/ProviderFilters"
-import ProviderTable from "@/components/admin/ProviderTable"
+import ProviderTable from "@/components/admin/AdminTable"
 import ProviderStats from "@/components/admin/ProviderStats"
 import MagicParticles from "@/components/general/MagicParticles"
 import { approveProvider, deactivateProvider } from "@/services/providerFunctions"
@@ -57,18 +57,16 @@ export default function AdminPanel() {
 
     return (
         <Box sx={{ minHeight: "100vh", backgroundColor: "var(--hueso)" }}>
-            {/* Header animado */}
+           
             <Box
                 sx={{
                     minHeight: "50vh",
-                    //position: "relative",
+                   
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
                     textAlign: "center",
-                    //   background: "linear-gradient(to bottom, #451F55, #9444B6)",
-                    color: "white",
                     overflow: "hidden",
                     px: 2,
                     mt: 14,
@@ -96,7 +94,6 @@ export default function AdminPanel() {
 
             </Box>
 
-            {/* Contenido principal */}
             <Container maxWidth="lg" sx={{ py: 6 }}>
                 <ProviderFilters
                     searchTerm={searchTerm}
@@ -116,7 +113,6 @@ export default function AdminPanel() {
                 />
             </Container>
 
-            {/* Diálogo de detalle */}
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} maxWidth="sm" fullWidth>
                 <DialogTitle sx={{ pb: 1 }}>
                     <Box sx={{ display: "flex", alignItems: "center" }}>

@@ -1,19 +1,14 @@
 "use client";
 
-<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
-=======
-import { useRef } from "react";
-import { ChangeEvent } from "react";
->>>>>>> middleDevelopLanding
 import { TextField, MenuItem } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SelectableButtonGroup from "./common/SelectableButtonGroup";
 import SnackbarFeedback from "./common/SnackbarFeedback";
 import { attributesProduct } from "../utils/utils";
-import { useImageUpload } from "@/hooks/useImageUpload";
-import { useProductForm } from "@/hooks/useProductForm";
+import { useImageUpload } from "@/services/useImageUpload";
+import { useProductForm } from "@/services/useProductForm";
 
 export default function NewProductPage() {
   /* ───────────── refs & state ───────────── */

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useSession } from "@/hooks/useSession";
+import { useSession } from "@/services/useSession";
 import UserDropdown from "../menu/UserDropdown";
 import AuthModalWrapper from "@/components/modals/AuthModalWrapper";
 import LoginForm from "@/components/login/LoginForm";

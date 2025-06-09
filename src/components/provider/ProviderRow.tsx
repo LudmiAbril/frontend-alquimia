@@ -2,11 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-<<<<<<< HEAD
 import { ProductDTO } from "../utils/typing";
-=======
-import { PropsRow } from "../utils/typing";
->>>>>>> middleDevelopLanding
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {
@@ -18,17 +14,12 @@ import {
   Button,
 } from "@mui/material";
 
-<<<<<<< HEAD
 interface Props {
   producto: ProductDTO;
   onDeleted?: (idEliminado: number) => void;
 }
 
 export default function ProviderRow({ producto, onDeleted }: Props) {
-=======
-
-export default function ProviderRow({ provider }: PropsRow) {
->>>>>>> middleDevelopLanding
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
