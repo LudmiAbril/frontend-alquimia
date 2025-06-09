@@ -1,5 +1,5 @@
-import { GetFormulaResponse, SaveFormulaDTO } from "@/components/CreatePerfume/FormulaResult";
-import { Intensity } from "@/components/CreatePerfume/Library";
+import { GetFormulaResponse, Intensity, SaveFormulaDTO } from "@/components/utils/typing";
+
 
 export const submitFormula = async (payload: SaveFormulaDTO): Promise<number | null> => {
     try {

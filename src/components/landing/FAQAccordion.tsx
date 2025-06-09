@@ -13,7 +13,7 @@ export default function FAQAccordion() {
   };
 
   return (
-    <SectionWrapper className="bg-[var(--hueso)]">
+    <SectionWrapper className="bg-[var(--hueso)] mb-20">
       <h2 className="text-2xl md:text-3xl font-bold text-center mb-12 text-[var(--gris4)] uppercase">
         Preguntas frecuentes
       </h2>

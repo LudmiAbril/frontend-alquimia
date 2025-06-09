@@ -10,7 +10,6 @@ interface WelcomeProps {
 const Welcome = ({ onNext }: WelcomeProps) => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">
-      {/* Texto principal */}
       <div className="space-y-4 max-w-xl">
         <h1 className="text-3xl md:text-4xl font-bold text-[#9444B6]">
           ¡Bienvenido alquimista!
@@ -23,8 +22,6 @@ const Welcome = ({ onNext }: WelcomeProps) => {
           emociones y un toque de magia.
         </p>
       </div>
-
-      {/* Frasco */}
       <button
         onClick={onNext}
         className="mt-12 cursor-pointer hover:scale-105 transition-transform"
@@ -38,8 +35,6 @@ const Welcome = ({ onNext }: WelcomeProps) => {
           className="opacity-80"
         />
       </button>
-
-      {/* Texto secundario */}
       <p className="mt-6 text-xs text-gray-600">
         Hacé click y comenzá a mezclar tu hechizo aromático.
       </p>

@@ -4,39 +4,127 @@ export interface ButtonProps {
   label: string;
   onClick?: () => void;
   colorClass?: string;
-href?: string
+  href?: string
 
+}
+
+/* CREATE PERFUME */
+
+export interface perfumeData {
+  baseNotes: Note[],
+  heartNotes: Note[],
+  topNotes: Note[],
+  intensity: Intensity
+}
+
+export interface Note {
+  id: number;
+  name: string
+}
+
+export interface NoteFamily {
+  family: string;
+  notes: Note[];
+}
+
+export interface NoteResponse {
+  Id: number;
+  Name: string;
+}
+
+export interface NoteFamilyResponse {
+  Familia: string;
+  Notas: NoteResponse[];
+}
+
+export interface Intensity {
+  Id: number;
+  Name: string;
+  Description: string;
+  Category: string;
+}
+
+export interface SaveFormulaDTO {
+  IntensityId: number;
+  CreatorId: number;
+  TopNotes: NotesGroupDTO;
+  HeartNotes: NotesGroupDTO;
+  BaseNotes: NotesGroupDTO;
+}
+
+export interface GetFormulaResponse {
+  Id: number;
+  IdCreador: number;
+  ConcentracionAgua: number;
+  ConcentracionAlcohol: number;
+  ConcentracionEsencia: number;
+  Intensity: Intensity;
+  NotasCorazonIds: GetNotesGroupDTO;
+  NotasFondoIds: GetNotesGroupDTO;
+  NotasSalidaIds: GetNotesGroupDTO;
+}
+
+export interface NoteDTO {
+  Id: number;
+}
+
+export interface NotesGroupDTO {
+  [key: string]: { Id: number };
+}
+
+export interface GetNotesGroupDTO {
+  [key: string]: GetNoteDTO | null;
+}
+
+export interface GetNoteDTO {
+  Description: string;
+  Duration: string;
+  Family: string;
+  Name: string;
+  Sector: string;
 }
 
 /*SUPPLIERS*/
 export interface ProductCardProps {
+  id: number;
   name: string;
-  price: number;
-  category: string;
+  category?: string;
   image: string;
+  variants?: {
+    price: number;
+    volume: number;
+    unit: string;
+        stock?: number;
+  }[];
 }
 
-export type PageProps = {
-  params: {
-    slug: string;
-  };
-};
 
-export interface Product {
+
+
+export interface ProductDTO {
+  id: number;
   name: string;
-  price: number;
-  image: string;
-  category: string;
+  description: string;
+  productType?: any; // ajustalo si sabés el tipo
+  provider?: any;    // ajustalo si sabés el tipo
+  price?: number;
+  volume?: number;
+  unit?: string;
+  variants?: VariantDTO[];
 }
 
-export interface ProductDetailProps {
-  name: string;
+
+export interface VariantDTO {
+  id: number;
+  productId: number;
+  volume: number;
+  unit: string;
   price: number;
-  image: string;
-  category: string;
-  supplier: string;
-  mainCategory: string;
-  subCategory?: string;
+  stock: number;
+  image?: string;
+  isHypoallergenic?: boolean;
+  isVegan?: boolean;
+  isParabenFree?: boolean;
 }
 
 /*LANDING*/
@@ -103,7 +191,7 @@ export interface WelcomeFamiliesProps {
 export interface OptionDTO {
   Letra: string
   Texto: string
-  ImagenUrl: string  
+  ImagenUrl: string
 }
 
 export interface PropsDynamic {
@@ -113,6 +201,14 @@ export interface PropsDynamic {
 }
 export type VisualType = "cards" | "grid" | "list" | "two" | "bubbles";
 
+export interface SummaryItem {
+  label: string
+  value: string
+  icon: string
+  color: string
+}
+
+
 export interface QuestionDTO {
   Id: number
   Pregunta: string
@@ -120,11 +216,11 @@ export interface QuestionDTO {
   VisualType?: VisualType // ESTO PARA QUE PUEDA CAMBIAR FORMATO DE RENDERIZADO...atte Celu
 }
 export interface AnswerDTO {
-  preguntaId: number;
+  questionId: number;
   selectedOption: string;
 }
 export interface PropsCurrent {
- currentQuestionIndex: number
+  currentQuestionIndex: number
   questions: QuestionDTO[]
   selectedOption: string
   onSelect: (option: string) => void
@@ -154,7 +250,7 @@ export interface FamilyResult {
 
 
 export interface PropsQC {
-  option: OptionDTO 
+  option: OptionDTO
   selected: boolean
   onClick: () => void
 }
@@ -215,7 +311,7 @@ export interface RegisterDTO {
 //interfaz de mascota
 export interface FloatingMascotProps {
   messages: string[];
-    imageSrc?: string;
+  imageSrc?: string;
 }
 
 //********************************** INTERFACES DE PROVEDOR REGISTRO ******************************************** */
@@ -281,6 +377,8 @@ export interface ProviderDTO {
   EsAprobado: boolean
 }
 
+
+
 export const API_ROUTES = {
   LIST_PROVIDERS: "http://localhost:5035/admin/listProviders",
   APPROVE_PROVIDER: (id: number) => `http://localhost:5035/admin/approveProvider/${id}`,
@@ -332,12 +430,12 @@ export interface Option {
   value: string;
 }
 
- export interface PropsSelect {
+export interface PropsSelect {
   options: Option[];
   selected: string[];
   onChange: (selected: string[]) => void;
   multiple?: boolean;
- }
+}
 /***CREAR PERFUME */
 export interface NoteInfoResponse {
   Id: number;
@@ -360,4 +458,12 @@ export interface PerfumeNotesResult {
 export interface PropsSearch {
   result: PerfumeNotesResult | null
   isLoading: boolean
+}
+
+export interface UserDTO {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+  isProvider: boolean;
 }

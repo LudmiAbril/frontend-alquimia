@@ -6,7 +6,7 @@ import { AnswerDTO, QuestionDTO, FamilyResult } from "@/components/utils/typing"
 import CurrentStep from "./CurrentStep"
 import Welcome from "./Welcome"
 import Result from "./Result"
-import { buildAnswer, fetchQuestions, fetchQuizResult} from "@/services/quizService"
+import { addOrUpdateAnswer,fetchQuestions, fetchQuizResult} from "@/services/quizService"
 
 
 export default function FragranceQuizWrapper() {
@@ -17,6 +17,7 @@ export default function FragranceQuizWrapper() {
   const [answers, setAnswers] = useState<AnswerDTO[]>([])
   const [result, setResult] = useState<FamilyResult | null>(null)
   const [loading, setLoading] = useState(false)
+
 
   useEffect(() => {
     if (currentStep === "quiz" && questions.length === 0) {
@@ -38,25 +39,32 @@ export default function FragranceQuizWrapper() {
 
   const handleOptionSelect = (option: string) => setSelectedOption(option)
 
-  const handleNextQuestion = async () => {
-    const currentQuestion = questions[currentQuestionIndex]
-    if (selectedOption) {
-      setAnswers([...answers, buildAnswer(currentQuestion.Id, selectedOption)])
-    }
+const handleNextQuestion = async () => {
+  const currentQuestion = questions[currentQuestionIndex];
 
-    setSelectedOption("")
+  if (!selectedOption) return;
 
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1)
-    } else {
-      setLoading(true)
- const resultData = await fetchQuizResult(answers)
+const updatedAnswers = addOrUpdateAnswer(answers, currentQuestion.Id, selectedOption);
 
-      setResult(resultData)
-      setCurrentStep("result")
-      setLoading(false)
+  setAnswers(updatedAnswers);
+  setSelectedOption("");
+
+  if (currentQuestionIndex < questions.length - 1) {
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+  } else {
+    setLoading(true);
+    try {
+      const resultData = await fetchQuizResult(updatedAnswers); 
+      setResult(resultData);
+      setCurrentStep("result");
+    } catch (err) {
+      console.error("Error obteniendo resultado:", err);
+    } finally {
+      setLoading(false);
     }
   }
+};
+
 
   const handlePreviousQuestion = () => {
     if (currentQuestionIndex > 0) {

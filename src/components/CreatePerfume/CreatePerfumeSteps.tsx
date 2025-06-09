@@ -1,39 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import CreationStep from "./PerfumeCreation";
-import FormulaResult, { GetFormulaResponse } from "./FormulaResult";
+import { createSteps } from "../utils/utils";
 import SectionWrapper from "../general/SectionWrapper";
 import Welcome from "./Welcome";
-import { perfumeData } from "./ResultCard";
-
-export const createSteps = [
-  {
-    nombre: "Bienvenida",
-    descripcion:
-      "Te damos la bienvenida al diseño de tu perfume personalizado.",
-  },
-  {
-    nombre: "Nota Base",
-    descripcion: "Profunda, duradera... la estela que perdura.",
-  },
-  {
-    nombre: "Nota Corazón",
-    descripcion: "El alma de tu fragancia, donde reside su identidad.",
-  },
-  {
-    nombre: "Nota Salida",
-    descripcion: "La nota de salida es la primera impresión: volátil y vibrante.",
-  },
-  {
-    nombre: "Intensidad",
-    descripcion: "Ajustá la intensidad general del perfume según tu preferencia.",
-  },
-  {
-    nombre: "Fórmula",
-    descripcion: "Acá podés ver el resultado final de tu fórmula personalizada.",
-  },
-];
+import CreatePerfume from "./PerfumeCreation";
+import FormulaResult from "./FormulaResult";
+import { perfumeData, GetFormulaResponse } from "../utils/typing";
 
 const CreatePerfumeSteps = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -102,7 +75,7 @@ const CreatePerfumeSteps = () => {
       {currentStep === 0 ? (
         <Welcome onNext={advanceStep} />
       ) : currentStep < createSteps.length - 1 ? (
-        <CreationStep
+        <CreatePerfume
           currentStep={currentStep}
           onNext={advanceStep}
           onBack={returnStep} currentPerfume={currentPerfume} setCurrentPerfume={setCurrentPerfume} setResultFormula={setResultFormula} />

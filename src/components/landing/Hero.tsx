@@ -18,20 +18,22 @@ export default function Hero() {
 
       <div
         className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[4000ms] ease-in-out transform ${animateBg ? "scale-100 opacity-100" : "scale-110 opacity-0"
-          } z-[-1]`}   style={{ backgroundImage: "url('/LandingImage/hero.png')" }}  />
+          } z-[-1]`} style={{ backgroundImage: "url('/LandingImage/hero.png')" }} />
 
       <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
 
       <div className="relative z-10">
         <div className="max-w-lg md:max-w-lg">
           <h1 className="text-3xl md:text-4xl font-bold leading-snug mb-4 pb-5">
-            DISEÑÁ PERFUMES QUE HABLEN DE VOS.
+            DISEÑÁ PERFUMES <br className="hidden sm:block" />
+            QUE HABLEN DE VOS
           </h1>
+
           <p className="text-lg md:text-xl mb-5 pb-5">
             Creatividad, emoción y aroma. Todo desde una plataforma hecha para no expertos.
           </p>
-          <Button label="Empezar a crear" 
-          onClick={() => setIsModalOpen(true)} />
+          <Button label="Empezar a crear"
+            onClick={() => setIsModalOpen(true)} />
         </div>
       </div>
 

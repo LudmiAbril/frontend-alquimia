@@ -7,26 +7,71 @@ import ProviderTable from "@/components/provider/ProviderTable";
 import ProviderTabs from "@/components/provider/ProviderTabs";
 import { IconButton, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { Provider } from "@/components/utils/typing";
-import Link from "next/dist/client/link";
-import { useEffect } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { ProductDTO } from "@/components/utils/typing"; // ✅ corregido
 
 export default function ProviderPage() {
-  const mockProviders: Provider[] = [
-    { id: 1, name: "Producto A", description: "Descripción A", stock: 1 },
-    { id: 2, name: "Producto B", description: "Descripción B", stock: 8 },
-    { id: 3, name: "Producto C", description: "Descripción C", stock: 20 },
-  ];
+  const [productos, setProductos] = useState<ProductDTO[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const previous = document.body.style.backgroundColor;
-    document.body.style.backgroundColor = "#ffffff"; // blanco
-
+    document.body.style.backgroundColor = "#ffffff";
     return () => {
-      document.body.style.backgroundColor = previous; // restaurar al salir
+      document.body.style.backgroundColor = previous;
     };
   }, []);
 
+  useEffect(() => {
+    const fetchProductos = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setError("No hay token de autenticación.");
+          setLoading(false);
+          return;
+        }
+
+        const response = await fetch("http://localhost:5035/provider/products", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("No se pudo obtener la lista de productos.");
+        }
+
+    const rawData = await response.json();
+
+const data = rawData.map((p: any) => ({
+  id: p.Id,
+  name: p.Name,
+  description: p.Description,
+  productType: p.ProductType,
+  provider: p.Provider,
+  variants: p.Variants ?? [],
+  price: p.Price,
+  volume: p.Volume,
+  unit: p.Unit,
+}));
+
+console.log("✅ Productos normalizados:", data);
+setProductos(data);
+
+
+
+      } catch (err) {
+        setError("Error al cargar los productos.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductos();
+  }, []);
 
   return (
     <section className="flex min-h-screen bg-white mt-20">
@@ -59,9 +104,18 @@ export default function ProviderPage() {
             </Link>
           </Tooltip>
         </div>
-        <ProviderTable providers={mockProviders} />
+ {loading && <p>Cargando productos...</p>}
+  {error && <p className="text-red-500">{error}</p>}
+
+  {!loading && !error && productos.length > 0 && (
+    <ProviderTable productos={productos} />
+  )}
+
+  {!loading && !error && productos.length === 0 && (
+    <p className="text-gray-500">No se encontraron productos.</p>
+  )}
+        
       </div>
     </section>
   );
 }
-

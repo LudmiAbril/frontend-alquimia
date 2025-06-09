@@ -1,5 +1,44 @@
 import { ProviderFormData, StepData } from "@/components/utils/typing";
 import { Supplier } from "@/components/utils/typing";
+import { getFormulaById } from "@/services/createPerfumeService";
+
+/* CREATE PERFUME */
+export const createSteps = [
+  {
+    nombre: "Bienvenida",
+    descripcion:
+      "Te damos la bienvenida al diseño de tu perfume personalizado.",
+  },
+  {
+    nombre: "Nota Base",
+    descripcion: "Profunda, duradera... la estela que perdura.",
+  },
+  {
+    nombre: "Nota Corazón",
+    descripcion: "El alma de tu fragancia, donde reside su identidad.",
+  },
+  {
+    nombre: "Nota Salida",
+    descripcion: "La nota de salida es la primera impresión: volátil y vibrante.",
+  },
+  {
+    nombre: "Intensidad",
+    descripcion: "Ajustá la intensidad general del perfume según tu preferencia.",
+  },
+  {
+    nombre: "Fórmula",
+    descripcion: "Acá podés ver el resultado final de tu fórmula personalizada.",
+  },
+];
+
+export const mapNotesArrayToObject = (notesArray: { id: number }[]) => {
+  const result: Record<string, { Id: number }> = {};
+  notesArray.forEach((note, idx) => {
+    const key = `Note${idx + 1}`;
+    result[key] = { Id: note.id };
+  });
+  return result;
+}
 
 
 /*################OLFACTORY TEST###################*/
@@ -40,12 +79,13 @@ export const bestSellingProducts = [
 ];
 
 export const productCategories = [
-  "Esencias",
+  "Esencia",
   "Packaging",
-  "Envases",
-  "Alcoholes",
-  "Aguas Destiladas",
+  "Envase",
+  "Alcohol",
+  "Agua Destilada",
 ];
+
 
 export const mockProducts = {
   "Más vendidos": [
@@ -206,6 +246,12 @@ export const userMenuItems = [
   { label: "Cerrar Sesión", href: "/logout" },
 ];
 
+export const providerMenuItems = [
+  { href: "/home", label: "Home" },
+  { href: "/subirProducto", label: "Subir Producto" },
+  { href: "/cuenta", label: "Mi Cuenta" },
+  { href: "/logout", label: "Cerrar Sesión" },
+];
 
 
 /*################################ - TEST LANDING IMAGES - #############################################################*/
@@ -247,7 +293,7 @@ export const suppliers: Supplier[] = [
 
 /*################################ - MENSAJES QUIMI - #############################################################*/
 export const messagesLanding = [
- "¡Bienvenidos al mundo de los aromas!",
+  "¡Bienvenidos al mundo de los aromas!",
   "Tu esencia perfecta está cerca...",
   "Explorá las notas... yo cuido la magia",
   "Tu fragancia habla por vos, ¡creala!"
@@ -287,6 +333,22 @@ export const PRODUCT_OPTIONS = [
   "Etiquetas",
   "Otro",
 ];
+/*################################ - QUIZ - #############################################################*/
+export const familyDescriptions: Record<string, string> = {
+  Fresca:
+    "¿A qué huele? A una ráfaga de aire puro después de una tormenta de verano. Notas chispeantes de limón, menta y hojas verdes que despiertan tus sentidos como si tomaras una poción de vitalidad líquida. Son fragancias que limpian el alma y refrescan el día como magia embotellada.",
+
+  Floral:
+    "¿A qué huele? A un jardín secreto al amanecer. Rosas aterciopeladas, jazmines enredados y peonías en flor danzan en el viento. Las fragancias florales son como un conjuro de ternura: románticas, etéreas y cargadas de poesía.",
+
+  Amaderada:
+    "¿A qué huele? A senderos escondidos entre árboles antiguos. Cedro, sándalo y vetiver te envuelven como un hechizo cálido y terroso. Son perfumes con alma de bosque encantado, donde cada nota parece susurrar una historia ancestral.",
+
+  Oriental:
+    "¿A qué huele? A misterios bajo la luz de las velas. Canela, ámbar, vainilla y especias envuelven el aire como un conjuro dulce y seductor. Las fragancias orientales son hechizos sensuales, que dejan un aura encantada tras cada paso.",
+}
+
+
   export const familyPet: Record<string, string> = {
     "Fresca": "/mascotas/fresca.png",
     "Floral": "/mascotas/floral.png",
@@ -300,8 +362,71 @@ export const backgroundByFamily: Record<string, string> = {
   "Oriental": "/quiz/familia-fondos/orientalBack.png",
 }
 
+export const answerSummaryMap: Record<number, Record<string, {
+  label: string
+  value: string
+  icon: string
+  color: string
+}>> = {
+  1: {
+    "1": { label: "Tipo de piel", value: "Muy clara → tiende a fresca o floral", icon: "🧴", color: "#CFE2F3" },
+    "2": { label: "Tipo de piel", value: "Clara a media → tiende a floral o cítrica", icon: "💧", color: "#D9EAD3" },
+    "3": { label: "Tipo de piel", value: "Morena → tiende a oriental o gourmand", icon: "🔥", color: "#FCE5CD" },
+    "4": { label: "Tipo de piel", value: "Muy oscura → tiende a amaderada o especiada", icon: "🌳", color: "#EAD1DC" },
+  },
+  2: {
+    "1": { label: "Estilo de presencia", value: "Que me recuerden cuando paso → Oriental, Amaderada", icon: "👃", color: "#F4CCCC" },
+    "2": { label: "Estilo de presencia", value: "Que solo quien se acerque lo note → Fresca, Floral", icon: "🌸", color: "#D9EAD3" },
+  },
+  3: {
+    "1": { label: "Sensación preferida", value: "Limpieza y frescura → Fresca, Cítrica", icon: "🧼", color: "#C9DAF8" },
+    "2": { label: "Sensación preferida", value: "Suavidad y ternura → Floral, Almizclada", icon: "🧸", color: "#EAD1DC" },
+    "3": { label: "Sensación preferida", value: "Intensidad y misterio → Oriental, Ámbar", icon: "🌙", color: "#FCE5CD" },
+    "4": { label: "Sensación preferida", value: "Calidez y profundidad → Amaderada, Terrosa", icon: "🌲", color: "#D0E0E3" },
+  },
+  4: {
+    "1": { label: "Estación favorita", value: "Verano → Cítrica, Marina, Frutal", icon: "☀️", color: "#FFF2CC" },
+    "2": { label: "Estación favorita", value: "Primavera → Floral, Herbal", icon: "🌼", color: "#D9EAD3" },
+    "3": { label: "Estación favorita", value: "Otoño → Amaderada, Especiada", icon: "🍂", color: "#F9CB9C" },
+    "4": { label: "Estación favorita", value: "Invierno → Oriental, Almizclada", icon: "❄️", color: "#D0E0E3" },
+  },
+  5: {
+    "1": { label: "Aroma evocador", value: "Un ramo de flores → Floral", icon: "💐", color: "#EAD1DC" },
+    "2": { label: "Aroma evocador", value: "Un bosque húmedo → Amaderada, Terrosa", icon: "🌲", color: "#CFE2F3" },
+    "3": { label: "Aroma evocador", value: "Frutas dulces o caramelos → Gourmand, Frutal", icon: "🍭", color: "#FCE5CD" },
+    "4": { label: "Aroma evocador", value: "Aire puro y mentolado → Mentolado, Herbal", icon: "🍃", color: "#D9EAD3" },
+  },
+  6: {
+    "1": { label: "Experiencia sensorial", value: "Spa con aceites frescos → Herbal, Mentolado", icon: "💆", color: "#D9EAD3" },
+    "2": { label: "Experiencia sensorial", value: "Casa cálida con dulces y especias → Oriental, Gourmand", icon: "🍪", color: "#FCE5CD" },
+    "3": { label: "Experiencia sensorial", value: "Jardín al atardecer → Floral", icon: "🌷", color: "#EAD1DC" },
+    "4": { label: "Experiencia sensorial", value: "Playa solitaria con brisa marina → Marino, Fresca", icon: "🌊", color: "#CFE2F3" },
+  },
+  7: {
+    "1": { label: "Ambiente de paz", value: "Naturaleza con aves y árboles → Herbal, Terroso, Amaderado", icon: "🌳", color: "#D9EAD3" },
+    "2": { label: "Ambiente de paz", value: "Habitación cálida y envolvente → Oriental, Empolvado, Gourmand", icon: "🕯️", color: "#FCE5CD" },
+    "3": { label: "Ambiente de paz", value: "Entorno limpio y fresco → Fresca, Mentolado, Marino", icon: "💨", color: "#C9DAF8" },
+    "4": { label: "Ambiente de paz", value: "Flores y música tranquila → Floral, Almizclado", icon: "🎶", color: "#EAD1DC" },
+  },
+  8: {
+    "1": { label: "Sensación ideal", value: "Refrescado y ligero → Fresca, Cítrica", icon: "🧊", color: "#C9DAF8" },
+    "2": { label: "Sensación ideal", value: "Atractivo y seductor → Oriental, Ámbar", icon: "💋", color: "#F4CCCC" },
+    "3": { label: "Sensación ideal", value: "Abrazado y cómodo → Floral, Almizclado", icon: "🫂", color: "#EAD1DC" },
+    "4": { label: "Sensación ideal", value: "Confiado y fuerte → Amaderada, Ahumada", icon: "💪", color: "#D9D2E9" },
+  },
+  9: {
+    "1": { label: "Fragancia especial", value: "Dulce y especiada → Oriental, Especiada, Gourmand", icon: "🍰", color: "#FCE5CD" },
+    "2": { label: "Fragancia especial", value: "Suave y floral → Floral, Empolvado", icon: "🌸", color: "#EAD1DC" },
+    "3": { label: "Fragancia especial", value: "Naturaleza y pureza → Fresca, Herbal", icon: "🌿", color: "#D9EAD3" },
+    "4": { label: "Fragancia especial", value: "Profundo y elegante → Amaderada, Almizclada", icon: "🎩", color: "#D9D2E9" },
+  },
+  10: {
+    "1": { label: "Duración del perfume", value: "Suave como Body Splash", icon: "🫧", color: "#CFE2F3" },
+    "2": { label: "Duración del perfume", value: "Equilibrado como Eau de Toilette", icon: "🧴", color: "#D9D2E9" },
+    "3": { label: "Duración del perfume", value: "Intenso como Eau de Parfum", icon: "🌌", color: "#F4CCCC" },
+  }
+};
 
-/*################################ - QUIZ - #############################################################*/
 
 export const familiesQuiz = [
   {
@@ -330,26 +455,26 @@ export const familiesQuiz = [
   }
 ]
 
- export const messages = [
-    [
-      "Las familias olfativas son grupos de perfumes con aromas parecidos porque comparten ingredientes clave.",
-    ],    [
-      "Te ayudan a entender qué fragancias van con vos. ¡Es como tener una brújula aromática!"
-    ],
-    [
-      "Cada familia tiene su personalidad. Algunas son frescas y chispeantes, otras cálidas y misteriosas.",
-    ],
-        [
-      "Explorarlas es descubrir un poco más sobre vos."
-    ]
+export const messages = [
+  [
+    "Las familias olfativas son grupos de perfumes con aromas parecidos porque comparten ingredientes clave.",
+  ], [
+    "Te ayudan a entender qué fragancias van con vos. ¡Es como tener una brújula aromática!"
+  ],
+  [
+    "Cada familia tiene su personalidad. Algunas son frescas y chispeantes, otras cálidas y misteriosas.",
+  ],
+  [
+    "Explorarlas es descubrir un poco más sobre vos."
   ]
+]
 
 
 export const PROVIDER_TABS = [
   { label: "Home", value: "home" },
   { label: "Productos", value: "products" },
   { label: "Tipo de productos", value: "types" },
-  
+
 ]
 
 export const STATUS_OPTIONS = [
@@ -365,10 +490,3 @@ export const attributesProduct = [
   { label: "Sin parabenos", value: "paraben" },
 ];
 
-
-export const providerMenuItems = [
-  { href: "/home", label: "Home" },
-  { href: "/subirProducto", label: "Subir Producto" },
-  { href: "/cuenta", label: "Mi Cuenta" },
-  { href: "/logout", label: "Cerrar Sesión" },
-];
