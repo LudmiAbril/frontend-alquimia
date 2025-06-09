@@ -9,10 +9,10 @@ import { IconButton, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Provider } from "@/components/utils/typing";
+import { ProductDTO } from "@/components/utils/typing"; // ✅ corregido
 
 export default function ProviderPage() {
-  const [providers, setProviders] = useState<Provider[]>([]);
+  const [productos, setProductos] = useState<ProductDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,7 +25,7 @@ export default function ProviderPage() {
   }, []);
 
   useEffect(() => {
-    const fetchProviders = async () => {
+    const fetchProductos = async () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
@@ -33,21 +33,36 @@ export default function ProviderPage() {
           setLoading(false);
           return;
         }
-console.log(token)
+
         const response = await fetch("http://localhost:5035/provider/products", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        console.log("Status code:", response.status);
-
         if (!response.ok) {
           throw new Error("No se pudo obtener la lista de productos.");
         }
 
-        const data = await response.json();
-        setProviders(data);
+    const rawData = await response.json();
+
+const data = rawData.map((p: any) => ({
+  id: p.Id,
+  name: p.Name,
+  description: p.Description,
+  productType: p.ProductType,
+  provider: p.Provider,
+  variants: p.Variants ?? [],
+  price: p.Price,
+  volume: p.Volume,
+  unit: p.Unit,
+}));
+
+console.log("✅ Productos normalizados:", data);
+setProductos(data);
+
+
+
       } catch (err) {
         setError("Error al cargar los productos.");
       } finally {
@@ -55,7 +70,7 @@ console.log(token)
       }
     };
 
-    fetchProviders();
+    fetchProductos();
   }, []);
 
   return (
@@ -89,10 +104,17 @@ console.log(token)
             </Link>
           </Tooltip>
         </div>
+ {loading && <p>Cargando productos...</p>}
+  {error && <p className="text-red-500">{error}</p>}
 
-        {loading && <p>Cargando productos...</p>}
-        {error && <p className="text-red-500">{error}</p>}
-        {!loading && !error && <ProviderTable providers={providers} />}
+  {!loading && !error && productos.length > 0 && (
+    <ProviderTable productos={productos} />
+  )}
+
+  {!loading && !error && productos.length === 0 && (
+    <p className="text-gray-500">No se encontraron productos.</p>
+  )}
+        
       </div>
     </section>
   );
