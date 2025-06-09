@@ -35,7 +35,6 @@ const CreatePerfume = ({ onNext, onBack }: CreatePerfumeProps) => {
     setResultFormula,
   } = useCreatePerfume();
 
-  // MEJORAR Y OPTIMIZAR ESTA FUNCION
   const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const { id, name, family } = JSON.parse(e.dataTransfer.getData("application/json"));
