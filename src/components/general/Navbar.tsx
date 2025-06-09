@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession } from "@/hooks/useSession";
 import UserDropdown from "../menu/UserDropdown";
-import AuthModalWrapper from "@/components/login/AuthModalWrapper";
+import AuthModalWrapper from "@/components/modals/AuthModalWrapper";
 import LoginForm from "@/components/login/LoginForm";
 import RegisterForm from "@/components/login/RegisterForm";
 

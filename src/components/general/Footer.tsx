@@ -35,14 +35,14 @@ const Footer = () => {
             <p className="mb-4 text-lg font-semibold">Encontranos en:</p>  
             <div className="flex gap-10">
               <Image
-                src="/Redes/tiktokIcon.svg"
+                src="/redes/tiktokIcon.svg"
                 alt="TikTok"
                 className="w-[40px] h-[40px] cursor-pointer"  
                 width={40}
                 height={40}
               />
               <Image
-                src="/Redes/instagram.svg"
+                src="/redes/instagram.svg"
                 alt="Instagram"
                 className="w-[40px] h-[40px] cursor-pointer"  
                 width={40}
