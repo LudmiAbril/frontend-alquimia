@@ -1,11 +1,9 @@
-//import { PropsSearch } from "../utils/typing"
+import { PropsSearch } from "../utils/typing"
 import { PerfumeNotesResult } from "../utils/typing"
-interface PropsSearch {
-  result: PerfumeNotesResult | null
-  isLoading: boolean
-}
+
 
 export default function SearchResult({ result, isLoading }: PropsSearch) {
+  console.log("🎯 SearchResult recibió:", result)
   if (isLoading) return <p className="mt-6 animate-pulse">Buscando...</p>
 
   if (!result || result.notes.length === 0) {
