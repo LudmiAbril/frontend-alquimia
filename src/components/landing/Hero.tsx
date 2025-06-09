@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Button from "@/components/General/Button";
-import DiscoverModal from "../Modals/DiscoverModal";
+import DiscoverModal from "../modals/DiscoverModal";
+
 
 export default function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +19,7 @@ export default function Hero() {
 
       <div
         className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[4000ms] ease-in-out transform ${animateBg ? "scale-100 opacity-100" : "scale-110 opacity-0"} z-[-2]`}
-        style={{ backgroundImage: "url('/LandingImage/hero.png')" }}
+        style={{ backgroundImage: "url('/landingImagenes/general/hero.png')" }}
       />
 
       <div className="absolute inset-0 bg-black bg-opacity-60 z-[-1]" />
