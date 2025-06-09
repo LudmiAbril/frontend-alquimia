@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { ChangeEvent } from "react";
-import { TextField, MenuItem, Checkbox, FormControlLabel } from "@mui/material";
+import { TextField, MenuItem } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SelectableButtonGroup from "./common/SelectableButtonGroup";

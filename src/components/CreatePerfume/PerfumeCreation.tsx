@@ -5,7 +5,7 @@ import Library from "./Library";
 import ConfirmCreationModal from "./ConfirmCreationModal";
 import LoadingModal from "./Loading";
 import { createSteps } from "./CreatePerfumeSteps";
-import { Note, perfumeData } from "./ResultCard";
+import {  perfumeData } from "./ResultCard";
 import Image from "next/image";
 import { GetFormulaResponse, SaveFormulaDTO } from "./FormulaResult";
 import ClearIcon from '@mui/icons-material/Clear';

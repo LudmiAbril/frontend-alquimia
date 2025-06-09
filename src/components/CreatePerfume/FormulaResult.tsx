@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import ConfirmFormulaModal from "./ConfirmFormulaModal";
 import ResultCard from "./ResultCard";
-import Image from "next/image";
 import { Intensity } from "./Library";
 import AnimatePotion from "./AnimatePotion";
 

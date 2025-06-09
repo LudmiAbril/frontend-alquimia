@@ -23,15 +23,12 @@ interface NoteFamily {
   notes: Note[];
 }
 
-interface NoteResponse {
-  Id: number;
-  Name: string;
-}
+// interface NoteResponse {
+//   Id: number;
+//   Name: string;
+// }
 
-interface NoteFamilyResponse {
-  Familia: string;
-  Notas: NoteResponse[];
-}
+
 
 export interface Intensity {
   Id: number;

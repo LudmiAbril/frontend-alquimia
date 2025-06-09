@@ -228,30 +228,36 @@ export const families = [
 export const suppliers: Supplier[] = [
   {
     name: "Le Flour",
-    imageSrc: "/LandingImage/Suplier/leflour.jpeg",
+    imageSrc: "/LandingImage/Suplier/leflour.png",
   },
   {
     name: "Aromatika",
-    imageSrc: "/LandingImage/Suplier/aromatika.jpeg",
+    imageSrc: "/LandingImage/Suplier/aromatika.png",
   },
   {
     name: "Glassbottles",
-    imageSrc: "/LandingImage/Suplier/glass.jpeg",
+    imageSrc: "/LandingImage/Suplier/glass.png",
   },
-  {
-    name: "Aromaskym",
-    imageSrc: "/LandingImage/Suplier/aromaskym.png",
-  },
+  
   {
     name: "Essentia",
-    imageSrc: "/LandingImage/Suplier/glass.jpeg",
+    imageSrc: "/LandingImage/Suplier/Essentia.png",
   },
   {
     name: "NaturaLab",
-    imageSrc: "/LandingImage/Suplier/aromatika.jpeg",
+    imageSrc: "/LandingImage/Suplier/NaturaLab.png",
   },
 ];
 
+
+ export const etiquetas = [
+    "/landingImagenes/etiquetas/etiqueta1.png",
+    "/landingImagenes/etiquetas/etiqueta2.png",
+    "/landingImagenes/etiquetas/etiqueta3.png",
+    "/landingImagenes/etiquetas/etiqueta4.png",
+    "/landingImagenes/etiquetas/etiqueta5.png",
+    "/landingImagenes/etiquetas/etiqueta6.png",
+  ];
 /*################################ - MENSAJES QUIMI - #############################################################*/
 export const messagesLanding = [
  "¡Bienvenidos al mundo de los aromas!",

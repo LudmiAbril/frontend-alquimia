@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import CustomButton from "./CustomButton";
-import { Provider } from "../utils/typing";
+import { PropsRow } from "../utils/typing";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { MouseEvent as ReactMouseEvent } from "react";
@@ -16,11 +15,8 @@ import {
   Button,
 } from "@mui/material";
 
-interface Props {
-  provider: Provider;
-}
 
-export default function ProviderRow({ provider }: Props) {
+export default function ProviderRow({ provider }: PropsRow) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);

@@ -46,20 +46,20 @@ export function useProductForm() {
     }
   };
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    switch (name) {
-      case "isVegan":
-        setIsVegan(checked);
-        break;
-      case "isHypoallergenic":
-        setIsHypoallergenic(checked);
-        break;
-      case "isParabenFree":
-        setIsParabenFree(checked);
-        break;
-    }
-  };
+  // const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, checked } = e.target;
+  //   switch (name) {
+  //     case "isVegan":
+  //       setIsVegan(checked);
+  //       break;
+  //     case "isHypoallergenic":
+  //       setIsHypoallergenic(checked);
+  //       break;
+  //     case "isParabenFree":
+  //       setIsParabenFree(checked);
+  //       break;
+  //   }
+  // };
 
   const handleSubmit = async () => {
     if (!productName || !category || !price || !stock) {

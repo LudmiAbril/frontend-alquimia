@@ -1,7 +1,7 @@
 "use client";
 
-import { PropsSelect, Option } from "@/components/utils/typing";
-import { useState } from "react";
+import { PropsSelect } from "@/components/utils/typing";
+
 
 
 export default function SelectableButtonGroup({ options, selected, onChange, multiple = true }: PropsSelect) {
