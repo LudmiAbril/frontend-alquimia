@@ -14,7 +14,6 @@ export default function ProductCard({
     ? validVariants.reduce((min, curr) => (curr.price < min.price ? curr : min))
     : null;
 
-  const isOutOfStock = cheapest?.stock === 0;
 
   return (
     <div className="bg-white rounded-xl border border-gray-200 shadow-md flex flex-col p-4 w-full max-w-[220px] min-h-[340px] transition hover:shadow-lg mx-auto">

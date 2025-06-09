@@ -7,7 +7,7 @@ import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import { Paso4Props } from "../utils/typing";
 import SectionWrapper from "../general/SectionWrapper";
 
-export default function Paso4Confirmacion({ onFinish }: Paso4Props) {
+export default function Paso4Confirmacion({  }: Paso4Props) {
   const router = useRouter();
 
   return (

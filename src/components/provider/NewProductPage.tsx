@@ -1,18 +1,40 @@
 "use client";
 
-import { useRef } from "react";
-import { ChangeEvent } from "react";
-import { TextField, MenuItem, Checkbox, FormControlLabel } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
+import { TextField, MenuItem } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SelectableButtonGroup from "./common/SelectableButtonGroup";
+import SnackbarFeedback from "./common/SnackbarFeedback";
 import { attributesProduct } from "../utils/utils";
-import { useImageUpload } from "@/hooks/useImageUpload";
-import { useProductForm } from "@/hooks/useProductForm";
-
+import { useImageUpload } from "@/services/useImageUpload";
+import { useProductForm } from "@/services/useProductForm";
 
 export default function NewProductPage() {
+  /* ───────────── refs & state ───────────── */
   const dropRef = useRef<HTMLDivElement>(null);
+
+  // categorías (desde API)
+  const [categories, setCategories] = useState<string[]>([]);
+  const [defaultCategory, setDefaultCategory] = useState("");
+
+  // snackbar feedback
+  const [snack, setSnack] = useState<{
+    open: boolean;
+    message: string;
+    severity: "success" | "error";
+  }>({ open: false, message: "", severity: "success" });
+
+  /* ───────────── hooks personalizados ───────────── */
+  const {
+    images,
+    urls,
+    handleImageUpload,
+    handleDrop,
+    handleRemoveImage,
+    message: imageMessage,
+  } = useImageUpload();
+
   const {
     productName,
     category,
@@ -23,32 +45,82 @@ export default function NewProductPage() {
     isHypoallergenic,
     isParabenFree,
     selectedAttributes,
-   
     handleSubmit,
-    setSelectedAttributes
-  } = useProductForm();
+    resetForm,
+    setCategory,
+    setSelectedAttributes,
+    handleInputChange,
+    handleCheckboxChange,
+  } = useProductForm(urls, defaultCategory);
 
-  const {
-    images,
-    handleImageUpload,
-    handleDrop,
-    handleRemoveImage,
-    message
-  } = useImageUpload();
+  /* ───────────── fetch categorías ───────────── */
+  const fetchCategories = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("🚫 No token");
+        return;
+      }
 
-  function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
-    throw new Error("Funcion no implementada.");
-  }
+      const res = await fetch("http://localhost:5035/provider/product-types", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-  function handleCheckboxChange(event: ChangeEvent<HTMLInputElement>, checked: boolean): void {
-    throw new Error("Funcion no implementada.");
-  }
+      if (!res.ok) {
+        console.error("❌ Status", res.status);
+        return;
+      }
 
+      const data = await res.json();
+      const fetched = data
+        .map(
+          (t: any) =>
+            t.descripcion ??
+            t.Descripcion ??
+            t.description ??
+            t.Description
+        )
+        .filter(Boolean);
+
+      setCategories(fetched);
+      setDefaultCategory(fetched[0] || "");
+    } catch (err) {
+      console.error("❌ fetchCategories", err);
+    }
+  };
+
+  /* ───────────── efectos ───────────── */
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  // selecciona la primera categoría cuando cargan
+  useEffect(() => {
+    if (categories.length && !category) {
+      setCategory(categories[0]);
+    }
+  }, [categories]);
+
+  /* ───────────── submit wrapper ───────────── */
+  const onSubmit = async (e: React.FormEvent) => {
+    const res = await handleSubmit(e);
+    setSnack({
+      open: true,
+      message: res.message,
+      severity: res.success ? "success" : "error",
+    });
+    if (res.success) resetForm();
+  };
+
+  /* ───────────── render ───────────── */
   return (
     <section className="flex gap-6 p-6 min-h-screen text-sm max-w-[1800px] mx-auto mt-10">
-      {/* Columna izquierda - imágenes */}
+      {/* ─── Columna izquierda: imágenes ─── */}
       <div className="w-[40%] bg-white rounded-lg p-5 shadow-md border border-gray-200">
-        <h2 className="text-base font-semibold text-gray-700 mb-3">Agregar imágenes</h2>
+        <h2 className="text-base font-semibold text-gray-700 mb-3">
+          Agregar imágenes
+        </h2>
+
         <div
           ref={dropRef}
           onDrop={handleDrop}
@@ -73,11 +145,15 @@ export default function NewProductPage() {
             </label>
           </p>
         </div>
-        {message && <p className="text-red-500 text-xs mt-2">{message}</p>}
+
+        {imageMessage && (
+          <p className="text-red-500 text-xs mt-2">{imageMessage}</p>
+        )}
+
         <ul className="mt-3 space-y-1">
-          {images.map((file, index) => (
+          {images.map((file, i) => (
             <li
-              key={index}
+              key={i}
               className="flex justify-between items-center bg-[var(--hueso)] p-2 rounded text-xs"
             >
               <div className="flex items-center gap-2">
@@ -88,7 +164,7 @@ export default function NewProductPage() {
                 />
                 {file.name} ({Math.round(file.size / 1024)} KB)
               </div>
-              <button onClick={() => handleRemoveImage(index)}>
+              <button onClick={() => handleRemoveImage(i)}>
                 <DeleteIcon fontSize="small" className="text-red-500" />
               </button>
             </li>
@@ -96,10 +172,13 @@ export default function NewProductPage() {
         </ul>
       </div>
 
-      {/* Columna derecha - datos */}
+      {/* ─── Columna derecha: datos del producto ─── */}
       <div className="w-[65%] bg-white rounded-lg p-6 shadow-md border border-gray-200">
-        <h2 className="text-base font-semibold text-gray-700 mb-4">Detalles del producto</h2>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <h2 className="text-base font-semibold text-gray-700 mb-4">
+          Detalles del producto
+        </h2>
+
+        <form className="flex flex-col gap-4" onSubmit={onSubmit}>
           <TextField
             label="Nombre del producto"
             name="productName"
@@ -108,7 +187,7 @@ export default function NewProductPage() {
             size="small"
             value={productName}
             onChange={handleInputChange}
-            sx={violetInputStyle}
+            sx={muiStyle}
           />
 
           <div className="flex gap-4">
@@ -119,25 +198,33 @@ export default function NewProductPage() {
               fullWidth
               required
               size="small"
-              value={category}
+              value={category || ""}
               onChange={handleInputChange}
-              sx={violetInputStyle}
+              sx={muiStyle}
             >
-              <MenuItem value="Fragancia">Fragancia</MenuItem>
-              <MenuItem value="Envase">Envase</MenuItem>
-              <MenuItem value="Insumo">Insumo</MenuItem>
+              {categories.length === 0 ? (
+                <MenuItem disabled value="">
+                  Cargando...
+                </MenuItem>
+              ) : (
+                categories.map((c) => (
+                  <MenuItem key={c} value={c}>
+                    {c}
+                  </MenuItem>
+                ))
+              )}
             </TextField>
 
             <TextField
               label="Cantidad de stock"
               name="stock"
-              fullWidth
               type="number"
-              size="small"
+              fullWidth
               required
+              size="small"
               value={stock}
               onChange={handleInputChange}
-              sx={violetInputStyle}
+              sx={muiStyle}
             />
           </div>
 
@@ -146,12 +233,12 @@ export default function NewProductPage() {
             name="price"
             type="number"
             fullWidth
-            size="small"
             required
+            size="small"
             InputProps={{ startAdornment: <span className="mr-2">$</span> }}
             value={price}
             onChange={handleInputChange}
-            sx={violetInputStyle}
+            sx={muiStyle}
           />
 
           <TextField
@@ -163,7 +250,7 @@ export default function NewProductPage() {
             size="small"
             value={description}
             onChange={handleInputChange}
-            sx={violetInputStyle}
+            sx={muiStyle}
           />
 
           <p className="text-sm text-gray-700 mb-2">
@@ -171,15 +258,11 @@ export default function NewProductPage() {
             <span className="italic text-gray-500"> (opcional)</span>
           </p>
 
-          <div className="w-full">
-            <SelectableButtonGroup
-              options={attributesProduct}
-              selected={selectedAttributes}
-              onChange={setSelectedAttributes}
-            />
-          </div>
-
-      
+          <SelectableButtonGroup
+            options={attributesProduct}
+            selected={selectedAttributes}
+            onChange={setSelectedAttributes}
+          />
 
           <div className="flex justify-end mt-3">
             <button
@@ -191,15 +274,24 @@ export default function NewProductPage() {
           </div>
         </form>
       </div>
+
+      {/* ─── Snackbar global ─── */}
+      <SnackbarFeedback
+        open={snack.open}
+        message={snack.message}
+        severity={snack.severity}
+        onClose={() => setSnack((s) => ({ ...s, open: false }))}
+      />
     </section>
   );
 }
 
-const violetInputStyle = {
-  '& label.Mui-focused': { color: '#9444B6' },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': { borderColor: '#ccc' },
-    '&:hover fieldset': { borderColor: '#9444B6' },
-    '&.Mui-focused fieldset': { borderColor: '#9444B6' },
+/* MUI input violet style */
+const muiStyle = {
+  "& label.Mui-focused": { color: "#9444B6" },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": { borderColor: "#ccc" },
+    "&:hover fieldset": { borderColor: "#9444B6" },
+    "&.Mui-focused fieldset": { borderColor: "#9444B6" },
   },
 };
