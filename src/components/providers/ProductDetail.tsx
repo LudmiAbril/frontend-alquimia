@@ -10,6 +10,10 @@ import SectionWrapper from "../General/SectionWrapper";
 import Link from "next/link";
 import { ProductDTO } from "../utils/typing";
 
+import ButtonViolet from "../general/ButtonViolet";
+import ButtonSecondary from "../general/ButtonSecondary";
+
+
 export default function ProductDetailPage() {
 const params = useParams();
 const id = Array.isArray(params.id) ? params.id[0] : params.id;
@@ -113,7 +117,7 @@ useEffect(() => {
           </p>
 
           <div className="flex gap-3 mb-8">
-            <Button label="VISITAR PROVEEDOR" />
+            <ButtonViolet label="VISITAR PROVEEDOR" />
           </div>
 
           <h3 className="text-sm font-bold mb-2 uppercase tracking-wide">Presentaciones disponibles:</h3>
@@ -136,8 +140,8 @@ useEffect(() => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button label="SUMAR A BIBLIOTECA" />
-            <Button label="RECLAMAR CÓDIGO" />
+            <ButtonSecondary label="SUMAR A BIBLIOTECA" />
+            <ButtonViolet label="RECLAMAR CÓDIGO" />
           </div>
         </div>
       </main>

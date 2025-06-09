@@ -1,5 +1,9 @@
 "use client"
-import { ButtonProps } from "../Utils/typing"
+
+import { ButtonProps } from "../utils/typing"
+
+
+
 
 export default function ButtonSecondary({ label, onClick }: ButtonProps) {
   return (
