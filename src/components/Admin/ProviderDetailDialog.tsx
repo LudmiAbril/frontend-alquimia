@@ -11,7 +11,7 @@ import {
   Button,
 } from "@mui/material"
 import Image from "next/image"
-import { ProviderDetailDialogProps } from "../utils/typing"
+import { ProviderDetailDialogProps } from "../Utils/typing"
 
 export default function ProviderDetailDialog({
   provider,
@@ -37,7 +37,7 @@ export default function ProviderDetailDialog({
       }}
     >
       <DialogTitle sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-        <Image src="/Logo/LogotipoVioleta.svg" alt="Logo Alquimia" width={40} height={40} />
+        <Image src="/logo/LogotipoVioleta.svg" alt="Logo Alquimia" width={40} height={40} />
         <Typography variant="h6" sx={{ fontFamily: "var(--font-principal)", fontSize: "1.5rem" }}>
           Ficha del proveedor
         </Typography>

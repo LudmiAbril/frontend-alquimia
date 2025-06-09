@@ -1,4 +1,4 @@
-import { SectionWrapperProps } from "../utils/typing";
+import { SectionWrapperProps } from "../Utils/typing";
 
 
 export default function SectionWrapper({

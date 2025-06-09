@@ -5,10 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession } from "@/services/sessionService";
-import UserDropdown from "../menu/UserDropdown";
-import AuthModalWrapper from "@/components/modals/AuthModalWrapper";
-import LoginForm from "@/components/login/LoginForm";
-import RegisterForm from "@/components/login/RegisterForm";
+import UserDropdown from "../Menu/UserDropdown";
+import AuthModalWrapper from "@/components/Modals/AuthModalWrapper";
+import LoginForm from "@/components/Login/LoginForm";
+import RegisterForm from "@/components/Login/RegisterForm";
 
 const navLinkClasses = "flex items-center gap-[40px] text-base md:text-lg lg:text-xl font-semibold";
 const avatarButtonClasses = "w-[50px] h-[50px] rounded-full bg-[var(--violeta)] text-white flex items-center justify-center font-bold uppercase text-lg md:text-1xl";
@@ -40,7 +40,7 @@ export default function Navbar() {
         className={`absolute top-0 left-0 z-[9999] w-full bg-transparent px-10 py-4 flex justify-between items-center transition-colors duration-200 ${isHome ? "text-white" : "text-[var(--violeta)]"}`}
       >
         <Image
-          src={isHome ? "/Logo/logotipo.svg" : "/Logo/LogotipoVioleta.svg"}
+          src={isHome ? "/logo/logotipo.svg" : "/logo/LogotipoVioleta.svg"}
           alt="Logo"
           width={90}
           height={100}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ProductDTO } from "../utils/typing";
+import { ProductDTO } from "../Utils/typing";
 import ProviderRow from "./ProviderRow";
 
 interface Props {

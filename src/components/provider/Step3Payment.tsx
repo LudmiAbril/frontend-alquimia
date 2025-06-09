@@ -6,9 +6,9 @@ import SecurityIcon from "@mui/icons-material/Security";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import CircularProgress from "@mui/material/CircularProgress";
-import SectionWrapper from "../general/SectionWrapper";
-import { Step3Props } from "../utils/typing";
-import { validatePaymentForm, getCardBrand, formatCardExpiry } from "../utils/getBackendErrorMessage";
+import SectionWrapper from "../General/SectionWrapper";
+import { Step3Props } from "../Utils/typing";
+import { validatePaymentForm, getCardBrand, formatCardExpiry } from "../Utils/getBackendErrorMessage";
 
 export default function Step3Payment ({ onContinue, onBack, formData, setFormData }: Step3Props) {
   const [error, setError] = useState("");

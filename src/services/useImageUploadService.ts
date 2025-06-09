@@ -1,6 +1,6 @@
 
 
-import { CloudinaryResponse } from "@/components/utils/typing";
+import { CloudinaryResponse } from "@/components/Utils/typing";
 import { useState } from "react";
 
 

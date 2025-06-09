@@ -1,5 +1,5 @@
 
-import { AnswerDTO, QuestionDTO, FamilyResult, VisualType } from "@/components/utils/typing"
+import { AnswerDTO, QuestionDTO, FamilyResult, VisualType } from "@/components/Utils/typing"
 
 const visualMap: Record<number, VisualType> = {
   1: "bubbles",

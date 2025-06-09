@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { TextField, MenuItem } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
-import SelectableButtonGroup from "./common/SelectableButtonGroup";
-import SnackbarFeedback from "./common/SnackbarFeedback";
-import { attributesProduct } from "../utils/utils";
+import SelectableButtonGroup from "./Common/SelectableButtonGroup";
+import SnackbarFeedback from "./Common/SnackbarFeedback";
+import { attributesProduct } from "../Utils/utils";
 import { useImageUpload } from "@/services/useImageUploadService";
 import { useProductForm } from "@/services/useProductForm";
 

@@ -1,5 +1,5 @@
 
-import { ProviderDTO } from "@/components/utils/typing";
+import { ProviderDTO } from "@/components/Utils/typing";
 
 
 const baseUrl = "http://localhost:5035/admin"

@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Wand2 } from "lucide-react"
 
-import ButtonMagic from "../general/ButtonMagic"
+import ButtonMagic from "../General/ButtonMagic"
 
 export default function WelcomeIntro({ onNext }: { onNext: () => void }) {
   return (

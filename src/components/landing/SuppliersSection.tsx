@@ -2,8 +2,8 @@
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SectionWrapper from "@/components/general/SectionWrapper";
-import { suppliers } from "../utils/utils";
+import SectionWrapper from "@/components/General/SectionWrapper";
+import { suppliers } from "../Utils/utils";
 import Image from "next/image";
 
 export default function SuppliersSection() {

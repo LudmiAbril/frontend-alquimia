@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { PROVIDER_TABS } from "../utils/utils"
+import { PROVIDER_TABS } from "../Utils/utils"
 
 export default function ProviderTabs() {
   const [activeTab, setActiveTab] = useState("home")

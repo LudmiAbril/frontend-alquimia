@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import SectionWrapper from "@/components/general/SectionWrapper";
-import { faqQuestions } from "@/components/utils/utils";
+import SectionWrapper from "@/components/General/SectionWrapper";
+import { faqQuestions } from "@/components/Utils/utils";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function FAQAccordion() {

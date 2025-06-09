@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Sparkles } from "lucide-react"
-import { familiesQuiz, messages } from "../utils/utils"
-import { WelcomeFamiliesProps } from "../utils/typing"
+import { familiesQuiz, messages } from "../Utils/utils"
+import { WelcomeFamiliesProps } from "../Utils/typing"
 import { AnimatePresence, motion } from "framer-motion"
-import ButtonMagic from "../general/ButtonMagic"
+import ButtonMagic from "../General/ButtonMagic"
 
 export default function WelcomeFamilies({ onStart, loading }: WelcomeFamiliesProps) {
   const [active, setActive] = useState(0)
@@ -93,10 +93,8 @@ export default function WelcomeFamilies({ onStart, loading }: WelcomeFamiliesPro
         </AnimatePresence>
       </div>
 
-      {/* Column: Quimi + globo + botón */}
       <div className="flex flex-col items-center w-full lg:w-1/2 gap-6 relative mt-6">
 
-        {/* Globo de diálogo rotativo */}
         <div className="relative bg-white border border-[var(--violeta)] rounded-xl shadow-lg p-4 text-[var(--gris4)] max-w-md text-center">
           {messages[currentIndex].map((text, i) => (
             <p key={i} className={`${i > 0 ? "mt-2" : ""}`}>{text}</p>

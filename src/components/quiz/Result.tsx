@@ -1,11 +1,11 @@
 "use client"
 
-import { PropsResult, SummaryItem } from "@/components/utils/typing"
+import { PropsResult, SummaryItem } from "@/components/Utils/typing"
 import Card3D from "./Card3d"
-import { answerSummaryMap, backgroundByFamily, familyDescriptions, familyPet } from "../utils/utils"
+import { answerSummaryMap, backgroundByFamily, familyDescriptions, familyPet } from "../Utils/utils"
 import { useState } from "react"
-import ButtonSecondary from "../general/ButtonSecondary"
-import Button from "../general/Button"
+import ButtonSecondary from "../General/ButtonSecondary"
+import Button from "../General/Button"
 
 export default function Result({ result, answers, onReset }: PropsResult) {
   const backgroundImage = backgroundByFamily[result.nombre] || "/quiz/familia-fondos/amaderadaBack.png"

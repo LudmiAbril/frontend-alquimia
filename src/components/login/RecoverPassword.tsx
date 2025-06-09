@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import SectionWrapper from "../general/SectionWrapper";
+import SectionWrapper from "../General/SectionWrapper";
 
 export default function RecoverPasswordPage() {
   const [email, setEmail] = useState("");

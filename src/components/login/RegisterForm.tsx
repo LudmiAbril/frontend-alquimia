@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { FormToggleProps, RegisterDTO } from "@/components/utils/typing";
+import { FormToggleProps, RegisterDTO } from "@/components/Utils/typing";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
 import { registerUser, saveSessionData } from "../../services/sessionService";
-import { validateRegisterForm, getPasswordStrength } from "../utils/getBackendErrorMessage";
+import { validateRegisterForm, getPasswordStrength } from "../Utils/getBackendErrorMessage";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
@@ -58,7 +58,6 @@ export default function RegisterForm({ toggleForm }: FormToggleProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      {/* Nombre */}
       <div className="flex flex-col gap-1">
         <label className="text-sm font-medium text-[var(--gris4)]">
           Nombre <span className="text-red-500">*</span>
@@ -72,7 +71,6 @@ export default function RegisterForm({ toggleForm }: FormToggleProps) {
         />
       </div>
 
-      {/* Email */}
       <div className="flex flex-col gap-1">
         <label className="text-sm font-medium text-[var(--gris4)]">
           Correo electrónico <span className="text-red-500">*</span>
@@ -86,7 +84,6 @@ export default function RegisterForm({ toggleForm }: FormToggleProps) {
         />
       </div>
 
-      {/* Contraseña */}
       <div className="flex flex-col gap-1 relative">
         <label className="text-sm font-medium text-[var(--gris4)]">
           Contraseña <span className="text-red-500">*</span>
@@ -135,7 +132,6 @@ export default function RegisterForm({ toggleForm }: FormToggleProps) {
       </div>
 
 
-      {/* Repetir contraseña */}
       <div className="flex flex-col gap-1 relative">
         <label className="text-sm font-medium text-[var(--gris4)]">
           Repetir contraseña <span className="text-red-500">*</span>

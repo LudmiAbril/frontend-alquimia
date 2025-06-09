@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import SectionWrapper from "@/components/general/SectionWrapper";
+import SectionWrapper from "@/components/General/SectionWrapper";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import ImageModal from "../modals/ImageModal";
-import { etiquetas } from "../utils/utils";
+import ImageModal from "../Modals/ImageModal";
+import { etiquetas } from "../Utils/utils";
 
 export default function CustomDesignSection() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);

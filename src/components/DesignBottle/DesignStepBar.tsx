@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image';
-import { designBottleSteps } from '../utils/utils';
+import { designBottleSteps } from '../Utils/utils';
 import React from 'react';
 import { useDesignBottle } from '@/context/DesignBottleContext';
 

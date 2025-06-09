@@ -1,7 +1,7 @@
 "use client";
 
 import { useDesignBottle } from "@/context/DesignBottleContext";
-import { BottleDesign, BottleForm } from "../utils/typing";
+import { BottleDesign, BottleForm } from "../Utils/typing";
 
 export const BottleFields = () => {
     const {

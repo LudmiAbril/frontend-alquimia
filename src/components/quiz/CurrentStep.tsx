@@ -1,9 +1,9 @@
 "use client"
 
-import { PropsCurrent } from "@/components/utils/typing"
+import { PropsCurrent } from "@/components/Utils/typing"
 import DynamicQuestion from "./DynamicQuestion"
-import Button from "@/components/general/Button"
-import ButtonSecondary from "@/components/general/ButtonSecondary"
+import Button from "@/components/General/Button"
+import ButtonSecondary from "@/components/General/ButtonSecondary"
 import { useState, useEffect } from "react"
 
 export default function CurrentStep({

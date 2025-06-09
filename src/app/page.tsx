@@ -1,15 +1,15 @@
 "use client";
 
-import Hero from "@/components/landing/Hero";
-import DiscoverSection from "@/components/landing/DiscoverSection";
-import HowItWorks from "@/components/landing/HowItWorks";
-import FragranceIntroSection from "@/components/landing/FragranceIntroSection";
-import TestIntroSection from "@/components/landing/TestIntroSection";
-import SuppliersSection from "@/components/landing/SuppliersSection";
-import CustomDesignSection from "@/components/landing/CustomDesignSection";
-import FAQAccordion from "@/components/landing/FAQAccordion";
-import FloatingMascot from "@/components/general/MascotaFlotante";
-import { messagesLanding } from "@/components/utils/utils";
+import Hero from "@/components/Landing/Hero";
+import DiscoverSection from "@/components/Landing/DiscoverSection";
+import HowItWorks from "@/components/Landing/HowItWorks";
+import FragranceIntroSection from "@/components/Landing/FragranceIntroSection";
+import TestIntroSection from "@/components/Landing/TestIntroSection";
+import SuppliersSection from "@/components/Landing/SuppliersSection";
+import CustomDesignSection from "@/components/Landing/CustomDesignSection";
+import FAQAccordion from "@/components/Landing/FAQAccordion";
+import FloatingMascot from "@/components/General/MascotaFlotante";
+import { messagesLanding } from "@/components/Utils/utils";
 
 export default function Home() {
   return (
@@ -24,7 +24,7 @@ export default function Home() {
       <FAQAccordion />
       <FloatingMascot
         messages={messagesLanding}
-        imageSrc="/Quimi/quimiLanding.png"
+        imageSrc="/quimi/quimiLanding.png"
       />
     </>
   );

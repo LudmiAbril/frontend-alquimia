@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { obtenerNotasPorPaso } from "@/services/notaService";
-import { NoteFamily, perfumeData } from "../utils/typing";
+import { NoteFamily, perfumeData } from "../Utils/typing";
 
 interface NotesContainerProps {
     currentStep: number;

@@ -1,4 +1,4 @@
-import { SearchResult } from "@/components/utils/typing";
+import { SearchResult } from "@/components/Utils/typing";
 import { useEffect, useState } from "react"
 
 

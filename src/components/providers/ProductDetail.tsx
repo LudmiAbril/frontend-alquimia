@@ -3,10 +3,10 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "@/services/productService";
-import { ProductDTO } from "@/components/utils/typing";
+import { ProductDTO } from "@/components/Utils/typing";
 import Image from "next/image";
-import Button from "@/components/general/Button";
-import SectionWrapper from "../general/SectionWrapper";
+import Button from "@/components/General/Button";
+import SectionWrapper from "../General/SectionWrapper";
 import Link from "next/link";
 
 export default function ProductDetailPage() {

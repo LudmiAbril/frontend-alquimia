@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ProductCardProps } from "../utils/typing";
+import { ProductCardProps } from "../Utils/typing";
 
 export default function ProductCard({
   id,

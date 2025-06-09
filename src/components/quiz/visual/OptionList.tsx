@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { PropsDynamic } from "@/components/utils/typing"
+import { PropsDynamic } from "@/components/Utils/typing"
 
 export default function OptionList({ question, selectedOption, onSelect }: PropsDynamic) {
   return (

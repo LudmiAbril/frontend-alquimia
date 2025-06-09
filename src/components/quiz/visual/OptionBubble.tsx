@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { PropsDynamic } from "@/components/utils/typing"
+import { PropsDynamic } from "@/components/Utils/typing"
 import { useEffect, useState } from "react"
 
 export default function OptionBubble({ question, selectedOption, onSelect }: PropsDynamic) {

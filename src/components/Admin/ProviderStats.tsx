@@ -5,7 +5,7 @@ import StatCircleCard from "./StatCircleCard"
 import GroupsIcon from "@mui/icons-material/Groups"
 import CheckCircleIcon from "@mui/icons-material/CheckCircle"
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty"
-import { ProviderStatsProps } from "../utils/typing"
+import { ProviderStatsProps } from "../Utils/typing"
 
 export default function ProviderStats({ total, approved, pending }: ProviderStatsProps) {
   return (

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ButtonProps } from "../utils/typing";
+import { ButtonProps } from "../Utils/typing";
 
 export default function Button({
   label,

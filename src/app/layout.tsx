@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/general/Navbar";
-import Footer from '@/components/general/Footer'
+import Navbar from "@/components/General/Navbar";
+import Footer from '@/components/General/Footer'
 import { Roboto } from 'next/font/google'
 
 

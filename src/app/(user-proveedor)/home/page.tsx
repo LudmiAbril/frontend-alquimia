@@ -6,7 +6,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ProductDTO } from "@/components/utils/typing"; // ✅ corregido
+import { ProductDTO } from "@/components/Utils/typing"; // ✅ corregido
 
 export default function ProviderPage() {
   const [productos, setProductos] = useState<ProductDTO[]>([]);
@@ -84,7 +84,7 @@ setProductos(data);
             Lista de productos
           </h2>
           <Tooltip title="Crear nuevo producto" arrow>
-            <Link href="/subirProducto" passHref>
+            <Link href="/subir-producto" passHref>
               <IconButton
                 color="primary"
                 sx={{

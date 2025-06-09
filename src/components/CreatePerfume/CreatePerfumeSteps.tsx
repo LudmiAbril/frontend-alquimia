@@ -1,11 +1,11 @@
 "use client";
 
 import { useCreatePerfume } from "@/context/CreatePerfumeContext";
-import SectionWrapper from "../general/SectionWrapper";
+import SectionWrapper from "../General/SectionWrapper";
 import Welcome from "./Welcome";
 import CreatePerfume from "./PerfumeCreation";
 import FormulaResult from "./FormulaResult";
-import { createSteps } from "../utils/utils";
+import { createSteps } from "../Utils/utils";
 
 const CreatePerfumeSteps = () => {
   const {

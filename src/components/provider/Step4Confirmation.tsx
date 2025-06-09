@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import InfoIcon from "@mui/icons-material/Info";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
-import { Step4Props } from "../utils/typing";
-import SectionWrapper from "../general/SectionWrapper";
+import { Step4Props } from "../Utils/typing";
+import SectionWrapper from "../General/SectionWrapper";
 
 export default function Step4Confirmation({  }: Step4Props) {
   const router = useRouter();

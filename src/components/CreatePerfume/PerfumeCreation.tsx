@@ -9,10 +9,10 @@ import LimitModal from "./LimitModal";
 import { getFormulaById, submitFormula } from "@/services/createPerfumeService";
 import { animateBottle, getColorByFamily } from "@/services/animateBottle";
 import PotionParticles from "./PotionParticles";
-import { mapNotesArrayToObject } from "../utils/utils";
+import { mapNotesArrayToObject } from "../Utils/utils";
 import AddedNotesSection from "./AddedNotesSection";
 import { StepCard } from "./StepCard";
-import { SaveFormulaDTO } from "../utils/typing";
+import { SaveFormulaDTO } from "../Utils/typing";
 import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 
 
@@ -159,7 +159,7 @@ const CreatePerfume = ({ onNext, onBack }: CreatePerfumeProps) => {
         </h1>
         {/** STEPBAR, COMPONETIZAR Y REUTILIZAR EN DISEÑO ETIQUETA */}
         <div className="flex items-center mb-10">
-          <Image src="/BarraSteps/icono-pocion-inicio.svg" alt="paso" width={40} height={40} />
+          <Image src="/barraSteps/icono-pocion-inicio.svg" alt="paso" width={40} height={40} />
           {[1, 2, 3, 4].map((step) => (
             <React.Fragment key={step}>
               <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
@@ -170,7 +170,7 @@ const CreatePerfume = ({ onNext, onBack }: CreatePerfumeProps) => {
             </React.Fragment>
           ))}
           <div className="w-[114px] h-[2px] bg-[var(--violeta)]"></div>
-          <Image src="/BarraSteps/icono-pocion-final.svg" alt="" width={40} height={40} />
+          <Image src="/barraSteps/icono-pocion-final.svg" alt="" width={40} height={40} />
         </div>
         <div className="flex justify-center gap-[80px]">
           <div className="flex flex-col items-center gap-[50px]">

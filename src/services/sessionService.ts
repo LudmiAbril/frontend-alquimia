@@ -1,27 +1,62 @@
-import { RegisterDTO, ProviderFormData } from "@/components/utils/typing";
+import { RegisterDTO, ProviderFormData } from "@/components/Utils/typing";
 import { useEffect, useState } from "react";
 
-// Guardar token y decodificar datos del usuario
+
+export async function loginUser(email: string, password: string): Promise<string> {
+  const response = await fetch("http://localhost:5035/account/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const data = await response.json();
+  if (!response.ok) throw new Error(data?.mensaje || "Credenciales incorrectas.");
+  return data.token;
+}
+
+export async function getUserProfile(token: string): Promise<any> {
+  const perfilResponse = await fetch("http://localhost:5035/account/perfil", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  const perfil = await perfilResponse.json();
+  if (!perfilResponse.ok) throw new Error("Error al obtener perfil del usuario.");
+  return perfil;
+}
+
 export function saveSessionData(token: string) {
   localStorage.setItem("token", token);
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));
-
-    if (payload?.["user-name"]) {
-      localStorage.setItem("username", payload["user-name"]);
-    }
-
-    if (payload?.["name-identifier"]) {
-      localStorage.setItem("userId", payload["name-identifier"]);
-    }
-
-    if (payload?.["email"]) {
-      localStorage.setItem("useremail", payload["email"]);
-    }
+    if (payload?.["user-name"]) localStorage.setItem("username", payload["user-name"]);
+    if (payload?.["name-identifier"]) localStorage.setItem("userId", payload["name-identifier"]);
+    if (payload?.["email"]) localStorage.setItem("useremail", payload["email"]);
   } catch (error) {
     console.error("Token inválido", error);
   }
 }
+
+// // Guardar token y decodificar datos del usuario
+// export function saveSessionData(token: string) {
+//   localStorage.setItem("token", token);
+//   try {
+//     const payload = JSON.parse(atob(token.split(".")[1]));
+
+//     if (payload?.["user-name"]) {
+//       localStorage.setItem("username", payload["user-name"]);
+//     }
+
+//     if (payload?.["name-identifier"]) {
+//       localStorage.setItem("userId", payload["name-identifier"]);
+//     }
+
+//     if (payload?.["email"]) {
+//       localStorage.setItem("useremail", payload["email"]);
+//     }
+//   } catch (error) {
+//     console.error("Token inválido", error);
+//   }
+// }
 
 // Obtener los datos de sesión
 export function getSessionData() {

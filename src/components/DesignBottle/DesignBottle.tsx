@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from 'react'
-import SectionWrapper from '../general/SectionWrapper';
+import SectionWrapper from '../General/SectionWrapper';
 import { DesignFieldsCard } from './DesignFieldsCard';
 import Image from 'next/image';
 import ConfirmBottleDesignModal from './ConfirmBottleDesignModal';
 import { useRouter } from 'next/navigation';
-import { designBottleSteps, getFormImagesSizes, getLabelPositions } from '../utils/utils';
+import { designBottleSteps, getFormImagesSizes, getLabelPositions } from '../Utils/utils';
 import DesignStepsBar from './DesignStepBar';
 import BottleLabel from './BottleDesign';
 import { useDesignBottle } from '@/context/DesignBottleContext';

@@ -2,7 +2,7 @@
 
 import { Box, Typography, Paper } from "@mui/material";
 import { motion } from "framer-motion";
-import { StatCircleCardProps } from "../utils/typing";
+import { StatCircleCardProps } from "../Utils/typing";
 
 export default function StatCircleCard({ icon, value, label }: StatCircleCardProps) {
   return (

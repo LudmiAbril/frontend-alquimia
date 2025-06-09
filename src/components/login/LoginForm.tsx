@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { FormToggleProps } from "@/components/utils/typing";
+import { FormToggleProps } from "@/components/Utils/typing";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
-import { saveSessionData } from "../../services/sessionService";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { saveSessionData, loginUser, getUserProfile } from "../../services/sessionService";
 
 export default function LoginForm({ toggleForm }: FormToggleProps) {
   const [email, setEmail] = useState("");
@@ -21,51 +21,20 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
     setLoading(true);
 
     try {
-      // Paso 1: login
-      const response = await fetch("http://localhost:5035/account/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setError(data?.mensaje || "Credenciales incorrectas.");
-        return;
-      }
-
-      const token = data.token;
+      const token = await loginUser(email, password);
       saveSessionData(token);
+      const perfil = await getUserProfile(token);
 
-      // Paso 2: obtener perfil con el token
-      const perfilResponse = await fetch("http://localhost:5035/account/perfil", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      localStorage.setItem("username", perfil.nombre);
+      localStorage.setItem("useremail", perfil.email);
 
-      const perfil = await perfilResponse.json();
-
-      if (!perfilResponse.ok) {
-  setError("Error al obtener perfil del usuario.");
-  return;
-}
-
-localStorage.setItem("username", perfil.nombre);   
-localStorage.setItem("useremail", perfil.email);
-
-
-
-// Paso 3: redirigir según rol
-const rol = perfil.rol;
-      switch (rol) {
+      switch (perfil.rol) {
         case "Admin":
           window.location.href = "/admin";
           break;
         case "Proveedor":
           window.location.href = "/home";
-         break;
+          break;
         case "Creador":
           window.location.href = "/";
           break;
@@ -73,8 +42,8 @@ const rol = perfil.rol;
           window.location.href = "/home/user";
           break;
       }
-    } catch {
-      setError("No se pudo conectar con el servidor.");
+    } catch (err: any) {
+      setError(err.message || "No se pudo conectar con el servidor.");
     } finally {
       setLoading(false);
     }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import { AuthModalWrapperProps } from "@/components/utils/typing";
+import { AuthModalWrapperProps } from "@/components/Utils/typing";
 import Image from "next/image";
 
 export default function AuthModalWrapper({ children, title, onClose }: AuthModalWrapperProps) {

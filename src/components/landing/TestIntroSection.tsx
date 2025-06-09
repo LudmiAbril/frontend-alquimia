@@ -2,10 +2,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Button from "@/components/general/Button";
-import SectionWrapper from "@/components/general/SectionWrapper";
+import Button from "@/components/General/Button";
+import SectionWrapper from "@/components/General/SectionWrapper";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { families } from "@/components/utils/utils";
+import { families } from "@/components/Utils/utils";
 
 export default function TestIntroSection() {
     const [hovered, setHovered] = useState<string | null>(null);

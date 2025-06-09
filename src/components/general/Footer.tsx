@@ -24,7 +24,7 @@ const Footer = () => {
       <div className="bg-[#9444B6] text-white px-10 py-8 -mt-1">
         <div className="flex flex-col gap-6 md:flex-row md:justify-between md:items-center">
           <Image
-            src="/Logo/logotipo.svg"
+            src="/logo/logotipo.svg"
             alt="Logo Alquimia"
             className="w-[120px] h-[110px]" 
             width={120}

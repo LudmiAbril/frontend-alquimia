@@ -5,13 +5,13 @@ import ScienceIcon from "@mui/icons-material/Science";
 import SearchIcon from "@mui/icons-material/Search";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import HandshakeIcon from "@mui/icons-material/Handshake";
-import FloatingMascot from "../general/MascotaFlotante";
-import { proveedorMessages } from "../utils/utils";
+import FloatingMascot from "../General/MascotaFlotante";
+import { proveedorMessages } from "../Utils/utils";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { getPasswordStrength, validateRegisterForm } from "../utils/getBackendErrorMessage";
-import { Step1Props } from "../utils/typing";
-import SectionWrapper from "../general/SectionWrapper";
+import { getPasswordStrength, validateRegisterForm } from "../Utils/getBackendErrorMessage";
+import { Step1Props } from "../Utils/typing";
+import SectionWrapper from "../General/SectionWrapper";
 
 
 export default function Step1Cuenta({ onContinue, formData, setFormData }: Step1Props) {

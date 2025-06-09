@@ -5,10 +5,10 @@ import BusinessIcon from "@mui/icons-material/Business";
 import BadgeIcon from "@mui/icons-material/Badge";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import { formatCuit, validateStep2Form } from "../utils/getBackendErrorMessage";
-import { productOptions } from "../utils/utils";
-import SectionWrapper from "../general/SectionWrapper";
-import { Step2Props } from "../utils/typing";
+import { formatCuit, validateStep2Form } from "../Utils/getBackendErrorMessage";
+import { productOptions } from "../Utils/utils";
+import SectionWrapper from "../General/SectionWrapper";
+import { Step2Props } from "../Utils/typing";
 
 export default function Step2Company({ onContinue, onBack, formData, setFormData }: Step2Props) {
   const [error, setError] = useState("");

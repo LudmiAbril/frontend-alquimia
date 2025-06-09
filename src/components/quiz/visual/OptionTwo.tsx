@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { PropsDynamic } from "@/components/utils/typing"
+import { PropsDynamic } from "@/components/Utils/typing"
 
 export default function OptionTwo({ question, selectedOption, onSelect }: PropsDynamic) {
   const [glowIndex, setGlowIndex] = useState<string | null>(null)

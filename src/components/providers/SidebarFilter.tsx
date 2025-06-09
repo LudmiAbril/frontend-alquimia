@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { productCategories } from "../utils/utils";
+import { productCategories } from "../Utils/utils";
 
 interface Props {
   onFilter: (category: string) => void;

@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import SectionWrapper from "../general/SectionWrapper";
+import SectionWrapper from "../General/SectionWrapper";
 import SidebarFilter from "./SidebarFilter";
 import ProductCard from "./CardProducto";
-import Button from "../general/Button";
-import { ProductDTO } from "../utils/typing";
+import Button from "../General/Button";
+import { ProductDTO } from "../Utils/typing";
 import Image from "next/image";
-import { getCategoryLabel } from "../utils/getcategorylabel";
+import { getCategoryLabel } from "../Utils/getcategorylabel";
 import { getAllProducts } from "@/services/productService";
 
 export default function ProovedoresPage() {

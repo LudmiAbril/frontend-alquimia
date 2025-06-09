@@ -2,7 +2,7 @@
 
 import Colorful from "@uiw/react-color-colorful";
 import { useState } from "react";
-import { FontKey } from "../utils/utils";
+import { FontKey } from "../Utils/utils";
 import { hexToHsva, ColorResult, hsvaToHex } from "@uiw/color-convert";
 import { useDesignBottle } from "@/context/DesignBottleContext";
 

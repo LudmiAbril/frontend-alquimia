@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { FloatingMascotProps } from "../utils/typing";
+import { FloatingMascotProps } from "../Utils/typing";
 
-export default function FloatingMascot({ messages, imageSrc = "/Quimi/quimiLanding.png" }: FloatingMascotProps) {
+export default function FloatingMascot({ messages, imageSrc = "/quimi/quimiLanding.png" }: FloatingMascotProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(messages[0]);
 

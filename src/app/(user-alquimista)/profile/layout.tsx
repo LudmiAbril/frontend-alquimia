@@ -1,5 +1,5 @@
-import UserMenu from "@/components/menu/UserMenu";
-import SectionWrapper from "@/components/general/SectionWrapper";
+import UserMenu from "@/components/Menu/UserMenu";
+import SectionWrapper from "@/components/General/SectionWrapper";
 
 export default function PerfilLayout({ children }: { children: React.ReactNode }) {
   return (

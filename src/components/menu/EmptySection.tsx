@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/general/Button";
-import { EmptySectionProps } from "@/components/utils/typing";
+import Button from "@/components/General/Button";
+import { EmptySectionProps } from "@/components/Utils/typing";
 
 export default function EmptySection({
   title,

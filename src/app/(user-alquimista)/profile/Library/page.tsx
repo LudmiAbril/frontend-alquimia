@@ -1,6 +1,6 @@
 "use client";
 
-import EmptySection from "@/components/menu/EmptySection";
+import EmptySection from "@/components/Menu/EmptySection";
 
 export default function LibraryPage() {
   return (

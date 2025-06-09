@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { providerMenuItems } from "../utils/utils";
+import { providerMenuItems } from "../Utils/utils";
 
 
 export default function ProviderMenu() {

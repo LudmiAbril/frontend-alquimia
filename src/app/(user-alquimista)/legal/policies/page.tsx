@@ -1,5 +1,5 @@
 
-import SectionWrapper from "@/components/general/SectionWrapper";
+import SectionWrapper from "@/components/General/SectionWrapper";
 
 export default function FlujoUsersLayout() {
   return (

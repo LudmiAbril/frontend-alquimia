@@ -1,7 +1,7 @@
 "use client"
 
 import { Box, TextField, Select, MenuItem, InputLabel, FormControl, Button } from "@mui/material"
-import { ProviderFiltersProps } from "../utils/typing"
+import { ProviderFiltersProps } from "../Utils/typing"
 
 
 export default function ProviderFilters({

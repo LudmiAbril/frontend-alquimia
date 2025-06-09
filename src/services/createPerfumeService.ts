@@ -1,4 +1,4 @@
-import { GetFormulaResponse, Intensity, SaveFormulaDTO } from "@/components/utils/typing";
+import { GetFormulaResponse, Intensity, SaveFormulaDTO } from "@/components/Utils/typing";
 
 
 export const submitFormula = async (payload: SaveFormulaDTO): Promise<number | null> => {

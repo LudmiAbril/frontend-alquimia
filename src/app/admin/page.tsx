@@ -1,6 +1,6 @@
 "use client"
 
-import AdmiPanel from "@/components/admin/AdmiPanel"
+import AdmiPanel from "@/components/Admin/AdmiPanel"
 
 
 

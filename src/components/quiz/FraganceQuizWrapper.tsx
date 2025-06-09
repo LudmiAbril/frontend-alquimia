@@ -2,7 +2,7 @@
 
 
 import { useEffect, useState } from "react"
-import { AnswerDTO, QuestionDTO, FamilyResult } from "@/components/utils/typing"
+import { AnswerDTO, QuestionDTO, FamilyResult } from "@/components/Utils/typing"
 import CurrentStep from "./CurrentStep"
 import Welcome from "./Welcome"
 import Result from "./Result"

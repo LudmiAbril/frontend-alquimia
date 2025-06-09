@@ -1,6 +1,6 @@
 "use client";
 
-import { BottleDesign } from "@/components/utils/typing";
+import { BottleDesign } from "@/components/Utils/typing";
 import React, { createContext, useContext, useState, ReactNode, SetStateAction, Dispatch } from "react";
 
 interface DesignBottleContextType {

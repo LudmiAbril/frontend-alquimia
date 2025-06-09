@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react"
 import { Box, Container, Typography, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogActions, Avatar, Chip, Button } from "@mui/material"
-import ProviderFilters from "@/components/admin/ProviderFilters"
-import ProviderTable from "@/components/admin/AdminTable"
-import ProviderStats from "@/components/admin/ProviderStats"
-import MagicParticles from "@/components/general/MagicParticles"
+import ProviderFilters from "@/components/Admin/ProviderFilters"
+import ProviderTable from "@/components/Admin/AdminTable"
+import ProviderStats from "@/components/Admin/ProviderStats"
+import MagicParticles from "@/components/General/MagicParticles"
 import { approveProvider, deactivateProvider } from "@/services/providerFunctionsService"
-import { ProviderDTO } from "../utils/typing"
+import { ProviderDTO } from "../Utils/typing"
 import { fetchProviders } from "@/services/providerFunctionsService"
 
 

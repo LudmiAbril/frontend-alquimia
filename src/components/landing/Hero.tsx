@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Button from "@/components/general/Button";
-import DiscoverModal from "../modals/DiscoverModal";
+import Button from "@/components/General/Button";
+import DiscoverModal from "../Modals/DiscoverModal";
 
 export default function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);

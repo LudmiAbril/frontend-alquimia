@@ -1,7 +1,7 @@
 "use client";
 
 import { useCreatePerfume } from "@/context/CreatePerfumeContext";
-import { createSteps } from "../utils/utils";
+import { createSteps } from "../Utils/utils";
 import Image from "next/image";
 
 interface StepCardProps {

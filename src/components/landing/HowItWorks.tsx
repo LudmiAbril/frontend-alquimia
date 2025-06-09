@@ -1,7 +1,7 @@
-import SectionWrapper from "@/components/general/SectionWrapper";
+import SectionWrapper from "@/components/General/SectionWrapper";
 import Image from "next/image";
-import { howSteps } from "@/components/utils/utils";
-import { StepData } from "@/components/utils/typing";
+import { howSteps } from "@/components/Utils/utils";
+import { StepData } from "@/components/Utils/typing";
 
 export default function HowItWorks() {
   return (

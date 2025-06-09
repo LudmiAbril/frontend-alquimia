@@ -21,7 +21,7 @@ import {
 import WarningAmberIcon from "@mui/icons-material/WarningAmber"
 
 import { useState } from "react"
-import { ProviderDTO, ProviderTableProps } from "../utils/typing"
+import { ProviderDTO, ProviderTableProps } from "../Utils/typing"
 
 export default function ProviderTable({
   providers,

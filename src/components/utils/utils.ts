@@ -1,5 +1,5 @@
-import { ProviderFormData, StepData } from "@/components/utils/typing";
-import { Supplier } from "@/components/utils/typing";
+import { ProviderFormData, StepData } from "@/components/Utils/typing";
+import { Supplier } from "@/components/Utils/typing";
 
 
 /* DESIGN BOTTLE */
@@ -301,7 +301,7 @@ export const userMenuItems = [
 
 export const providerMenuItems = [
   { href: "/home", label: "Home" },
-  { href: "/subirProducto", label: "Subir Producto" },
+  { href: "/subir-producto", label: "Subir Producto" },
   { href: "/cuenta", label: "Mi Cuenta" },
   { href: "/logout", label: "Cerrar Sesión" },
 ];

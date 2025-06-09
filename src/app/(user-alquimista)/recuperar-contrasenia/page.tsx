@@ -1,4 +1,4 @@
-import RecoverPassword from "@/components/login/RecoverPassword";
+import RecoverPassword from "@/components/Login/RecoverPassword";
 
 
 export default function RecoverPassord() {

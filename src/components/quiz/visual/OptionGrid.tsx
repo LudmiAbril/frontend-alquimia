@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { PropsDynamic } from "@/components/utils/typing"
+import { PropsDynamic } from "@/components/Utils/typing"
 
 export default function OptionGrid({ question, selectedOption, onSelect }: PropsDynamic) {
   const validOptions = question.Opciones.filter(opt => opt.Texto?.trim())

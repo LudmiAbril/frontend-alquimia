@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import Button from "@/components/general/Button";
-import SectionWrapper from "@/components/general/SectionWrapper";
+import Button from "@/components/General/Button";
+import SectionWrapper from "@/components/General/SectionWrapper";
 
 export default function FragranceIntroSection() {
   return (

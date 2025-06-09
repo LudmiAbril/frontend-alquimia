@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsSelect } from "@/components/utils/typing";
+import { PropsSelect } from "@/components/Utils/typing";
 
 
 

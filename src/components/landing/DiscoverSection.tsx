@@ -1,7 +1,7 @@
 import Image from "next/image";
-import SectionWrapper from "@/components/general/SectionWrapper";
-import MagicParticles from "../general/MagicParticles";
-import Button from "../general/Button";
+import SectionWrapper from "@/components/General/SectionWrapper";
+import MagicParticles from "../General/MagicParticles";
+import Button from "../General/Button";
 
 export default function DiscoverSection() {
   return (
@@ -10,7 +10,7 @@ export default function DiscoverSection() {
 
       <div className="absolute left-30 top-12 w-26 md:w-34 animate-float">
         <Image
-          src="/LandingImage/Mago.svg"
+          src="/landingImagenes/Mago.svg"
           alt="Mascota alquímica"
           width={116}
           height={116}
@@ -35,7 +35,7 @@ export default function DiscoverSection() {
 
       <div className="absolute bottom-0 left-0 w-full -mb-[1px]">
         <Image
-          src="/LandingImage/TreeBg.svg"
+          src="/landingImagenes/TreeBg.svg"
           alt="Bosque mágico"
           width={1920}
           height={160}

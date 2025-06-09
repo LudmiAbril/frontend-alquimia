@@ -1,4 +1,4 @@
-import { ProductDTO } from "@/components/utils/typing";
+import { ProductDTO } from "@/components/Utils/typing";
 export async function getAllProducts(): Promise<ProductDTO[]> {
   const response = await fetch("http://localhost:5035/product/all");
 

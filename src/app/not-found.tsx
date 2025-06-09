@@ -2,8 +2,8 @@
 "use client";
 
 import Link from "next/link";
-import SectionWrapper from "@/components/general/SectionWrapper";
-import Button from "@/components/general/Button";
+import SectionWrapper from "@/components/General/SectionWrapper";
+import Button from "@/components/General/Button";
 import Image from "next/image";
 
 export default function NotFound() {
@@ -12,7 +12,7 @@ export default function NotFound() {
       <div className="animate-fadeIn min-h-screen flex flex-col justify-center items-center text-center px-6 py-20">
 
         <Image
-          src="/404.png"
+          src="/svgGeneral/404.png"
           alt="Quimi triste"
           width={192}
           height={192}
