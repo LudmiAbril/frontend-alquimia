@@ -1,11 +1,10 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import ConfirmFormulaModal from "./ConfirmFormulaModal";
 import ResultCard from "./ResultCard";
-import Image from "next/image";
-import { Intensity } from "./Library";
 import AnimatePotion from "./AnimatePotion";
+import { GetFormulaResponse } from "../utils/typing";
 
 interface FormulaResultProps {
   resultPerfume: GetFormulaResponse
@@ -24,10 +23,8 @@ const FormulaResult = ({ resultPerfume }: FormulaResultProps) => {
           Tu esencia ideal está lista
         </h1>
         <p>Descubrimos la fragancia que mejor te representa</p>
-        {/* frasco con boton y card de datos */}
         <div className="flex items-center justify-center gap-10 mt-10">
           <ResultCard perfume={resultPerfume} />
-          {/*frasco y boton confirmar */}
           <div className="flex flex-col items-center">
             <AnimatePotion
             />
@@ -47,43 +44,3 @@ const FormulaResult = ({ resultPerfume }: FormulaResultProps) => {
 
 
 export default FormulaResult;
-
-export interface SaveFormulaDTO {
-  IntensityId: number;
-  CreatorId: number;
-  TopNotes: NotesGroupDTO;
-  HeartNotes: NotesGroupDTO;
-  BaseNotes: NotesGroupDTO;
-}
-
-export interface GetFormulaResponse {
-  Id: number;
-  IdCreador: number;
-  ConcentracionAgua: number;
-  ConcentracionAlcohol: number;
-  ConcentracionEsencia: number;
-  Intensity: Intensity;
-  NotasCorazonIds: GetNotesGroupDTO;
-  NotasFondoIds: GetNotesGroupDTO;
-  NotasSalidaIds: GetNotesGroupDTO;
-}
-
-export interface NoteDTO {
-  Id: number;
-}
-
-export interface NotesGroupDTO {
-  [key: string]: { Id: number };
-}
-
-export interface GetNotesGroupDTO {
-  [key: string]: GetNoteDTO | null;
-}
-
-export interface GetNoteDTO {
-  Description: string;
-  Duration: string;
-  Family: string;
-  Name: string;
-  Sector: string;
-}

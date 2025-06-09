@@ -4,8 +4,84 @@ export interface ButtonProps {
   label: string;
   onClick?: () => void;
   colorClass?: string;
-href?: string
+  href?: string
 
+}
+
+/* CREATE PERFUME */
+
+export interface perfumeData {
+  baseNotes: Note[],
+  heartNotes: Note[],
+  topNotes: Note[],
+  intensity: Intensity
+}
+
+export interface Note {
+  id: number;
+  name: string
+}
+
+export interface NoteFamily {
+  family: string;
+  notes: Note[];
+}
+
+export interface NoteResponse {
+  Id: number;
+  Name: string;
+}
+
+export interface NoteFamilyResponse {
+  Familia: string;
+  Notas: NoteResponse[];
+}
+
+export interface Intensity {
+  Id: number;
+  Name: string;
+  Description: string;
+  Category: string;
+}
+
+export interface SaveFormulaDTO {
+  IntensityId: number;
+  CreatorId: number;
+  TopNotes: NotesGroupDTO;
+  HeartNotes: NotesGroupDTO;
+  BaseNotes: NotesGroupDTO;
+}
+
+export interface GetFormulaResponse {
+  Id: number;
+  IdCreador: number;
+  ConcentracionAgua: number;
+  ConcentracionAlcohol: number;
+  ConcentracionEsencia: number;
+  Intensity: Intensity;
+  NotasCorazonIds: GetNotesGroupDTO;
+  NotasFondoIds: GetNotesGroupDTO;
+  NotasSalidaIds: GetNotesGroupDTO;
+}
+
+export interface NoteDTO {
+  Id: number;
+}
+
+export interface NotesGroupDTO {
+  [key: string]: { Id: number };
+}
+
+export interface GetNotesGroupDTO {
+  [key: string]: GetNoteDTO | null;
+}
+
+export interface GetNoteDTO {
+  Description: string;
+  Duration: string;
+  Family: string;
+  Name: string;
+  Sector: string;
 }
 
 /*SUPPLIERS*/
@@ -103,7 +179,7 @@ export interface WelcomeFamiliesProps {
 export interface OptionDTO {
   Letra: string
   Texto: string
-  ImagenUrl: string  
+  ImagenUrl: string
 }
 
 export interface PropsDynamic {
@@ -132,7 +208,7 @@ export interface AnswerDTO {
   selectedOption: string;
 }
 export interface PropsCurrent {
- currentQuestionIndex: number
+  currentQuestionIndex: number
   questions: QuestionDTO[]
   selectedOption: string
   onSelect: (option: string) => void
@@ -162,7 +238,7 @@ export interface FamilyResult {
 
 
 export interface PropsQC {
-  option: OptionDTO 
+  option: OptionDTO
   selected: boolean
   onClick: () => void
 }
@@ -223,7 +299,7 @@ export interface RegisterDTO {
 //interfaz de mascota
 export interface FloatingMascotProps {
   messages: string[];
-    imageSrc?: string;
+  imageSrc?: string;
 }
 
 //********************************** INTERFACES DE PROVEDOR REGISTRO ******************************************** */
@@ -342,12 +418,12 @@ export interface Option {
   value: string;
 }
 
- export interface PropsSelect {
+export interface PropsSelect {
   options: Option[];
   selected: string[];
   onChange: (selected: string[]) => void;
   multiple?: boolean;
- }
+}
 /***CREAR PERFUME */
 export interface NoteInfoResponse {
   Id: number;
