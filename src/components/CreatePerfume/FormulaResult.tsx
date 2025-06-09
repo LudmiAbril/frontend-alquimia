@@ -4,12 +4,8 @@ import React, { useState } from "react";
 import ConfirmFormulaModal from "./ConfirmFormulaModal";
 import ResultCard from "./ResultCard";
 import AnimatePotion from "./AnimatePotion";
-import { GetFormulaResponse } from "../utils/typing";
 
-interface FormulaResultProps {
-  resultPerfume: GetFormulaResponse
-}
-const FormulaResult = ({ resultPerfume }: FormulaResultProps) => {
+const FormulaResult = () => {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
   const toggleConfirmationModal = () => {
@@ -24,7 +20,7 @@ const FormulaResult = ({ resultPerfume }: FormulaResultProps) => {
         </h1>
         <p>Descubrimos la fragancia que mejor te representa</p>
         <div className="flex items-center justify-center gap-10 mt-10">
-          <ResultCard perfume={resultPerfume} />
+          <ResultCard />
           <div className="flex flex-col items-center">
             <AnimatePotion
             />

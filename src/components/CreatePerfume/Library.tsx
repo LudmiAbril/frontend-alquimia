@@ -1,19 +1,23 @@
 "use client";
 
 import React, { useState } from "react";
-import { Intensity, perfumeData } from "../utils/typing";
+import { Intensity } from "../utils/typing";
 import { IntensityContainer } from "./IntensityContainer";
 import { NotesContainer } from "./NotesContainer";
 import SearchBar from "./SearchBar";
+import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 
 interface LibraryProps {
-  currentStep: number;
   onConfirm: () => void;
   onSelectIntensity: (intensity: Intensity) => void;
-  currentPerfume: perfumeData;
 }
 
-const Library = ({ currentStep, onConfirm, onSelectIntensity, currentPerfume }: LibraryProps) => {
+const Library = ({ onConfirm, onSelectIntensity }: LibraryProps) => {
+  const {
+    currentStep,
+    currentPerfume,
+  } = useCreatePerfume();
+
   const [searchTerm, setSearchTerm] = useState("");
   const isNoteSelectionStep = currentStep >= 1 && currentStep <= 3;
   const title = isNoteSelectionStep ? "Biblioteca de notas" : "Intensidad";
