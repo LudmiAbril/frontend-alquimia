@@ -1,12 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import CustomButton from "./CustomButton";
-import { Provider } from "../utils/typing";
+import { ProductDTO } from "../utils/typing";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { MouseEvent as ReactMouseEvent } from "react";
-
 import {
   Dialog,
   DialogTitle,
@@ -17,51 +15,69 @@ import {
 } from "@mui/material";
 
 interface Props {
-  provider: Provider;
+  producto: ProductDTO;
+  onDeleted?: (idEliminado: number) => void;
 }
 
-export default function ProviderRow({ provider }: Props) {
+export default function ProviderRow({ producto, onDeleted }: Props) {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleConfirmDelete = () => {
-    console.log("Eliminando producto con ID:", provider.id);
-    handleClose();
+
+  const handleConfirmDelete = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(
+        `http://localhost:5035/provider/products/${producto.id}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (!res.ok) throw new Error("Fallo al eliminar el producto");
+
+      // Notificar al padre para que quite la fila
+      onDeleted?.(producto.id);
+
+      handleClose();
+    } catch (error) {
+      console.error("Error al eliminar producto:", error);
+    }
   };
 
-function handleEdit(event: ReactMouseEvent<HTMLButtonElement>): void {
-  console.log("Editando:", provider.id);
-}
+  const handleEdit = () => router.push(`/editarProducto/${producto.id}`);
 
-function handleDelete(event: ReactMouseEvent<HTMLButtonElement>): void {
-  handleOpen();
-}
+  const stock = Array.isArray(producto.variants)
+    ? producto.variants.reduce((acc, v) => acc + (v.stock ?? 0), 0)
+    : 0;
 
   return (
     <>
       <tr className="border-t text-sm">
-        <td className="py-3 px-4 text-center">{provider.id}</td>
-        <td className="py-3 px-4 text-center">{provider.name}</td>
-        <td className="py-3 px-4 text-center">{provider.description}</td>
-        <td className="py-3 px-4 text-center">{provider.stock || 0}</td>
+        <td className="py-3 px-4 text-center">{producto.id}</td>
+        <td className="py-3 px-4 text-center">{producto.name}</td>
+        <td className="py-3 px-4 text-center">{producto.description}</td>
+        <td className="py-3 px-4 text-center">{stock}</td>
         <td className="py-2 px-2">
           <div className="flex justify-center gap-2">
-  <button
-  onClick={handleEdit}
-  className="w-10 h-10 p-2 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 transition-all flex items-center justify-center"
->
-  <EditIcon fontSize="small" />
-</button>
+            <button
+              onClick={handleEdit}
+              className="w-10 h-10 p-2 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 transition-all flex items-center justify-center"
+            >
+              <EditIcon fontSize="small" />
+            </button>
 
-<button
-  onClick={handleDelete}
-  className="w-10 h-10 p-2 rounded-xl bg-red-100 text-red-600 hover:bg-red-200 transition-all flex items-center justify-center"
->
-  <DeleteIcon fontSize="small" />
-</button>
-
-</div>
+            <button
+              onClick={handleOpen}
+              className="w-10 h-10 p-2 rounded-xl bg-red-100 text-red-600 hover:bg-red-200 transition-all flex items-center justify-center"
+            >
+              <DeleteIcon fontSize="small" />
+            </button>
+          </div>
         </td>
       </tr>
 
@@ -69,7 +85,8 @@ function handleDelete(event: ReactMouseEvent<HTMLButtonElement>): void {
         <DialogTitle>Confirmar eliminación</DialogTitle>
         <DialogContent>
           <Typography>
-            ¿Estás seguro de que querés eliminar el producto <strong>{provider.name}</strong>?
+            ¿Estás seguro de que querés eliminar el producto{" "}
+            <strong>{producto.name}</strong>?
           </Typography>
         </DialogContent>
         <DialogActions>

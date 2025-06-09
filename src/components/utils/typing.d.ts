@@ -105,15 +105,27 @@ export interface ProductDTO {
   id: number;
   name: string;
   description: string;
-  productType: string;
-  provider: ProviderDTO;
-  variants: ProductVariantDTO[];
+  productType?: any; // ajustalo si sabés el tipo
+  provider?: any;    // ajustalo si sabés el tipo
   price?: number;
   volume?: number;
   unit?: string;
+  variants?: VariantDTO[];
 }
 
 
+export interface VariantDTO {
+  id: number;
+  productId: number;
+  volume: number;
+  unit: string;
+  price: number;
+  stock: number;
+  image?: string;
+  isHypoallergenic?: boolean;
+  isVegan?: boolean;
+  isParabenFree?: boolean;
+}
 
 /*LANDING*/
 export interface Supplier {
