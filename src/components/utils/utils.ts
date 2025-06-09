@@ -1,6 +1,60 @@
 import { ProviderFormData, StepData } from "@/components/utils/typing";
 import { Supplier } from "@/components/utils/typing";
 
+
+/* DESIGN BOTTLE */
+export const designBottleSteps = ["botella", "etiqueta", "tipografia"];
+
+export const fontMap = {
+  roboto: 'Roboto, sans-serif',
+  greatVibes: '"Great Vibes", cursive',
+  petitFormalScript: '"Petit Formal Script", cursive',
+  josefinSans: '"Josefin Sans", sans-serif',
+  paprika: '"Paprika", system-ui',
+  charmonman: ' "Charmonman", cursive',
+  libreBaskerville: '"Libre Baskerville", serif',
+  badScript: '"Bad Script", cursive',
+} as const;
+
+export type FontKey = keyof typeof fontMap;
+
+export const labelPositionMap: Record<string, Record<string, string>> = {
+  cuadrada: {
+    cubica: "top-[7rem] left-[3.3rem]",
+    cilindrica: "top-[6.5rem] left-[3.4rem]",
+    esferica: "top-[11.4rem] left-[0.3rem]",
+  },
+  redonda: {
+    cubica: "top-[6.8rem] left-[2.4rem]",
+    cilindrica: "top-[5.5rem] left-[3.3rem]",
+    esferica: "top-[8.4rem] left-[1.8rem]",
+  },
+};
+
+export const getLabelPositions = (bottleForm: string, labelForm: string): string | undefined => {
+  return labelPositionMap[labelForm]?.[bottleForm];
+};
+
+export const formImageSizesMap: Record<string, string> = {
+  cubica: "w-[18rem] h-[33rem]",
+  cilindrica: "w-[15rem] h-[37rem]",
+  esferica: "w-[28rem] h-[33rem]",
+};
+
+export const getFormImagesSizes = (form: string): string | undefined => {
+  return formImageSizesMap[form];
+};
+
+export type SvgData = {
+  width: number;
+  height: number;
+  viewBox: string;
+  className: string;
+  shapeElement: React.ReactElement<React.SVGProps<SVGRectElement> | React.SVGProps<SVGPathElement> | React.SVGProps<SVGEllipseElement>>;
+  clipPathDefs?: React.ReactNode;
+  clipPathId?: string;
+};
+
 /* CREATE PERFUME */
 export const createSteps = [
   {
@@ -276,7 +330,7 @@ export const suppliers: Supplier[] = [
     name: "Glassbottles",
     imageSrc: "/landingImagenes/proveedor/glass.png",
   },
-  
+
   {
     name: "Essentia",
     imageSrc: "/landingImagenes/proveedor/Essentia.png",
@@ -288,14 +342,14 @@ export const suppliers: Supplier[] = [
 ];
 
 
- export const etiquetas = [
-    "/landingImagenes/etiquetas/etiqueta1.png",
-    "/landingImagenes/etiquetas/etiqueta2.png",
-    "/landingImagenes/etiquetas/etiqueta3.png",
-    "/landingImagenes/etiquetas/etiqueta4.png",
-    "/landingImagenes/etiquetas/etiqueta5.png",
-    "/landingImagenes/etiquetas/etiqueta6.png",
-  ];
+export const etiquetas = [
+  "/landingImagenes/etiquetas/etiqueta1.png",
+  "/landingImagenes/etiquetas/etiqueta2.png",
+  "/landingImagenes/etiquetas/etiqueta3.png",
+  "/landingImagenes/etiquetas/etiqueta4.png",
+  "/landingImagenes/etiquetas/etiqueta5.png",
+  "/landingImagenes/etiquetas/etiqueta6.png",
+];
 /*################################ - MENSAJES QUIMI - #############################################################*/
 export const messagesLanding = [
   "¡Bienvenidos al mundo de los aromas!",
@@ -354,12 +408,12 @@ export const familyDescriptions: Record<string, string> = {
 }
 
 
-  export const familyPet: Record<string, string> = {
-    "Fresca": "/mascotas/fresca.png",
-    "Floral": "/mascotas/floral.png",
-    "Amaderada": "/mascotas/amaderada.png",
-    "Oriental": "/mascotas/oriental.png",
-  }
+export const familyPet: Record<string, string> = {
+  "Fresca": "/mascotas/fresca.png",
+  "Floral": "/mascotas/floral.png",
+  "Amaderada": "/mascotas/amaderada.png",
+  "Oriental": "/mascotas/oriental.png",
+}
 export const backgroundByFamily: Record<string, string> = {
   "Fresca": "/quiz/familia-fondos/frescaBack.png",
   "Floral": "/quiz/familia-fondos/floralBack.png",

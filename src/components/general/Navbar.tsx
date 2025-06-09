@@ -50,7 +50,7 @@ export default function Navbar() {
         <div className="flex items-center gap-[60px]">
           <nav className={navLinkClasses}>
             <Link href="/">Home</Link>
-            <Link href="/createParfum">Crear mi perfume</Link>
+            <Link href="/crear-perfume">Crear mi perfume</Link>
             <Link href="/quiz">Descubrir</Link>
             <Link href="/proveedores">Proveedores</Link>
           </nav>

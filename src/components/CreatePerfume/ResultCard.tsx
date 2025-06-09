@@ -5,15 +5,16 @@ import EditIcon from "@mui/icons-material/Edit";
 import DownloadIcon from "@mui/icons-material/Download";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { updateFormulaName } from "@/services/createPerfumeService";
-import { GetFormulaResponse, Intensity } from "../utils/typing";
 import PreparationSteps from "./PreparationSteps";
 import { Formula } from "./Formula";
 import { Composition } from "./Composition";
+import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 
-interface ResultCardProps {
-  perfume: GetFormulaResponse
-}
-const ResultCard = ({ perfume }: ResultCardProps) => {
+const ResultCard = () => {
+  const {
+    resultFormula,
+  } = useCreatePerfume();
+
   const [dataToShow, setDataToShow] = useState("composition");
   const [editable, setEditable] = useState(false);
   const [updateMessage, setUpdateMessage] = useState("");
@@ -51,7 +52,7 @@ const ResultCard = ({ perfume }: ResultCardProps) => {
   `}
           />
           {editable ?
-            (<button onClick={() => handleSubmitName(perfume.Id, formulaName)}>
+            (<button onClick={() => handleSubmitName(resultFormula.Id, formulaName)}>
               <CheckCircleIcon
                 sx={{ color: "var(--gris3)", cursor: "pointer" }}
                 onClick={toggleEnableEdit}
@@ -73,8 +74,8 @@ const ResultCard = ({ perfume }: ResultCardProps) => {
 
       </div>
       <div className="flex-grow flex items-center justify-center">
-        {dataToShow === "composition" && <Composition perfume={perfume} />}
-        {dataToShow === "formula" && <Formula perfume={perfume} />}
+        {dataToShow === "composition" && <Composition />}
+        {dataToShow === "formula" && <Formula />}
         {dataToShow === "steps" && <PreparationSteps />}
       </div>
 

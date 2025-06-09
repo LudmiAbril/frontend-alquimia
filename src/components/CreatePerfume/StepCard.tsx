@@ -1,17 +1,20 @@
 "use client";
 
-import { perfumeData } from "../utils/typing";
+import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 import { createSteps } from "../utils/utils";
 import Image from "next/image";
 
 interface StepCardProps {
-    currentStep: number;
-    currentPerfume: perfumeData;
     onNext: () => void;
     onBack: () => void;
 }
 
-export const StepCard = ({ currentStep, onNext, onBack, currentPerfume }: StepCardProps) => {
+export const StepCard = ({ onNext, onBack }: StepCardProps) => {
+    const {
+        currentStep,
+        currentPerfume,
+    } = useCreatePerfume();
+
     const getNextArrowImage = () => {
         if (currentStep >= 4) {
             return "/svgGeneral/arrow-right-inactive.svg";

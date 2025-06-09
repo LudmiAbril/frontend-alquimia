@@ -12,26 +12,29 @@ import PotionParticles from "./PotionParticles";
 import { mapNotesArrayToObject } from "../utils/utils";
 import AddedNotesSection from "./AddedNotesSection";
 import { StepCard } from "./StepCard";
-import { perfumeData, GetFormulaResponse, SaveFormulaDTO } from "../utils/typing";
+import { SaveFormulaDTO } from "../utils/typing";
+import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 
 
 interface CreatePerfumeProps {
-  currentStep: number;
   onNext: () => void;
   onBack: () => void;
-  currentPerfume: perfumeData;
-  setCurrentPerfume: React.Dispatch<React.SetStateAction<perfumeData>>;
-  setResultFormula: React.Dispatch<React.SetStateAction<GetFormulaResponse>>;
 }
 
-const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrentPerfume, setResultFormula }: CreatePerfumeProps) => {
+const CreatePerfume = ({ onNext, onBack }: CreatePerfumeProps) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [hasReachedNoteLimit, setHasReachedNoteLimit] = useState(false);
   const svgContainerRef = useRef<HTMLDivElement>(null);
   const [showParticles, setShowParticles] = useState(false);
 
-  // MEJORAR Y OPTIMIZAR ESTA FUNCION
+  const {
+    currentStep,
+    currentPerfume,
+    setCurrentPerfume,
+    setResultFormula,
+  } = useCreatePerfume();
+
   const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const { id, name, family } = JSON.parse(e.dataTransfer.getData("application/json"));
@@ -119,17 +122,14 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
   }
 
   const deleteNote = (noteId: number) => {
-    setCurrentPerfume((prev) => {
-      if (!prev) return prev;
-
-      return {
-        ...prev,
-        baseNotes: prev.baseNotes.filter((note) => note.id !== noteId),
-        heartNotes: prev.heartNotes.filter((note) => note.id !== noteId),
-        topNotes: prev.topNotes.filter((note) => note.id !== noteId),
-      };
-    });
+    setCurrentPerfume(prev => ({
+      ...prev,
+      baseNotes: prev.baseNotes.filter(note => note.id !== noteId),
+      heartNotes: prev.heartNotes.filter(note => note.id !== noteId),
+      topNotes: prev.topNotes.filter(note => note.id !== noteId),
+    }));
   };
+
 
   useEffect(() => {
     const loadInitialBottle = async () => {
@@ -174,7 +174,7 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
         </div>
         <div className="flex justify-center gap-[80px]">
           <div className="flex flex-col items-center gap-[50px]">
-            <StepCard currentStep={currentStep} onNext={onNext} onBack={onBack} currentPerfume={currentPerfume} />
+            <StepCard onNext={onNext} onBack={onBack} />
             <div className="relative w-[300px] h-[300px]">
               <div
                 ref={svgContainerRef}
@@ -211,9 +211,8 @@ const CreatePerfume = ({ currentStep, onNext, onBack, currentPerfume, setCurrent
             )}
           </div>
           <Library
-            currentStep={currentStep}
             onConfirm={toggleConfirmModal}
-            onSelectIntensity={(intensity) => setCurrentPerfume((prev) => ({ ...prev, intensity }))} currentPerfume={currentPerfume} />
+            onSelectIntensity={(intensity) => setCurrentPerfume((prev) => ({ ...prev, intensity }))} />
         </div>
       </div>
       {showConfirmModal && (
