@@ -3,7 +3,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ImageModalProps } from "../Utils/typing";
+import { ImageModalProps } from "../utils/typing";
 
 
 export default function ImageModal({ selectedImg, onClose }: ImageModalProps) {
