@@ -5,6 +5,8 @@ import ButtonViolet from "../general/ButtonViolet";
 import Link from "next/link";
 import Image from "next/image";
 import Fireflies from "./Fireflies";
+import ConfettiStreamers from "./ConfettiStreamer";
+import { Droplet, FlaskConical, Heart } from "lucide-react";
 
 
 export default function FormulaQuiz() {
@@ -21,6 +23,7 @@ export default function FormulaQuiz() {
  <div className="relative min-h-screen bg-white flex flex-col items-center justify-center px-6 py-12 text-center text-gray-700 overflow-hidden">
 
       <Fireflies />
+<ConfettiStreamers />
 
       <h1 className="text-4xl md:text-5xl mt-20 font-bold text-[var(--violeta)] mb-4 ">
         ¡Tu fórmula mágica está lista!
@@ -30,27 +33,41 @@ export default function FormulaQuiz() {
         Esta es la fórmula olfativa que mejor representa tu estilo. Podés usarla como base
         para crear tu perfume personalizado en el siguiente paso.
       </p>
+<div className="bg-purple-50 border border-purple-200 rounded-2xl px-8 py-6 w-full max-w-md shadow-xl hover:scale-[1.015] transition duration-300 z-10 animate-fade-in-up text-center">
+  <p className="text-base text-gray-600 mb-1">Tipo de concentración:</p>
+  <p className="text-2xl font-bold text-gray-800 mb-6">{concentration}</p>
 
-    <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6 w-full max-w-md shadow-md hover:scale-105 transition duration-300 z-10 animate-fade-in-up">
-
-        <p className="text-sm mb-2 text-gray-600">Tipo de concentración:</p>
-        <p className="text-lg font-semibold mb-4">{concentration}</p>
-
-        <div className="grid grid-cols-1 gap-3 text-sm">
-          <div>
-            <p className="font-bold text-purple-600">Nota de Salida</p>
-            <p>{topNote}</p>
-          </div>
-          <div>
-            <p className="font-bold text-purple-600">Nota de Corazón</p>
-            <p>{heartNote}</p>
-          </div>
-          <div>
-            <p className="font-bold text-purple-600">Nota de Fondo</p>
-            <p>{baseNote}</p>
-          </div>
-        </div>
+  <div className="space-y-6 text-[15px]">
+    {/* Nota de Salida */}
+    <div className="flex flex-col items-center">
+      <div className="flex items-center gap-2 text-[var(--violeta)] font-semibold">
+        <FlaskConical className="w-5 h-5" />
+        <span>Nota de Salida</span>
       </div>
+      <p className="text-gray-700">{topNote}</p>
+    </div>
+
+    {/* Nota de Corazón */}
+    <div className="flex flex-col items-center">
+      <div className="flex items-center gap-2 text-[var(--violeta)] font-semibold">
+        <Heart className="w-5 h-5" />
+        <span>Nota de Corazón</span>
+      </div>
+      <p className="text-gray-700">{heartNote}</p>
+    </div>
+
+    {/* Nota de Fondo */}
+    <div className="flex flex-col items-center">
+      <div className="flex items-center gap-2 text-[var(--violeta)] font-semibold">
+        <Droplet className="w-5 h-5" />
+        <span>Nota de Fondo</span>
+      </div>
+      <p className="text-gray-700">{baseNote}</p>
+    </div>
+  </div>
+</div>
+
+
 
       <div className="mt-10 mb-4 animate-fade-in-up z-10">
         <Image
