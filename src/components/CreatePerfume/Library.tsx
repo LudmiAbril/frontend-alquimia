@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { Intensity } from "../Utils/typing";
+
 import { IntensityContainer } from "./IntensityContainer";
 import { NotesContainer } from "./NotesContainer";
 import SearchBar from "./SearchBar";
 import { useCreatePerfume } from "@/context/CreatePerfumeContext";
+import { Intensity } from "../utils/typing";
 
 interface LibraryProps {
   onConfirm: () => void;

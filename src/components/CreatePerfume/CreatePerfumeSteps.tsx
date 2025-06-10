@@ -5,7 +5,8 @@ import SectionWrapper from "../General/SectionWrapper";
 import Welcome from "./Welcome";
 import CreatePerfume from "./PerfumeCreation";
 import FormulaResult from "./FormulaResult";
-import { createSteps } from "../Utils/utils";
+import { createSteps } from "../utils/utils";
+
 
 const CreatePerfumeSteps = () => {
   const {

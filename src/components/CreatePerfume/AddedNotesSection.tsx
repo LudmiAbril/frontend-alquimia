@@ -1,7 +1,8 @@
 "use client";
 
 import ClearIcon from '@mui/icons-material/Clear';
-import { Note } from '../Utils/typing';
+import { Note } from '../utils/typing';
+
 
 interface NotesSectionProps {
     title: string;

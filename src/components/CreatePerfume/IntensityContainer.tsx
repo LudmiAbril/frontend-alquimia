@@ -2,7 +2,8 @@
 
 import { getIntensities } from "@/services/createPerfumeService";
 import { useState, useEffect } from "react";
-import { Intensity } from "../Utils/typing";
+import { Intensity } from "../utils/typing";
+
 
 interface IntensityContainerProps {
     onConfirm: () => void;
