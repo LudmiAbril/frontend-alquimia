@@ -1,5 +1,5 @@
-import { ProviderFormData, StepData } from "@/components/Utils/typing";
-import { Supplier } from "@/components/Utils/typing";
+import { ProviderFormData, StepData } from "@/components/utils/typing";
+import { Supplier } from "@/components/utils/typing";
 
 
 /* DESIGN BOTTLE */
