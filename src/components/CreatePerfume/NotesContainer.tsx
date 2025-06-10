@@ -3,16 +3,20 @@
 import { useEffect, useMemo, useState } from "react";
 import { obtenerNotasPorPaso } from "@/services/notaService";
 import { NoteFamily, perfumeData } from "../utils/typing";
+import { useCreatePerfume } from "@/context/CreatePerfumeContext";
+import { familyColors } from "@/services/animateBottle";
 
 
 interface NotesContainerProps {
-    currentStep: number;
-    currentPerfume: perfumeData;
     searchTerm: string;
 }
 
-export const NotesContainer = ({ currentStep, currentPerfume, searchTerm }: NotesContainerProps) => {
+export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
     const [groupedNotes, setGroupedNotes] = useState<NoteFamily[]>([]);
+    const {
+        currentStep,
+        currentPerfume,
+    } = useCreatePerfume();
 
     useEffect(() => {
         const fetchNotes = async () => {
@@ -72,24 +76,29 @@ export const NotesContainer = ({ currentStep, currentPerfume, searchTerm }: Note
 
                     <div className="w-100 flex flex-wrap gap-[25px]">
                         {notes.length > 0 ? (
-                            notes.map((note) => (
-                                <div
-                                    key={note.id}
-                                    draggable
-                                    onDragStart={(e) =>
-                                        e.dataTransfer.setData(
-                                            "application/json",
-                                            JSON.stringify({ id: note.id, name: note.name, family })
-                                        )
-                                    }
-                                    className="cursor-default bg-[#E2708A] hover:bg-[#DD4568] transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
-                                >
-                                    {note.name}
-                                </div>
-                            ))
-                        ) : (
-                            <p>No hay notas para mostrar.</p>
-                        )}
+                            notes.map((note) => {
+                                const familyClass = familyColors[family] || "bg-gray-400 hover:bg-gray-500";
+                                return (
+                                    <div
+                                        key={note.id}
+                                        draggable
+                                        onDragStart={(e) =>
+                                            e.dataTransfer.setData(
+                                                "application/json",
+                                                JSON.stringify({ id: note.id, name: note.name, family })
+                                            )
+                                        }
+                                        style={{ backgroundColor: familyClass }}
+                                        className="cursor-default transition-colors duration-100 w-[80px] h-[80px] flex items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
+                                    >
+                                        {note.name}
+                                    </div>
+
+                                );
+                            }))
+                            : (
+                                <p>No hay notas para mostrar.</p>
+                            )}
                     </div>
                 </div>
             ))}

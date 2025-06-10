@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-
 import { IntensityContainer } from "./IntensityContainer";
 import { NotesContainer } from "./NotesContainer";
 import SearchBar from "./SearchBar";
@@ -40,7 +39,7 @@ const Library = ({ onConfirm, onSelectIntensity }: LibraryProps) => {
       )}
       <div className="max-h-full w-full">
         {isNoteSelectionStep ? (
-          <NotesContainer currentStep={currentStep} currentPerfume={currentPerfume} searchTerm={searchTerm} />
+          <NotesContainer searchTerm={searchTerm} />
         ) : (
           <IntensityContainer
             onConfirm={onConfirm}

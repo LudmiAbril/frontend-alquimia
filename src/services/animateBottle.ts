@@ -34,22 +34,22 @@ export async function animateBottle(svgPaths: string[], color: string, container
 
 export const familyColors: Record<string, string> = {
   Frutal: "#F5A623",
-  Ahumado: "#6E2C00",
+  Ahumado: "#777885",
   Alcanforado: "#76D7C4",
-  Aldehídico: "#E5E8E8",
-  Almizclado: "#D7BDE2",
+  Aldehídico: "#c8cfcf",
+  Almizclado: "#a98ced",
   Amaderado: "#935116",
-  Ámbar: "#D98880",
-  Cítrico: "#F9E79F",
-  Empolvado: "#F5EEF8",
+  Ámbar: "#f5b27f",
+  Cítrico: "#ebda7a",
+  Empolvado: "#d6cadb",
   Especiado: "#CD6155",
   Floral: "#EC407A",
-  Gourmand: "#F8C471",
-  Herbal: "#58D68D",
-  "Hierbas aromáticas": "#45B39D",
-  Marino: "#5DADE2",
+  Gourmand: "#f0bdcf",
+  Herbal: "#7cc265",
+  "Hierbas aromáticas": "#2c7366",
+  Marino: "#60d8f0",
   Mentolado: "#48C9B0",
-  Terroso: "#935116",
+  Terroso: "#8a6c4c",
 };
 
 export function getColorByFamily(family: string): string {
