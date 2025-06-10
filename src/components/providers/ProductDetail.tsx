@@ -6,7 +6,7 @@ import { getAllProducts } from "@/services/productService";
 import Image from "next/image";
 import SectionWrapper from "../General/SectionWrapper";
 import Link from "next/link";
-import { ProductDTO } from "../utils/typing";
+import { ProductDTO, VariantDTO } from "../utils/typing";
 import ButtonViolet from "../general/ButtonViolet";
 import ButtonSecondary from "../general/ButtonSecondary";
 import Purchase from "./Purchase";
@@ -15,7 +15,7 @@ import Purchase from "./Purchase";
 export default function ProductDetailPage() {
   const params = useParams();
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
-
+const [selectedVariant, setSelectedVariant] = useState<VariantDTO | null>(null);
   const [product, setProduct] = useState<ProductDTO | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -122,26 +122,37 @@ export default function ProductDetailPage() {
   <div>
     <h3 className="text-sm font-bold uppercase tracking-wide mb-2">Presentaciones disponibles:</h3>
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {product.variants?.map((v, index) => (
-        <div
-          key={`variant-${v.id ?? index}`}
-          className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
-        >
-          <p className="text-sm font-medium mb-1">
-            {v.volume ?? "?"} {v.unit ?? ""}
-          </p>
-          <p className="text-lg font-bold text-[var(--violeta)]">
-            {typeof v.price === "number" ? `$${v.price.toLocaleString()}` : "Precio no disponible"}
-          </p>
-          <p className="text-xs text-gray-500 mt-1">Stock: {v.stock ?? "?"}</p>
-        </div>
-      ))}
+   {product.variants?.map((v, index) => {
+  const isSelected = selectedVariant?.id === v.id;
+
+  return (
+    <div
+      key={`variant-${v.id ?? index}`}
+      onClick={() => setSelectedVariant(v)}
+      className={`cursor-pointer border rounded-lg p-4 shadow-sm bg-white transition-all ${
+        isSelected
+          ? "border-[var(--violeta)] ring-2 ring-[var(--violeta)]"
+          : "border-gray-200"
+      }`}
+    >
+      <p className="text-sm font-medium mb-1">
+        {v.volume ?? "?"} {v.unit ?? ""}
+      </p>
+      <p className="text-lg font-bold text-[var(--violeta)]">
+        {typeof v.price === "number" ? `$${v.price.toLocaleString()}` : "Precio no disponible"}
+      </p>
+      <p className="text-xs text-gray-500 mt-1">Stock: {v.stock ?? "?"}</p>
+    </div>
+  );
+})}
+
     </div>
   </div>
 
   {/* compra */}
   <div className="mt-6">
-    <Purchase productName={product.name} />
+<Purchase productName={product.name} variant={selectedVariant} />
+
   </div>
 
   {/* Acciones */}

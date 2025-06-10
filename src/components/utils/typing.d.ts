@@ -121,6 +121,7 @@ export interface ProductCardProps {
 
 export interface SimulatedPurchaseProps {
   productName: string;
+  variant: VariantDTO | null;
 }
 
 

@@ -8,24 +8,31 @@ import { SimulatedPurchaseProps } from "../utils/typing";
 
 
 
-export default function SimulatedPurchase({ productName }: SimulatedPurchaseProps) {
+export default function SimulatedPurchase({ productName,variant}: SimulatedPurchaseProps) {
   const [isPurchasing, setIsPurchasing] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
 
   const handlePurchase = () => {
+    if (!variant) return;
     setIsPurchasing(true);
     setTimeout(() => {
       setIsPurchasing(false);
       setConfirmed(true);
-    }, 2500); 
+    }, 2500);
   };
+
+  if (!variant) return (
+    <div className="p-4 text-sm text-gray-500 bg-white rounded-lg border">
+      Seleccioná una presentación para continuar con la compra.
+    </div>
+  );
 
   return (
     <div className="mt-10 p-6 border rounded-xl shadow-md bg-white flex flex-col items-center">
       {!confirmed ? (
         <>
-          <p className="text-md text-gray-700 mb-4">
-            ¿Querés comprar <strong>{productName}</strong>?
+          <p className="text-md text-gray-700 mb-4 text-center">
+            ¿Querés comprar <strong>{productName}</strong> en presentación <strong>{variant.volume} {variant.unit}</strong>?
           </p>
           <ButtonViolet label="Confirmar compra" onClick={handlePurchase} />
 
