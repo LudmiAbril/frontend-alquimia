@@ -1,17 +1,19 @@
-"use client"
+interface ButtonProps {
+  label: string;
+  onClick?: () => void;
+  disabled?: boolean; 
+}
 
-import { ButtonProps } from "../utils/typing"
-
-
-
-
-export default function ButtonViolet({ label, onClick }: ButtonProps) {
+export default function ButtonViolet({ label, onClick, disabled }: ButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="border-2 bg-[#9444B6] text-white font-bold text-sm uppercase px-10 py-3 rounded-[10px] transition  hover:bg-[#d1a8e5] hover:text-white"
+      disabled={disabled} 
+      className={`px-4 py-2 rounded-full text-white font-semibold bg-[var(--violeta)] transition-all ${
+        disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-[#7c38a4]"
+      }`}
     >
       {label}
     </button>
-  )
+  );
 }
