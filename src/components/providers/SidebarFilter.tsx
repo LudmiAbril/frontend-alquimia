@@ -1,66 +1,66 @@
 "use client";
 import { useState } from "react";
-import { productCategories } from "../Utils/utils";
+import { productCategories } from "../utils/utils";
+import { PropsFilter } from "../utils/typing";
+import SortProducts from "./SortProducts";
 
-interface Props {
-  onFilter: (category: string) => void;
-  onSort: (order: "asc" | "desc" | "popular") => void;
-  onSearch: (term: string) => void; // 👈 nuevo prop
-}
 
-export default function SidebarFilter({ onFilter, onSort, onSearch }: Props) {
+
+
+export default function SidebarFilter({ onFilter, onSort, onSearch }: PropsFilter) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
 
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
-    onSearch(value); // 👈 notificamos al padre
+    onSearch(value);
   };
 
+ 
   return (
-    <aside className="space-y-8">
-      {/* Buscador general */}
+    <aside className="space-y-8 px-4">
+      {/* Buscador */}
       <div>
         <input
           type="text"
           placeholder="Buscar productos..."
           value={searchTerm}
           onChange={(e) => handleSearchChange(e.target.value)}
-          className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+          className="w-full border border-gray-300 rounded-full px-4 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--violeta)]"
         />
       </div>
 
       {/* Ordenar por */}
-      <div>
-        <h3 className="text-sm font-semibold uppercase text-gray-600">ORDENAR POR</h3>
-        <select
-          className="mt-2 w-full border border-gray-300 rounded px-3 py-2 text-sm"
-          onChange={(e) => {
-            const val = e.target.value;
-            if (val === "Menor precio") onSort("asc");
-            else if (val === "Mayor precio") onSort("desc");
-            else onSort("popular");
-          }}
-        >
-          <option>Más vendidos</option>
-          <option>Menor precio</option>
-          <option>Mayor precio</option>
-        </select>
-      </div>
+    <div>
+  <SortProducts onSort={onSort} />
+</div>
 
-      {/* Filtrar por categoría */}
+      {/* Filtrar por */}
       <div>
-        <h3 className="text-sm font-semibold uppercase text-gray-600 mb-2">FILTRAR POR</h3>
+        <h3 className="text-sm font-semibold uppercase text-gray-600 mb-2">Filtrar por</h3>
         <ul className="space-y-2 text-sm text-gray-700">
-          {productCategories.map((category) => (
-            <li key={category}>
-              <button
-                className="w-full text-left hover:underline"
-                onClick={() => onFilter(category.toLowerCase().replace(/s$/, ""))}
-              >
-                {category}
-              </button>
-            </li>
-          ))}
+          {productCategories.map((category) => {
+            const isSelected = selectedCategory === category;
+            return (
+              <li key={category}>
+                <button
+                  onClick={() => {
+                    const normalized = category.toLowerCase().replace(/s$/, "");
+                    setSelectedCategory(category);
+                    onFilter(normalized);
+                  }}
+                  className={`w-full text-left py-1 pl-3 border-l-4 transition-all ${
+                    isSelected
+                      ? "border-[var(--violeta)] text-[var(--violeta)] font-semibold"
+                      : "border-transparent hover:underline"
+                  }`}
+                >
+                  {category}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </aside>

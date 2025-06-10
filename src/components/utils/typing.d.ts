@@ -125,6 +125,15 @@ export interface SimulatedPurchaseProps {
 }
 
 
+export interface PropsProduct {
+  onSort: (order: "asc" | "desc" | "popular") => void;
+}
+export interface PropsFilter {
+  onFilter: (category: string) => void;
+  onSort: (order: "asc" | "desc" | "popular") => void;
+  onSearch: (term: string) => void; 
+}
+
 export interface ProductDTO {
   id: number;
   name: string;
