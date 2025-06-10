@@ -1,6 +1,6 @@
 "use client";
 
-import { GetFormulaResponse, perfumeData } from '@/components/Utils/typing';
+import { GetFormulaResponse, perfumeData } from '@/components/utils/typing';
 import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
 
 interface CreatePerfumeContextType {

@@ -6,7 +6,7 @@ import { DesignFieldsCard } from './DesignFieldsCard';
 import Image from 'next/image';
 import ConfirmBottleDesignModal from './ConfirmBottleDesignModal';
 import { useRouter } from 'next/navigation';
-import { designBottleSteps, getFormImagesSizes, getLabelPositions } from '../Utils/utils';
+import { designBottleSteps, getFormImagesSizes, getLabelPositions } from '../utils/utils';
 import DesignStepsBar from './DesignStepBar';
 import BottleLabel from './BottleDesign';
 import { useDesignBottle } from '@/context/DesignBottleContext';
@@ -49,7 +49,7 @@ const DesignBottle = () => {
                 <h1 className="fuente-principal text-[var(--gris4)] text-[32px] font-bold mb-4">
                     DISEÑÁ TU BOTELLA
                 </h1>
-                <p className='mb-9'>Dale personalidada tu fragancia.</p>
+                <p className='mb-9'>Dale personalidad a tu fragancia.</p>
                 <DesignStepsBar />
                 <div className='flex items-center justify-center gap-[80px]'>
                     <div className="relative w-[20rem] h-[26rem] flex justify-center items-center">
