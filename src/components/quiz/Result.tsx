@@ -1,11 +1,11 @@
 "use client"
 
-import { PropsResult, SummaryItem } from "@/components/Utils/typing"
+import { PropsResult, SummaryItem } from "@/components/utils/typing"
 import Card3D from "./Card3d"
-import { answerSummaryMap, backgroundByFamily, familyDescriptions, familyPet } from "../Utils/utils"
+import { answerSummaryMap, backgroundByFamily, familyDescriptions, familyPet } from "../utils/utils"
 import { useState } from "react"
-import ButtonSecondary from "../General/ButtonSecondary"
-import Button from "../General/Button"
+import ButtonSecondary from "../general/ButtonSecondary"
+import ButtonViolet from "../general/ButtonViolet"
 
 export default function Result({ result, answers, onReset }: PropsResult) {
   const backgroundImage = backgroundByFamily[result.nombre] || "/quiz/familia-fondos/amaderadaBack.png"
@@ -25,22 +25,22 @@ export default function Result({ result, answers, onReset }: PropsResult) {
     })
     .filter((e): e is SummaryItem => e !== null)
 
-  // Datos de la fórmula que ya vienen del resultado del quiz
+
   const formula = result.formulas?.[0]
 
-  // Asegurarse de que `concentracion` tenga un valor válido (si es "Desconocido", asignamos "Body Splash")
+
   const concentration = result.concentracion && result.concentracion !== "Desconocido" 
     ? result.concentracion 
     : "Body Splash";
 
-  // Log para revisar los valores de la fórmula y concentración
+
   console.log("Formula:", formula)
   console.log("Concentración:", concentration)
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 ">
       <div className="flex flex-col lg:flex-row items-center gap-10 max-w-6xl w-full">
-        {/* Card 3D estilo Mythrill */}
+  
         <Card3D backgroundSrc={backgroundImage} characterSrc={familyPets} alt={result.nombre} title={result.nombre} />
 
         {/* Contenido textual */}
@@ -135,7 +135,7 @@ export default function Result({ result, answers, onReset }: PropsResult) {
           <div className="flex items-center gap-4 mt-6 w-full">
             <ButtonSecondary label="Volver a empezar" onClick={onReset} />
             {!showSummary && formula && (
-              <Button
+              <ButtonViolet
                 label="Fórmula recomendada"
                 href={`/quiz/formula?top=${encodeURIComponent(formula.TopNote)}&heart=${encodeURIComponent(formula.HeartNote)}&base=${encodeURIComponent(formula.BaseNote)}&type=${encodeURIComponent(concentration)}`}
               />

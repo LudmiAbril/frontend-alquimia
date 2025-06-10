@@ -1,63 +1,38 @@
-"use client"
+"use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
-import { GetFormulaResponse, SaveFormulaDTO, NotesGroupDTO } from "../CreatePerfume/FormulaResult";
-import { getFormulaById, submitFormula } from "@/services/createPerfumeService";
-import FormulaQuizDetails from "./FormulaQuizDetails";
+import ButtonViolet from "../general/ButtonViolet";
+import Link from "next/link";
+import Image from "next/image";
+import Fireflies from "./Fireflies";
 
-export default function FormulaQuiz() { 
+
+export default function FormulaQuiz() {
   const params = useSearchParams();
 
-  // Obtener las notas y concentración desde los parámetros de la URL
   const topNote = params.get("top");
   const heartNote = params.get("heart");
   const baseNote = params.get("base");
   const concentration = params.get("type");
 
-  const [savedFormulaId, setSavedFormulaId] = useState<number | null>(null);
-  const [savedFormula, setSavedFormula] = useState<GetFormulaResponse | null>(null);
 
-  // Cargar la fórmula guardada al obtener el ID
-  useEffect(() => {
-    if (savedFormulaId) {
-      const fetchSavedFormula = async () => {
-        const formulaData = await getFormulaById(savedFormulaId); 
-        setSavedFormula(formulaData);
-      };
-      fetchSavedFormula();
-    }
-  }, [savedFormulaId]);
-
-  // Función para guardar la fórmula
-  const saveFormula = async () => {
-    if (topNote && heartNote && baseNote && concentration) {
-      // Agrupar las notas en el formato adecuado para el payload
-      const topNotes: NotesGroupDTO = { "0": { Id: parseInt(topNote) } };
-      const heartNotes: NotesGroupDTO = { "0": { Id: parseInt(heartNote) } };
-      const baseNotes: NotesGroupDTO = { "0": { Id: parseInt(baseNote) } };
-
-      const formulaPayload: SaveFormulaDTO = {
-        IntensityId: 1, // Asignar un ID de intensidad, por ejemplo, si lo tienes.
-        CreatorId: 1,   // Asignar un ID de creador, este valor debería ser dinámico, si lo tienes.
-        TopNotes: topNotes,
-        HeartNotes: heartNotes,
-        BaseNotes: baseNotes,
-      };
-
-      // Enviar la fórmula al backend
-      const formulaId = await submitFormula(formulaPayload);
-      if (formulaId) {
-        setSavedFormulaId(formulaId); // Guardamos el ID de la fórmula
-      }
-    }
-  };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 text-center text-gray-700">
-      <h1 className="text-3xl font-bold text-[var(--violeta)] mb-4">Tu fórmula recomendada</h1>
+ <div className="relative min-h-screen bg-white flex flex-col items-center justify-center px-6 py-12 text-center text-gray-700 overflow-hidden">
 
-      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6 w-full max-w-md shadow">
+      <Fireflies />
+
+      <h1 className="text-4xl md:text-5xl mt-20 font-bold text-[var(--violeta)] mb-4 ">
+        ¡Tu fórmula mágica está lista!
+      </h1>
+
+      <p className="text-gray-600 mb-8 max-w-lg z-10">
+        Esta es la fórmula olfativa que mejor representa tu estilo. Podés usarla como base
+        para crear tu perfume personalizado en el siguiente paso.
+      </p>
+
+    <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6 w-full max-w-md shadow-md hover:scale-105 transition duration-300 z-10 animate-fade-in-up">
+
         <p className="text-sm mb-2 text-gray-600">Tipo de concentración:</p>
         <p className="text-lg font-semibold mb-4">{concentration}</p>
 
@@ -77,16 +52,21 @@ export default function FormulaQuiz() {
         </div>
       </div>
 
-      {/* Botón para guardar la fórmula */}
-      <button
-        onClick={saveFormula}
-        className="mt-6 bg-purple-600 text-white py-2 px-4 rounded-full hover:bg-purple-700"
-      >
-        Guardar mi fórmula
-      </button>
+      <div className="mt-10 mb-4 animate-fade-in-up z-10">
+        <Image
+          src="/mascotas/mascotas-grupo-hi.png"
+          alt="Alquimistas con pociones"
+          width={420}
+          height={320}
+          className="mx-auto"
+        />
+      </div>
 
-      {/* Mostrar la fórmula guardada */}
-      {savedFormula && <FormulaQuizDetails formula={savedFormula} />}
+      <div className="z-10 mt-4">
+        <Link href="/crear-perfume">
+          <ButtonViolet label="Crear mi perfume con esta fórmula" />
+        </Link>
+      </div>
     </div>
   );
 }

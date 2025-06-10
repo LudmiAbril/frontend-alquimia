@@ -5,6 +5,7 @@ export interface ButtonProps {
   onClick?: () => void;
   colorClass?: string;
   href?: string
+    disabled?: boolean; 
 
 }
 

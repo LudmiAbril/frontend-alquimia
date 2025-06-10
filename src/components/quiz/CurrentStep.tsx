@@ -1,10 +1,10 @@
 "use client"
 
-import { PropsCurrent } from "@/components/Utils/typing"
+import { PropsCurrent } from "@/components/utils/typing"
 import DynamicQuestion from "./DynamicQuestion"
-import Button from "@/components/General/Button"
-import ButtonSecondary from "@/components/General/ButtonSecondary"
+import ButtonSecondary from "@/components/general/ButtonSecondary"
 import { useState, useEffect } from "react"
+import ButtonViolet from "../general/ButtonViolet"
 
 export default function CurrentStep({
   currentQuestionIndex,
@@ -91,7 +91,7 @@ export default function CurrentStep({
               isButtonDisabled ? "opacity-50 cursor-not-allowed" : "animate-pulse hover:scale-105"
             }`}
           >
-            <Button
+            <ButtonViolet
               label={
                 loading
                   ? "Calculando..."
