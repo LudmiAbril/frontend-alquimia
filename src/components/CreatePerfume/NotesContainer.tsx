@@ -5,6 +5,7 @@ import { obtenerNotasPorPaso } from "@/services/notaService";
 import { NoteFamily, perfumeData } from "../utils/typing";
 import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 import { familyColors } from "@/services/animateBottle";
+import FamilyTooltip from "./FamilyTooltip";
 
 
 interface NotesContainerProps {
@@ -13,6 +14,7 @@ interface NotesContainerProps {
 
 export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
     const [groupedNotes, setGroupedNotes] = useState<NoteFamily[]>([]);
+    const [tooltipVisible, setTooltipVisible] = useState<string | null>(null);
     const {
         currentStep,
         currentPerfume,
@@ -69,8 +71,15 @@ export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
                 <div key={`${family}-${index}`} className="flex flex-col mb-[2.43rem]">
                     <div className="flex items-center gap-2 mb-2 fuente-principal">
                         <p className="text-[var(--gris3)] text-[20px] font-medium">{family}</p>
-                        <span className="text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold">
+                        <span
+                            className="relative text-xs bg-[var(--gris3)] rounded-full px-2 py-0.5 text-white font-bold cursor-pointer"
+                            onMouseEnter={() => setTooltipVisible(family)}
+                            onMouseLeave={() => setTooltipVisible(null)}
+                        >
                             i
+                            {tooltipVisible === family && (
+                                <FamilyTooltip family={family} />
+                            )}
                         </span>
                     </div>
 

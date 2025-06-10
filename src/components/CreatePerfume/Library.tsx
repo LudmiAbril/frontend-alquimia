@@ -15,7 +15,6 @@ interface LibraryProps {
 const Library = ({ onConfirm, onSelectIntensity }: LibraryProps) => {
   const {
     currentStep,
-    currentPerfume,
   } = useCreatePerfume();
 
   const [searchTerm, setSearchTerm] = useState("");
