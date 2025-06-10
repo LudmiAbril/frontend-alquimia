@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FormToggleProps } from "@/components/Utils/typing";
+import { FormToggleProps } from "@/components/utils/typing";
 import GoogleIcon from "@mui/icons-material/Google";
 import Link from "next/link";
 import Visibility from "@mui/icons-material/Visibility";
@@ -14,40 +14,48 @@ export default function LoginForm({ toggleForm }: FormToggleProps) {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setError(null);
+  setLoading(true);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
+  try {
+    const token = await loginUser(email, password);
+    saveSessionData(token);
 
-    try {
-      const token = await loginUser(email, password);
-      saveSessionData(token);
-      const perfil = await getUserProfile(token);
+    const perfil = await getUserProfile(token);
 
-      localStorage.setItem("username", perfil.nombre);
-      localStorage.setItem("useremail", perfil.email);
+    localStorage.setItem("username", perfil.nombre);
+    localStorage.setItem("useremail", perfil.email);
 
-      switch (perfil.rol) {
-        case "Admin":
-          window.location.href = "/admin";
-          break;
-        case "Proveedor":
-          window.location.href = "/home";
-          break;
-        case "Creador":
-          window.location.href = "/";
-          break;
-        default:
-          window.location.href = "/home/user";
-          break;
-      }
-    } catch (err: any) {
-      setError(err.message || "No se pudo conectar con el servidor.");
-    } finally {
-      setLoading(false);
+  //ACÁ VEMOS LA URL,ENTONCES SI EL USER SE QUIERE LOGUEAR PARA CREAR UN PERFUME,A TE REDIRIGE AHI
+    const nextUrl = localStorage.getItem("next");
+    if (nextUrl) {
+      localStorage.removeItem("next");
+      window.location.href = nextUrl;
+      return;
     }
-  };
+    switch (perfil.rol) {
+      case "Admin":
+        window.location.href = "/admin";
+        break;
+      case "Proveedor":
+        window.location.href = "/home";
+        break;
+      case "Creador":
+        window.location.href = "/";
+        break;
+      default:
+        window.location.href = "/home/user";
+        break;
+    }
+  } catch (err: any) {
+    setError(err.message || "No se pudo conectar con el servidor.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>

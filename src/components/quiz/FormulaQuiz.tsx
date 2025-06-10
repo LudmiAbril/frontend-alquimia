@@ -1,92 +1,124 @@
-"use client"
+"use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
-import { GetFormulaResponse, SaveFormulaDTO, NotesGroupDTO } from "../CreatePerfume/FormulaResult";
-import { getFormulaById, submitFormula } from "@/services/createPerfumeService";
-import FormulaQuizDetails from "./FormulaQuizDetails";
+import ButtonViolet from "../general/ButtonViolet";
+import Image from "next/image";
+import Fireflies from "./Fireflies";
+import ConfettiStreamers from "./ConfettiStreamer";
+import { Droplet, FlaskConical, Heart } from "lucide-react";
+import { useState } from "react";
+import LoginRequiredModal from "@/components/login/LoginRequiredModal";
+import AuthModalWrapper from "@/components/modals/AuthModalWrapper";
+import LoginForm from "@/components/login/LoginForm";
+import RegisterForm from "@/components/login/RegisterForm";
 
-export default function FormulaQuiz() { 
+export default function FormulaQuiz() {
   const params = useSearchParams();
-
-  // Obtener las notas y concentración desde los parámetros de la URL
   const topNote = params.get("top");
   const heartNote = params.get("heart");
   const baseNote = params.get("base");
   const concentration = params.get("type");
 
-  const [savedFormulaId, setSavedFormulaId] = useState<number | null>(null);
-  const [savedFormula, setSavedFormula] = useState<GetFormulaResponse | null>(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authForm, setAuthForm] = useState<"login" | "register">("login");
 
-  // Cargar la fórmula guardada al obtener el ID
-  useEffect(() => {
-    if (savedFormulaId) {
-      const fetchSavedFormula = async () => {
-        const formulaData = await getFormulaById(savedFormulaId); 
-        setSavedFormula(formulaData);
-      };
-      fetchSavedFormula();
-    }
-  }, [savedFormulaId]);
-
-  // Función para guardar la fórmula
-  const saveFormula = async () => {
-    if (topNote && heartNote && baseNote && concentration) {
-      // Agrupar las notas en el formato adecuado para el payload
-      const topNotes: NotesGroupDTO = { "0": { Id: parseInt(topNote) } };
-      const heartNotes: NotesGroupDTO = { "0": { Id: parseInt(heartNote) } };
-      const baseNotes: NotesGroupDTO = { "0": { Id: parseInt(baseNote) } };
-
-      const formulaPayload: SaveFormulaDTO = {
-        IntensityId: 1, // Asignar un ID de intensidad, por ejemplo, si lo tienes.
-        CreatorId: 1,   // Asignar un ID de creador, este valor debería ser dinámico, si lo tienes.
-        TopNotes: topNotes,
-        HeartNotes: heartNotes,
-        BaseNotes: baseNotes,
-      };
-
-      // Enviar la fórmula al backend
-      const formulaId = await submitFormula(formulaPayload);
-      if (formulaId) {
-        setSavedFormulaId(formulaId); // Guardamos el ID de la fórmula
-      }
+  const handleCrearPerfume = () => {
+    const user = localStorage.getItem("username");
+    if (user) {
+      window.location.href = "/crear-perfume";
+    } else {
+      localStorage.setItem("next", "/crear-perfume");
+      setShowLoginModal(true);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 text-center text-gray-700">
-      <h1 className="text-3xl font-bold text-[var(--violeta)] mb-4">Tu fórmula recomendada</h1>
+    <div className="relative min-h-screen bg-white flex flex-col items-center justify-center px-6 py-12 text-center text-gray-700 overflow-hidden">
+      <Fireflies />
+      <ConfettiStreamers />
 
-      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6 w-full max-w-md shadow">
-        <p className="text-sm mb-2 text-gray-600">Tipo de concentración:</p>
-        <p className="text-lg font-semibold mb-4">{concentration}</p>
+      <h1 className="text-4xl md:text-5xl mt-20 font-bold text-[var(--violeta)] mb-4">
+        ¡Tu fórmula mágica está lista!
+      </h1>
 
-        <div className="grid grid-cols-1 gap-3 text-sm">
-          <div>
-            <p className="font-bold text-purple-600">Nota de Salida</p>
-            <p>{topNote}</p>
+      <p className="text-gray-600 mb-8 max-w-lg z-10">
+        Esta es la fórmula olfativa que mejor representa tu estilo. Podés usarla como base
+        para crear tu perfume personalizado en el siguiente paso.
+      </p>
+
+      <div className="bg-purple-50 border border-purple-200 rounded-2xl px-8 py-6 w-full max-w-md shadow-xl hover:scale-[1.015] transition duration-300 z-10 animate-fade-in-up text-center">
+        <p className="text-base text-gray-600 mb-1">Tipo de concentración:</p>
+        <p className="text-2xl font-bold text-gray-800 mb-6">{concentration}</p>
+
+        <div className="space-y-6 text-[15px]">
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-2 text-[var(--violeta)] font-semibold">
+              <FlaskConical className="w-5 h-5" />
+              <span>Nota de Salida</span>
+            </div>
+            <p className="text-gray-700">{topNote}</p>
           </div>
-          <div>
-            <p className="font-bold text-purple-600">Nota de Corazón</p>
-            <p>{heartNote}</p>
+
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-2 text-[var(--violeta)] font-semibold">
+              <Heart className="w-5 h-5" />
+              <span>Nota de Corazón</span>
+            </div>
+            <p className="text-gray-700">{heartNote}</p>
           </div>
-          <div>
-            <p className="font-bold text-purple-600">Nota de Fondo</p>
-            <p>{baseNote}</p>
+
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-2 text-[var(--violeta)] font-semibold">
+              <Droplet className="w-5 h-5" />
+              <span>Nota de Fondo</span>
+            </div>
+            <p className="text-gray-700">{baseNote}</p>
           </div>
         </div>
       </div>
 
-      {/* Botón para guardar la fórmula */}
-      <button
-        onClick={saveFormula}
-        className="mt-6 bg-purple-600 text-white py-2 px-4 rounded-full hover:bg-purple-700"
-      >
-        Guardar mi fórmula
-      </button>
+      <div className="mt-10 mb-4 animate-fade-in-up z-10">
+        <Image
+          src="/mascotas/mascotas-grupo-hi.png"
+          alt="Alquimistas con pociones"
+          width={420}
+          height={320}
+          className="mx-auto"
+        />
+      </div>
 
-      {/* Mostrar la fórmula guardada */}
-      {savedFormula && <FormulaQuizDetails formula={savedFormula} />}
+      <div className="z-10 mt-4">
+        <ButtonViolet onClick={handleCrearPerfume}>
+          Crear mi perfume con esta fórmula
+        </ButtonViolet>
+      </div>
+
+      {/* MODAL DE AVISO */}
+      {showLoginModal && (
+        <LoginRequiredModal
+          onClose={() => setShowLoginModal(false)}
+          onLogin={() => {
+            setShowLoginModal(false);
+            setAuthForm("login");
+            setShowAuthModal(true);
+          }}
+        />
+      )}
+
+      {/* MODAL DE LOGIN / REGISTER */}
+      {showAuthModal && (
+        <AuthModalWrapper
+          title={authForm === "login" ? "Iniciar sesión" : "Registrarte"}
+          onClose={() => setShowAuthModal(false)}
+        >
+          {authForm === "login" ? (
+            <LoginForm toggleForm={() => setAuthForm("register")} />
+          ) : (
+            <RegisterForm toggleForm={() => setAuthForm("login")} />
+          )}
+        </AuthModalWrapper>
+      )}
     </div>
   );
 }

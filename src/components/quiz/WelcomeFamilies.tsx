@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Sparkles } from "lucide-react"
-import { familiesQuiz, messages } from "../Utils/utils"
-import { WelcomeFamiliesProps } from "../Utils/typing"
+import { familiesQuiz, messages } from "../utils/utils"
+import { WelcomeFamiliesProps } from "../utils/typing"
 import { AnimatePresence, motion } from "framer-motion"
-import ButtonMagic from "../General/ButtonMagic"
+import ButtonMagic from "../general/ButtonMagic"
 
 export default function WelcomeFamilies({ onStart, loading }: WelcomeFamiliesProps) {
   const [active, setActive] = useState(0)
@@ -23,57 +23,49 @@ export default function WelcomeFamilies({ onStart, loading }: WelcomeFamiliesPro
   const prev = () => setActive((prev) => (prev - 1 + familiesQuiz.length) % familiesQuiz.length)
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center text-left px-6 py-10 gap-12 bg-[url('/textures/paper.jpg')] bg-cover min-h-screen relative">
+    <div className="flex flex-col lg:flex-row items-center justify-center px-6 py-16 gap-12 bg-[url('/textures/magic-paper.jpg')] bg-cover bg-center min-h-screen relative overflow-hidden">
 
-      {/* Column: Circle Carousel + Description */}
-      <div className="flex flex-col items-center gap-6 w-full lg:w-1/2">
-        <h2 className="text-3xl font-bold text-[var(--gris4)] max-w-xl">Conocé a las familias olfativas</h2>
+      {/* Carrusel de familias */}
+      <div className="flex flex-col items-center gap-8 w-full lg:w-1/2">
+        <h2 className="text-4xl font-volkorn font-bold text-violeta drop-shadow-sm text-center">Conocé a las familias olfativas</h2>
 
-        <div className="relative w-[300px] h-[300px] rounded-full border-4 border-[var(--violeta)] flex items-center justify-center">
+        <div className="relative w-[200px] h-[200px] rounded-full border-4 border-violeta flex items-center justify-center ">
           {familiesQuiz.map((family, index) => {
             const angle = (360 / familiesQuiz.length) * index
             const isActive = index === active
             return (
               <motion.div
                 key={family.id}
-                className={`absolute w-[90px] h-[90px] rounded-full flex items-center justify-center shadow-xl 
-                  ${isActive ? 'scale-125 z-10' : 'scale-90 opacity-70'}`}
+                className={`absolute w-[200px] h-[200px] rounded-full flex items-center justify-center 
+                  ${isActive ? 'scale-125 z-10' : 'scale-90 opacity-60 bg-white/80'} transition-all`}
                 style={{
                   transform: `rotate(${angle}deg) translate(120px) rotate(-${angle}deg)`
                 }}
                 animate={{ scale: isActive ? 1.25 : 0.9, opacity: isActive ? 1 : 0.7 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.4 }}
               >
                 <Image
                   src={family.image}
                   alt={family.name}
-                  width={80}
-                  height={80}
-                  className="object-contain drop-shadow-xl"
+                  width={70}
+                  height={70}
+                  className="object-contain drop-shadow-md"
                 />
               </motion.div>
             )
           })}
         </div>
 
-        <div className="flex gap-6 mt-2">
-          <button
-            onClick={prev}
-            className="text-[var(--violeta)] text-xl hover:scale-110 transition-transform"
-            aria-label="Anterior"
-          >❮</button>
-          <button
-            onClick={next}
-            className="text-[var(--violeta)] text-xl hover:scale-110 transition-transform"
-            aria-label="Siguiente"
-          >❯</button>
+        <div className="flex gap-4">
+          <button onClick={prev} className="text-2xl text-violeta hover:scale-125 transition-transform">❮</button>
+          <button onClick={next} className="text-2xl text-violeta hover:scale-125 transition-transform">❯</button>
         </div>
 
-        <div className="flex gap-2 mt-1">
+        <div className="flex gap-2">
           {familiesQuiz.map((_, i) => (
             <div
               key={i}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${i === active ? "bg-[var(--violeta)] scale-110" : "bg-gray-300"}`}
+              className={`w-3 h-3 rounded-full ${i === active ? "bg-violeta scale-110" : "bg-gray-300"} transition-transform duration-300`}
             />
           ))}
         </div>
@@ -84,40 +76,48 @@ export default function WelcomeFamilies({ onStart, loading }: WelcomeFamiliesPro
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4 }}
-            className="w-full px-6 py-4 bg-white rounded-xl shadow-lg text-[var(--gris4)] border max-w-md"
+            transition={{ duration: 0.5 }}
+            className="w-full px-6 py-5 bg-white/90 rounded-xl shadow-md text-center border border-violeta max-w-md"
           >
-            <h3 className="text-xl font-bold text-[var(--gris3)] mb-1">{familiesQuiz[active].name}</h3>
-            <p className="text-sm italic">{familiesQuiz[active].description}</p>
+            <h3 className="text-2xl font-volkorn text-violeta mb-2">{familiesQuiz[active].name}</h3>
+            <p className="text-base italic text-gris4 leading-relaxed">{familiesQuiz[active].description}</p>
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <div className="flex flex-col items-center w-full lg:w-1/2 gap-6 relative mt-6">
-
-        <div className="relative bg-white border border-[var(--violeta)] rounded-xl shadow-lg p-4 text-[var(--gris4)] max-w-md text-center">
+      {/* Columna Quimi y CTA */}
+      <div className="flex flex-col items-center gap-6 w-full lg:w-1/2 mt-10 lg:mt-0 text-center">
+        <motion.div
+          className="bg-white/90 border border-violeta rounded-xl shadow-lg p-4 text-gris4 max-w-md relative"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
           {messages[currentIndex].map((text, i) => (
-            <p key={i} className={`${i > 0 ? "mt-2" : ""}`}>{text}</p>
+            <p key={i} className={`text-base ${i > 0 ? "mt-2" : ""}`}>{text}</p>
           ))}
           <div className="absolute left-1/2 -bottom-4 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-[var(--violeta)]"></div>
-        </div>
+        </motion.div>
 
-        {/* Quimi */}
-        <div className="relative w-[120px] h-[120px] mt-6">
+        <motion.div
+          className="relative w-[130px] h-[130px] animate-float"
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 100, damping: 10 }}
+        >
           <Image
             src="/mascotas/lookingQuimi.png"
             alt="Quimi inspirador"
             fill
             className="object-contain"
           />
-        </div>
+        </motion.div>
 
-        {/* Botón */}
         <ButtonMagic
           onClick={onStart}
           disabled={loading}
-          label={"Descubrir mi familia"}
-          className="bg-[var(--violeta)] text-white px-6 py-3 rounded hover:bg-[#7a2f96] transition flex items-center gap-2 mt-2"
+          label="Descubrir mi familia"
+          className="bg-violeta text-white px-8 py-3 text-lg rounded-xl hover:bg-[#7a2f96] transition-all shadow-xl flex items-center gap-2"
         >
           {loading ? (
             <div className="flex items-center">
@@ -126,7 +126,7 @@ export default function WelcomeFamilies({ onStart, loading }: WelcomeFamiliesPro
             </div>
           ) : (
             <>
-              <Sparkles className="h-5 w-5 animate-ping" />
+              <Sparkles className="h-5 w-5 animate-pulse" />
               Descubrir mi familia
             </>
           )}

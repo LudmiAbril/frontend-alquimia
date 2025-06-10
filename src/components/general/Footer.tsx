@@ -7,7 +7,8 @@ import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const pathname = usePathname();
-  const isQuizPage = pathname === "/quiz";
+const isQuizPage = pathname === "/quiz" || pathname.startsWith("/quiz/formula");
+
 
   return (
     <footer className="text-sm">

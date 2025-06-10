@@ -5,13 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession } from "@/services/sessionService";
-import UserDropdown from "../Menu/UserDropdown";
-import AuthModalWrapper from "@/components/Modals/AuthModalWrapper";
-import LoginForm from "@/components/Login/LoginForm";
-import RegisterForm from "@/components/Login/RegisterForm";
+import UserDropdown from "../menu/UserDropdown";
+import AuthModalWrapper from "../modals/AuthModalWrapper";
+import LoginForm from "../login/LoginForm";
+import RegisterForm from "../login/RegisterForm";
+import LoginRequiredModal from "../login/LoginRequiredModal";
+
 
 const navLinkClasses = "flex items-center gap-[40px] text-base md:text-lg lg:text-xl font-semibold";
 const avatarButtonClasses = "w-[50px] h-[50px] rounded-full bg-[var(--violeta)] text-white flex items-center justify-center font-bold uppercase text-lg md:text-1xl";
+
 
 const LoginIcon = ({ onClick }: { onClick: () => void }) => (
   <svg
@@ -33,7 +36,7 @@ export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeForm, setActiveForm] = useState<"login" | "register">("login");
-
+const [showLoginRequiredModal, setShowLoginRequiredModal] = useState(false);
   return (
     <>
       <header
@@ -50,7 +53,21 @@ export default function Navbar() {
         <div className="flex items-center gap-[60px]">
           <nav className={navLinkClasses}>
             <Link href="/">Home</Link>
-            <Link href="/crear-perfume">Crear mi perfume</Link>
+          <span
+  onClick={() => {
+    if (username) {
+      window.location.href = "/crear-perfume";
+    } else {
+      localStorage.setItem("next", "/crear-perfume");
+      setShowLoginRequiredModal(true);
+    }
+  }}
+  className="cursor-pointer hover:underline"
+>
+  Crear mi perfume
+</span>
+
+
             <Link href="/quiz">Descubrir</Link>
             <Link href="/proveedores">Proveedores</Link>
           </nav>
@@ -96,6 +113,17 @@ export default function Navbar() {
           )}
         </AuthModalWrapper>
       )}
+      {showLoginRequiredModal && (
+  <LoginRequiredModal
+    onClose={() => setShowLoginRequiredModal(false)}
+    onLogin={() => {
+      setShowLoginRequiredModal(false);
+      setActiveForm("login");
+      setIsModalOpen(true);
+    }}
+  />
+)}
+
     </>
   );
 }

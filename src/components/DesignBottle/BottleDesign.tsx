@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react"
-import { fontMap, FontKey, SvgData } from "../Utils/utils";
-import { BottleDesign } from "../Utils/typing";
+import { fontMap, FontKey, SvgData } from "../utils/utils";
+import { BottleDesign } from "../utils/typing";
 
 export const svgMap: Record<string, SvgData> = {
     "cuadrada-cubica": {

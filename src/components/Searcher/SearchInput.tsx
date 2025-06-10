@@ -1,4 +1,5 @@
-import { PropsInput } from "../Utils/typing";
+import { PropsInput } from "../utils/typing";
+
 
 export default function SearchInput({ query, setQuery }: PropsInput) {
   return (

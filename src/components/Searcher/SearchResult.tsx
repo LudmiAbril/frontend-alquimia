@@ -1,4 +1,4 @@
-import { PropsSearch } from "../Utils/typing"
+import { PropsSearch } from "../utils/typing"
 
 export default function SearchResult({ results, isLoading }: PropsSearch) {
   if (isLoading) return <p className="mt-6 animate-pulse">Buscando...</p>

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { obtenerNotasPorPaso } from "@/services/notaService";
-import { NoteFamily, perfumeData } from "../utils/typing";
+import { NoteFamily } from "../utils/typing";
 import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 import { familyColors } from "@/services/animateBottle";
 import FamilyTooltip from "./FamilyTooltip";
@@ -24,6 +24,8 @@ export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
         const fetchNotes = async () => {
             try {
                 const data = await obtenerNotasPorPaso(currentStep);
+                // hacer console log aca, ver estructura de familia y mostrar esa info
+                console.log(data);
                 const reducedNotes = data.map((grupo: { Family: any; Notes: any[]; }) => ({
                     family: grupo.Family,
                     notes: grupo.Notes?.map((n) => ({
@@ -31,7 +33,7 @@ export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
                         name: n.Name,
                     })) ?? [],
                 }));
-
+         console.log(reducedNotes);
                 setGroupedNotes(reducedNotes);
             } catch (error) {
                 console.error("Error al obtener notas:", error);
@@ -65,6 +67,7 @@ export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
     if (!groupedNotes.length) {
         return <p>Cargando notas...</p>;
     }
+
     return (
         <div className="overflow-y-scroll max-h-[31rem] mt-6 w-full flex flex-col">
             {filteredGroupedNotes.map(({ family, notes }, index) => (

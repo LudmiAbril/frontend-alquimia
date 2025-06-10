@@ -9,11 +9,12 @@ import LimitModal from "./LimitModal";
 import { getFormulaById, submitFormula } from "@/services/createPerfumeService";
 import { animateBottle, getColorByFamily } from "@/services/animateBottle";
 import PotionParticles from "./PotionParticles";
-import { mapNotesArrayToObject } from "../Utils/utils";
 import AddedNotesSection from "./AddedNotesSection";
 import { StepCard } from "./StepCard";
-import { SaveFormulaDTO } from "../Utils/typing";
+
 import { useCreatePerfume } from "@/context/CreatePerfumeContext";
+import { mapNotesArrayToObject } from "../utils/utils";
+import { SaveFormulaDTO } from "../utils/typing";
 
 
 interface CreatePerfumeProps {

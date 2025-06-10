@@ -1,12 +1,15 @@
 /*GENERAL*/
 
 export interface ButtonProps {
-  label: string;
+  label?: string; 
   onClick?: () => void;
+  disabled?: boolean;
+  href?: string;
   colorClass?: string;
-  href?: string
-
+  children?: React.ReactNode; 
+  className?: string;
 }
+
 
 /* DESIGN BOTTLE */
 export interface BottleDesign {
@@ -315,6 +318,10 @@ export interface StepData {
 }
 
 /**************************** INTERFACES DEL BACK CON LOGUIN -REGISTER  ****************************/
+export interface LoginRequiredModalProps {
+  onClose: () => void;
+  onLogin: () => void;
+}
 
 
 export interface BackendErrorResponse {
