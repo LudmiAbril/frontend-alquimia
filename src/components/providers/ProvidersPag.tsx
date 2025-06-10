@@ -52,23 +52,34 @@ export default function ProvidersesPage() {
     }));
   };
 
-  const finalGrouped = Object.entries(groupedProducts).reduce((acc, [category, products]) => {
-    if (selectedCategory && category !== selectedCategory) return acc;
+const finalGrouped = Object.entries(groupedProducts).reduce((acc, [category, products]) => {
+  if (selectedCategory && category !== selectedCategory) return acc;
 
-    const filtered = products.filter((p) =>
-      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.productType.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+  const filtered = products.filter((p) =>
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    p.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    p.productType.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-    let sorted = [...filtered];
-    if (sortOrder === "asc") {
-   sorted.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
+  let sorted = [...filtered];
 
-    } 
-    acc[category] = sorted;
-    return acc;
-  }, {} as typeof groupedProducts);
+  switch (sortOrder) {
+    case "asc":
+      sorted.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
+      break;
+    case "desc":
+      sorted.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+      break;
+    case "popular":
+    default:
+      sorted = [...filtered]; 
+      break;
+  }
+
+  acc[category] = sorted;
+  return acc;
+}, {} as typeof groupedProducts);
+
 
   return (
     <SectionWrapper>
