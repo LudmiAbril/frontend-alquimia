@@ -14,11 +14,12 @@ export default function SortProducts({ onSort }: PropsProduct) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(options[0]);
 
-  const handleSelect = (option: typeof selected) => {
-    setSelected(option);
-    setOpen(false);
-    onSort(option.value as "asc" | "desc" | "popular");
-  };
+const handleSelect = (option: typeof selected) => {
+  setSelected(option);
+  setOpen(false);
+  onSort(option.value as "asc" | "desc" | "popular"); 
+};
+
 
   return (
     <div className="relative w-full">

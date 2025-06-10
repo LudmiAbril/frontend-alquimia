@@ -10,6 +10,10 @@ import SortProducts from "./SortProducts";
 export default function SidebarFilter({ onFilter, onSort, onSearch }: PropsFilter) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+const handleSortChange = (val: "asc" | "desc" | "popular") => {
+  onSort(val);
+};
+
 
 
   const handleSearchChange = (value: string) => {
@@ -33,7 +37,8 @@ export default function SidebarFilter({ onFilter, onSort, onSearch }: PropsFilte
 
       {/* Ordenar por */}
     <div>
-  <SortProducts onSort={onSort} />
+  <SortProducts onSort={handleSortChange} />
+
 </div>
 
       {/* Filtrar por */}

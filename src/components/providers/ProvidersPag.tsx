@@ -65,10 +65,20 @@ const finalGrouped = Object.entries(groupedProducts).reduce((acc, [category, pro
 
   switch (sortOrder) {
     case "asc":
-      sorted.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
+     sorted.sort((a, b) => {
+  const priceA = Math.min(...(a.variants?.map(v => v.price ?? Infinity) ?? [Infinity]));
+  const priceB = Math.min(...(b.variants?.map(v => v.price ?? Infinity) ?? [Infinity]));
+  return priceA - priceB;
+});
+
       break;
     case "desc":
-      sorted.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+sorted.sort((a, b) => {
+  const priceA = Math.min(...(a.variants?.map(v => v.price ?? Infinity) ?? [Infinity]));
+  const priceB = Math.min(...(b.variants?.map(v => v.price ?? Infinity) ?? [Infinity]));
+  return priceB - priceA;
+});
+
       break;
     case "popular":
     default:
