@@ -407,6 +407,12 @@ export const familyDescriptions: Record<string, string> = {
     "¿A qué huele? A misterios bajo la luz de las velas. Canela, ámbar, vainilla y especias envuelven el aire como un conjuro dulce y seductor. Las fragancias orientales son hechizos sensuales, que dejan un aura encantada tras cada paso.",
 }
 
+  export const messagesQuimiQuiz = [
+  "¡Hola! Soy Quimi, tu guía aromática 🧪",
+  "Este quiz te va a ayudar a descubrir tu familia olfativa ideal ✨",
+  "Solo respondé según tus gustos, ¡no necesitás saber de perfumes!",
+  "¿Listo para comenzar esta experiencia sensorial? 🌸",
+];
 
 export const familyPet: Record<string, string> = {
   "Fresca": "/mascotas/fresca.png",
