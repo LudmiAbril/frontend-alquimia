@@ -119,7 +119,9 @@ export interface ProductCardProps {
   }[];
 }
 
-
+export interface SimulatedPurchaseProps {
+  productName: string;
+}
 
 
 export interface ProductDTO {

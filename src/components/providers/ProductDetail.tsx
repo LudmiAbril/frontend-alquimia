@@ -3,45 +3,43 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "@/services/productService";
-
 import Image from "next/image";
-import Button from "@/components/General/Button";
 import SectionWrapper from "../General/SectionWrapper";
 import Link from "next/link";
 import { ProductDTO } from "../utils/typing";
-
 import ButtonViolet from "../general/ButtonViolet";
 import ButtonSecondary from "../general/ButtonSecondary";
+import Purchase from "./Purchase";
 
 
 export default function ProductDetailPage() {
-const params = useParams();
-const id = Array.isArray(params.id) ? params.id[0] : params.id;
+  const params = useParams();
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const [product, setProduct] = useState<ProductDTO | null>(null);
   const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  if (!id) return;
+  useEffect(() => {
+    if (!id) return;
 
-  const fetchAndFindProduct = async () => {
-    try {
-      const allProducts = await getAllProducts();
-      const found = allProducts.find((p) => p.id === Number(id));
+    const fetchAndFindProduct = async () => {
+      try {
+        const allProducts = await getAllProducts();
+        const found = allProducts.find((p) => p.id === Number(id));
 
 
 
-      setProduct(found ?? null);
-    } catch (err) {
-      console.error("Error al cargar producto:", err);
-      setProduct(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+        setProduct(found ?? null);
+      } catch (err) {
+        console.error("Error al cargar producto:", err);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchAndFindProduct();
-}, [id]);
+    fetchAndFindProduct();
+  }, [id]);
 
 
   if (loading) return <p className="text-center py-12">Cargando producto...</p>;
@@ -54,7 +52,7 @@ useEffect(() => {
           ¡Oops! No encontramos lo que buscás
         </p>
         <p className="text-center text-gray-600 mt-1">A veces la magia lleva tiempo, probá más tarde.</p>
-        <Button label="Volver a inicio" />
+        <ButtonViolet label="Volver a inicio" />
       </div>
     );
   }
@@ -85,65 +83,74 @@ useEffect(() => {
         </div>
 
         {/* Detalles */}
-        <div className="text-left">
-        
-<nav className="text-xs text-gray-500 uppercase mb-2 tracking-wide space-x-1">
-  <Link href="/proveedores" className="hover:underline text-[var(--violeta)] font-medium">
-    Proveedores
-  </Link>
-  <span>/</span>
-  <span>{product.productType?.toUpperCase()}</span>
-  <span>/</span>
-  <span className="text-gray-800">{product.name}</span>
-</nav>
-          <p className="text-sm font-semibold mb-1">
-            vendido por {product.provider?.Nombre?.toUpperCase() || "PROVEEDOR"}
+      <div className="text-left flex flex-col gap-4">
+
+  {/* Breadcrumb */}
+  <nav className="text-xs text-gray-500 uppercase tracking-wide space-x-1">
+    <Link href="/proveedores" className="hover:underline text-[var(--violeta)] font-medium">
+      Proveedores
+    </Link>
+    <span>/</span>
+    <span>{product.productType?.toUpperCase()}</span>
+    <span>/</span>
+    <span className="text-gray-800">{product.name}</span>
+  </nav>
+
+  {/* Nombre y proveedor */}
+  <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
+  <p className="text-sm font-semibold text-gray-600">
+    Vendido por {product.provider?.Nombre?.toUpperCase() || "PROVEEDOR"}
+  </p>
+
+  {/* Precio */}
+  {hasPrices ? (
+    <div>
+      <p className="text-2xl font-bold text-gray-800">${minPrice!.toLocaleString()}</p>
+      <p className="text-sm text-gray-400">precio sin Alquimia ${(minPrice! * 1.2).toLocaleString()}</p>
+    </div>
+  ) : (
+    <p className="text-base text-gray-500">Precio no disponible</p>
+  )}
+
+  {/* Descripción */}
+  <div>
+    <h3 className="text-sm font-bold uppercase tracking-wide mb-1">Detalle del producto</h3>
+    <p className="text-sm text-gray-700">{product.description || "Sin descripción disponible."}</p>
+  </div>
+
+  {/* Presentaciones */}
+  <div>
+    <h3 className="text-sm font-bold uppercase tracking-wide mb-2">Presentaciones disponibles:</h3>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {product.variants?.map((v, index) => (
+        <div
+          key={`variant-${v.id ?? index}`}
+          className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
+        >
+          <p className="text-sm font-medium mb-1">
+            {v.volume ?? "?"} {v.unit ?? ""}
           </p>
-
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-
-          {hasPrices ? (
-            <>
-              <p className="text-2xl font-bold text-gray-800 mb-0">${minPrice!.toLocaleString()}</p>
-              <p className="text-sm text-gray-400 mb-6">precio sin Alquimia ${(minPrice! * 1.2).toLocaleString()}</p>
-            </>
-          ) : (
-            <p className="text-md text-gray-500 mb-4">Precio no disponible</p>
-          )}
-
-          <h3 className="text-sm font-bold mb-1 uppercase tracking-wide">Detalle del producto</h3>
-          <p className="text-sm text-gray-700 mb-6">
-            {product.description || "Sin descripción disponible."}
+          <p className="text-lg font-bold text-[var(--violeta)]">
+            {typeof v.price === "number" ? `$${v.price.toLocaleString()}` : "Precio no disponible"}
           </p>
-
-          <div className="flex gap-3 mb-8">
-            <ButtonViolet label="VISITAR PROVEEDOR" />
-          </div>
-
-          <h3 className="text-sm font-bold mb-2 uppercase tracking-wide">Presentaciones disponibles:</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-           {product.variants?.map((v, index) => (
-
-              <div
-                key={`variant-${v.id ?? index}`}
-                className="border border-gray-200 rounded-lg p-4 shadow-sm bg-white"
-              >
-                <p className="text-sm font-medium mb-1">
-                  {v.volume ?? "?"} {v.unit ?? ""}
-                </p>
-                <p className="text-lg font-bold text-[var(--violeta)]">
-                  {typeof v.price === "number" ? `$${v.price.toLocaleString()}` : "Precio no disponible"}
-                </p>
-                <p className="text-xs text-gray-500 mt-1">Stock: {v.stock ?? "?"}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4">
-            <ButtonSecondary label="SUMAR A BIBLIOTECA" />
-            <ButtonViolet label="RECLAMAR CÓDIGO" />
-          </div>
+          <p className="text-xs text-gray-500 mt-1">Stock: {v.stock ?? "?"}</p>
         </div>
+      ))}
+    </div>
+  </div>
+
+  {/* compra */}
+  <div className="mt-6">
+    <Purchase productName={product.name} />
+  </div>
+
+  {/* Acciones */}
+  <div className="flex flex-wrap gap-3 mt-4">
+    <ButtonViolet label="VISITAR PROVEEDOR" />
+    <ButtonSecondary label="SUMAR A BIBLIOTECA" />
+  </div>
+</div>
+
       </main>
     </SectionWrapper>
   );
