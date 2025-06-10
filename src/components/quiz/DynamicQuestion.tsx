@@ -1,5 +1,5 @@
 
-import {  PropsDynamic } from "@/components/Utils/typing"
+import {  PropsDynamic } from "@/components/utils/typing"
 import OptionGrid from "./visual/OptionGrid"
 import OptionList from "./visual/OptionList"
 import OptionCard from "./visual/OptionCard"

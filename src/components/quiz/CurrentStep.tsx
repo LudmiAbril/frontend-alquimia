@@ -5,6 +5,7 @@ import DynamicQuestion from "./DynamicQuestion"
 import ButtonSecondary from "@/components/general/ButtonSecondary"
 import { useState, useEffect } from "react"
 import ButtonViolet from "../general/ButtonViolet"
+import Fireflies from "./Fireflies"
 
 export default function CurrentStep({
   currentQuestionIndex,
@@ -22,12 +23,13 @@ export default function CurrentStep({
     setLocalSelection(selectedOption || "")
   }, [selectedOption, question])
 
-  const handleSelect = (option: string) => {
-    setLocalSelection(option)
-    onSelect(option)
-  }
+const handleSelect = (option: string) => {
+  setLocalSelection(option)
+  onSelect(option) 
+}
 
-  const isButtonDisabled = !localSelection || loading
+ const isButtonDisabled = !selectedOption || loading
+
 
   if (!question) {
     return (
@@ -41,6 +43,7 @@ export default function CurrentStep({
 
   return (
     <div className="min-h-screen p-4 flex flex-col mt-[32px]">
+             <Fireflies />
       {/* Barra de progreso */}
 <div className="max-w-5xl mx-auto w-full mb-6 mt-20">
 
@@ -99,7 +102,13 @@ export default function CurrentStep({
                   ? "Ver Resultado"
                   : "Siguiente"
               }
-              onClick={isButtonDisabled ? undefined : onNext}
+             onClick={() => {
+  if (localSelection && !loading) {
+    onSelect(localSelection)  
+    onNext()
+  }
+}}
+
             />
           </div>
         </div>
