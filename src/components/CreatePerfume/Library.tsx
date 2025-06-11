@@ -21,7 +21,7 @@ const Library = ({ onConfirm, onSelectIntensity }: LibraryProps) => {
   const isNoteSelectionStep = currentStep >= 1 && currentStep <= 3;
   const title = isNoteSelectionStep ? "Biblioteca de notas" : "Intensidad";
   const subtitle = isNoteSelectionStep
-    ? "Arrastrá una nota de fondo al frasco para dar el primer soplo de tu fragancia."
+    ? "Arrastrá una nota de fondo al frasco para construir tu fragancia, las mismas ya vienen filtradas por tipo en cada paso (base, corazón y salida)"
     : "Elige un tipo de intensidad para tu perfume.";
 
 
