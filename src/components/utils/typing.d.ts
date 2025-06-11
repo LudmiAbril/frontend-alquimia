@@ -254,7 +254,11 @@ export interface OptionDTO {
   Texto: string
   ImagenUrl: string
 }
-
+export interface StepSummaryProps {
+  summary: SummaryItem[];
+  onReset: () => void;
+  onBack: () => void; 
+}
 export interface PropsDynamic {
   question: QuestionDTO
   selectedOption: string
