@@ -12,6 +12,7 @@ import LoginRequiredModal from "@/components/login/LoginRequiredModal";
 import AuthModalWrapper from "@/components/modals/AuthModalWrapper";
 import Fireflies from "./Fireflies"
 import ConfettiStreamers from "./ConfettiStreamer"
+import FloatingMascot from "../general/MascotaFlotante"
 export default function Result({ result, answers, onReset }: PropsResult) {
   const backgroundImage = backgroundByFamily[result.nombre] || "/quiz/familia-fondos/amaderadaBack.png"
   const familyPets = familyPet[result.nombre] || "/mascotas/amaderada.png"
@@ -193,6 +194,15 @@ export default function Result({ result, answers, onReset }: PropsResult) {
                 )}
               </AuthModalWrapper>
             )}
+            <FloatingMascot
+  messages={[
+    "¡Tu esencia ideal está lista para cobrar vida!",
+    "¡Qué combinación mágica descubriste!",
+    "Ya podés crear tu perfume con esta fórmula 🧪",
+  ]}
+  imageSrc="/Quimi/quimiLanding.png" 
+/>
+
     </div>
   )
 }
