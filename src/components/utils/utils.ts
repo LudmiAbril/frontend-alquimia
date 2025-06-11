@@ -143,7 +143,6 @@ export const bestSellingProducts = [
 
 export const productCategories = [
   "Esencia",
-  "Packaging",
   "Envase",
   "Alcohol",
   "Agua Destilada",
