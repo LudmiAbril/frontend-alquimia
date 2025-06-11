@@ -1,15 +1,26 @@
-import React from 'react'
+"use client";
+
+import Image from "next/image";
 
 interface FamilyTooltipProps {
-    family: string
-    description?: string
-}
-const FamilyTooltip = ({family}: FamilyTooltipProps) => {
-    return (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-max max-w-[200px] bg-gray-700 text-white text-xs rounded-md px-3 py-2 shadow-lg z-10">
-            Información sobre la familia "{family}".
-        </div>
-    )
+    family: string;
+    info: {
+        Id: number;
+        Name: string;
+        Description: string;
+        Image1: string;
+    } | undefined;
+    loading: boolean;
 }
 
-export default FamilyTooltip
+const FamilyTooltip = ({ family, info, loading }: FamilyTooltipProps) => (
+    <div className="absolute top-full w-[16rem] mt-2 p-4 bg-[var(--hueso)] text-black rounded-[10px] shadow  z-10 flex gap-6">
+        {info?.Image1 && (
+            <Image src={info.Image1 as string} alt="icono" width={50} height={50} />
+        )}
+        <div className="w-full text-left"><h4 className="text-[var(--violeta)] font-roboto uppercase mb-2 text-[0.9rem]">{family}</h4>
+            <p className="text-xsm font-roboto text-[var(--gris3)] font-ligth mt-1 ">{loading ? "Cargando..." : info?.Description}</p></div>
+    </div>
+);
+
+export default FamilyTooltip;

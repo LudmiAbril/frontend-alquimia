@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-import { ProviderFormData, StepData, Supplier } from "./typing";
-=======
-import { ProviderFormData, StepData } from "@/components/utils/typing";
-import { Supplier } from "@/components/utils/typing";
-
->>>>>>> 99ebfb376065912c5e1635a9c03a3b81c18529ed
+import { StepData, Supplier, ProviderFormData } from "./typing";
 
 /* DESIGN BOTTLE */
 export const designBottleSteps = ["botella", "etiqueta", "tipografia"];
