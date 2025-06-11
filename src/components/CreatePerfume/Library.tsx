@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-
 import { IntensityContainer } from "./IntensityContainer";
 import { NotesContainer } from "./NotesContainer";
 import SearchBar from "./SearchBar";
@@ -16,14 +15,13 @@ interface LibraryProps {
 const Library = ({ onConfirm, onSelectIntensity }: LibraryProps) => {
   const {
     currentStep,
-    currentPerfume,
   } = useCreatePerfume();
 
   const [searchTerm, setSearchTerm] = useState("");
   const isNoteSelectionStep = currentStep >= 1 && currentStep <= 3;
   const title = isNoteSelectionStep ? "Biblioteca de notas" : "Intensidad";
   const subtitle = isNoteSelectionStep
-    ? "Arrastrá una nota de fondo al frasco para dar el primer soplo de tu fragancia."
+    ? "Arrastrá una nota de fondo al frasco para construir tu fragancia, las mismas ya vienen filtradas por tipo en cada paso (base, corazón y salida)"
     : "Elige un tipo de intensidad para tu perfume.";
 
 
@@ -40,7 +38,7 @@ const Library = ({ onConfirm, onSelectIntensity }: LibraryProps) => {
       )}
       <div className="max-h-full w-full">
         {isNoteSelectionStep ? (
-          <NotesContainer currentStep={currentStep} currentPerfume={currentPerfume} searchTerm={searchTerm} />
+          <NotesContainer searchTerm={searchTerm} />
         ) : (
           <IntensityContainer
             onConfirm={onConfirm}

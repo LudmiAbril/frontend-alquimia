@@ -1,12 +1,12 @@
 /*GENERAL*/
 
 export interface ButtonProps {
-  label?: string; 
+  label?: string;
   onClick?: () => void;
   disabled?: boolean;
   href?: string;
   colorClass?: string;
-  children?: React.ReactNode; 
+  children?: React.ReactNode;
   className?: string;
 }
 
@@ -33,6 +33,25 @@ export interface BottleForm {
 
 
 /* CREATE PERFUME */
+export interface FamilyInfo {
+  Id: number;
+  Name: string;
+  Description: string;
+  Image1: string;
+}
+
+export interface FamilyInfo {
+  Id: number;
+  Name: string;
+  Description: string;
+  Image1: string;
+}
+
+export interface NoteInfo {
+  Name: string;
+  Description: String;
+  Duration?: string;
+}
 
 export interface perfumeData {
   baseNotes: Note[],
@@ -43,11 +62,13 @@ export interface perfumeData {
 
 export interface Note {
   id: number;
-  name: string
+  name: string;
+  icon?: string;
 }
 
 export interface NoteFamily {
   family: string;
+  familyId: number;
   notes: Note[];
 }
 
@@ -134,15 +155,15 @@ export interface PropsProduct {
 export interface PropsFilter {
   onFilter: (category: string) => void;
   onSort: (order: "asc" | "desc" | "popular") => void;
-  onSearch: (term: string) => void; 
+  onSearch: (term: string) => void;
 }
 
 export interface ProductDTO {
   id: number;
   name: string;
   description: string;
-  productType?: any; 
-  provider?: any;    
+  productType?: any;
+  provider?: any;
   price?: number;
   volume?: number;
   unit?: string;

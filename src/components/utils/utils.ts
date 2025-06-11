@@ -1,6 +1,4 @@
-import { ProviderFormData, StepData } from "@/components/utils/typing";
-import { Supplier } from "@/components/utils/typing";
-
+import { StepData, Supplier, ProviderFormData } from "./typing";
 
 /* DESIGN BOTTLE */
 export const designBottleSteps = ["botella", "etiqueta", "tipografia"];
@@ -56,6 +54,18 @@ export type SvgData = {
 };
 
 /* CREATE PERFUME */
+
+export const formatDuration = (duration: string) => {
+    const [hours, minutes] = duration.split(":");
+    const h = parseInt(hours, 10);
+    const m = parseInt(minutes, 10);
+
+    if (h && m) return `${h} h ${m} min`;
+    if (h) return `${h} h`;
+    if (m) return `${m} min`;
+    return "0 min";
+};
+
 export const createSteps = [
   {
     nombre: "Bienvenida",
