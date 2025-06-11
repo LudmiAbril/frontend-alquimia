@@ -54,9 +54,11 @@ export default function Result({ result, answers, onReset }: PropsResult) {
         <Card3D backgroundSrc={backgroundImage} characterSrc={familyPets} alt={result.nombre} title={result.nombre} />
 
         <div className="flex-1 text-center lg:text-left text-[var(--gris4)]">
-          <div className="bg-violeta/10 text-violeta text-sm px-4 py-2 rounded-full inline-block mb-4 animate-pulse tracking-wide">
-            ¡Quiz completado!
-          </div>
+<div className="bg-[var(--lila)] text-white text-sm px-6 py-2 rounded-full inline-flex items-center gap-2 mb-4 shadow-md animate-fade-in tracking-wide font-semibold">
+  <span className="material-icons text-white text-base">local_florist</span>
+  ¡Quiz completado!
+</div>
+
 
           <h1 className="text-3xl md:text-4xl font-bold text-[var(--gris4)] mb-2">
             Tu familia olfativa es:
@@ -65,12 +67,17 @@ export default function Result({ result, answers, onReset }: PropsResult) {
             {result.nombre}
           </h2>
 {/* PONGO ARRAY.ISARRAY COMO VALIDACIÓN EXTRA */}
-         {Array.isArray(result.subfamilias) && result.subfamilias.length > 0 && (
-  <div className="mb-6">
-    <h3 className="text-md font-semibold text-violeta mb-2">Subfamilias destacadas:</h3>
-    <ul className="flex flex-wrap gap-2 text-sm text-violeta">
+  {Array.isArray(result.subfamilias) && result.subfamilias.length > 0 && (
+  <div className="mb-8 text-start">
+    <h3 className="text-lg md:text-xl font-bold text-violeta mb-4">
+      Subfamilias destacadas
+    </h3>
+    <ul className="flex flex-wrap justify-start gap-3 text-sm">
       {result.subfamilias.map((sub, idx) => (
-        <li key={idx} className="bg-violeta/10 px-3 py-1 rounded-full shadow-sm tracking-wide">
+        <li
+          key={idx}
+          className="bg-[var(--violeta)] text-white px-4 py-2 rounded-full shadow-lg font-semibold tracking-wide transition transform hover:scale-105 hover:shadow-xl"
+        >
           {sub}
         </li>
       ))}
@@ -79,25 +86,39 @@ export default function Result({ result, answers, onReset }: PropsResult) {
 )}
 
 
-          {formula && (
-            <div className="bg-white/80 border border-lila rounded-2xl p-6 mb-6 shadow-md backdrop-blur">
-              <h3 className="text-md font-semibold text-violeta mb-4">Fórmula sugerida para vos:</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-sm text-violeta">
-                <div>
-                  <p className="font-bold">Nota de Salida</p>
-                  <p>{formula.TopNote}</p>
-                </div>
-                <div>
-                  <p className="font-bold">Nota de Corazón</p>
-                  <p>{formula.HeartNote}</p>
-                </div>
-                <div>
-                  <p className="font-bold">Nota de Fondo</p>
-                  <p>{formula.BaseNote}</p>
-                </div>
-              </div>
-            </div>
-          )}
+       {formula && (
+  <div className="bg-white border border-lila rounded-3xl p-6 mb-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]">
+    <h3 className="text-lg font-bold text-violeta mb-6 flex items-center justify-center gap-2 tracking-wide">
+      <span className="material-icons text-[var(--violeta)]">science</span>
+      Fórmula sugerida para vos:
+    </h3>
+    
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center text-violeta text-base font-medium">
+      {/* Salida */}
+      <div className="flex flex-col items-center transition-transform duration-300 hover:scale-105">
+        <span className="material-icons text-2xl text-[var(--violeta)] mb-1">north</span>
+        <p className="font-bold text-[var(--violeta)]">Nota de Salida</p>
+        <p className="text-[var(--gris4)]">{formula.TopNote}</p>
+      </div>
+
+      {/* Corazón */}
+      <div className="flex flex-col items-center transition-transform duration-300 hover:scale-105">
+        <span className="material-icons text-2xl text-[var(--violeta)] mb-1">favorite</span>
+        <p className="font-bold text-[var(--violeta)]">Nota de Corazón</p>
+        <p className="text-[var(--gris4)]">{formula.HeartNote}</p>
+      </div>
+
+      {/* Fondo */}
+      <div className="flex flex-col items-center transition-transform duration-300 hover:scale-105">
+        <span className="material-icons text-2xl text-[var(--violeta)] mb-1">south</span>
+        <p className="font-bold text-[var(--violeta)]">Nota de Fondo</p>
+        <p className="text-[var(--gris4)]">{formula.BaseNote}</p>
+      </div>
+    </div>
+  </div>
+)}
+
+
 
           {concentration && (
             <p className="mb-6 text-sm italic text-[var(--gris3)]">

@@ -9,7 +9,7 @@ import Link from "next/link";
 import ButtonViolet from "../general/ButtonViolet";
 
 import ButtonSecondary from "../general/ButtonSecondary";
-import SectionWrapper from "../General/SectionWrapper";
+import SectionWrapper from "../general/SectionWrapper";
 import { getMockCheckoutUrl } from "@/services/mp";
 
 
