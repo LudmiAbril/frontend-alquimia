@@ -1,71 +1,91 @@
-
 import { AnswerDTO, QuestionDTO, FamilyResult, VisualType } from "@/components/utils/typing"
 
 const visualMap: Record<number, VisualType> = {
-  1: "bubbles",
-  2: "two",
-  3: "cards",
-  4: "grid",
-5:"cards",
-6:"cards",
-7:"list",
-8:"cards",
-9:"grid",
-10:"cards"
-}
+    1: "bubbles",
+    2: "two",
+    3: "cards",
+    4: "grid",
+    5: "cards",
+    6: "cards",
+    7: "list",
+    8: "cards",
+    9: "grid",
+    10: "cards"
+};
 
-const URL = "http://localhost:5035/quiz/questions"
+const QUESTIONS_URL = "http://localhost:5035/quiz/questions";
+const RESULT_URL = "http://localhost:5035/quiz/result";
 
+// obtener preguntas del quiz con visualType asignado
 export const fetchQuestions = async (): Promise<QuestionDTO[]> => {
-  const res = await fetch(URL)
-  const data: QuestionDTO[] = await res.json()
-  return data.map((q) => ({
-    ...q,
-    VisualType: visualMap[q.Id] || "cards",
-  }))
-}
+    const res = await fetch(QUESTIONS_URL);
+    const data: QuestionDTO[] = await res.json();
+    return data.map((q) => ({
+        ...q,
+        VisualType: visualMap[q.Id] || "cards",
+    }));
+};
 
+//  Crear una respuesta individual
 export const buildAnswer = (
-  questionId: number,
-  selectedOption: string
+    questionId: number,
+    selectedOption: string
 ): AnswerDTO => ({
-  questionId: questionId,
-  selectedOption,
-})
-const RESULT_URL = "http://localhost:5035/quiz/result"
+    questionId: questionId,
+    selectedOption,
+});
 
+// Enviar respuestas y obtener resultado final del quiz
 export const fetchQuizResult = async (answers: AnswerDTO[]): Promise<FamilyResult> => {
-  const response = await fetch(RESULT_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(answers),
-  })
+    // Normalizamos la respuesta de la pregunta 10 si es necesaria
+    const normalizedAnswers = answers.map((a) => {
+        if (a.questionId === 10) {
+            const map: Record<string, string> = {
+                A: "1",
+                B: "2",
+                C: "3",
+                D: "4",
+            };
+            return {
+                ...a,
+                selectedOption: map[a.selectedOption.toUpperCase()] || "1", // default: Body Splash
+            };
+        }
+        return a;
+    });
 
-  if (!response.ok) {
-    throw new Error("No se pudo obtener el resultado del test.")
-  }
+    const response = await fetch(RESULT_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(normalizedAnswers),
+    });
 
-  const data = await response.json()
+    if (!response.ok) {
+        throw new Error("No se pudo obtener el resultado del test.");
+    }
 
-  return {
-    nombre: data.SuperFamily,
-    descripcion: `Tu perfil olfativo es ${data.SuperFamily}.\nSubfamilias: ${data.AllSubFamilies.join(", ")}`,
-    imagen: null, 
-    formulas: data.Formulas,
-    subfamilias: data.AllSubFamilies,
-    concentracion: data.ConcentrationType,
-  }
-}
+    const data = await response.json();
 
+    return {
+        nombre: data.SuperFamily,
+        descripcion: `Tu perfil olfativo es ${data.SuperFamily}.\nSubfamilias: ${data.AllSubFamilies.join(", ")}`,
+        imagen: null,
+        formulas: data.Formulas,
+        subfamilias: data.AllSubFamilies,
+        concentracion: data.ConcentrationType,
+    };
+};
+
+//  Agregar o actualizar una respuesta en el array
 export const addOrUpdateAnswer = (
-  answers: AnswerDTO[],
-  questionId: number,
-  selectedOption: string
+    answers: AnswerDTO[],
+    questionId: number,
+    selectedOption: string
 ): AnswerDTO[] => {
-  return [
-    ...answers.filter((a) => a.questionId !== questionId),
-    { questionId, selectedOption },
-  ];
+    return [
+        ...answers.filter((a) => a.questionId !== questionId),
+        { questionId, selectedOption },
+    ];
 };
