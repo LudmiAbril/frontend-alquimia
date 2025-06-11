@@ -1,15 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { FamilyInfo } from "../utils/typing";
 
 interface FamilyTooltipProps {
     family: string;
-    info: {
-        Id: number;
-        Name: string;
-        Description: string;
-        Image1: string;
-    } | undefined;
+    info:
+    FamilyInfo
+    | undefined;
     loading: boolean;
 }
 

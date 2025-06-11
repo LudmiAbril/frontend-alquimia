@@ -33,6 +33,25 @@ export interface BottleForm {
 
 
 /* CREATE PERFUME */
+export interface FamilyInfo {
+  Id: number;
+  Name: string;
+  Description: string;
+  Image1: string;
+}
+
+export interface FamilyInfo {
+  Id: number;
+  Name: string;
+  Description: string;
+  Image1: string;
+}
+
+export interface NoteInfo {
+  Name: string;
+  Description: String;
+  Duration?: string;
+}
 
 export interface perfumeData {
   baseNotes: Note[],

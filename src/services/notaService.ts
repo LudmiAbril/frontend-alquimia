@@ -38,13 +38,12 @@ export const getFamilyInfo = async (familyId: number) => {
 
   if (!res.ok) throw new Error("Error al obtener las notas");
   const data = await res.json();
-  console.log(data)
   return data;
 }
 
 export const getNoteInfo = async (noteId: number) => {
   const token = localStorage.getItem('token');
-  const res = await fetch(`http://localhost:5035/creator/family-info/${noteId}`, {
+  const res = await fetch(`http://localhost:5035/creator/note-info/${noteId}`, {
     headers: {
       "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json"

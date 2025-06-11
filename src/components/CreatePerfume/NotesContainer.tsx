@@ -1,32 +1,26 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { getFamilyInfo, obtenerNotasPorPaso } from "@/services/notaService";
-import { NoteFamily } from "../utils/typing";
+import { getFamilyInfo, getNoteInfo, obtenerNotasPorPaso } from "@/services/notaService";
+import { FamilyInfo, NoteFamily } from "../utils/typing";
 import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 import { familyColors } from "@/services/animateBottle";
 import Image from "next/image";
 import FamilyTooltip from "./FamilyTooltip";
-
+import NoteTooltip from "./NoteToolTip";
 
 interface NotesContainerProps {
     searchTerm: string;
 }
-interface FamilyInfo {
-    Id: number;
-    Name: string;
-    Description: string;
-    Image1: string;
-}
 
 export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
     const [groupedNotes, setGroupedNotes] = useState<NoteFamily[]>([]);
-    const [tooltipVisible, setTooltipVisible] = useState<boolean | null>(null);
     const [loadingFamilyInfo, setLoadingFamilyInfo] = useState<boolean>(false);
     const [familyInfoMap, setFamilyInfoMap] = useState<Record<string, FamilyInfo | null>>({});
-
+    const [hoveredNoteId, setHoveredNoteId] = useState<number | null>(null);
+    const [noteInfoMap, setNoteInfoMap] = useState<Record<number, any>>({});
+    const [loadingNoteInfo, setLoadingNoteInfo] = useState(false);
     const [tooltipVisibleFamily, setTooltipVisibleFamily] = useState<string | null>(null);
-
     const {
         currentStep,
         currentPerfume,
@@ -36,8 +30,6 @@ export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
         const fetchNotes = async () => {
             try {
                 const data = await obtenerNotasPorPaso(currentStep);
-                // hacer console log aca, ver estructura de familia y mostrar esa info
-                console.log("data pura:", data);
                 const reducedNotes = data.map((grupo: { Family: any; FamilyId: number; Notes: any[]; }) => ({
                     family: grupo.Family,
                     familyId: grupo.FamilyId,
@@ -47,7 +39,6 @@ export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
                         icon: n.Image
                     })) ?? [],
                 }));
-                console.log(reducedNotes);
                 setGroupedNotes(reducedNotes);
             } catch (error) {
                 console.error("Error al obtener notas:", error);
@@ -92,16 +83,33 @@ export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
             const info = await getFamilyInfo(familyId);
             setFamilyInfoMap((prev) => ({
                 ...prev,
-                [family]: info ?? null, // En caso de que getFamilyInfo devuelva undefined
+                [family]: info ?? null,
             }));
         } catch (error) {
             console.error("Error al obtener información de la familia:", error);
             setFamilyInfoMap((prev) => ({
                 ...prev,
-                [family]: null, // Guardamos null en vez de un string
+                [family]: null,
             }));
         } finally {
             setLoadingFamilyInfo(false);
+        }
+    };
+
+    const handleNoteMouseEnter = async (noteId: number) => {
+        setHoveredNoteId(noteId);
+        if (noteInfoMap[noteId]) return;
+
+        setLoadingNoteInfo(true);
+        try {
+            const info = await getNoteInfo(noteId);
+            console.log(info)
+            setNoteInfoMap((prev) => ({ ...prev, [noteId]: info }));
+        } catch (error) {
+            console.error("Error al obtener info de la nota:", error);
+            setNoteInfoMap((prev) => ({ ...prev, [noteId]: { Description: "No disponible" } }));
+        } finally {
+            setLoadingNoteInfo(false);
         }
     };
 
@@ -144,14 +152,24 @@ export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
                                                 JSON.stringify({ id: note.id, name: note.name, family })
                                             )
                                         }
+                                        onMouseEnter={() => handleNoteMouseEnter(note.id)}
+                                        onMouseLeave={() => setHoveredNoteId(null)}
                                         style={{ backgroundColor: familyClass }}
-                                        className="cursor-default transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
+                                        className="relative cursor-default transition-colors duration-100 w-[80px] h-[80px] flex flex-col items-center justify-center rounded-[10px] text-white p-[16px] shadow-md shadow-gray-400 text-center text-[12px] font-semibold"
                                     >
                                         {note.icon && (
-                                            <Image src={note.icon} alt="icono" width={24} height={30} />
+                                            <Image src={note.icon as string} alt="icono" width={24} height={30} />
                                         )}
                                         {note.name}
+
+                                        {hoveredNoteId === note.id && (
+                                            <NoteTooltip
+                                                name={note.name}
+                                                info={noteInfoMap[note.id]}
+                                                loading={loadingNoteInfo} familyColor={familyClass} />
+                                        )}
                                     </div>
+
 
                                 );
                             }))
