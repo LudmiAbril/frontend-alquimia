@@ -47,8 +47,12 @@ const redirectToCheckout = () => {
 
   const formatMoney = (value: number | undefined | null) =>
     typeof value === "number" ? `$${value.toLocaleString()}` : "Precio no disponible";
+        
+  if (loading) return  <div className="flex flex-col items-center justify-center py-20 opacity-80 mt-20">
+                    <Image src="/mascotas/lookingQuimi.png" alt="Cargando productos..." width={140} height={140} />
+                    <p className="mt-4 text-sm text-gray-600">Cargando detalle de producto...</p>
+                  </div>;
 
-  if (loading) return <p className="text-center py-12">Cargando producto...</p>;
   if (!product) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
