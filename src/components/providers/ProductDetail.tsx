@@ -2,14 +2,14 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getAllProducts } from "@/services/productService";
+import { getAllProducts, getProductImage } from "@/services/productService";
 import { ProductDTO} from "@/components/utils/typing";
 import Image from "next/image";
 import Link from "next/link";
 import ButtonViolet from "../general/ButtonViolet";
 
 import ButtonSecondary from "../general/ButtonSecondary";
-import SectionWrapper from "../General/SectionWrapper";
+import SectionWrapper from "../general/SectionWrapper";
 import { getMockCheckoutUrl } from "@/services/mp";
 
 
@@ -47,8 +47,12 @@ const redirectToCheckout = () => {
 
   const formatMoney = (value: number | undefined | null) =>
     typeof value === "number" ? `$${value.toLocaleString()}` : "Precio no disponible";
+        
+  if (loading) return  <div className="flex flex-col items-center justify-center py-20 opacity-80 mt-20">
+                    <Image src="/mascotas/lookingQuimi.png" alt="Cargando productos..." width={140} height={140} />
+                    <p className="mt-4 text-sm text-gray-600">Cargando detalle de producto...</p>
+                  </div>;
 
-  if (loading) return <p className="text-center py-12">Cargando producto...</p>;
   if (!product) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
@@ -65,8 +69,22 @@ const redirectToCheckout = () => {
       <main className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
         {/* Imagen */}
         <div className="flex flex-col items-center gap-6">
-          <Image src="/default-product.jpg" alt={product.name} width={280} height={280} className="object-contain rounded-xl" />
-          <Image src="/logos/danfa-logo.png" alt="Proveedor" width={90} height={40} className="mt-4" />
+<Image
+  src={
+    selectedVariant?.image?.startsWith("/") || selectedVariant?.image?.startsWith("http")
+      ? selectedVariant.image
+      : product.variants?.[0]?.image?.startsWith("/") || product.variants?.[0]?.image?.startsWith("http")
+        ? product.variants[0].image
+        : getProductImage(product.name)
+  }
+  alt={product.name}
+  width={280}
+  height={280}
+  className="object-contain rounded-xl"
+/>
+
+
+         
         </div>
 
         {/* Detalles */}

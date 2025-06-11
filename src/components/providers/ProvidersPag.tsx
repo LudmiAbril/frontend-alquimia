@@ -4,11 +4,8 @@ import { useEffect, useState } from "react";
 import SectionWrapper from "../General/SectionWrapper";
 import SidebarFilter from "./SidebarFilter";
 import ProductCard from "./CardProducto";
-import Button from "../General/Button";
-
 import Image from "next/image";
-
-import { getAllProducts } from "@/services/productService";
+import { getAllProducts, getProductImage } from "@/services/productService";
 import { ProductDTO } from "../utils/typing";
 import { getCategoryLabel } from "../utils/getcategorylabel";
 
@@ -152,16 +149,18 @@ sorted.sort((a, b) => {
 
 
   return (
-    
+
+
+
+
 <ProductCard
-  key={product.id} 
+  key={product.id}
   id={product.id}
   name={product.name}
-  image="/default-product.jpg"
+  image={getProductImage(product.name)}
   category={getCategoryLabel(product)}
   variants={product.variants}
 />
-
 
 
 
@@ -177,10 +176,20 @@ sorted.sort((a, b) => {
           </div>
         </section>
 
-        <div className="fixed bottom-6 left-6 z-50">
-          <Button label={"RECLAMÁ TU CÓDIGO"} />
-        </div>
+    
       </main>
     </SectionWrapper>
   );
 }
+{/* <ProductCard
+  key={product.id}
+  id={product.id}
+  name={product.name}
+  image={
+    product.variants?.[0]?.image
+      ? product.variants[0].image
+      : getProductImage(product.name)
+  }
+  category={getCategoryLabel(product)}
+  variants={product.variants}
+/> */}

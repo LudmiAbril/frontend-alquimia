@@ -2,9 +2,9 @@
 "use client";
 
 import Link from "next/link";
-import SectionWrapper from "@/components/General/SectionWrapper";
-import Button from "@/components/General/Button";
+import SectionWrapper from "@/components/general/SectionWrapper";
 import Image from "next/image";
+import ButtonViolet from "@/components/general/ButtonViolet";
 
 export default function NotFound() {
   return (
@@ -25,7 +25,7 @@ export default function NotFound() {
         </p>
 
         <Link href="/">
-          <Button label="Volver a Inicio" />
+          <ButtonViolet label="Volver a Inicio" />
         </Link>
       </div>
     </SectionWrapper>

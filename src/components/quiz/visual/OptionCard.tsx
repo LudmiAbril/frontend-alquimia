@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { PropsDynamic } from "@/components/Utils/typing"
+import { PropsDynamic } from "@/components/utils/typing"
 
 export default function OptionCards({ question, selectedOption, onSelect }: PropsDynamic) {
   const validOptions = question.Opciones.filter(option => option.Texto?.trim())

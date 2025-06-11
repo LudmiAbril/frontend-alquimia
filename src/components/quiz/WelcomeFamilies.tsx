@@ -100,13 +100,13 @@ export default function WelcomeFamilies({ onStart, loading }: WelcomeFamiliesPro
         </motion.div>
 
         <motion.div
-          className="relative w-[130px] h-[130px] animate-float"
+          className="relative w-[130px] h-[130px] "
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 100, damping: 10 }}
         >
           <Image
-            src="/mascotas/lookingQuimi.png"
+            src="/mascotas/surpriseQuimi.png"
             alt="Quimi inspirador"
             fill
             className="object-contain"
