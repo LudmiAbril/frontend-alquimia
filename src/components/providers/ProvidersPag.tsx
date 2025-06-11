@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import SectionWrapper from "../General/SectionWrapper";
+import SectionWrapper from "../general/SectionWrapper";
 import SidebarFilter from "./SidebarFilter";
 import ProductCard from "./CardProducto";
 import Image from "next/image";
@@ -143,30 +143,26 @@ sorted.sort((a, b) => {
                       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
-                  {visibleProducts.map((product) => {
+    
 
 
+{visibleProducts.map((product) => {
+  const imageUrl = product.variants?.[0]?.image;
 
+  console.log("📦 Producto:", product.name, "🖼️ Imagen:", imageUrl);
 
   return (
-
-
-
-
-<ProductCard
-  key={product.id}
-  id={product.id}
-  name={product.name}
-  image={getProductImage(product.name)}
-  category={getCategoryLabel(product)}
-  variants={product.variants}
-/>
-
-
-
-
+    <ProductCard
+      key={product.id}
+      id={product.id}
+      name={product.name}
+      image={imageUrl ? imageUrl : getProductImage(product.name)}
+      category={getCategoryLabel(product)}
+      variants={product.variants}
+    />
   );
 })}
+
 
                       </div>
                     </div>
@@ -181,15 +177,3 @@ sorted.sort((a, b) => {
     </SectionWrapper>
   );
 }
-{/* <ProductCard
-  key={product.id}
-  id={product.id}
-  name={product.name}
-  image={
-    product.variants?.[0]?.image
-      ? product.variants[0].image
-      : getProductImage(product.name)
-  }
-  category={getCategoryLabel(product)}
-  variants={product.variants}
-/> */}

@@ -19,16 +19,18 @@ export async function getAllProducts(): Promise<ProductDTO[]> {
       email: p.Provider?.Email,
       esAprobado: p.Provider?.EsAprobado,
     },
-    variants: (p.Variants || []).map((v: any) => ({
-      id: v.Id,
-      volume: v.Volume,
-      unit: v.Unit,
-      price: v.Price,
-      stock: v.Stock,
-      isHypoallergenic: v.IsHypoallergenic,
-      isVegan: v.IsVegan,
-      isParabenFree: v.IsParabenFree
-    })),
+variants: (p.Variants || []).map((v: any) => ({
+  id: v.Id,
+  volume: v.Volume,
+  unit: v.Unit,
+  price: v.Price,
+  stock: v.Stock,
+  isHypoallergenic: v.IsHypoallergenic,
+  isVegan: v.IsVegan,
+  isParabenFree: v.IsParabenFree,
+  image: v.Image,
+})),
+
   }));
 
   return normalizedData;
