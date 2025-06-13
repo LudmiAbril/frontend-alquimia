@@ -10,7 +10,7 @@ export default function FragranceIntroSection() {
      
         <div className="flex-1 mb-6 lg:mb-0 pl-10">
           <Image
-            src="/LandingImage/macoaMovingPotion.gif"
+            src="/LandingImagenes/macoaMovingPotion.gif"
             alt="Imagen o GIF representativo"
             width={200}
             height={200}
