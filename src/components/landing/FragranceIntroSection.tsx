@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import Button from "@/components/General/Button";
-import SectionWrapper from "@/components/General/SectionWrapper";
+
+import SectionWrapper from "@/components/general/SectionWrapper";
 
 export default function FragranceIntroSection() {
   return (
@@ -10,7 +11,7 @@ export default function FragranceIntroSection() {
      
         <div className="flex-1 mb-6 lg:mb-0 pl-10">
           <Image
-            src="/LandingImagenes/macoaMovingPotion.gif"
+            src="/LandingImagenes/general/macoaMovingPotion.gif"
             alt="Imagen o GIF representativo"
             width={200}
             height={200}
