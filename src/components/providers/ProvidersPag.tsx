@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import SectionWrapper from "../general/SectionWrapper";
+import SectionWrapper from "../General/SectionWrapper";
 import SidebarFilter from "./SidebarFilter";
 import ProductCard from "./CardProducto";
 import Image from "next/image";

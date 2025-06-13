@@ -2,8 +2,8 @@
 
 import { StepSummaryProps, SummaryItem } from "@/components/utils/typing";
 import { motion } from "framer-motion";
-import ButtonSecondary from "../general/ButtonSecondary";
-import ButtonViolet from "../general/ButtonViolet";
+import ButtonSecondary from "../General/ButtonSecondary";
+import ButtonViolet from "../General/ButtonViolet";
 
 
 

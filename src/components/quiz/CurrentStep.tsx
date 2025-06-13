@@ -2,9 +2,9 @@
 
 import { PropsCurrent } from "@/components/utils/typing"
 import DynamicQuestion from "./DynamicQuestion"
-import ButtonSecondary from "@/components/general/ButtonSecondary"
+import ButtonSecondary from "@/components/General/ButtonSecondary"
 import { useState, useEffect } from "react"
-import ButtonViolet from "../general/ButtonViolet"
+import ButtonViolet from "../General/ButtonViolet"
 import Fireflies from "./Fireflies"
 
 export default function CurrentStep({

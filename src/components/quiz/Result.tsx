@@ -6,7 +6,7 @@ import { useState } from "react";
 import Card3D from "./Card3d";
 import Fireflies from "./Fireflies";
 import ConfettiStreamers from "./ConfettiStreamer";
-import FloatingMascot from "../general/MascotaFlotante";
+import FloatingMascot from "../General/MascotaFlotante";
 import LoginForm from "@/components/login/LoginForm";
 import RegisterForm from "@/components/login/RegisterForm";
 import LoginRequiredModal from "@/components/login/LoginRequiredModal";

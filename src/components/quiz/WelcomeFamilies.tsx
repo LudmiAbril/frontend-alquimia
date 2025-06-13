@@ -6,7 +6,7 @@ import { Sparkles } from "lucide-react"
 import { familiesQuiz, messages } from "../utils/utils"
 import { WelcomeFamiliesProps } from "../utils/typing"
 import { AnimatePresence, motion } from "framer-motion"
-import ButtonMagic from "../general/ButtonMagic"
+import ButtonMagic from "../General/ButtonMagic"
 
 export default function WelcomeFamilies({ onStart, loading }: WelcomeFamiliesProps) {
   const [active, setActive] = useState(0)

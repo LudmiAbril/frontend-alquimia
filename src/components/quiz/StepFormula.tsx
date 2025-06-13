@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import ButtonSecondary from "../general/ButtonSecondary";
-import ButtonViolet from "../general/ButtonViolet";
+import ButtonSecondary from "../General/ButtonSecondary";
+import ButtonViolet from "../General/ButtonViolet";
 
 interface StepFormulaProps {
   formula?: {

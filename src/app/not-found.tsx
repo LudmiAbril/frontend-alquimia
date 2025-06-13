@@ -2,9 +2,9 @@
 "use client";
 
 import Link from "next/link";
-import SectionWrapper from "@/components/general/SectionWrapper";
+import SectionWrapper from "@/components/General/SectionWrapper";
 import Image from "next/image";
-import ButtonViolet from "@/components/general/ButtonViolet";
+import ButtonViolet from "@/components/General/ButtonViolet";
 
 export default function NotFound() {
   return (

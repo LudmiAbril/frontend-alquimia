@@ -3,7 +3,7 @@
 
 import { motion } from "framer-motion";
 import Card3D from "./Card3d";
-import ButtonViolet from "../general/ButtonViolet";
+import ButtonViolet from "../General/ButtonViolet";
 
 
 interface StepFamilyProps {

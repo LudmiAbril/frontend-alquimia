@@ -6,10 +6,10 @@ import { getAllProducts, getProductImage } from "@/services/productService";
 import { ProductDTO} from "@/components/utils/typing";
 import Image from "next/image";
 import Link from "next/link";
-import ButtonViolet from "../general/ButtonViolet";
+import ButtonViolet from "../General/ButtonViolet";
 
-import ButtonSecondary from "../general/ButtonSecondary";
-import SectionWrapper from "../general/SectionWrapper";
+import ButtonSecondary from "../General/ButtonSecondary";
+import SectionWrapper from "../General/SectionWrapper";
 import { getMockCheckoutUrl } from "@/services/mp";
 
 

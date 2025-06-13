@@ -1,5 +1,5 @@
 import { Wand2 } from "lucide-react"
-import ButtonMagic from "../general/ButtonMagic"
+import ButtonMagic from "../General/ButtonMagic"
 import IntroSequence from "./IntroSequence"
 import FloatingMascot from "../General/MascotaFlotante";
 import { messagesQuimiQuiz } from "../utils/utils";

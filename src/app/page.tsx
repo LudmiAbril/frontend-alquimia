@@ -8,7 +8,7 @@ import TestIntroSection from "@/components/landing/TestIntroSection";
 import SuppliersSection from "@/components/landing/SuppliersSection";
 import CustomDesignSection from "@/components/landing/CustomDesignSection";
 import FAQAccordion from "@/components/landing/FAQAccordion";
-import FloatingMascot from "@/components/general/MascotaFlotante";
+import FloatingMascot from "@/components/General/MascotaFlotante";
 import { messagesLanding } from "@/components/utils/utils";
 
 export default function Home() {

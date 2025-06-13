@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import { LoginRequiredModalProps } from "../utils/typing";
-import ButtonSecondary from "../general/ButtonSecondary";
-import ButtonViolet from "../general/ButtonViolet";
+import ButtonSecondary from "../General/ButtonSecondary";
+import ButtonViolet from "../General/ButtonViolet";
 
 export default function LoginRequiredModal({ onClose, onLogin }: LoginRequiredModalProps) {
   const [isVisible, setIsVisible] = useState(false);

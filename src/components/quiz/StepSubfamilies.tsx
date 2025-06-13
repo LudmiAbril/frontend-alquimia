@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import ButtonViolet from "../general/ButtonViolet";
+import ButtonViolet from "../General/ButtonViolet";
 
 
 interface StepSubfamiliesProps {

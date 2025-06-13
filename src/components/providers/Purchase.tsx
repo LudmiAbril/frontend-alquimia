@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import Image from "next/image";
-import ButtonViolet from "../general/ButtonViolet";
+import ButtonViolet from "../General/ButtonViolet";
 import { SimulatedPurchaseProps } from "../utils/typing";
 
 
