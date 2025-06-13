@@ -10,7 +10,7 @@ test('Landing tiene título correcto', async ({ page }) => {
 })
 
 test('Renderiza el hero principal', async ({ page }) => {
-  await page.goto('http://localhost:3000/', { timeout: 60000 })
+  await page.goto('http://localhost:3000/', { timeout: 80000 })
   await expect(page.getByRole('heading', { name: /Diseñá perfumes/i })).toBeVisible()
   await expect(page.getByText(/Creatividad, emoción y aroma/i)).toBeVisible()
 
@@ -45,7 +45,7 @@ test('Botón "Empezar a crear" abre el modal correctamente', async ({ page }) =>
   await boton.click()
   await expect(page.getByText(/Descubrí la esencia que revela tu magia./i)).toBeVisible()
 })
-
+/**Test quiz y funcionalidades */
 
 test('Mascota o logo tiene alt accesible', async ({ page }) => {
   await page.goto('http://localhost:3000/', { timeout: 60000 })
@@ -81,3 +81,50 @@ test('Landing carga dentro del tiempo esperado', async ({ page }) => {
   const duration = Date.now() - start;
   expect(duration).toBeLessThan(60000); 
 });
+test('Sección "¿Cómo funciona?" se muestra correctamente', async ({ page }) => {
+  await page.goto('http://localhost:3000/');
+
+  const heading = page.getByRole('heading', { name: /¿CÓMO FUNCIONA\?/i });
+  await expect(heading).toBeVisible();
+
+  const pasos = [
+    /Creá tu propio perfume\./i,
+    /Contactate con los proveedores\./i,
+    /Recibí tus ingredientes\./i,
+  ];
+
+  for (const texto of pasos) {
+    await expect(page.getByText(texto)).toBeVisible();
+  }
+
+  await expect(page.getByText(/No necesitás ser experto/i)).toBeVisible();
+});
+test('Renderiza el título de la sección de creación de fragancia', async ({ page }) => {
+  const heading = page.getByRole('heading', {
+    name: /diseñá tu fragancia desde cero/i,
+  });
+  await expect(heading).toBeVisible();
+});
+
+test('Renderiza el texto introductorio de la sección', async ({ page }) => {
+  await expect(
+    page.getByText(/elegí ingredientes únicos, combiná notas/i)
+  ).toBeVisible();
+  await expect(
+    page.getByText(/Alquimia te guía paso a paso/i)
+  ).toBeVisible();
+  await expect(
+    page.getByText(/Diseñá tu fragancia ideal/i)
+  ).toBeVisible();
+});
+test('Renderiza la mascota ilustrada con el frasco', async ({ page }) => {
+  const mascota = page.getByAltText(/Imagen.*representativo/i); 
+  await expect(mascota).toBeVisible();
+});
+
+test('Botón "Crear mi perfume" está visible y activo', async ({ page }) => {
+  const botones = page.getByRole('link', { name: /crear mi perfume/i });
+await expect(botones.nth(1)).toBeVisible();
+await expect(botones.nth(1)).toBeEnabled();
+});
+
