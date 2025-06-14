@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react'
-import SectionWrapper from '../General/SectionWrapper';
+
 import { DesignFieldsCard } from './DesignFieldsCard';
 import Image from 'next/image';
 import ConfirmBottleDesignModal from './ConfirmBottleDesignModal';
@@ -9,7 +9,8 @@ import { useRouter } from 'next/navigation';
 import { designBottleSteps, getFormImagesSizes, getLabelPositions } from '../utils/utils';
 import DesignStepsBar from './DesignStepBar';
 import BottleLabel from './BottleDesign';
-import { useDesignBottle } from '@/context/DesignBottleContext';
+import SectionWrapper from '../general/SectionWrapper';
+import { useDesignBottleStore } from '@/store/DesignBottleStore';
 
 const DesignBottle = () => {
     const router = useRouter();
@@ -18,7 +19,7 @@ const DesignBottle = () => {
         currentStep,
         setCurrentStep,
         currentDesign,
-    } = useDesignBottle();
+    } = useDesignBottleStore();
 
     const advanceStep = () => {
         if (currentStep === 2) {

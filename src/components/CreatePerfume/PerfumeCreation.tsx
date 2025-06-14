@@ -11,10 +11,9 @@ import { animateBottle, getColorByFamily } from "@/services/animateBottle";
 import PotionParticles from "./PotionParticles";
 import AddedNotesSection from "./AddedNotesSection";
 import { StepCard } from "./StepCard";
-
-import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 import { mapNotesArrayToObject } from "../utils/utils";
 import { SaveFormulaDTO } from "../utils/typing";
+import { useCreatePerfumeStore } from "@/store/CreatePerfumeStore";
 
 
 interface CreatePerfumeProps {
@@ -34,7 +33,7 @@ const CreatePerfume = ({ onNext, onBack }: CreatePerfumeProps) => {
     currentPerfume,
     setCurrentPerfume,
     setResultFormula,
-  } = useCreatePerfume();
+  } = useCreatePerfumeStore();
 
   const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -123,14 +122,13 @@ const CreatePerfume = ({ onNext, onBack }: CreatePerfumeProps) => {
   }
 
   const deleteNote = (noteId: number) => {
-    setCurrentPerfume(prev => ({
-      ...prev,
-      baseNotes: prev.baseNotes.filter(note => note.id !== noteId),
-      heartNotes: prev.heartNotes.filter(note => note.id !== noteId),
-      topNotes: prev.topNotes.filter(note => note.id !== noteId),
-    }));
+    setCurrentPerfume({
+      ...currentPerfume,
+      baseNotes: currentPerfume.baseNotes.filter(note => note.id !== noteId),
+      heartNotes: currentPerfume.heartNotes.filter(note => note.id !== noteId),
+      topNotes: currentPerfume.topNotes.filter(note => note.id !== noteId),
+    });
   };
-
 
   useEffect(() => {
     const loadInitialBottle = async () => {
@@ -213,7 +211,12 @@ const CreatePerfume = ({ onNext, onBack }: CreatePerfumeProps) => {
           </div>
           <Library
             onConfirm={toggleConfirmModal}
-            onSelectIntensity={(intensity) => setCurrentPerfume((prev) => ({ ...prev, intensity }))} />
+            onSelectIntensity={(intensity) =>
+              setCurrentPerfume({
+                ...currentPerfume,
+                intensity,
+              })
+            } />
         </div>
       </div>
       {showConfirmModal && (

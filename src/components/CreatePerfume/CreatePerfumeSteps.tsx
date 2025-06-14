@@ -1,18 +1,19 @@
 "use client";
 
 import { useCreatePerfume } from "@/context/CreatePerfumeContext";
-import SectionWrapper from "../General/SectionWrapper";
 import Welcome from "./Welcome";
 import CreatePerfume from "./PerfumeCreation";
 import FormulaResult from "./FormulaResult";
 import { createSteps } from "../utils/utils";
+import { useCreatePerfumeStore } from "@/store/CreatePerfumeStore";
+import SectionWrapper from "../general/SectionWrapper";
 
 
 const CreatePerfumeSteps = () => {
   const {
     currentStep,
     setCurrentStep,
-  } = useCreatePerfume();
+  } = useCreatePerfumeStore();
 
   const advanceStep = () => {
     if (currentStep < createSteps.length - 1) {

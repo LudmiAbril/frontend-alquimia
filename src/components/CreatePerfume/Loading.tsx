@@ -52,17 +52,13 @@ const Loading = ({ onFinish, onClose, onLoading }: LoadingProps) => {
   return (
     <div className="fixed inset-0 bg-[#240E25]/75 flex items-center justify-center z-50">
       <div className="relative w-[70%] max-w-2xl">
-        {/* Background bar */}
         <div className="h-5 bg-[#b392d0] rounded-full overflow-hidden shadow-inner">
-          {/* Progress bar */}
           <div
             ref={progressBarRef}
             className="h-full bg-[#E6B9FC] transition-all duration-300 ease-in-out"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
-
-        {/* Percentage label */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold text-sm">
           {progress}%
         </div>

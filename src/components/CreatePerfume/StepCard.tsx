@@ -1,8 +1,8 @@
 "use client";
 
-import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 import { createSteps } from "../utils/utils";
 import Image from "next/image";
+import { useCreatePerfumeStore } from "@/store/CreatePerfumeStore";
 
 interface StepCardProps {
     onNext: () => void;
@@ -13,7 +13,7 @@ export const StepCard = ({ onNext, onBack }: StepCardProps) => {
     const {
         currentStep,
         currentPerfume,
-    } = useCreatePerfume();
+    } = useCreatePerfumeStore();
 
     const getNextArrowImage = () => {
         if (currentStep >= 4) {

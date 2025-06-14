@@ -3,11 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { getFamilyInfo, getNoteInfo, obtenerNotasPorPaso } from "@/services/notaService";
 import { FamilyInfo, NoteFamily } from "../utils/typing";
-import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 import { familyColors } from "@/services/animateBottle";
 import Image from "next/image";
 import FamilyTooltip from "./FamilyTooltip";
 import NoteTooltip from "./NoteToolTip";
+import { useCreatePerfumeStore } from "@/store/CreatePerfumeStore";
 
 interface NotesContainerProps {
     searchTerm: string;
@@ -24,7 +24,7 @@ export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
     const {
         currentStep,
         currentPerfume,
-    } = useCreatePerfume();
+    } = useCreatePerfumeStore();
 
     useEffect(() => {
         const fetchNotes = async () => {
@@ -169,8 +169,6 @@ export const NotesContainer = ({ searchTerm }: NotesContainerProps) => {
                                                 loading={loadingNoteInfo} familyColor={familyClass} />
                                         )}
                                     </div>
-
-
                                 );
                             }))
                             : (

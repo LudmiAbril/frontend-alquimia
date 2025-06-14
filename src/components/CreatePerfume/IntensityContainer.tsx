@@ -27,7 +27,6 @@ export const IntensityContainer = ({
     useEffect(() => {
         const fetchIntensities = async () => {
             const intensities = await getIntensities();
-            console.log(intensities)
             setIntensities(intensities);
         };
 

@@ -2,12 +2,13 @@
 
 import Colorful from "@uiw/react-color-colorful";
 import { useState } from "react";
-import { FontKey } from "../Utils/utils";
+
 import { hexToHsva, ColorResult, hsvaToHex } from "@uiw/color-convert";
-import { useDesignBottle } from "@/context/DesignBottleContext";
+import { FontKey } from "../utils/utils";
+import { useDesignBottleStore } from "@/store/DesignBottleStore";
 
 export const TextFields = () => {
-    const { currentDesign, setCurrentDesign } = useDesignBottle();
+    const { currentDesign, setCurrentDesign } = useDesignBottleStore();
     const [hsva, setHsva] = useState((hexToHsva(currentDesign.textColor)));
     const [isChoosingColor, setIsChoosingColor] = useState(false);
     const toggleOpenColorPIcker = () => {
@@ -15,10 +16,10 @@ export const TextFields = () => {
     }
     const handleChangeColor = (color: ColorResult) => {
         setHsva(color.hsva);
-        setCurrentDesign((prev) => ({
-            ...prev,
+        setCurrentDesign({
+            ...currentDesign,
             textColor: hsvaToHex(color.hsva),
-        }));
+        });
     };
 
     return (<div className="flex flex-col flex-1 text-left self-start">
@@ -35,10 +36,10 @@ export const TextFields = () => {
                             type="text"
                             maxLength={20}
                             onChange={(e) =>
-                                setCurrentDesign((prev) => ({
-                                    ...prev,
+                                setCurrentDesign({
+                                    ...currentDesign,
                                     text: e.target.value,
-                                }))
+                                })
                             }
                         />
                     </div>
@@ -53,10 +54,10 @@ export const TextFields = () => {
                             step="0.01"
                             value={currentDesign.textYPosition}
                             onChange={(e) =>
-                                setCurrentDesign((prev) => ({
-                                    ...prev,
+                                setCurrentDesign({
+                                    ...currentDesign,
                                     textYPosition: parseFloat(e.target.value),
-                                }))
+                                })
                             }
                             className="accent-[var(--violeta)]"
                         />
@@ -73,10 +74,10 @@ export const TextFields = () => {
                                 value={currentDesign.textTypography}
                                 onChange={(e) => {
                                     const value = e.target.value as FontKey;
-                                    setCurrentDesign((prev) => ({
-                                        ...prev,
+                                    setCurrentDesign({
+                                        ...currentDesign,
                                         textTypography: value,
-                                    }));
+                                    });
                                 }}
                             >
                                 <option value="roboto">Roboto</option>
@@ -98,10 +99,10 @@ export const TextFields = () => {
                                 className="border border-black rounded-[10px] p-1 w-[4rem]"
                                 value={currentDesign.textSize}
                                 onChange={(e) =>
-                                    setCurrentDesign((prev) => ({
-                                        ...prev,
+                                    setCurrentDesign({
+                                        ...currentDesign,
                                         textSize: parseInt(e.target.value),
-                                    }))
+                                    })
                                 }
                             >
                                 <option value="16">16</option>
