@@ -1,14 +1,15 @@
 "use client";
 
 import Image from 'next/image';
-import { designBottleSteps } from '../Utils/utils';
+
 import React from 'react';
-import { useDesignBottle } from '@/context/DesignBottleContext';
+import { useDesignBottleStore } from '@/store/DesignBottleStore';
+import { designBottleSteps } from '../utils/utils';
 
 const DesignStepsBar = () => {
     const {
         currentStep,
-    } = useDesignBottle();
+    } = useDesignBottleStore();
     return (
         <div className="flex items-center mb-10">
             <Image src="/design-bottle/icon-bottle-label-start.svg" alt="icono-frasco" width={60} height={40} />

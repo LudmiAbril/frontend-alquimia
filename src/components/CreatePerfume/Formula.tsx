@@ -1,11 +1,11 @@
 "use client";
 
-import { useCreatePerfume } from "@/context/CreatePerfumeContext";
+import { useCreatePerfumeStore } from "@/store/CreatePerfumeStore";
 
 export const Formula = () => {
     const {
         resultFormula,
-    } = useCreatePerfume();
+    } = useCreatePerfumeStore();
 
     return (
         <div className="flex flex-col w-[38rem]">

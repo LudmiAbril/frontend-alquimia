@@ -8,12 +8,12 @@ import { updateFormulaName } from "@/services/createPerfumeService";
 import PreparationSteps from "./PreparationSteps";
 import { Formula } from "./Formula";
 import { Composition } from "./Composition";
-import { useCreatePerfume } from "@/context/CreatePerfumeContext";
+import { useCreatePerfumeStore } from "@/store/CreatePerfumeStore";
 
 const ResultCard = () => {
   const {
     resultFormula,
-  } = useCreatePerfume();
+  } = useCreatePerfumeStore();
 
   const [dataToShow, setDataToShow] = useState("composition");
   const [editable, setEditable] = useState(false);

@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { IntensityContainer } from "./IntensityContainer";
 import { NotesContainer } from "./NotesContainer";
 import SearchBar from "./SearchBar";
-import { useCreatePerfume } from "@/context/CreatePerfumeContext";
 import { Intensity } from "../utils/typing";
+import { useCreatePerfumeStore } from "@/store/CreatePerfumeStore";
 
 interface LibraryProps {
   onConfirm: () => void;
@@ -15,7 +15,7 @@ interface LibraryProps {
 const Library = ({ onConfirm, onSelectIntensity }: LibraryProps) => {
   const {
     currentStep,
-  } = useCreatePerfume();
+  } = useCreatePerfumeStore();
 
   const [searchTerm, setSearchTerm] = useState("");
   const isNoteSelectionStep = currentStep >= 1 && currentStep <= 3;

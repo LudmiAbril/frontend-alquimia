@@ -4,7 +4,7 @@ import React from 'react'
 import { BottleFields } from './BottleFields';
 import { LabelFields } from './LabelFields';
 import { TextFields } from './TextFields';
-import { useDesignBottle } from '@/context/DesignBottleContext';
+import { useDesignBottleStore } from '@/store/DesignBottleStore';
 
 interface DesignFieldsCardProps {
     onNext: () => void;
@@ -13,7 +13,7 @@ interface DesignFieldsCardProps {
 export const DesignFieldsCard = ({ onNext, onBack }: DesignFieldsCardProps) => {
     const {
         currentStep
-    } = useDesignBottle();
+    } = useDesignBottleStore();
     return (
         <div className="w-[38rem] h-[38rem] bg-white flex flex-col  p-[2.31rem] rounded-[10px] shadow-md text-center mb-10">
             {currentStep === 0 && (<BottleFields />)}

@@ -1,21 +1,27 @@
 "use client";
 
-import { useDesignBottle } from "@/context/DesignBottleContext";
-import { BottleDesign, BottleForm } from "../Utils/typing";
+import { useDesignBottleStore } from "@/store/DesignBottleStore";
+import { BottleForm } from "../utils/typing";
+
 
 export const BottleFields = () => {
     const {
         currentDesign,
         setCurrentDesign
-    } = useDesignBottle();
+    } = useDesignBottleStore();
 
     const setBottleVolume = (volume: number) => {
-        setCurrentDesign((prev: BottleDesign) => ({ ...prev, volume }));
+        setCurrentDesign({
+            ...currentDesign,
+            volume,
+        });
 
     };
     const setBottleForm = (form: BottleForm) => {
-        setCurrentDesign((prev: BottleDesign) => ({ ...prev, form }));
-
+        setCurrentDesign({
+            ...currentDesign,
+            form,
+        });
     };
 
     const volumeOptions = [30, 50, 100];

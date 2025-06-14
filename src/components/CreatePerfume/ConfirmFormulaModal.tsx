@@ -3,14 +3,12 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-
 const ConfirmFormulaModal = () => {
   const router = useRouter();
 
   const handleRedirect = (route : string) : void => {
     router.push(route);
   };
-
 
   return (
     <div className="fixed inset-0 bg-[#240E25]/75 bg-opacity-50 flex items-center justify-center z-50">

@@ -5,19 +5,19 @@ import Colorful from "@uiw/react-color-colorful";
 import { useState, useRef } from "react";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useDesignBottle } from "@/context/DesignBottleContext";
+import { useDesignBottleStore } from "@/store/DesignBottleStore";
 
 export const LabelFields = () => {
-    const { currentDesign, setCurrentDesign } = useDesignBottle();
+    const { currentDesign, setCurrentDesign } = useDesignBottleStore();
     const [hsva, setHsva] = useState(hexToHsva(currentDesign.labelColor));
     const [isChoosingColor, setIsChoosingColor] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const handleChangeColor = (color: ColorResult) => {
         setHsva(color.hsva);
-        setCurrentDesign((prev) => ({
-            ...prev,
+        setCurrentDesign({
+            ...currentDesign,
             labelColor: hsvaToHex(color.hsva),
-        }));
+        });
     };
 
     const toggleOpenColorPIcker = () => {
@@ -25,8 +25,8 @@ export const LabelFields = () => {
     }
 
     const handleChangeLabelForm = (labelForm: string) => {
-        setCurrentDesign((prev) => ({
-            ...prev,
+        setCurrentDesign(({
+            ...currentDesign,
             labelForm: labelForm,
         }));
     }
@@ -40,26 +40,26 @@ export const LabelFields = () => {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setCurrentDesign((prev) => ({
-                    ...prev,
+                setCurrentDesign({
+                    ...currentDesign,
                     labelImage: reader.result as string,
-                }));
+                });
             };
             reader.readAsDataURL(file);
         }
     };
     const onChangeImageScale = (v: string) => {
-        setCurrentDesign((prev) => ({
-            ...prev,
+        setCurrentDesign({
+            ...currentDesign,
             imageScale: v
-        }));
+        });
     }
 
     const removeImage = () => {
-        setCurrentDesign((prev) => ({
-            ...prev,
+        setCurrentDesign({
+            ...currentDesign,
             labelImage: "",
-        }));
+        });
     }
 
     return (<div className="flex flex-col flex-1 text-left">
